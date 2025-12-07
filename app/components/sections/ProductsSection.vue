@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useProductStore } from '~/stores/product'
+import bgCta from '~/assets/images/Background-2-card.png'
 const { t } = useI18n()
 
 const productStore = useProductStore()
@@ -12,14 +13,22 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section id="produk" class="section-padding bg-cream-200" aria-labelledby="products-title">
+  <section
+    id="produk"
+    class="section-padding"
+    aria-labelledby="products-title"
+    style="background: radial-gradient(120% 120% at 20% 20%, #fff6ef 0%, #ffe8d2 45%, #fff6ef 90%);"
+  >
     <div class="container-main">
       <!-- Section Header -->
-      <UiSectionHeader
-        :title="t('products.title')"
-        :subtitle="t('products.subtitle')"
-        align="center"
-      />
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#3d4f92]">
+          {{ t('products.title') }}
+        </h2>
+        <p class="text-lg md:text-xl text-[#5d5d5d] mt-3">
+          {{ t('products.subtitle') }}
+        </p>
+      </div>
 
       <!-- Loading State -->
       <div v-if="isLoading" class="flex justify-center items-center py-12">
@@ -28,34 +37,35 @@ onMounted(async () => {
 
       <!-- Products Grid -->
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        <!-- Product Cards -->
         <ProductsProductCard v-for="product in products" :key="product.id" :product="product" />
 
-        <!-- View All Products Card -->
+        <!-- View All CTA -->
         <div
-          class="bg-secondary-700 rounded-xl shadow-card p-6 flex flex-col items-center justify-center text-center min-h-[320px] group hover:bg-secondary-800 transition-colors duration-300"
+          class="rounded-[28px] text-white p-6 flex flex-col justify-between min-h-[260px] bg-cover bg-center mt-18"
+          :style="{
+            backgroundImage: `url(${bgCta})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            width: '300px',
+            height: '300px'
+          }"
         >
-          <div class="mb-6">
-            <div
-              class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:bg-white/20 transition-colors"
-            >
-              <UiIconArrowRight size="lg" class="text-white" />
-            </div>
-            <h3 class="text-xl font-semibold text-white mb-2">{{ t('products.viewAllCardTitle') }}</h3>
-            <p class="text-gray-300 text-sm">{{ t('products.viewAllCardSubtitle') }}</p>
+          <div class="flex-1 flex items-center justify-center text-center px-4">
+            <p class="text-2xl font-semibold leading-tight">
+              {{ t('products.viewAllCardTitle') }}
+            </p>
           </div>
-
-          <UiBaseButton
-            variant="outline"
-            class="border-white text-white hover:bg-white hover:text-secondary-700"
-            :aria-label="t('products.cta')"
-          >
-            {{ t('products.cta') }}
-            <UiIconArrowRight size="sm" class="ml-2" />
-          </UiBaseButton>
+          <div class="flex justify-center">
+            <button
+              class="w-14 h-14 rounded-full bg-[#f6993c] text-white flex items-center justify-center shadow-lg transition-transform hover:translate-x-1"
+              :aria-label="t('products.cta')"
+            >
+              <i class="mdi mdi-arrow-right text-xl" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </template>
-

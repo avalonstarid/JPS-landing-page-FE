@@ -1,4 +1,9 @@
 import { defineStore } from 'pinia'
+import imgParentStock from '~/assets/images/jsp-produk/parent-stock.png'
+import imgFinalStock from '~/assets/images/jsp-produk/final-stock.png'
+import imgLiveChicken from '~/assets/images/jsp-produk/ayam-hidup.png'
+import imgEgg from '~/assets/images/jsp-produk/telur.png'
+import imgCarcass from '~/assets/images/jsp-produk/karkas-ayam.png'
 
 /**
  * Product interface representing a product item
@@ -21,7 +26,7 @@ const mockProducts: Product[] = [
     nameKey: 'products.items.docParent.name',
     slug: 'doc-parent-stock',
     descriptionKey: 'products.items.docParent.description',
-    imageUrl: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&h=300&fit=crop',
+    imageUrl: imgParentStock,
     categoryKey: 'products.categories.doc',
   },
   {
@@ -29,7 +34,7 @@ const mockProducts: Product[] = [
     nameKey: 'products.items.docFinal.name',
     slug: 'doc-final-stock',
     descriptionKey: 'products.items.docFinal.description',
-    imageUrl: 'https://images.unsplash.com/photo-1569396116180-90a93b45e583?w=400&h=300&fit=crop',
+    imageUrl: imgFinalStock,
     categoryKey: 'products.categories.doc',
   },
   {
@@ -37,7 +42,7 @@ const mockProducts: Product[] = [
     nameKey: 'products.items.liveChicken.name',
     slug: 'ayam-hidup',
     descriptionKey: 'products.items.liveChicken.description',
-    imageUrl: 'https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=400&h=300&fit=crop',
+    imageUrl: imgLiveChicken,
     categoryKey: 'products.categories.chicken',
   },
   {
@@ -45,7 +50,7 @@ const mockProducts: Product[] = [
     nameKey: 'products.items.commercialEgg.name',
     slug: 'telur-komersial',
     descriptionKey: 'products.items.commercialEgg.description',
-    imageUrl: 'https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=400&h=300&fit=crop',
+    imageUrl: imgEgg,
     categoryKey: 'products.categories.egg',
   },
   {
@@ -53,7 +58,7 @@ const mockProducts: Product[] = [
     nameKey: 'products.items.chickenCarcass.name',
     slug: 'karkas-ayam',
     descriptionKey: 'products.items.chickenCarcass.description',
-    imageUrl: 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400&h=300&fit=crop',
+    imageUrl: imgCarcass,
     categoryKey: 'products.categories.carcass',
   },
 ]

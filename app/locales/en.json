@@ -59,11 +59,11 @@
     }
   },
   "products": {
-    "title": "Our Products",
-    "subtitle": "We deliver quality and affordable products",
+    "title": "Our Commercial Poultry Products",
+    "subtitle": "PT Janu Putra Sejahtera Tbk provides various high-quality and affordable poultry products",
     "viewAllCardTitle": "See More Products",
     "viewAllCardSubtitle": "Explore all of our premium offerings",
-    "cta": "View All",
+    "cta": "View Products",
     "ariaViewProduct": "View details for {name}",
     "categories": {
       "doc": "DOC",
@@ -74,23 +74,23 @@
     "items": {
       "docParent": {
         "name": "Day Old Chick (DOC) – Parent Stock",
-        "description": "Day Old Chick (DOC) – Parent Stock are one-day-old chicks from parent stock that serve as breeders to produce DOC Final Stock."
+        "description": "Day Old Chick refers to poultry chicks. DOC parent stock will produce broiler chickens."
       },
       "docFinal": {
         "name": "Day Old Chick (DOC) – Final Stock",
-        "description": "Day Old Chick (DOC) – Final Stock are one-day-old chicks produced from parent stock to be delivered to partner farmers."
+        "description": "Day Old Chick refers to poultry chicks. DOC final stock will be raised into commercial broiler chickens."
       },
       "liveChicken": {
         "name": "Live Chicken",
-        "description": "High-quality live chickens raised with modern standards prioritizing health and meat quality."
+        "description": "Broiler chickens provided alive to ensure quality and freshness for consumption."
       },
       "commercialEgg": {
         "name": "Commercial Eggs",
-        "description": "Commercial eggs offering high-quality consumption eggs from modern layers, fresh every day."
+        "description": "Commercial eggs for consumption with good quality, standards, and systems."
       },
       "chickenCarcass": {
         "name": "Chicken Carcass",
-        "description": "Fresh chicken carcasses processed with high hygiene standards, ready for various delicious dishes."
+        "description": "Chicken carcass is the processed result of commercial broiler chickens from the processing plant."
       }
     }
   },

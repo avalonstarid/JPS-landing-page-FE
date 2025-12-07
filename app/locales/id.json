@@ -59,11 +59,11 @@
     }
   },
   "products": {
-    "title": "Produk Kami",
-    "subtitle": "Kami menyediakan produk yang berkualitas dan terjangkau",
+    "title": "Lini Produk Komersial Kami",
+    "subtitle": "PT Janu Putra Sejahtera Tbk menyediakan berbagai jenis produk ayam berkualitas dan terjangkau",
     "viewAllCardTitle": "Lihat Produk Selengkapnya",
     "viewAllCardSubtitle": "Jelajahi semua produk berkualitas kami",
-    "cta": "Lihat Semua",
+    "cta": "Lihat Produk",
     "ariaViewProduct": "Lihat detail {name}",
     "categories": {
       "doc": "DOC",
@@ -74,23 +74,23 @@
     "items": {
       "docParent": {
         "name": "Day Old Chick (DOC) – Parent Stock",
-        "description": "Day Old Chick (DOC) – Parent Stock adalah anak ayam berusia satu hari dari parent stock yang merupakan indukan ayam untuk menghasilkan DOC Final Stock."
+        "description": "Day Old Chick merupakan sebutan untuk bibit ayam. DOC parent stock akan menjadi ayam yang menghasilkan ayam broiler."
       },
       "docFinal": {
         "name": "Day Old Chick (DOC) – Final Stock",
-        "description": "Day Old Chick (DOC) – Final Stock adalah anak ayam berusia satu hari yang dihasilkan dari parent stock untuk dikirimkan kepada peternak mitra."
+        "description": "Day Old Chick merupakan sebutan untuk bibit ayam. DOC final stock akan dibesarkan menjadi ayam broiler komersil."
       },
       "liveChicken": {
         "name": "Ayam Hidup",
-        "description": "Ayam hidup berkualitas tinggi hasil pemeliharaan dengan standar modern yang mengutamakan kesehatan dan kualitas daging."
+        "description": "Ayam broiler merupakan ayam komersil sebagai ayam konsumsi. Disediakan dalam keadaan hidup untuk menjamin kualitas dan kesegaran."
       },
       "commercialEgg": {
         "name": "Telur Komersial",
-        "description": "Telur komersial menyediakan telur konsumsi berkualitas tinggi yang dihasilkan dari ayam layer modern, dan segar setiap hari."
+        "description": "Telur komersial merupakan telur yang digunakan untuk keperluan konsumsi dengan kualitas, standar, dan sistem yang baik."
       },
       "chickenCarcass": {
         "name": "Karkas Ayam",
-        "description": "Karkas ayam segar yang diproses dengan standar kebersihan tinggi, siap untuk diolah menjadi berbagai hidangan lezat."
+        "description": "Karkas ayam atau ayam potong merupakan hasil produksi ayam broiler komersial yang telah melalui proses di rumah potong."
       }
     }
   },

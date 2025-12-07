@@ -6,7 +6,7 @@ import heroImage from '~/assets/images/most-top.png'
 <template>
   <section
     id="beranda"
-    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    class="relative min-h-screen flex items-center justify-start overflow-hidden"
     aria-label="Hero section"
   >
     <!-- Background Image -->
@@ -23,7 +23,7 @@ import heroImage from '~/assets/images/most-top.png'
 
     <!-- Content -->
     <div class="relative z-10 container-main py-20 lg:py-32">
-      <div class="max-w-3xl text-center md:text-left">
+      <div class="max-w-3xl text-left xl:ml-[-34rem]">
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
           {{ t('hero.title') }}
