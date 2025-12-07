@@ -11,13 +11,11 @@ defineProps<Props>()
 
 <template>
   <article
-    class="bg-white rounded-xl shadow-card p-6 hover:shadow-lg transition-shadow duration-300 group"
+    class="bg-white rounded-[22px] shadow-[0_10px_25px_rgba(0,0,0,0.08)] p-4 hover:shadow-lg transition-shadow duration-300"
   >
-    <!-- Icon Circle -->
-    <div
-      class="w-14 h-14 bg-primary-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-200 transition-colors duration-300"
-    >
-      <span class="text-2xl" role="img" :aria-label="t(value.titleKey)">{{ value.icon }}</span>
+    <!-- Icon -->
+    <div class="mb-4">
+      <img :src="value.icon" :alt="t(value.titleKey)" class="h-12 w-12 object-contain" />
     </div>
 
     <!-- Title -->
@@ -26,7 +24,7 @@ defineProps<Props>()
     </h3>
 
     <!-- Description -->
-    <p class="text-sm text-gray-600 leading-relaxed">
+    <p class="text-xs text-gray-700 leading-relaxed">
       {{ t(value.descriptionKey) }}
     </p>
   </article>

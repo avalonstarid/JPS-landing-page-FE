@@ -18,7 +18,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section id="faq" class="section-padding bg-white" aria-labelledby="faq-title">
+  <section id="faq" class="section-padding bg-white" aria-labelledby="faq-title" 
+    style="background: #fdeee0;"
+  >
     <div class="container-main">
       <!-- Section Header -->
       <UiSectionHeader
@@ -34,21 +36,36 @@ onMounted(async () => {
       <!-- FAQ Content Grid -->
       <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
         <!-- Left: FAQ Accordion -->
-        <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200 shadow-sm">
-          <FaqItem
-            v-for="faq in faqs"
-            :key="faq.id"
-            :faq="faq"
-            :is-open="openFaqId === faq.id"
-            class="px-6"
-            @toggle="toggleFaq"
-          />
+        <div class="bg-[#fdeee0] rounded-xl shadow-none border border-transparent">
+          <div class="divide-y divide-gray-900">
+            <FaqItem
+              v-for="faq in faqs"
+              :key="faq.id"
+              :faq="faq"
+              :is-open="openFaqId === faq.id"
+              @toggle="toggleFaq"
+            />
+          </div>
+
+          <!-- Contact CTA -->
+          <div class="mt-4">
+            <p class="text-gray-600">
+              {{ t('faq.contactLead') }}
+              <a
+                href="#kontak"
+                class="text-primary-500 font-medium hover:text-primary-600 underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded"
+              >
+                {{ t('faq.contactLink') }}
+              </a>
+            </p>
+          </div>
         </div>
+        
 
         <!-- Right: Image -->
         <div class="relative rounded-2xl overflow-hidden shadow-lg hidden lg:block">
           <img
-            src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=800&h=600&fit=crop"
+            src="~/assets/images/pertanyaan.png"
             :alt="t('faq.imageAlt')"
             class="w-full h-full object-cover aspect-[4/3]"
             loading="lazy"
@@ -57,18 +74,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Contact CTA -->
-      <div class="text-center mt-12">
-        <p class="text-gray-600">
-          {{ t('faq.contactLead') }}
-          <a
-            href="#kontak"
-            class="text-primary-500 font-medium hover:text-primary-600 underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded"
-          >
-            {{ t('faq.contactLink') }}
-          </a>
-        </p>
-      </div>
+      
     </div>
   </section>
 </template>

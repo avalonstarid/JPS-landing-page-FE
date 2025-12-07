@@ -43,4 +43,3 @@ useHead(() => ({
     <SectionsFaqSection />
   </div>
 </template>
-

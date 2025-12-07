@@ -12,14 +12,15 @@ defineProps<Props>()
 
 <template>
   <article
-    class="relative overflow-visible p-5 md:p-6 pt-12 flex flex-col gap-4 duration-200 hover:-translate-y-1 mt-20 rounded-[24px]"
+    class="relative overflow-visible p-5 md:p-6 pt-12 flex flex-col gap-4 duration-200 hover:-translate-y-1 mt-20 rounded-[24px] w-full max-w-[320px]"
     :style="{
       backgroundImage: `url(${bgCard})`,
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      width: '300px',
-      height: '300px'
+      width: '100%',
+      maxWidth: '320px',
+      height: '320px'
     }"
   >
     <!-- Image Container -->
@@ -33,7 +34,7 @@ defineProps<Props>()
     </div>
 
     <!-- Content -->
-    <div class="space-y-3  max-w-[220px] absolute bottom-4 left-6">
+    <div class="space-y-3 max-w-[220px] absolute bottom-4 left-6">
       <h3 class="text-xl font-semibold text-[#3d4f92] leading-snug">
         {{ t(product.nameKey) }}
       </h3>

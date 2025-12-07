@@ -28,8 +28,8 @@
     "imageAlt": "Peternakan ayam PT Janu Putra Sejahtera"
   },
   "values": {
-    "title": "Nilai Kami",
-    "subtitle": "Mengapa harus memilih produk kami?",
+    "title": "Standar yang Kami Terapkan",
+    "subtitle": "PT Janu Putra Sejahtera Tbk berkomitmen untuk menyediakan produk yang unggul dan berkualitas",
     "imageAlt": "Interior peternakan ayam modern PT Janu Putra Sejahtera",
     "items": {
       "quality": {
@@ -95,7 +95,7 @@
     }
   },
   "testimonials": {
-    "label": "Testimoni",
+    "label": "Kata Mitra Kami",
     "ariaPrev": "Testimoni sebelumnya",
     "ariaNext": "Testimoni selanjutnya",
     "ariaDot": "Pergi ke testimoni {index}",

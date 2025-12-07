@@ -1,4 +1,10 @@
 import { defineStore } from 'pinia'
+import iconKualitas from '~/assets/images/jps-standar-section/kualitas.png'
+import iconProfesionalisme from '~/assets/images/jps-standar-section/profesionalisme.png'
+import iconInovasi from '~/assets/images/jps-standar-section/inovasi.png'
+import iconLingkungan from '~/assets/images/jps-standar-section/lingkungan.png'
+import iconKesejahteraan from '~/assets/images/jps-standar-section/kesejahteraan.png'
+import iconSosial from '~/assets/images/jps-standar-section/sosial.png'
 
 /**
  * CompanyValue interface representing company values/features
@@ -7,7 +13,7 @@ export interface CompanyValue {
   id: number
   titleKey: string
   descriptionKey: string
-  icon: string // emoji or icon name
+  icon: string // asset path
 }
 
 /**
@@ -18,37 +24,37 @@ const mockValues: CompanyValue[] = [
     id: 1,
     titleKey: 'values.items.quality.title',
     descriptionKey: 'values.items.quality.description',
-    icon: '⭐',
+    icon: iconKualitas,
   },
   {
     id: 2,
     titleKey: 'values.items.professionalism.title',
     descriptionKey: 'values.items.professionalism.description',
-    icon: '👔',
+    icon: iconProfesionalisme,
   },
   {
     id: 3,
     titleKey: 'values.items.innovation.title',
     descriptionKey: 'values.items.innovation.description',
-    icon: '💡',
+    icon: iconInovasi,
   },
   {
     id: 4,
     titleKey: 'values.items.environment.title',
     descriptionKey: 'values.items.environment.description',
-    icon: '🌱',
+    icon: iconLingkungan,
   },
   {
     id: 5,
     titleKey: 'values.items.welfare.title',
     descriptionKey: 'values.items.welfare.description',
-    icon: '❤️',
+    icon: iconKesejahteraan,
   },
   {
     id: 6,
     titleKey: 'values.items.social.title',
     descriptionKey: 'values.items.social.description',
-    icon: '🤝',
+    icon: iconSosial,
   },
 ]
 

@@ -17,7 +17,7 @@ onMounted(async () => {
     id="produk"
     class="section-padding"
     aria-labelledby="products-title"
-    style="background: radial-gradient(120% 120% at 20% 20%, #fff6ef 0%, #ffe8d2 45%, #fff6ef 90%);"
+    style="background: #fdeee0;"
   >
     <div class="container-main">
       <!-- Section Header -->
@@ -36,19 +36,19 @@ onMounted(async () => {
       </div>
 
       <!-- Products Grid -->
-      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-0 place-items-center">
         <ProductsProductCard v-for="product in products" :key="product.id" :product="product" />
 
         <!-- View All CTA -->
         <div
-          class="rounded-[28px] text-white p-6 flex flex-col justify-between min-h-[260px] bg-cover bg-center mt-18"
+          class="w-full max-w-[320px] rounded-[28px] text-white p-6 flex flex-col justify-between min-h-[260px] bg-cover bg-center"
           :style="{
             backgroundImage: `url(${bgCta})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            width: '300px',
-            height: '300px'
+            width: '100%',
+            height: '320px'
           }"
         >
           <div class="flex-1 flex items-center justify-center text-center px-4">

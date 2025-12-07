@@ -21,24 +21,26 @@ const toggle = () => {
 </script>
 
 <template>
-  <div class="border-b border-gray-200 last:border-b-0">
+  <div class="py-2">
     <button
       :id="`faq-button-${faq.id}`"
-      class="w-full py-5 flex items-center justify-between text-left group focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset rounded-lg"
+      class="w-full py-4 flex items-center justify-between text-left group rounded-lg bg-white"
       :aria-expanded="isOpen"
       :aria-controls="`faq-panel-${faq.id}`"
       @click="toggle"
     >
-      <span class="text-base md:text-lg font-medium text-gray-900 group-hover:text-primary-500 transition-colors pr-4">
+      <span class="pl-4 text-base md:text-lg font-medium text-gray-900 group-hover:text-primary-500 transition-colors pr-4">
         {{ t(faq.questionKey) }}
       </span>
-      <span
+      <span 
+        class="mr-4"
         :class="[
-          'flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200',
-          isOpen ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-primary-100 group-hover:text-primary-500',
+          'flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200',
+          'bg-[#f6993c] text-white',
+          isOpen ? 'rotate-0' : 'rotate-0'
         ]"
       >
-        <UiIconChevron :direction="isOpen ? 'up' : 'down'" size="sm" />
+        <i :class="isOpen ? 'mdi mdi-arrow-bottom-right' : 'mdi mdi-arrow-top-right'" class="text-xl"></i>
       </span>
     </button>
 
@@ -55,9 +57,9 @@ const toggle = () => {
         v-show="isOpen"
         :id="`faq-panel-${faq.id}`"
         :aria-labelledby="`faq-button-${faq.id}`"
-        class="overflow-hidden"
+        class="overflow-hidden bg-white px-4 mt-[-10px]"
       >
-        <div class="pb-5 text-gray-600 leading-relaxed">
+        <div class="pb-5 text-base text-gray-600 leading-relaxed mt-6">
           {{ t(faq.answerKey) }}
         </div>
       </div>

@@ -12,14 +12,22 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section id="nilai-kami" class="section-padding bg-gradient-to-b from-cream-100 to-white" aria-labelledby="values-title">
+  <section
+    id="nilai-kami"
+    class="section-padding"
+    aria-labelledby="values-title"
+    style="background: #fdeee0;"
+  >
     <div class="container-main">
       <!-- Section Header -->
-      <UiSectionHeader
-        :title="t('values.title')"
-        :subtitle="t('values.subtitle')"
-        align="center"
-      />
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#4c68c4]">
+          {{ t('values.title') }}
+        </h2>
+        <p class="text-xl text-[#1c1c1c] mt-3">
+          {{ t('values.subtitle') }}
+        </p>
+      </div>
 
       <!-- Loading State -->
       <div v-if="isLoading" class="flex justify-center items-center py-12">
@@ -27,24 +35,24 @@ onMounted(async () => {
       </div>
 
       <!-- Content Grid -->
-      <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div v-else class="grid grid-cols-1 lg:grid-cols-[.75fr_1.1fr] gap-6 lg:gap-8 items-center">
         <!-- Left: Image -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg order-2 lg:order-1">
-          <img
-            src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=800&h=600&fit=crop"
-            :alt="t('values.imageAlt')"
-            class="w-full h-full object-cover aspect-[4/3]"
-            loading="lazy"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary-500/20 to-transparent"></div>
+        <div class="order-2 lg:order-1 h-full">
+          <div class="rounded-[28px] overflow-hidden shadow-lg h-full">
+            <img
+              src="~/assets/images/standar-main.png"
+              :alt="t('values.imageAlt')"
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
         </div>
 
         <!-- Right: Value Cards Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 order-1 lg:order-2">
+        <div class="order-1 lg:order-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
           <ValuesValueCard v-for="value in values" :key="value.id" :value="value" />
         </div>
       </div>
     </div>
   </section>
 </template>
-
