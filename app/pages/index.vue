@@ -1,28 +1,28 @@
 <script setup lang="ts">
 // Home page composing all section components
-useHead({
-  title: 'PT Janu Putra Sejahtera - Perusahaan Peternakan Terintegrasi',
+const { t } = useI18n()
+
+useHead(() => ({
+  title: t('meta.title'),
   meta: [
     {
       name: 'description',
-      content:
-        'PT Janu Putra Sejahtera - Perusahaan peternakan ayam terintegrasi terkemuka di Indonesia yang menyediakan produk berkualitas dan terjangkau.',
+      content: t('meta.description'),
     },
     {
       property: 'og:title',
-      content: 'PT Janu Putra Sejahtera - Perusahaan Peternakan Terintegrasi',
+      content: t('meta.ogTitle'),
     },
     {
       property: 'og:description',
-      content:
-        'Perusahaan peternakan ayam terintegrasi terkemuka di Indonesia yang menyediakan produk berkualitas dan terjangkau.',
+      content: t('meta.ogDescription'),
     },
     {
       property: 'og:type',
       content: 'website',
     },
   ],
-})
+}))
 </script>
 
 <template>

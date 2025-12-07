@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useValueStore } from '~/stores/value'
+const { t } = useI18n()
 
 const valueStore = useValueStore()
 const { values, isLoading } = storeToRefs(valueStore)
@@ -15,8 +16,8 @@ onMounted(async () => {
     <div class="container-main">
       <!-- Section Header -->
       <UiSectionHeader
-        title="Nilai Kami"
-        subtitle="Mengapa harus memilih produk kami?"
+        :title="t('values.title')"
+        :subtitle="t('values.subtitle')"
         align="center"
       />
 
@@ -31,7 +32,7 @@ onMounted(async () => {
         <div class="relative rounded-2xl overflow-hidden shadow-lg order-2 lg:order-1">
           <img
             src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=800&h=600&fit=crop"
-            alt="Interior peternakan ayam modern PT Janu Putra Sejahtera"
+            :alt="t('values.imageAlt')"
             class="w-full h-full object-cover aspect-[4/3]"
             loading="lazy"
           />

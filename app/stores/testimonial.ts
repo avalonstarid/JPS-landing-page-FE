@@ -5,10 +5,10 @@ import { defineStore } from 'pinia'
  */
 export interface Testimonial {
   id: number
-  title: string
-  content: string
+  titleKey: string
+  contentKey: string
   author: string
-  role: string
+  roleKey: string
 }
 
 /**
@@ -17,27 +17,24 @@ export interface Testimonial {
 const mockTestimonials: Testimonial[] = [
   {
     id: 1,
-    title: 'Solusi Ayam Broiler Terpercaya',
-    content:
-      'Saya memiliki mitra ayam broiler terbesar di Indonesia dan bergandengan tangan dengan JPS. Kami percaya bahwa produk yang dihasilkan sangat berkualitas. Para konsumen pun sudah mengenal dan percaya dengan produk dari Janu Putra Sejahtera.',
+    titleKey: 'testimonials.items.trustedBroiler.title',
+    contentKey: 'testimonials.items.trustedBroiler.content',
     author: 'Irvan Agustian',
-    role: 'Direktur Ayam Broiler Sejahtera',
+    roleKey: 'testimonials.items.trustedBroiler.role',
   },
   {
     id: 2,
-    title: 'Kemitraan yang Menguntungkan',
-    content:
-      'Sudah 5 tahun kami bermitra dengan PT Janu Putra Sejahtera. Kualitas DOC yang konsisten dan dukungan teknis yang excellent membuat bisnis peternakan kami terus berkembang.',
+    titleKey: 'testimonials.items.profitablePartnership.title',
+    contentKey: 'testimonials.items.profitablePartnership.content',
     author: 'Budi Santoso',
-    role: 'Pemilik CV Berkah Farm',
+    roleKey: 'testimonials.items.profitablePartnership.role',
   },
   {
     id: 3,
-    title: 'Standar Kualitas Terbaik',
-    content:
-      'Produk telur komersial dari JPS selalu memenuhi standar kualitas tertinggi. Konsumen kami sangat puas dengan kesegaran dan kualitas telur yang kami distribusikan.',
+    titleKey: 'testimonials.items.bestQuality.title',
+    contentKey: 'testimonials.items.bestQuality.content',
     author: 'Sri Rahayu',
-    role: 'Manager Distributor Telur Nusantara',
+    roleKey: 'testimonials.items.bestQuality.role',
   },
 ]
 

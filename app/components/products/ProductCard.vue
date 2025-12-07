@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Product } from '~/stores/product'
+const { t } = useI18n()
 
 interface Props {
   product: Product
@@ -16,7 +17,7 @@ defineProps<Props>()
     <div class="relative aspect-[4/3] overflow-hidden">
       <img
         :src="product.imageUrl"
-        :alt="product.name"
+        :alt="t(product.nameKey)"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         loading="lazy"
       />
@@ -26,16 +27,16 @@ defineProps<Props>()
     <!-- Content -->
     <div class="p-5 relative">
       <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-        {{ product.name }}
+        {{ t(product.nameKey) }}
       </h3>
       <p class="text-sm text-gray-600 line-clamp-3 mb-4">
-        {{ product.description }}
+        {{ t(product.descriptionKey) }}
       </p>
 
       <!-- Action Button -->
       <button
         class="absolute bottom-4 right-4 w-10 h-10 bg-primary-500 hover:bg-primary-600 text-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-        :aria-label="`Lihat detail ${product.name}`"
+        :aria-label="t('products.ariaViewProduct', { name: t(product.nameKey) })"
       >
         <UiIconArrowRight size="sm" />
       </button>

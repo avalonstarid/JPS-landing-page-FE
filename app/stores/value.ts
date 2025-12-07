@@ -5,8 +5,8 @@ import { defineStore } from 'pinia'
  */
 export interface CompanyValue {
   id: number
-  title: string
-  description: string
+  titleKey: string
+  descriptionKey: string
   icon: string // emoji or icon name
 }
 
@@ -16,44 +16,38 @@ export interface CompanyValue {
 const mockValues: CompanyValue[] = [
   {
     id: 1,
-    title: 'Kualitas',
-    description:
-      'Kami berkomitmen menyediakan produk peternakan berkualitas tinggi dengan standar kesehatan dan kebersihan terbaik.',
+    titleKey: 'values.items.quality.title',
+    descriptionKey: 'values.items.quality.description',
     icon: '⭐',
   },
   {
     id: 2,
-    title: 'Profesionalisme',
-    description:
-      'Tim profesional kami bekerja dengan dedikasi tinggi untuk memastikan setiap produk memenuhi standar kualitas tertinggi.',
+    titleKey: 'values.items.professionalism.title',
+    descriptionKey: 'values.items.professionalism.description',
     icon: '👔',
   },
   {
     id: 3,
-    title: 'Inovasi',
-    description:
-      'Kami terus berinovasi dalam teknologi peternakan untuk menghasilkan produk yang lebih baik dan efisien.',
+    titleKey: 'values.items.innovation.title',
+    descriptionKey: 'values.items.innovation.description',
     icon: '💡',
   },
   {
     id: 4,
-    title: 'Lingkungan',
-    description:
-      'Praktik peternakan kami ramah lingkungan dengan pengelolaan limbah yang bertanggung jawab.',
+    titleKey: 'values.items.environment.title',
+    descriptionKey: 'values.items.environment.description',
     icon: '🌱',
   },
   {
     id: 5,
-    title: 'Kesejahteraan',
-    description:
-      'Kami menjunjung tinggi kesejahteraan hewan dan karyawan dalam setiap aspek operasional perusahaan.',
+    titleKey: 'values.items.welfare.title',
+    descriptionKey: 'values.items.welfare.description',
     icon: '❤️',
   },
   {
     id: 6,
-    title: 'Sosial',
-    description:
-      'Kami aktif berkontribusi pada pembangunan ekonomi lokal dan kesejahteraan masyarakat sekitar.',
+    titleKey: 'values.items.social.title',
+    descriptionKey: 'values.items.social.description',
     icon: '🤝',
   },
 ]

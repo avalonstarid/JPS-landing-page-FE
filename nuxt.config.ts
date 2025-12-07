@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
   srcDir: 'app/',
 
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n'],
 
   runtimeConfig: {
     public: {
@@ -44,6 +44,23 @@ export default defineNuxtConfig({
           href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap',
         },
       ],
+    },
+  },
+
+  i18n: {
+    strategy: 'no_prefix',
+    defaultLocale: 'id',
+    lazy: true,
+    langDir: 'locales',
+    locales: [
+      { code: 'id', iso: 'id-ID', file: 'id.json', name: 'Bahasa Indonesia' },
+      { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
+    ],
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: false,
+      fallbackLocale: 'id',
     },
   },
 

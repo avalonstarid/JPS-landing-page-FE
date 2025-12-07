@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// Hero section with full viewport height and background image
+const { t } = useI18n()
+import heroImage from '~/assets/images/most-top.png'
 </script>
 
 <template>
@@ -11,8 +12,8 @@
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
       <img
-        src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1920&h=1080&fit=crop"
-        alt="Peternakan ayam PT Janu Putra Sejahtera"
+        :src="heroImage"
+        :alt="t('hero.imageAlt')"
         class="w-full h-full object-cover"
         loading="eager"
       />
@@ -25,32 +26,33 @@
       <div class="max-w-3xl text-center md:text-left">
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-          PT Janu Putra Sejahtera
+          {{ t('hero.title') }}
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-xl md:text-2xl lg:text-3xl font-medium text-primary-400 mb-6">
-          Perusahaan Peternakan Terintegrasi
+        <p class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6">
+          {{ t('hero.subtitle') }}
         </p>
 
         <!-- Description -->
-        <p class="text-base md:text-lg text-gray-200 mb-8 max-w-2xl leading-relaxed">
-          Janu Putra Sejahtera berkomitmen menjadi perusahaan ayam integrator terkemuka di Indonesia yang memberikan
-          kontribusi positif bagi peternak ayam dan masyarakat.
+        <p class="text-base md:text-lg text-white/90 mb-8 max-w-2xl leading-relaxed">
+          {{ t('hero.description') }}
         </p>
 
         <!-- CTA Button -->
         <UiBaseButton
           variant="primary"
           size="lg"
-          class="group"
-          aria-label="Lihat informasi selengkapnya tentang perusahaan"
+          class="group bg-[#f6993c] hover:bg-[#f28a26] text-white border-none"
+          :aria-label="t('hero.cta')"
         >
-          <span>Selengkapnya</span>
-          <UiIconArrowRight
-            size="md"
-            class="ml-2 group-hover:translate-x-1 transition-transform"
-          />
+          <span>{{ t('hero.cta') }}</span>
+          <span
+            class="ml-2 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-[#f6993c] transition-transform group-hover:translate-x-1 shadow-sm"
+            aria-hidden="true"
+          >
+            <i class="mdi mdi-arrow-top-right text-lg"></i>
+          </span>
         </UiBaseButton>
       </div>
     </div>
@@ -63,4 +65,3 @@
     </div>
   </section>
 </template>
-

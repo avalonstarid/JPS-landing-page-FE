@@ -1,42 +1,43 @@
 <script setup lang="ts">
+const { t } = useI18n()
 const currentYear = new Date().getFullYear()
 
 const footerColumns = [
   {
-    title: 'Produk',
+    titleKey: 'footer.columns.products.title',
     links: [
-      { label: 'DOC Parent Stock', href: '#' },
-      { label: 'DOC Final Stock', href: '#' },
-      { label: 'Ayam Hidup', href: '#' },
-      { label: 'Telur Komersial', href: '#' },
-      { label: 'Karkas Ayam', href: '#' },
+      { labelKey: 'footer.columns.products.links.docParent', href: '#' },
+      { labelKey: 'footer.columns.products.links.docFinal', href: '#' },
+      { labelKey: 'footer.columns.products.links.liveChicken', href: '#' },
+      { labelKey: 'footer.columns.products.links.commercialEgg', href: '#' },
+      { labelKey: 'footer.columns.products.links.chickenCarcass', href: '#' },
     ],
   },
   {
-    title: 'Learning',
+    titleKey: 'footer.columns.learning.title',
     links: [
-      { label: 'Budidaya Ayam', href: '#' },
-      { label: 'Kesehatan Ternak', href: '#' },
-      { label: 'Manajemen Farm', href: '#' },
-      { label: 'Tips & Trik', href: '#' },
+      { labelKey: 'footer.columns.learning.links.chickenFarming', href: '#' },
+      { labelKey: 'footer.columns.learning.links.animalHealth', href: '#' },
+      { labelKey: 'footer.columns.learning.links.farmManagement', href: '#' },
+      { labelKey: 'footer.columns.learning.links.tips', href: '#' },
     ],
   },
   {
-    title: 'Resources',
+    titleKey: 'footer.columns.resources.title',
     links: [
-      { label: 'Blog', href: '#' },
-      { label: 'Webinar', href: '#' },
-      { label: 'E-Book', href: '#' },
-      { label: 'FAQ', href: '#faq' },
+      { labelKey: 'footer.columns.resources.links.blog', href: '#' },
+      { labelKey: 'footer.columns.resources.links.webinar', href: '#' },
+      { labelKey: 'footer.columns.resources.links.ebook', href: '#' },
+      { labelKey: 'footer.columns.resources.links.faq', href: '#faq' },
     ],
   },
   {
-    title: 'About',
+    titleKey: 'footer.columns.about.title',
     links: [
-      { label: 'Tentang Kami', href: '#tentang' },
-      { label: 'Karir', href: '#karir' },
-      { label: 'Hubungi Kami', href: '#kontak' },
-      { label: 'Relasi Investor', href: '#investor' },
+      { labelKey: 'footer.columns.about.links.aboutUs', href: '#tentang' },
+      { labelKey: 'footer.columns.about.links.career', href: '#karir' },
+      { labelKey: 'footer.columns.about.links.contact', href: '#kontak' },
+      { labelKey: 'footer.columns.about.links.investor', href: '#investor' },
     ],
   },
 ]
@@ -74,21 +75,20 @@ const socialLinks = [
             <span class="font-bold text-xl">PT Janu Putra Sejahtera</span>
           </div>
           <p class="text-gray-300 text-sm leading-relaxed mb-6">
-            Perusahaan peternakan ayam terintegrasi terkemuka di Indonesia yang berkomitmen menyediakan produk
-            berkualitas tinggi untuk mendukung kebutuhan protein hewani masyarakat.
+            {{ t('footer.description') }}
           </p>
         </div>
 
         <!-- Footer Link Columns -->
-        <div v-for="column in footerColumns" :key="column.title" class="space-y-4">
-          <h3 class="font-semibold text-lg">{{ column.title }}</h3>
+        <div v-for="column in footerColumns" :key="column.titleKey" class="space-y-4">
+          <h3 class="font-semibold text-lg">{{ t(column.titleKey) }}</h3>
           <ul class="space-y-2">
-            <li v-for="link in column.links" :key="link.label">
+            <li v-for="link in column.links" :key="link.labelKey">
               <a
                 :href="link.href"
                 class="text-gray-300 hover:text-white text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-secondary-700 rounded"
               >
-                {{ link.label }}
+                {{ t(link.labelKey) }}
               </a>
             </li>
           </ul>
@@ -106,7 +106,7 @@ const socialLinks = [
             <span class="text-gray-300 text-sm">PT Janu Putra Sejahtera</span>
           </div>
 
-          <p class="text-gray-400 text-sm text-center">© {{ currentYear }} All rights reserved.</p>
+          <p class="text-gray-400 text-sm text-center">{{ t('footer.rights', { year: currentYear }) }}</p>
 
           <!-- Social Links -->
           <div class="flex items-center gap-4">

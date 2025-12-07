@@ -5,11 +5,11 @@ import { defineStore } from 'pinia'
  */
 export interface Product {
   id: number
-  name: string
+  nameKey: string
   slug: string
-  description: string
+  descriptionKey: string
   imageUrl: string
-  category: string
+  categoryKey: string
 }
 
 /**
@@ -18,48 +18,43 @@ export interface Product {
 const mockProducts: Product[] = [
   {
     id: 1,
-    name: 'Day Old Chick (DOC) – Parent Stock',
+    nameKey: 'products.items.docParent.name',
     slug: 'doc-parent-stock',
-    description:
-      'Day Old Chick (DOC) – Parent Stock adalah anak ayam berusia satu hari dari parent stock yang merupakan indukan ayam untuk menghasilkan DOC Final Stock.',
+    descriptionKey: 'products.items.docParent.description',
     imageUrl: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&h=300&fit=crop',
-    category: 'DOC',
+    categoryKey: 'products.categories.doc',
   },
   {
     id: 2,
-    name: 'Day Old Chick (DOC) – Final Stock',
+    nameKey: 'products.items.docFinal.name',
     slug: 'doc-final-stock',
-    description:
-      'Day Old Chick (DOC) – Final Stock adalah anak ayam berusia satu hari yang dihasilkan dari parent stock untuk dikirimkan kepada peternak mitra.',
+    descriptionKey: 'products.items.docFinal.description',
     imageUrl: 'https://images.unsplash.com/photo-1569396116180-90a93b45e583?w=400&h=300&fit=crop',
-    category: 'DOC',
+    categoryKey: 'products.categories.doc',
   },
   {
     id: 3,
-    name: 'Ayam Hidup',
+    nameKey: 'products.items.liveChicken.name',
     slug: 'ayam-hidup',
-    description:
-      'Ayam hidup berkualitas tinggi hasil pemeliharaan dengan standar modern yang mengutamakan kesehatan dan kualitas daging.',
+    descriptionKey: 'products.items.liveChicken.description',
     imageUrl: 'https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=400&h=300&fit=crop',
-    category: 'Ayam',
+    categoryKey: 'products.categories.chicken',
   },
   {
     id: 4,
-    name: 'Telur Komersial',
+    nameKey: 'products.items.commercialEgg.name',
     slug: 'telur-komersial',
-    description:
-      'Telur komersial menyediakan telur konsumsi berkualitas tinggi yang dihasilkan dari ayam layer modern, dan segar setiap hari.',
+    descriptionKey: 'products.items.commercialEgg.description',
     imageUrl: 'https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=400&h=300&fit=crop',
-    category: 'Telur',
+    categoryKey: 'products.categories.egg',
   },
   {
     id: 5,
-    name: 'Karkas Ayam',
+    nameKey: 'products.items.chickenCarcass.name',
     slug: 'karkas-ayam',
-    description:
-      'Karkas ayam segar yang diproses dengan standar kebersihan tinggi, siap untuk diolah menjadi berbagai hidangan lezat.',
+    descriptionKey: 'products.items.chickenCarcass.description',
     imageUrl: 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400&h=300&fit=crop',
-    category: 'Karkas',
+    categoryKey: 'products.categories.carcass',
   },
 ]
 

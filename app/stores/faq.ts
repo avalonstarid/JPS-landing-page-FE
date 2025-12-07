@@ -5,8 +5,8 @@ import { defineStore } from 'pinia'
  */
 export interface FaqItem {
   id: number
-  question: string
-  answer: string
+  questionKey: string
+  answerKey: string
 }
 
 /**
@@ -15,27 +15,23 @@ export interface FaqItem {
 const mockFaqs: FaqItem[] = [
   {
     id: 1,
-    question: 'Apa itu PT Janu Putra Sejahtera?',
-    answer:
-      'PT Janu Putra Sejahtera berkomitmen menjadi perusahaan ayam integrator terkemuka di Indonesia yang memberikan kontribusi positif bagi peternak ayam dan masyarakat. Kami mengelola operasi peternakan terintegrasi mulai dari pembibitan, pemeliharaan, hingga distribusi produk unggas berkualitas tinggi.',
+    questionKey: 'faq.items.about.question',
+    answerKey: 'faq.items.about.answer',
   },
   {
     id: 2,
-    question: 'Apa produk dari PT Janu Putra Sejahtera?',
-    answer:
-      'Kami menyediakan berbagai produk unggas berkualitas termasuk Day Old Chick (DOC) Parent Stock, DOC Final Stock, Ayam Hidup, Telur Komersial, dan Karkas Ayam. Semua produk diproduksi dengan standar kualitas tinggi dan praktik peternakan modern.',
+    questionKey: 'faq.items.products.question',
+    answerKey: 'faq.items.products.answer',
   },
   {
     id: 3,
-    question: 'Apa saja bisnis di PT Janu Putra Sejahtera?',
-    answer:
-      'PT Janu Putra Sejahtera memiliki beberapa lini bisnis utama meliputi: pembibitan ayam (breeding farm), peternakan komersial, pabrik pakan ternak, rumah potong ayam (RPA), dan distribusi produk unggas. Semua lini bisnis terintegrasi untuk menjamin kualitas dari hulu ke hilir.',
+    questionKey: 'faq.items.business.question',
+    answerKey: 'faq.items.business.answer',
   },
   {
     id: 4,
-    question: 'Mengapa memilih PT Janu Putra Sejahtera?',
-    answer:
-      'Kami adalah pilihan terpercaya karena: 1) Kualitas produk terjamin dengan standar internasional, 2) Pengalaman lebih dari 20 tahun di industri perunggasan, 3) Kemitraan yang menguntungkan bagi peternak, 4) Dukungan teknis profesional, 5) Komitmen terhadap kesejahteraan hewan dan lingkungan.',
+    questionKey: 'faq.items.why.question',
+    answerKey: 'faq.items.why.answer',
   },
 ]
 

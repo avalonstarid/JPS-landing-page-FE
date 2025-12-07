@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useProductStore } from '~/stores/product'
+const { t } = useI18n()
 
 const productStore = useProductStore()
 const { products, isLoading } = storeToRefs(productStore)
@@ -15,8 +16,8 @@ onMounted(async () => {
     <div class="container-main">
       <!-- Section Header -->
       <UiSectionHeader
-        title="Produk Kami"
-        subtitle="Kami menyediakan produk yang berkualitas dan terjangkau"
+        :title="t('products.title')"
+        :subtitle="t('products.subtitle')"
         align="center"
       />
 
@@ -40,16 +41,16 @@ onMounted(async () => {
             >
               <UiIconArrowRight size="lg" class="text-white" />
             </div>
-            <h3 class="text-xl font-semibold text-white mb-2">Lihat Produk Selengkapnya</h3>
-            <p class="text-gray-300 text-sm">Jelajahi semua produk berkualitas kami</p>
+            <h3 class="text-xl font-semibold text-white mb-2">{{ t('products.viewAllCardTitle') }}</h3>
+            <p class="text-gray-300 text-sm">{{ t('products.viewAllCardSubtitle') }}</p>
           </div>
 
           <UiBaseButton
             variant="outline"
             class="border-white text-white hover:bg-white hover:text-secondary-700"
-            aria-label="Lihat semua produk"
+            :aria-label="t('products.cta')"
           >
-            Lihat Semua
+            {{ t('products.cta') }}
             <UiIconArrowRight size="sm" class="ml-2" />
           </UiBaseButton>
         </div>

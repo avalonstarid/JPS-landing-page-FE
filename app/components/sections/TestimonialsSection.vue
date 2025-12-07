@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useTestimonialStore } from '~/stores/testimonial'
+const { t } = useI18n()
 
 const testimonialStore = useTestimonialStore()
 const { currentTestimonial, currentIndex, totalTestimonials, isLoading } = storeToRefs(testimonialStore)
@@ -47,7 +48,7 @@ const goToNext = () => {
         <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 relative">
           <!-- Label -->
           <div class="inline-block bg-primary-500 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            Testimoni
+            {{ t('testimonials.label') }}
           </div>
 
           <!-- Testimonial Card with Animation -->
@@ -63,12 +64,12 @@ const goToNext = () => {
             <div :key="currentTestimonial.id">
               <!-- Title -->
               <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-                {{ currentTestimonial.title }}
+                {{ t(currentTestimonial.titleKey) }}
               </h3>
 
               <!-- Content -->
               <p class="text-gray-600 text-lg leading-relaxed mb-8">
-                "{{ currentTestimonial.content }}"
+                "{{ t(currentTestimonial.contentKey) }}"
               </p>
 
               <!-- Author -->
@@ -80,7 +81,7 @@ const goToNext = () => {
                 </div>
                 <div>
                   <p class="font-semibold text-gray-900">{{ currentTestimonial.author }}</p>
-                  <p class="text-sm text-gray-500">{{ currentTestimonial.role }}</p>
+                  <p class="text-sm text-gray-500">{{ t(currentTestimonial.roleKey) }}</p>
                 </div>
               </div>
             </div>
@@ -91,14 +92,14 @@ const goToNext = () => {
             <button
               class="w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-gray-600 hover:text-primary-500 hover:shadow-xl transition-all duration-200 pointer-events-auto focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               @click="goToPrev"
-              aria-label="Testimoni sebelumnya"
+              :aria-label="t('testimonials.ariaPrev')"
             >
               <UiIconChevron direction="left" size="md" />
             </button>
             <button
               class="w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-gray-600 hover:text-primary-500 hover:shadow-xl transition-all duration-200 pointer-events-auto focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               @click="goToNext"
-              aria-label="Testimoni selanjutnya"
+              :aria-label="t('testimonials.ariaNext')"
             >
               <UiIconChevron direction="right" size="md" />
             </button>
@@ -114,7 +115,7 @@ const goToNext = () => {
                 currentIndex === index - 1 ? 'bg-primary-500 w-8' : 'bg-gray-300 hover:bg-gray-400',
               ]"
               @click="testimonialStore.goTo(index - 1)"
-              :aria-label="`Pergi ke testimoni ${index}`"
+              :aria-label="t('testimonials.ariaDot', { index })"
               :aria-current="currentIndex === index - 1 ? 'true' : undefined"
             ></button>
           </div>

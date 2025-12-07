@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FaqItem } from '~/stores/faq'
+const { t } = useI18n()
 
 interface Props {
   faq: FaqItem
@@ -29,7 +30,7 @@ const toggle = () => {
       @click="toggle"
     >
       <span class="text-base md:text-lg font-medium text-gray-900 group-hover:text-primary-500 transition-colors pr-4">
-        {{ faq.question }}
+        {{ t(faq.questionKey) }}
       </span>
       <span
         :class="[
@@ -57,7 +58,7 @@ const toggle = () => {
         class="overflow-hidden"
       >
         <div class="pb-5 text-gray-600 leading-relaxed">
-          {{ faq.answer }}
+          {{ t(faq.answerKey) }}
         </div>
       </div>
     </Transition>

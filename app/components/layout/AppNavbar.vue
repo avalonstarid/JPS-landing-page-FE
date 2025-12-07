@@ -1,17 +1,38 @@
 <script setup lang="ts">
+import logoJps from '~/assets/images/logo-jps.png'
+import flagId from '~/assets/images/flag/emojione_flag-for-indonesia.png'
+import flagEn from '~/assets/images/flag/circle-flags_uk.png'
+
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
-const currentLanguage = ref<'ID' | 'EN'>('ID')
+const { t, locale, setLocale } = useI18n()
+
+const availableLanguages: Array<{ code: 'id' | 'en'; label: string; icon: string; alt: string }> = [
+  { code: 'id', label: 'ID', icon: flagId, alt: 'Indonesia Flag' },
+  { code: 'en', label: 'EN', icon: flagEn, alt: 'United Kingdom Flag' },
+]
+
+useHead({
+  link: [
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css',
+    },
+  ],
+})
 
 const navItems = [
-  { label: 'Beranda', href: '#beranda' },
-  { label: 'Tentang', href: '#tentang' },
-  { label: 'Lini Bisnis', href: '#nilai-kami' },
-  { label: 'Produk', href: '#produk' },
-  { label: 'Berita', href: '#berita' },
-  { label: 'Karir', href: '#karir' },
-  { label: 'Relasi Investor', href: '#investor' },
+  { key: 'home', href: '#beranda', labelKey: 'nav.home', hasDropdown: false },
+  { key: 'about', href: '#tentang', labelKey: 'nav.about', hasDropdown: true },
+  { key: 'business', href: '#nilai-kami', labelKey: 'nav.business', hasDropdown: false },
+  { key: 'products', href: '#produk', labelKey: 'nav.products', hasDropdown: false },
+  { key: 'news', href: '#berita', labelKey: 'nav.news', hasDropdown: false },
+  { key: 'career', href: '#karir', labelKey: 'nav.career', hasDropdown: false },
+  { key: 'investor', href: '#investor', labelKey: 'nav.investor', hasDropdown: true },
 ]
+
+const currentLanguage = computed(() => (locale.value === 'en' ? 'EN' : 'ID'))
+const ctaLabel = computed(() => t('common.contact'))
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
@@ -25,8 +46,8 @@ const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
 }
 
-const toggleLanguage = () => {
-  currentLanguage.value = currentLanguage.value === 'ID' ? 'EN' : 'ID'
+const setLanguage = async (lang: 'id' | 'en') => {
+  await setLocale(lang)
 }
 
 const scrollToSection = (href: string) => {
@@ -48,66 +69,106 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header
-    :class="[
-      'sticky top-0 z-50 transition-all duration-300',
-      isScrolled ? 'bg-white shadow-md' : 'bg-white/80 backdrop-blur-sm',
-    ]"
-  >
-    <nav class="container-main" aria-label="Navigasi utama">
-      <div class="flex items-center justify-between h-16 lg:h-20">
+  <header class="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+    <div class="container-main">
+      <div class="flex items-center justify-between gap-4 pt-4 pb-2">
         <!-- Logo -->
-        <div class="flex items-center flex-shrink-0">
-          <a href="#beranda" class="flex items-center gap-2 group" aria-label="PT Janu Putra Sejahtera - Halaman Utama">
-            <div
-              class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center text-white font-bold text-lg"
-            >
-              JP
-            </div>
-            <span class="hidden sm:block font-semibold text-gray-900 group-hover:text-primary-500 transition-colors">
-              Janu Putra
-            </span>
-          </a>
-        </div>
+        <a
+          aria-label="PT Janu Putra Sejahtera - Halaman Utama"
+          @click.prevent="scrollToSection('#beranda')"
+        >
+          <img :src="logoJps" alt="Logo JPS" class="h-10 w-auto" />
+        </a>
 
         <!-- Desktop Navigation -->
-        <div class="hidden lg:flex items-center gap-1">
-          <a
-            v-for="item in navItems"
-            :key="item.label"
-            :href="item.href"
-            class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-500 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-            @click.prevent="scrollToSection(item.href)"
+        <div class="hidden lg:flex flex-1 justify-center pointer-events-auto">
+          <div
+            :class="[
+              'flex items-center gap-1 rounded-full px-4 py-2 transition-all duration-300 backdrop-blur-2xl border shadow-2xl',
+              'bg-gradient-to-r from-white/15 via-white/10 to-white/15 border-white/20',
+              isScrolled ? 'shadow-[0_20px_70px_-25px_rgba(0,0,0,0.6)]' : 'shadow-[0_20px_80px_-35px_rgba(0,0,0,0.55)]',
+            ]"
           >
-            {{ item.label }}
-          </a>
+            <button
+              v-for="item in navItems"
+              :key="item.key"
+              :href="item.href"
+              class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
+              :class="[
+                item.key === 'home'
+                  ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
+                  : 'text-white/85 hover:text-white hover:bg-white/10',
+              ]"
+              @click.prevent="scrollToSection(item.href)"
+            >
+              <span>{{ t(item.labelKey) }}</span>
+              <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-base opacity-80"></i>
+            </button>
+
+            <div class="mx-3 h-6 w-px bg-white/0" aria-hidden="true" />
+          </div>
         </div>
 
-        <!-- Right side actions -->
-        <div class="flex items-center gap-4">
-          <!-- Language Switcher -->
+        <!-- Actions outside glass -->
+        <div class="hidden lg:flex items-center gap-3 pointer-events-auto">
+          <div class="flex items-center text-sm font-semibold text-white/85">
+            <template v-for="(lang, idx) in availableLanguages" :key="lang.code">
+              <button
+                type="button"
+                class="flex items-center gap-2 px-2 transition"
+                :class="currentLanguage === lang.label ? 'text-white' : 'text-white/70 hover:text-white/85'"
+                @click="setLanguage(lang.code)"
+                :aria-pressed="currentLanguage === lang.label"
+              >
+                <span>{{ lang.label }}</span>
+                <img
+                  :src="lang.icon"
+                  :alt="lang.alt"
+                  class="h-5 w-5 rounded-full object-cover"
+                  :class="currentLanguage === lang.label ? '' : 'opacity-60 grayscale'"
+                />
+              </button>
+              <div
+                v-if="idx === 0"
+                class="h-5 w-px bg-white/40 mx-2"
+                aria-hidden="true"
+              />
+            </template>
+          </div>
+
           <button
-            class="hidden sm:flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-primary-500 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg px-2 py-1"
-            @click="toggleLanguage"
-            aria-label="Ganti bahasa"
+            class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-5 py-2 text-sm font-semibold text-white shadow-[0_15px_40px_-18px_rgba(0,0,0,0.7)] transition hover:shadow-[0_20px_45px_-18px_rgba(0,0,0,0.75)]"
+            :aria-label="ctaLabel"
           >
-            <span :class="{ 'text-primary-500 font-semibold': currentLanguage === 'ID' }">ID</span>
-            <span class="text-gray-400">|</span>
-            <span :class="{ 'text-primary-500 font-semibold': currentLanguage === 'EN' }">EN</span>
+            <span>{{ ctaLabel }}</span>
+            <i class="mdi mdi-arrow-right text-lg" aria-hidden="true" />
+          </button>
+        </div>
+
+        <!-- Mobile actions -->
+        <div class="flex lg:hidden items-center gap-2 pointer-events-auto">
+          <button
+            class="flex items-center gap-1 rounded-full bg-white/10 px-3 py-2 text-xs font-semibold text-white/85 backdrop-blur-lg border border-white/20 shadow-lg transition hover:bg-white/15"
+            @click="setLanguage(locale.value === 'id' ? 'en' : 'id')"
+            :aria-label="t('language.label')"
+          >
+            <img :src="locale.value === 'id' ? flagId : flagEn" :alt="currentLanguage" class="h-4 w-4 rounded-full object-cover" />
+            <span>{{ currentLanguage }}</span>
           </button>
 
-          <!-- CTA Button -->
-          <UiBaseButton variant="primary" size="sm" class="hidden sm:inline-flex" aria-label="Hubungi kami">
-            Hubungi Kami
-          </UiBaseButton>
-
-          <!-- Mobile Menu Button -->
           <button
-            class="lg:hidden p-2 text-gray-700 hover:text-primary-500 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+            class="rounded-full bg-[#f6993c] px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl"
+            :aria-label="ctaLabel"
+          >
+            {{ ctaLabel }}
+          </button>
+
+          <button
+            class="inline-flex items-center justify-center rounded-full bg-white/10 p-2 text-white backdrop-blur-lg border border-white/20 shadow-lg transition hover:bg-white/15"
             @click="toggleMobileMenu"
             :aria-expanded="isMobileMenuOpen"
             aria-controls="mobile-menu"
-            aria-label="Toggle menu navigasi"
+            :aria-label="t('nav.menuToggle')"
           >
             <svg
               v-if="!isMobileMenuOpen"
@@ -135,36 +196,52 @@ onUnmounted(() => {
         leave-from-class="opacity-100 translate-y-0"
         leave-to-class="opacity-0 -translate-y-2"
       >
-        <div v-if="isMobileMenuOpen" id="mobile-menu" class="lg:hidden pb-4 border-t border-gray-200 mt-2">
-          <div class="pt-4 space-y-1">
-            <a
-              v-for="item in navItems"
-              :key="item.label"
-              :href="item.href"
-              class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-500 hover:bg-gray-50 rounded-lg transition-colors"
-              @click.prevent="scrollToSection(item.href)"
-            >
-              {{ item.label }}
-            </a>
-          </div>
-          <div class="pt-4 px-4 space-y-3 border-t border-gray-200 mt-4">
-            <button
-              class="flex items-center gap-2 text-sm font-medium text-gray-700"
-              @click="toggleLanguage"
-              aria-label="Ganti bahasa"
-            >
-              <span>Bahasa:</span>
-              <span :class="{ 'text-primary-500 font-semibold': currentLanguage === 'ID' }">ID</span>
-              <span class="text-gray-400">|</span>
-              <span :class="{ 'text-primary-500 font-semibold': currentLanguage === 'EN' }">EN</span>
-            </button>
-            <UiBaseButton variant="primary" size="md" class="w-full" aria-label="Hubungi kami">
-              Hubungi Kami
-            </UiBaseButton>
+        <div
+          v-if="isMobileMenuOpen"
+          id="mobile-menu"
+          class="lg:hidden mt-1 rounded-3xl bg-gradient-to-r from-white/15 via-white/10 to-white/15 border border-white/20 backdrop-blur-xl shadow-2xl overflow-hidden pointer-events-auto"
+        >
+          <div class="divide-y divide-white/10">
+            <div class="py-3 space-y-1">
+              <button
+                v-for="item in navItems"
+                :key="item.key"
+                :href="item.href"
+                class="flex w-full items-center justify-between px-5 py-3 text-base font-semibold text-white/90 hover:bg-white/10 transition"
+                :class="item.key === 'home' ? 'text-white' : ''"
+                @click.prevent="scrollToSection(item.href)"
+              >
+                <span>{{ t(item.labelKey) }}</span>
+                <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-lg opacity-80" aria-hidden="true" />
+              </button>
+            </div>
+            <div class="p-5 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-semibold text-white/80">{{ t('language.label') }}</span>
+                <div class="flex items-center gap-2">
+                  <button
+                    v-for="lang in availableLanguages"
+                    :key="lang.code"
+                    type="button"
+                    class="flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold transition"
+                    :class="currentLanguage === lang.label ? 'bg-[#f6993c] text-white' : 'bg-white/10 text-white/85'"
+                    @click="setLanguage(lang.code)"
+                  >
+                    <img :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
+                    <span>{{ lang.label }}</span>
+                  </button>
+                </div>
+              </div>
+              <button
+                class="w-full rounded-full bg-[#f6993c] px-5 py-3 text-center text-base font-semibold text-white shadow-lg transition hover:shadow-xl"
+                :aria-label="ctaLabel"
+              >
+                {{ ctaLabel }}
+              </button>
+            </div>
           </div>
         </div>
       </Transition>
-    </nav>
+    </div>
   </header>
 </template>
-

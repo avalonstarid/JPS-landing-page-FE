@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useFaqStore } from '~/stores/faq'
+const { t } = useI18n()
 
 const faqStore = useFaqStore()
 const { faqs, isLoading } = storeToRefs(faqStore)
@@ -21,7 +22,7 @@ onMounted(async () => {
     <div class="container-main">
       <!-- Section Header -->
       <UiSectionHeader
-        title="Pertanyaan yang sering diajukan"
+        :title="t('faq.title')"
         align="center"
       />
 
@@ -48,7 +49,7 @@ onMounted(async () => {
         <div class="relative rounded-2xl overflow-hidden shadow-lg hidden lg:block">
           <img
             src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=800&h=600&fit=crop"
-            alt="Lorong peternakan ayam modern"
+            :alt="t('faq.imageAlt')"
             class="w-full h-full object-cover aspect-[4/3]"
             loading="lazy"
           />
@@ -59,12 +60,12 @@ onMounted(async () => {
       <!-- Contact CTA -->
       <div class="text-center mt-12">
         <p class="text-gray-600">
-          Masih memiliki pertanyaan?
+          {{ t('faq.contactLead') }}
           <a
             href="#kontak"
             class="text-primary-500 font-medium hover:text-primary-600 underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded"
           >
-            Hubungi kami
+            {{ t('faq.contactLink') }}
           </a>
         </p>
       </div>
