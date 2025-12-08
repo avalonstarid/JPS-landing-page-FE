@@ -2,12 +2,17 @@
 import type { Product } from '~/stores/product'
 import bgCard from '~/assets/images/Background-card.png'
 const { t } = useI18n()
+const router = useRouter()
 
 interface Props {
   product: Product
 }
 
 defineProps<Props>()
+
+const goToProduk = () => {
+  router.push('/produk')
+}
 </script>
 
 <template>
@@ -47,6 +52,7 @@ defineProps<Props>()
     <button
       class="absolute right-4 bottom-2 w-12 h-12 bg-[#f6993c] hover:bg-[#f28a26] text-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#f6993c]/60 focus:ring-offset-2"
       :aria-label="t('products.ariaViewProduct', { name: t(product.nameKey) })"
+      @click="goToProduk"
     >
       <span
         aria-hidden="true"

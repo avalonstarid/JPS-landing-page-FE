@@ -94,6 +94,50 @@
       }
     }
   },
+  "produkPage": {
+    "meta": {
+      "title": "Produk | PT Janu Putra Sejahtera",
+      "description": "Rangkaian produk unggas kami memenuhi standar kualitas, keamanan, dan konsistensi."
+    },
+    "hero": {
+      "badge": "Produk",
+      "title": "Solusi Perunggasan Terintegrasi",
+      "subtitle": "Kami menyediakan rangkaian produk unggas yang memenuhi standar kualitas, keamanan, dan konsisten",
+      "strap": "Kualitas • Keamanan • Konsistensi",
+      "imageAlt": "Peternakan unggas PT Janu Putra Sejahtera"
+    },
+    "list": {
+      "title": "Produk Komersial Kami",
+      "subtitle": "Setiap lini produk dirancang untuk menjawab kebutuhan industri perunggasan dari hulu ke hilir dengan mutu terbaik."
+    },
+    "items": {
+      "docParent": {
+        "title": "Day Old Chick (DOC) - Parent Stock",
+        "description": "DOC atau singkatan dari \"Day Old Chick\" merupakan sebutan untuk bibit ayam. DOC parent stock nantinya akan menjadi ayam yang akan menghasilkan ayam broiler. Kami memfasilitasi pasokan DOC Parent Stock yang tersedia untuk distribusi ke industri peternakan ayam di seluruh Indonesia. Kami menyadari bahwa peternak memerlukan bibit ayam broiler berkualitas, sehingga kami hanya menyediakan DOC terbaik.",
+        "alt": "DOC parent stock siap distribusi"
+      },
+      "docFinal": {
+        "title": "Day Old Chick (DOC) - Final Stock",
+        "description": "DOC atau singkatan dari \"Day Old Chick\" merupakan sebutan untuk bibit ayam. DOC final stock nantinya akan dibesarkan menjadi ayam broiler komersil. Kami memfasilitasi pasokan DOC final stock yang berkualitas dan terbaik untuk distribusi ke seluruh konsumen di wilayah Jawa dan Bali.",
+        "alt": "DOC final stock di kotak pemeliharaan"
+      },
+      "liveChicken": {
+        "title": "Ayam Hidup Broiler Komersial",
+        "description": "Ayam broiler merupakan ayam komersial yang digunakan sebagai ayam konsumsi. Kami menyediakan ayam broiler komersial dengan keadaan hidup untuk menjamin kualitas dan kesegaran supaya dapat diolah secara industri menjadi ayam potong. Ayam ini dipelihara dengan memperhatikan suhu dan kualitas kandang serta pakan yang menjamin mutu produk.",
+        "alt": "Ayam broiler komersial hidup"
+      },
+      "commercialEgg": {
+        "title": "Telur Komersial",
+        "description": "Telur komersial merupakan telur yang digunakan untuk keperluan konsumsi. Telur komersial Janu Putra Sejahtera dihasilkan dari peternakan ayam petelur yang berkualitas, dengan standar dan sistem yang baik, efisien, dan terintegrasi menjamin kualitas dari telur yang kami produksi.",
+        "alt": "Telur komersial siap distribusi"
+      },
+      "chickenCarcass": {
+        "title": "Karkas Ayam",
+        "description": "Karkas ayam atau ayam potong merupakan hasil produksi dari ayam broiler komersial yang telah melalui proses di rumah potong. Ayam yang akan didistribusikan untuk industri makanan ini terjamin keamanan, kualitas, serta kehalalannya karena telah melalui proses produksi yang ketat disertai dengan pengoptimalan teknologi terbaik kami.",
+        "alt": "Karkas ayam berkualitas"
+      }
+    }
+  },
   "testimonials": {
     "label": "Kata Mitra Kami",
     "ariaPrev": "Testimoni sebelumnya",

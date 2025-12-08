@@ -6,6 +6,8 @@ import flagEn from '~/assets/images/flag/circle-flags_uk.png'
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 const { t, locale, setLocale } = useI18n()
+const route = useRoute()
+const router = useRouter()
 
 const availableLanguages: Array<{ code: 'id' | 'en'; label: string; icon: string; alt: string }> = [
   { code: 'id', label: 'ID', icon: flagId, alt: 'Indonesia Flag' },
@@ -25,7 +27,7 @@ const navItems = [
   { key: 'home', href: '#beranda', labelKey: 'nav.home', hasDropdown: false },
   { key: 'about', href: '#tentang', labelKey: 'nav.about', hasDropdown: true },
   { key: 'business', href: '#nilai-kami', labelKey: 'nav.business', hasDropdown: false },
-  { key: 'products', href: '#produk', labelKey: 'nav.products', hasDropdown: false },
+  { key: 'products', route: '/produk', labelKey: 'nav.products', hasDropdown: false },
   { key: 'news', href: '#berita', labelKey: 'nav.news', hasDropdown: false },
   { key: 'career', href: '#karir', labelKey: 'nav.career', hasDropdown: false },
   { key: 'investor', href: '#investor', labelKey: 'nav.investor', hasDropdown: true },
@@ -33,6 +35,12 @@ const navItems = [
 
 const currentLanguage = computed(() => (locale.value === 'en' ? 'EN' : 'ID'))
 const ctaLabel = computed(() => t('common.contact'))
+const activeNavKey = computed(() => {
+  if (route.path === '/produk') {
+    return 'products'
+  }
+  return 'home'
+})
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
@@ -51,11 +59,26 @@ const setLanguage = async (lang: 'id' | 'en') => {
 }
 
 const scrollToSection = (href: string) => {
-  closeMobileMenu()
   const element = document.querySelector(href)
   if (element) {
     element.scrollIntoView({ behavior: 'smooth' })
   }
+}
+
+const navigateToNavItem = async (item: typeof navItems[number]) => {
+  closeMobileMenu()
+
+  if ('route' in item && item.route) {
+    await router.push(item.route)
+    return
+  }
+
+  if (route.path !== '/') {
+    await router.push({ path: '/', hash: item.href })
+    return
+  }
+
+  scrollToSection(item.href)
 }
 
 onMounted(() => {
@@ -95,11 +118,12 @@ onUnmounted(() => {
               :href="item.href"
               class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
               :class="[
-                item.key === 'home'
+                activeNavKey === item.key
                   ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
                   : 'text-white/85 hover:text-white hover:bg-white/10',
               ]"
-              @click.prevent="scrollToSection(item.href)"
+              :aria-current="activeNavKey === item.key ? 'page' : undefined"
+              @click.prevent="navigateToNavItem(item)"
             >
               <span>{{ t(item.labelKey) }}</span>
               <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-base opacity-80"></i>
@@ -208,8 +232,9 @@ onUnmounted(() => {
                 :key="item.key"
                 :href="item.href"
                 class="flex w-full items-center justify-between px-5 py-3 text-base font-semibold text-white/90 hover:bg-white/10 transition"
-                :class="item.key === 'home' ? 'text-white' : ''"
-                @click.prevent="scrollToSection(item.href)"
+                :class="activeNavKey === item.key ? 'text-white' : ''"
+                :aria-current="activeNavKey === item.key ? 'page' : undefined"
+                @click.prevent="navigateToNavItem(item)"
               >
                 <span>{{ t(item.labelKey) }}</span>
                 <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-lg opacity-80" aria-hidden="true" />

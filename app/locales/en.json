@@ -94,6 +94,50 @@
       }
     }
   },
+  "produkPage": {
+    "meta": {
+      "title": "Products | PT Janu Putra Sejahtera",
+      "description": "Our poultry range meets quality, safety, and consistency standards."
+    },
+    "hero": {
+      "badge": "Products",
+      "title": "Integrated Poultry Solutions",
+      "subtitle": "We provide a range of poultry products that meet quality, safety, and consistency standards.",
+      "strap": "Quality • Safety • Consistency",
+      "imageAlt": "PT Janu Putra Sejahtera poultry solutions"
+    },
+    "list": {
+      "title": "Our Commercial Products",
+      "subtitle": "Each product line is crafted to serve the poultry industry end-to-end with assured quality."
+    },
+    "items": {
+      "docParent": {
+        "title": "Day Old Chick (DOC) - Parent Stock",
+        "description": "DOC stands for Day Old Chick, our naming for day-old chicks. Parent stock will grow into the chickens that produce broilers. We facilitate the supply of DOC Parent Stock ready for distribution to poultry farms across Indonesia, providing only the best quality chicks for broiler breeders.",
+        "alt": "DOC parent stock ready for distribution"
+      },
+      "docFinal": {
+        "title": "Day Old Chick (DOC) - Final Stock",
+        "description": "DOC stands for Day Old Chick, our naming for day-old chicks. Final stock DOC will be raised into commercial broiler chickens. We provide high-quality DOC final stock for distribution to consumers across Java and Bali.",
+        "alt": "DOC final stock in brooders"
+      },
+      "liveChicken": {
+        "title": "Live Commercial Broiler",
+        "description": "Broiler chickens are commercial birds used for consumption. We supply live commercial broilers to guarantee quality and freshness so they can be processed into dressed chicken. They are raised with careful control of temperature, housing, and feed to uphold product quality.",
+        "alt": "Live commercial broiler chickens"
+      },
+      "commercialEgg": {
+        "title": "Commercial Eggs",
+        "description": "Commercial eggs are produced for consumption. Janu Putra Sejahtera eggs come from quality layer farms with efficient, integrated standards and systems to guarantee the eggs we produce.",
+        "alt": "Commercial eggs ready for market"
+      },
+      "chickenCarcass": {
+        "title": "Chicken Carcass",
+        "description": "Chicken carcass is the dressed chicken produced from commercial broilers that have been processed at the plant. The poultry we distribute to the food industry is guaranteed for safety, quality, and halal compliance thanks to strict production processes and technology optimization.",
+        "alt": "High-quality chicken carcass"
+      }
+    }
+  },
   "testimonials": {
     "label": "Testimonials",
     "ariaPrev": "Previous testimonial",
