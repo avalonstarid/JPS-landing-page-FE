@@ -138,6 +138,30 @@
       }
     }
   },
+  "beritaPage": {
+    "meta": {
+      "title": "News | PT Janu Putra Sejahtera",
+      "shortTitle": "JPS News",
+      "description": "Latest updates about activities, innovations, and announcements from PT Janu Putra Sejahtera."
+    },
+    "hero": {
+      "badge": "News",
+      "title": "Latest Stories from JPS",
+      "subtitle": "Follow insights on innovation, partnerships, and the newest progress in poultry.",
+      "imageAlt": "Latest news from PT Janu Putra Sejahtera"
+    },
+    "sections": {
+      "popularTitle": "Popular News",
+      "popularSubtitle": "Most-read highlights from our partners and customers.",
+      "latestTitle": "Latest News",
+      "latestSubtitle": "Fresh updates curated for you."
+    },
+    "detail": {
+      "back": "Back to News",
+      "summary": "Summary",
+      "related": "Related News"
+    }
+  },
   "testimonials": {
     "label": "Testimonials",
     "ariaPrev": "Previous testimonial",

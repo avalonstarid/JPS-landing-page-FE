@@ -65,4 +65,16 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
+
+  nitro: {
+    prerender: {
+      routes: [
+        '/berita',
+      ],
+    },
+  },
+
+  routeRules: {
+    '/berita/**': { ssr: true },
+  },
 })

@@ -28,7 +28,7 @@ const navItems = [
   { key: 'about', href: '#tentang', labelKey: 'nav.about', hasDropdown: true },
   { key: 'business', href: '#nilai-kami', labelKey: 'nav.business', hasDropdown: false },
   { key: 'products', route: '/produk', labelKey: 'nav.products', hasDropdown: false },
-  { key: 'news', href: '#berita', labelKey: 'nav.news', hasDropdown: false },
+  { key: 'news', route: '/berita', labelKey: 'nav.news', hasDropdown: false },
   { key: 'career', href: '#karir', labelKey: 'nav.career', hasDropdown: false },
   { key: 'investor', href: '#investor', labelKey: 'nav.investor', hasDropdown: true },
 ]
@@ -38,6 +38,9 @@ const ctaLabel = computed(() => t('common.contact'))
 const activeNavKey = computed(() => {
   if (route.path === '/produk') {
     return 'products'
+  }
+  if (route.path.startsWith('/berita')) {
+    return 'news'
   }
   return 'home'
 })

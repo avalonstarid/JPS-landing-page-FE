@@ -138,6 +138,30 @@
       }
     }
   },
+  "beritaPage": {
+    "meta": {
+      "title": "Berita | PT Janu Putra Sejahtera",
+      "shortTitle": "Berita JPS",
+      "description": "Kabar terbaru seputar aktivitas, inovasi, dan pembaruan dari PT Janu Putra Sejahtera."
+    },
+    "hero": {
+      "badge": "Berita",
+      "title": "Rangkuman Kabar Terbaru dari JPS",
+      "subtitle": "Ikuti informasi seputar inovasi, kemitraan, dan perkembangan terkini dalam industri perunggasan.",
+      "imageAlt": "Berita terbaru PT Janu Putra Sejahtera"
+    },
+    "sections": {
+      "popularTitle": "Berita Terpopuler",
+      "popularSubtitle": "Sorotan kabar yang paling banyak dibaca oleh pelanggan dan mitra kami.",
+      "latestTitle": "Berita Terbaru",
+      "latestSubtitle": "Kumpulan update terbaru yang dirangkum untuk Anda."
+    },
+    "detail": {
+      "back": "Kembali ke Berita",
+      "summary": "Ringkasan",
+      "related": "Berita Terkait"
+    }
+  },
   "testimonials": {
     "label": "Kata Mitra Kami",
     "ariaPrev": "Testimoni sebelumnya",

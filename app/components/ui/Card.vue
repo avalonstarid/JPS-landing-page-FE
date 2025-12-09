@@ -1,5 +1,13 @@
 <template>
-  <div class="card-wrapper relative" :style="{ width: cardWidth, height: cardHeight }">
+  <div
+    class="card-wrapper relative cursor-pointer"
+    :style="{ width: cardWidth, height: cardHeight }"
+    role="button"
+    tabindex="0"
+    @click="$emit('click')"
+    @keyup.enter="$emit('click')"
+    @keyup.space.prevent="$emit('click')"
+  >
     <!-- SVG Card with notch cutout - creates true transparency -->
     <svg
       class="absolute inset-0 w-full h-full"
@@ -64,7 +72,7 @@
     <!-- Orange button positioned outside the card (in the notch area) -->
     <button
       type="button"
-      class="absolute z-20 flex items-center justify-center rounded-[20px] bg-[#f6993c] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6993c]"
+      class="absolute z-20 flex items-center justify-center rounded-full bg-[#f6993c] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6993c]"
       :style="{
         width: `${buttonSize}px`,
         height: `${buttonSize}px`,
@@ -89,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 
 interface Props {
   imageUrl: string
@@ -114,9 +122,10 @@ defineEmits<{
 }>()
 
 // Generate unique IDs for SVG elements to avoid conflicts when multiple cards are rendered
-const uniqueId = computed(() => Math.random().toString(36).substring(2, 9))
-const clipPathId = computed(() => `card-clip-${uniqueId.value}`)
-const gradientId = computed(() => `card-gradient-${uniqueId.value}`)
+const instance = getCurrentInstance()
+const stableId = computed(() => instance?.uid ?? 0)
+const clipPathId = computed(() => `card-clip-${stableId.value}`)
+const gradientId = computed(() => `card-gradient-${stableId.value}`)
 
 // Card dimensions
 const svgWidth = computed(() => props.width)
