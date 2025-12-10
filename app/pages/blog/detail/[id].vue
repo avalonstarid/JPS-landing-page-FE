@@ -114,7 +114,7 @@ useHead(() => ({
                 title=""
                 description=""
                 avatar-url=""
-                :width="360"
+                :fill-parent="true"
                 :height="220"
                 :aria-label="item.title"
               />

@@ -24,7 +24,7 @@ const detailPath = (id: string) => `/berita/detail/${id}`
         <div
           v-for="item in latestLayout"
           :key="item.id"
-          class="space-y-3 flex flex-col items-start max-w-[280px] w-full mx-auto"
+          class="space-y-3 w-full mx-auto"
         >
           <NuxtLink :to="detailPath(item.id)" class="block">
             <UiCard
@@ -33,7 +33,7 @@ const detailPath = (id: string) => `/berita/detail/${id}`
               :time-ago="''"
               :title="''"
               :description="''"
-              :width="280"
+              :fill-parent="true"
               :height="240"
               :aria-label="`Baca ${item.title}`"
             />

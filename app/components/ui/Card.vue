@@ -1,7 +1,8 @@
 <template>
   <div
     class="card-wrapper relative cursor-pointer"
-    :style="{ width: cardWidth, height: cardHeight }"
+    :style="containerStyle"
+    ref="cardRef"
     role="button"
     tabindex="0"
     @click="$emit('click')"
@@ -72,7 +73,7 @@
     <!-- Orange button positioned outside the card (in the notch area) -->
     <button
       type="button"
-      class="absolute z-20 flex mr-[-10px] items-center justify-center rounded-full bg-[#f6993c] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6993c]"
+      class="absolute z-20 bottom-0 flex mr-[-10px] items-center justify-center rounded-full bg-[#f6993c] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6993c]"
       :style="{
         width: `${buttonSize}px`,
         height: `${buttonSize}px`,
@@ -97,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, getCurrentInstance } from 'vue'
+import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref } from 'vue'
 
 interface Props {
   imageUrl: string
@@ -110,12 +111,14 @@ interface Props {
   height?: number
   ariaLabel?: string
   isWhite?: boolean
+  fillParent?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   width: 340,
   height: 420,
-  ariaLabel: 'View details'
+  ariaLabel: 'View details',
+  fillParent: false
 })
 
 defineEmits<{
@@ -129,10 +132,39 @@ const clipPathId = computed(() => `card-clip-${stableId.value}`)
 const gradientId = computed(() => `card-gradient-${stableId.value}`)
 
 // Card dimensions
-const svgWidth = computed(() => props.width)
-const svgHeight = computed(() => props.height)
-const cardWidth = computed(() => `${props.width}px`)
-const cardHeight = computed(() => `${props.height}px`)
+const cardRef = ref<HTMLElement | null>(null)
+const measuredWidth = ref<number | null>(null)
+const aspectRatio = computed(() => props.width / props.height)
+
+const effectiveWidth = computed(() => {
+  if (props.fillParent && measuredWidth.value) return measuredWidth.value
+  return props.width
+})
+
+const effectiveHeight = computed(() => {
+  if (props.fillParent && measuredWidth.value) return measuredWidth.value / aspectRatio.value
+  return props.height
+})
+
+const svgWidth = computed(() => effectiveWidth.value)
+const svgHeight = computed(() => effectiveHeight.value)
+
+const containerStyle = computed(() => {
+  if (props.fillParent) {
+    return {
+      width: '100%',
+      aspectRatio: `${props.width} / ${props.height}`,
+      height: 'auto',
+    }
+  }
+
+  return {
+    width: `${props.width}px`,
+    maxWidth: `${props.width}px`,
+    aspectRatio: `${props.width} / ${props.height}`,
+    height: 'auto',
+  }
+})
 
 // Notch and button configuration
 const cornerRadius = 24
@@ -183,6 +215,28 @@ const cardPath = computed(() => {
     Q 0 0 ${r} 0
     Z
   `
+})
+
+let resizeObserver: ResizeObserver | null = null
+
+onMounted(() => {
+  if (!props.fillParent) return
+  if (cardRef.value) {
+    resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (entry?.contentRect?.width) {
+        measuredWidth.value = entry.contentRect.width
+      }
+    })
+    resizeObserver.observe(cardRef.value)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (resizeObserver && cardRef.value) {
+    resizeObserver.unobserve(cardRef.value)
+  }
+  resizeObserver = null
 })
 </script>
 

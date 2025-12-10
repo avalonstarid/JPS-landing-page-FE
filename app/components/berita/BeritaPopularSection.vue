@@ -22,7 +22,7 @@ const detailPath = (id: string) => `/berita/detail/${id}`
 
       <div class="grid gap-10 lg:grid-cols-3">
         <!-- Column 1 - Card with text outside -->
-        <div class="space-y-4 flex flex-col items-start max-w-[360px] w-full mx-auto">
+        <div class="space-y-4 items-start w-full mx-auto">
           <NuxtLink :to="detailPath(popularLayout.primary.id)" class="block">
             <UiCard
               :image-url="popularLayout.primary.image"
@@ -30,8 +30,8 @@ const detailPath = (id: string) => `/berita/detail/${id}`
               :time-ago="''"
               :title="''"
               :description="''"
-              :width="360"
-              :height="300"
+                  :height="260"
+                  :fill-parent="true"
               :aria-label="`Baca ${popularLayout.primary.title}`"
             />
           </NuxtLink>
@@ -62,7 +62,7 @@ const detailPath = (id: string) => `/berita/detail/${id}`
               :title="popularLayout.highlight.title"
               :description="popularLayout.highlight.description"
               :avatar-url="logoJps"
-              :width="400"
+              :fill-parent="true"
               :height="460"
               :aria-label="`Baca ${popularLayout.highlight.title}`"
             />
@@ -83,8 +83,8 @@ const detailPath = (id: string) => `/berita/detail/${id}`
                 :time-ago="''"
                 :title="''"
                 :description="''"
-                :width="340"
-                :height="140"
+                :fill-parent="true"
+                :height="150"
                 :aria-label="`Baca ${item.title}`"
               />
             </NuxtLink>

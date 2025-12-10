@@ -55,8 +55,9 @@ useHead(() => ({
               :company="featured.company"
               :time-ago="featured.timeAgo"
               :avatar-url="logoJps"
-              :height="380"
               :aria-label="featured.title"
+              :height="140"
+              :fill-parent="true"
             />
           </NuxtLink>
 
@@ -103,6 +104,7 @@ useHead(() => ({
                   description=""
                   avatar-url=""
                   :height="260"
+                  :fill-parent="true"
                   :aria-label="item.title"
                 />
               </NuxtLink>
