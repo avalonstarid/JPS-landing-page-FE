@@ -84,7 +84,7 @@ const detailPath = (id: string) => `/berita/detail/${id}`
                 :title="''"
                 :description="''"
                 :width="340"
-                :height="240"
+                :height="140"
                 :aria-label="`Baca ${item.title}`"
               />
             </NuxtLink>

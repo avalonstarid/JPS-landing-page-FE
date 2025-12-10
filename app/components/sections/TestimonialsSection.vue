@@ -49,14 +49,11 @@ const goToNext = () => {
       </div>
 
       <!-- Testimonial Content -->
-      <div v-else-if="currentTestimonial" class="max-w-4xl mx-auto">
+      <div v-else-if="currentTestimonial" class="mx-auto">
         <div
-          class="relative rounded-[30px] px-6 py-8 md:px-10 md:py-12"
+          class="relative rounded-[30px] px-6 py-8 md:px-10 md:py-12 w-full max-w-5xl min-h-[420px] md:min-h-[500px] mx-auto bg-no-repeat bg-center bg-contain"
           :style="{
             backgroundImage: `url(${containerTesti})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
           }"
         >
           <!-- Navigation Arrows -->

@@ -46,7 +46,7 @@ const goToProduk = () => {
 
         <!-- View All CTA -->
         <div
-          class="w-full max-w-[320px] rounded-[28px] text-white p-6 flex flex-col justify-between min-h-[260px] bg-cover bg-center"
+          class="w-full max-w-[320px] rounded-[28px] text-white p-6 flex flex-col justify-between min-h-[260px] bg-cover bg-center mt-20"
           :style="{
             backgroundImage: `url(${bgCta})`,
             backgroundSize: 'contain',

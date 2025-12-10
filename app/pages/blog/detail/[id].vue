@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import logoJps from '~/assets/images/logo-jps.png'
 import UiCard from '~/components/ui/Card.vue'
-import { findBeritaById, latestLayout } from '~/utils/beritaData'
+import { blogLatest, findBlogById } from '~/utils/blogData'
 
 const route = useRoute()
 const router = useRouter()
@@ -12,15 +12,15 @@ definePageMeta({
   prerender: true,
 })
 
-const article = computed(() => findBeritaById(route.params.id as string))
-const latestArticles = computed(() => latestLayout.filter((item) => item.id !== article.value.id).slice(0, 4))
+const article = computed(() => findBlogById(route.params.id as string))
+const latestArticles = computed(() => blogLatest.filter((item) => item.id !== article.value.id).slice(0, 4))
 
 const goBack = () => {
-  router.push('/berita')
+  router.push('/blog')
 }
 
 useHead(() => ({
-  title: `${article.value.title} | ${t('beritaPage.meta.shortTitle')}`,
+  title: `${article.value.title} | Blog`,
   meta: [
     {
       name: 'description',
@@ -44,20 +44,15 @@ useHead(() => ({
 
 <template>
   <div class="bg-[#fdeee0] min-h-screen">
-    <!-- Hero Header -->
     <section class="relative overflow-hidden">
       <div class="absolute inset-0">
         <img :src="article.image" :alt="article.title" class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/30" />
       </div>
-
-      <div class="relative z-10 container-main py-20 lg:py-28 space-y-6">
-        <div class="min-h-[20rem]"></div>
-      </div>
+      <div class="relative z-10 container-main py-20 lg:py-28" />
     </section>
 
     <div class="container-main py-12 lg:py-16 space-y-6">
-      <!-- Breadcrumb & Back -->
       <button
         class="inline-flex items-center gap-2 rounded-full bg-white px-3 text-[#3d4f92] shadow hover:shadow-md transition"
         type="button"
@@ -66,63 +61,50 @@ useHead(() => ({
         <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
         <span>{{ t('beritaPage.detail.back') }}</span>
       </button>
-      <div class="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-700">
-        <div class="flex items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">
-          <NuxtLink to="/" class="hover:underline">{{ t('nav.home') }}</NuxtLink>
-          <span>/</span>
-          <NuxtLink to="/berita" class="hover:underline">{{ t('nav.news') }}</NuxtLink>
-          <span>/</span>
-          <span class="text-gray-600 line-clamp-1">{{ article.title }}</span>
-        </div>
+
+      <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">
+        <NuxtLink to="/" class="hover:underline">{{ t('nav.home') }}</NuxtLink>
+        <span>/</span>
+        <NuxtLink to="/blog" class="hover:underline">Blog</NuxtLink>
+        <span>/</span>
+        <span class="text-gray-600 line-clamp-1">{{ article.title }}</span>
       </div>
+
       <div class="flex flex-wrap items-start justify-between gap-4">
         <h1 class="text-3xl md:text-4xl font-bold text-[#3d4f92] leading-tight max-w-3xl">
           {{ article.title }}
         </h1>
         <div class="flex items-center gap-2">
-          <button
-            class="w-11 h-11 rounded-full flex items-center justify-center text-black hover:shadow-md transition"
-            type="button"
-            aria-label="Sukai"
-          >
+          <button class="w-11 h-11 rounded-full flex items-center justify-center text-black hover:shadow-md transition" type="button" aria-label="Sukai">
             <i class="mdi mdi-heart-outline text-xl" aria-hidden="true"></i>
           </button>
-          <button
-            class="w-11 h-11 rounded-full flex items-center justify-center text-black hover:shadow-md transition"
-            type="button"
-            aria-label="Bagikan"
-          >
+          <button class="w-11 h-11 rounded-full flex items-center justify-center text-black hover:shadow-md transition" type="button" aria-label="Bagikan">
             <i class="mdi mdi-share-variant text-xl" aria-hidden="true"></i>
           </button>
         </div>
       </div>
+
       <div class="grid gap-10 lg:grid-cols-[1fr_290px]">
-        <!-- Main Article -->
         <article class="space-y-6">
-          <div class="rounded-3xl">
-            
+          <div class="flex flex-wrap items-center gap-3 text-sm text-gray-700">
+            <img :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+            <span class="font-semibold">{{ article.company }}</span>
+            <span class="text-gray-400">•</span>
+            <span>{{ article.timeAgo }}</span>
+          </div>
 
-            <div class="flex flex-wrap items-center gap-3 text-sm text-gray-700">
-              <img :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
-              <span class="font-semibold">{{ article.company }}</span>
-              <span class="text-gray-400">•</span>
-              <span>{{ article.timeAgo }}</span>
-            </div>
-
-            <div class="mt-6 text-[#333] leading-relaxed text-lg ">
-              <p v-for="(paragraph, idx) in article.content" :key="idx">{{ paragraph }}</p>
-            </div>
+          <div class="mt-2 text-[#333] leading-relaxed text-lg space-y-4">
+            <p v-for="(paragraph, idx) in article.content" :key="idx">{{ paragraph }}</p>
           </div>
         </article>
 
-        <!-- Sidebar -->
-        <aside class="space-y-5 mt-11">
-          <h3 class="text-lg font-semibold">Berita Baru</h3>
+        <aside class="space-y-5 mt-4">
+          <h3 class="text-lg font-semibold">Blog Terbaru</h3>
           <div class="space-y-4">
             <NuxtLink
               v-for="item in latestArticles"
               :key="item.id"
-              :to="`/berita/detail/${item.id}`"
+              :to="`/blog/detail/${item.id}`"
               class="flex flex-col gap-3"
             >
               <UiCard
@@ -133,7 +115,7 @@ useHead(() => ({
                 description=""
                 avatar-url=""
                 :width="360"
-                :height="260"
+                :height="220"
                 :aria-label="item.title"
               />
               <div class="px-1 space-y-1">
@@ -147,9 +129,6 @@ useHead(() => ({
                 <p class="text-xs text-[#555] leading-snug line-clamp-2">{{ item.excerpt }}</p>
               </div>
             </NuxtLink>
-            <div class="flex items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">
-              <NuxtLink to="/" class="hover:underline">Lihat lebih banyak...</NuxtLink>
-            </div>
           </div>
         </aside>
       </div>

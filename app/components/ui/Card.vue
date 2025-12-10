@@ -34,7 +34,7 @@
       />
 
       <!-- Dark gradient overlay -->
-      <defs>
+      <defs v-if="!isWhite">
         <linearGradient :id="gradientId" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="rgba(0,0,0,0)" />
           <stop offset="40%" stop-color="rgba(0,0,0,0.3)" />
@@ -58,11 +58,11 @@
         <span>{{ timeText }}</span>
       </div>
 
-      <h2 class="text-[18px] font-semibold leading-snug mb-2">
+      <h2 class="text-[18px] font-semibold leading-snug mb-2" :class="{'text-black': isWhite}">
         {{ titleText }}
       </h2>
 
-      <p class="description-text text-[12px] opacity-90 text-justify">
+      <p class="description-text text-[12px] opacity-90 text-justify" :class="{'text-black': isWhite}">
         <!-- Float element that creates the wrap-around effect for the notch - must be BEFORE text -->
         <span class="notch-spacer" aria-hidden="true"></span>
         {{ descriptionText }}
@@ -72,7 +72,7 @@
     <!-- Orange button positioned outside the card (in the notch area) -->
     <button
       type="button"
-      class="absolute z-20 flex items-center justify-center rounded-full bg-[#f6993c] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6993c]"
+      class="absolute z-20 flex mr-[-10px] items-center justify-center rounded-full bg-[#f6993c] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6993c]"
       :style="{
         width: `${buttonSize}px`,
         height: `${buttonSize}px`,
@@ -109,6 +109,7 @@ interface Props {
   width?: number
   height?: number
   ariaLabel?: string
+  isWhite?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -188,6 +189,30 @@ const cardPath = computed(() => {
 <style scoped>
 .card-wrapper {
   filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
+  transition: transform 220ms ease, filter 220ms ease, box-shadow 220ms ease;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-6px) scale(1.01);
+  filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.2));
+}
+
+.card-wrapper:active {
+  transform: translateY(-2px) scale(0.995);
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+}
+
+.card-wrapper.no-image {
+  filter: none;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.card-wrapper.no-image:hover {
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.12);
+  filter: none;
 }
 
 .description-text {

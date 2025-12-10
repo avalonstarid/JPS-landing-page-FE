@@ -28,7 +28,17 @@ const navItems = [
   { key: 'about', href: '#tentang', labelKey: 'nav.about', hasDropdown: true },
   { key: 'business', href: '#nilai-kami', labelKey: 'nav.business', hasDropdown: false },
   { key: 'products', route: '/produk', labelKey: 'nav.products', hasDropdown: false },
-  { key: 'news', route: '/berita', labelKey: 'nav.news', hasDropdown: false },
+  {
+    key: 'news',
+    route: '/berita',
+    labelKey: 'nav.news',
+    hasDropdown: true,
+    children: [
+      { key: 'news-berita', label: 'Berita', route: '/berita' },
+      { key: 'news-blog', label: 'Blog', route: '/blog' },
+      { key: 'news-pengumuman', label: 'Pengumuman', route: '/pengumuman' },
+    ],
+  },
   { key: 'career', href: '#karir', labelKey: 'nav.career', hasDropdown: false },
   { key: 'investor', href: '#investor', labelKey: 'nav.investor', hasDropdown: true },
 ]
@@ -39,11 +49,13 @@ const activeNavKey = computed(() => {
   if (route.path === '/produk') {
     return 'products'
   }
-  if (route.path.startsWith('/berita')) {
+  if (route.path.startsWith('/berita') || route.path.startsWith('/blog') || route.path.startsWith('/pengumuman')) {
     return 'news'
   }
   return 'home'
 })
+const openDropdown = ref<string | null>(null)
+const openMobileDropdown = ref<string | null>(null)
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
@@ -55,6 +67,7 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
+  openMobileDropdown.value = null
 }
 
 const setLanguage = async (lang: 'id' | 'en') => {
@@ -82,6 +95,15 @@ const navigateToNavItem = async (item: typeof navItems[number]) => {
   }
 
   scrollToSection(item.href)
+}
+
+const handleDesktopNav = async (item: typeof navItems[number]) => {
+  if (item.children) {
+    openDropdown.value = openDropdown.value === item.key ? null : item.key
+    return
+  }
+  openDropdown.value = null
+  await navigateToNavItem(item)
 }
 
 onMounted(() => {
@@ -115,22 +137,42 @@ onUnmounted(() => {
               isScrolled ? 'shadow-[0_20px_70px_-25px_rgba(0,0,0,0.6)]' : 'shadow-[0_20px_80px_-35px_rgba(0,0,0,0.55)]',
             ]"
           >
-            <button
+            <div
               v-for="item in navItems"
               :key="item.key"
-              :href="item.href"
-              class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
-              :class="[
-                activeNavKey === item.key
-                  ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
-                  : 'text-white/85 hover:text-white hover:bg-white/10',
-              ]"
-              :aria-current="activeNavKey === item.key ? 'page' : undefined"
-              @click.prevent="navigateToNavItem(item)"
+              class="relative"
             >
-              <span>{{ t(item.labelKey) }}</span>
-              <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-base opacity-80"></i>
-            </button>
+              <button
+                :href="item.href"
+                class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
+                :class="[
+                  activeNavKey === item.key
+                    ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
+                    : 'text-white/85 hover:text-white hover:bg-white/10',
+                ]"
+                :aria-current="activeNavKey === item.key ? 'page' : undefined"
+                @click.prevent="handleDesktopNav(item)"
+              >
+                <span>{{ t(item.labelKey) }}</span>
+                <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-base opacity-80"></i>
+              </button>
+
+              <div
+                v-if="item.children && openDropdown === item.key"
+                class="absolute left-1/2 top-full mt-2 -translate-x-1/2 min-w-[180px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2"
+              >
+                <NuxtLink
+                  v-for="child in item.children"
+                  :key="child.key"
+                  :to="child.route"
+                  class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
+                  @click="openDropdown = null"
+                >
+                  <span>{{ child.label }}</span>
+                  <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                </NuxtLink>
+              </div>
+            </div>
 
             <div class="mx-3 h-6 w-px bg-white/0" aria-hidden="true" />
           </div>
@@ -230,18 +272,33 @@ onUnmounted(() => {
         >
           <div class="divide-y divide-white/10">
             <div class="py-3 space-y-1">
-              <button
-                v-for="item in navItems"
-                :key="item.key"
-                :href="item.href"
-                class="flex w-full items-center justify-between px-5 py-3 text-base font-semibold text-white/90 hover:bg-white/10 transition"
-                :class="activeNavKey === item.key ? 'text-white' : ''"
-                :aria-current="activeNavKey === item.key ? 'page' : undefined"
-                @click.prevent="navigateToNavItem(item)"
-              >
-                <span>{{ t(item.labelKey) }}</span>
-                <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-lg opacity-80" aria-hidden="true" />
-              </button>
+              <div v-for="item in navItems" :key="item.key" class="px-2">
+                <button
+                  :href="item.href"
+                  class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-white/90 hover:bg-white/10 transition rounded-xl"
+                  :class="activeNavKey === item.key ? 'text-white' : ''"
+                  :aria-current="activeNavKey === item.key ? 'page' : undefined"
+                  @click.prevent="item.children ? (openMobileDropdown = openMobileDropdown === item.key ? null : item.key) : navigateToNavItem(item)"
+                >
+                  <span>{{ t(item.labelKey) }}</span>
+                  <i v-if="item.hasDropdown" class="mdi" :class="openMobileDropdown === item.key ? 'mdi-chevron-up' : 'mdi-chevron-down'" aria-hidden="true" />
+                </button>
+                <div
+                  v-if="item.children && openMobileDropdown === item.key"
+                  class="ml-3 mt-1 space-y-1"
+                >
+                  <NuxtLink
+                    v-for="child in item.children"
+                    :key="child.key"
+                    :to="child.route"
+                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/85 rounded-lg hover:bg-white/10 transition"
+                    @click="closeMobileMenu"
+                  >
+                    <span>{{ child.label }}</span>
+                    <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                  </NuxtLink>
+                </div>
+              </div>
             </div>
             <div class="p-5 space-y-4">
               <div class="flex items-center justify-between">

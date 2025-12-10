@@ -42,9 +42,10 @@ const detailPath = (id: string) => `/berita/detail/${id}`
           <NuxtLink :to="detailPath(item.id)" class="space-y-1 px-1 block">
             <div class="flex items-center gap-3 text-sm text-[#3d4f92]">
               <img :src="logoJps" alt="Logo JPS" class="w-7 h-7 rounded-full object-cover" />
-              <span class="font-semibold text-[#3d4f92]">{{ item.company }}</span>
-              <span class="text-gray-500">•</span>
-              <span class="text-gray-600">{{ item.timeAgo }}</span>
+              <div>
+                <div class="font-semibold text-[#3d4f92]">{{ item.company }}</div>
+                <div class="text-xs text-gray-600">{{ item.timeAgo }}</div>
+              </div>
             </div>
             <h3 class="text-lg font-semibold text-[#1f2937] leading-tight">{{ item.title }}</h3>
             <p class="text-sm text-[#555] leading-relaxed">{{ item.excerpt }}</p>
