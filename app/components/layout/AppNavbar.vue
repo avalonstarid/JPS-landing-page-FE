@@ -40,7 +40,19 @@ const navItems = [
     ],
   },
   { key: 'career', href: '#karir', labelKey: 'nav.career', hasDropdown: false },
-  { key: 'investor', href: '#investor', labelKey: 'nav.investor', hasDropdown: true },
+  {
+    key: 'investor',
+    route: '/relasi-investor/prospektus',
+    labelKey: 'nav.investor',
+    hasDropdown: true,
+    children: [
+      { key: 'investor-prospektus', label: 'Prospektus', route: '/relasi-investor/prospektus' },
+      { key: 'investor-laporan-keuangan', label: 'Laporan Keuangan', route: '/relasi-investor/laporan-keuangan' },
+      { key: 'investor-rups', label: 'RUPS', route: '/relasi-investor/rups' },
+      { key: 'investor-laporan-tahunan', label: 'Laporan Tahunan', route: '/relasi-investor/laporan-tahunan' },
+      { key: 'investor-keterbukaan-informasi', label: 'Keterbukaan Informasi', route: '/relasi-investor/keterbukaan-informasi' },
+    ],
+  },
 ]
 
 const currentLanguage = computed(() => (locale.value === 'en' ? 'EN' : 'ID'))
@@ -51,6 +63,9 @@ const activeNavKey = computed(() => {
   }
   if (route.path.startsWith('/berita') || route.path.startsWith('/blog') || route.path.startsWith('/pengumuman')) {
     return 'news'
+  }
+  if (route.path.startsWith('/relasi-investor')) {
+    return 'investor'
   }
   return 'home'
 })
@@ -63,6 +78,12 @@ const handleScroll = () => {
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
+const navigateToContact = async () => {
+  closeMobileMenu()
+  openDropdown.value = null
+  await router.push('/hubungi-kamu')
 }
 
 const closeMobileMenu = () => {
@@ -208,6 +229,7 @@ onUnmounted(() => {
           <button
             class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-5 py-2 text-sm font-semibold text-white shadow-[0_15px_40px_-18px_rgba(0,0,0,0.7)] transition hover:shadow-[0_20px_45px_-18px_rgba(0,0,0,0.75)]"
             :aria-label="ctaLabel"
+            @click="navigateToContact"
           >
             <span>{{ ctaLabel }}</span>
             <i class="mdi mdi-arrow-right text-lg" aria-hidden="true" />
@@ -228,6 +250,7 @@ onUnmounted(() => {
           <button
             class="rounded-full bg-[#f6993c] px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl"
             :aria-label="ctaLabel"
+            @click="navigateToContact"
           >
             {{ ctaLabel }}
           </button>
@@ -320,6 +343,7 @@ onUnmounted(() => {
               <button
                 class="w-full rounded-full bg-[#f6993c] px-5 py-3 text-center text-base font-semibold text-white shadow-lg transition hover:shadow-xl"
                 :aria-label="ctaLabel"
+                @click="navigateToContact"
               >
                 {{ ctaLabel }}
               </button>

@@ -209,6 +209,60 @@
       }
     }
   },
+  "contactPage": {
+    "meta": {
+      "title": "Contact Us",
+      "description": "For further information, partnerships, product inquiries"
+    },
+    "hero": {
+      "title": "Contact Us",
+      "subtitleLine1": "For further information, partnerships,",
+      "subtitleLine2": "product inquiries"
+    },
+    "message": {
+      "title": "Send Us a Message",
+      "mapTitle": "Google Maps",
+      "address": "Ruko Casa Grande No.35, Jl. Ringroad Utara, Maguwoharjo, Depok, Sleman, Daerah Istimewa Yogyakarta",
+      "form": {
+        "fullNameLabel": "Full Name*",
+        "fullNamePlaceholder": "Enter Your Name",
+        "emailLabel": "Email Address*",
+        "emailPlaceholder": "Enter Your Email Address",
+        "phoneLabel": "Phone Number*",
+        "phonePlaceholder": "Enter Your Phone Number",
+        "locationLabel": "Location/City*",
+        "locationPlaceholder": "Enter Your Location/City",
+        "messageLabel": "Message*",
+        "messagePlaceholder": "Write Your Message",
+        "submit": "Send Message"
+      }
+    },
+    "contactMore": {
+      "title": "More Contact",
+      "cards": {
+        "whatsapp": {
+          "title": "WhatsApp",
+          "value": "(0274) 871163",
+          "href": "https://wa.me/"
+        },
+        "email": {
+          "title": "Email",
+          "value": "marketing (at) jpsejahtera.co.id",
+          "href": "mailto:marketing"
+        },
+        "instagram": {
+          "title": "Instagram",
+          "value": "januputrasejahtera",
+          "href": "https://www.instagram.com/januputrasejahtera"
+        },
+        "linkedin": {
+          "title": "LinkedIn",
+          "value": "PT Janu Putra Sejahtera",
+          "href": "https://www.linkedin.com/"
+        }
+      }
+    }
+  },
   "footer": {
     "description": "A leading integrated poultry company in Indonesia, committed to delivering high-quality products that support protein needs for communities.",
     "columns": {

@@ -209,6 +209,60 @@
       }
     }
   },
+  "contactPage": {
+    "meta": {
+      "title": "Hubungi Kami",
+      "description": "Untuk informasi lebih lanjut, kemitraan, pertanyaan seputar produk"
+    },
+    "hero": {
+      "title": "Hubungi Kami",
+      "subtitleLine1": "Untuk informasi lebih lanjut, kemitraan,",
+      "subtitleLine2": "pertanyaan seputar produk"
+    },
+    "message": {
+      "title": "Kirim Pesan ke Kami",
+      "mapTitle": "Google Maps",
+      "address": "Ruko Casa Grande No.35, Jl. Ringroad Utara, Maguwoharjo, Depok, Sleman, Daerah Istimewa Yogyakarta",
+      "form": {
+        "fullNameLabel": "Nama Lengkap*",
+        "fullNamePlaceholder": "Masukkan Nama Anda",
+        "emailLabel": "Alamat Email*",
+        "emailPlaceholder": "Masukkan Alamat Email Anda",
+        "phoneLabel": "Nomor Telepon*",
+        "phonePlaceholder": "Masukkan Nomor Telepon Anda",
+        "locationLabel": "Lokasi/Kota*",
+        "locationPlaceholder": "Masukkan Lokasi/Kota Anda",
+        "messageLabel": "Pesan*",
+        "messagePlaceholder": "Tulis Pesan Anda",
+        "submit": "Kirim Pesan"
+      }
+    },
+    "contactMore": {
+      "title": "Kontak Lebih Lanjut",
+      "cards": {
+        "whatsapp": {
+          "title": "WhatsApp",
+          "value": "(0274) 871163",
+          "href": "https://wa.me/"
+        },
+        "email": {
+          "title": "Email",
+          "value": "marketing (at) jpsejahtera.co.id",
+          "href": "mailto:marketing"
+        },
+        "instagram": {
+          "title": "Instagram",
+          "value": "januputrasejahtera",
+          "href": "https://www.instagram.com/januputrasejahtera"
+        },
+        "linkedin": {
+          "title": "LinkedIn",
+          "value": "PT Janu Putra Sejahtera",
+          "href": "https://www.linkedin.com/"
+        }
+      }
+    }
+  },
   "footer": {
     "description": "Perusahaan peternakan ayam terintegrasi terkemuka di Indonesia yang berkomitmen menyediakan produk berkualitas tinggi untuk mendukung kebutuhan protein hewani masyarakat.",
     "columns": {

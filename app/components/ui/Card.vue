@@ -9,66 +9,102 @@
     @keyup.enter="$emit('click')"
     @keyup.space.prevent="$emit('click')"
   >
-    <!-- SVG Card with notch cutout - creates true transparency -->
-    <svg
-      class="absolute inset-0 w-full h-full"
-      :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <!-- Clip path for the image to match card shape -->
-        <clipPath :id="clipPathId">
-          <path :d="cardPath" />
-        </clipPath>
-      </defs>
+    <template v-if="variant === 'simple'">
+      <!-- Notched white card background -->
+      <svg
+        class="absolute inset-0 w-full h-full drop-shadow-[0_10px_30px_-18px_rgba(0,0,0,0.35)]"
+        :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path :d="cardPath" fill="#ffffff" />
+      </svg>
 
-      <!-- Background image clipped to card shape with notch -->
-      <image
-        :href="imageUrl"
-        x="0"
-        y="0"
-        :width="svgWidth"
-        :height="svgHeight"
-        preserveAspectRatio="xMidYMid slice"
-        :clip-path="`url(#${clipPathId})`"
-      />
+      <div class="relative z-10 flex h-full flex-col justify-between p-5">
+        <div class="flex items-center gap-3">
+          <div
+            v-if="iconClass"
+            class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-100"
+            :class="iconBgClass ?? 'bg-[#fdeee0]'"
+            aria-hidden="true"
+          >
+            <i class="text-2xl leading-none" :class="[iconClass, iconColorClass ?? 'text-[#1f2937]']" />
+          </div>
+          <div class="text-base font-semibold text-[#1f2937]">{{ companyText }}</div>
+        </div>
 
-      <!-- Dark gradient overlay -->
-      <defs v-if="!isWhite">
-        <linearGradient :id="gradientId" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="rgba(0,0,0,0)" />
-          <stop offset="40%" stop-color="rgba(0,0,0,0.3)" />
-          <stop offset="100%" stop-color="rgba(0,0,0,0.7)" />
-        </linearGradient>
-      </defs>
-      <path :d="cardPath" :fill="`url(#${gradientId})`" />
-    </svg>
-
-    <!-- Text content positioned over the SVG -->
-    <div class="relative z-10 flex h-full flex-col justify-end p-5 pb-6 text-white">
-      <div class="flex items-center gap-2 text-[11px] opacity-90 mb-2">
-        <img
-          v-if="avatarUrl"
-          :src="avatarUrl"
-          :alt="companyText"
-          class="w-6 h-6 rounded-full object-cover"
-        />
-        <span class="font-medium">{{ companyText }}</span>
-        <span>•</span>
-        <span>{{ timeText }}</span>
+        <div class="space-y-2">
+          <p class="text-sm text-[#1f2937] leading-snug">
+            <span class="notch-spacer" aria-hidden="true"></span>
+            {{ descriptionText }}
+          </p>
+        </div>
       </div>
+    </template>
 
-      <h2 class="text-[18px] font-semibold leading-snug mb-2" :class="{'text-black': isWhite}">
-        {{ titleText }}
-      </h2>
+    <template v-else>
+      <!-- SVG Card with notch cutout - creates true transparency -->
+      <svg
+        class="absolute inset-0 w-full h-full"
+        :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <!-- Clip path for the image to match card shape -->
+          <clipPath :id="clipPathId">
+            <path :d="cardPath" />
+          </clipPath>
+        </defs>
 
-      <p class="description-text text-[12px] opacity-90 text-justify" :class="{'text-black': isWhite}">
-        <!-- Float element that creates the wrap-around effect for the notch - must be BEFORE text -->
-        <span class="notch-spacer" aria-hidden="true"></span>
-        {{ descriptionText }}
-      </p>
-    </div>
+        <!-- Background image clipped to card shape with notch -->
+        <image
+          :href="imageUrl"
+          x="0"
+          y="0"
+          :width="svgWidth"
+          :height="svgHeight"
+          preserveAspectRatio="xMidYMid slice"
+          :clip-path="`url(#${clipPathId})`"
+        />
+
+        <!-- Dark gradient overlay -->
+        <defs v-if="!isWhite">
+          <linearGradient :id="gradientId" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+            <stop offset="40%" stop-color="rgba(0,0,0,0.3)" />
+            <stop offset="100%" stop-color="rgba(0,0,0,0.7)" />
+          </linearGradient>
+        </defs>
+        <path v-if="!isWhite" :d="cardPath" :fill="`url(#${gradientId})`" />
+      </svg>
+
+      <!-- Text content positioned over the SVG -->
+      <div class="relative z-10 flex h-full flex-col justify-end p-5 pb-6 text-white">
+        <div v-if="showMeta" class="flex items-center gap-2 text-[11px] opacity-90 mb-2">
+          <i v-if="iconClass" class="text-xl leading-none" :class="iconClass" aria-hidden="true" />
+          <img
+            v-else-if="avatarUrl"
+            :src="avatarUrl"
+            :alt="companyText"
+            class="w-6 h-6 rounded-full object-cover"
+          />
+          <span v-if="hasCompany" class="font-medium">{{ companyText }}</span>
+          <span v-if="hasCompany && hasTime">•</span>
+          <span v-if="hasTime">{{ timeText }}</span>
+        </div>
+
+        <h2 v-if="hasTitle" class="text-[18px] font-semibold leading-snug mb-2" :class="{'text-black': isWhite}">
+          {{ titleText }}
+        </h2>
+
+        <p v-if="hasDescription" class="description-text text-[12px] opacity-90 text-justify" :class="{'text-black': isWhite}">
+          <!-- Float element that creates the wrap-around effect for the notch - must be BEFORE text -->
+          <span class="notch-spacer" aria-hidden="true"></span>
+          {{ descriptionText }}
+        </p>
+      </div>
+    </template>
 
     <!-- Orange button positioned outside the card (in the notch area) -->
     <button
@@ -107,18 +143,23 @@ interface Props {
   title?: string
   description?: string
   avatarUrl?: string
+  iconClass?: string
+  iconBgClass?: string
+  iconColorClass?: string
   width?: number
   height?: number
   ariaLabel?: string
   isWhite?: boolean
   fillParent?: boolean
+  variant?: 'notch' | 'simple'
 }
 
 const props = withDefaults(defineProps<Props>(), {
   width: 340,
   height: 420,
   ariaLabel: 'View details',
-  fillParent: false
+  fillParent: false,
+  variant: 'notch',
 })
 
 defineEmits<{
@@ -182,6 +223,12 @@ const descriptionText = computed(
     props.description ??
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat jeopeprp slaesoz. deiaol skedioper akeiay rytoep.'
 )
+
+const hasCompany = computed(() => companyText.value.trim().length > 0)
+const hasTime = computed(() => timeText.value.trim().length > 0)
+const hasTitle = computed(() => titleText.value.trim().length > 0)
+const hasDescription = computed(() => descriptionText.value.trim().length > 0)
+const showMeta = computed(() => hasCompany.value || hasTime.value || !!props.avatarUrl || !!props.iconClass)
 
 /**
  * Generate SVG path for card with rounded corners and a rounded square notch
