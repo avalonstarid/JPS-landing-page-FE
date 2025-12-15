@@ -8,7 +8,19 @@
     "career": "Karir",
     "investor": "Relasi Investor",
     "contact": "Hubungi Kami",
-    "menuToggle": "Toggle menu navigasi"
+    "menuToggle": "Toggle menu navigasi",
+    "newsItems": {
+      "berita": "Berita",
+      "blog": "Blog",
+      "pengumuman": "Pengumuman"
+    },
+    "investorItems": {
+      "prospektus": "Prospektus",
+      "laporanKeuangan": "Laporan Keuangan",
+      "rups": "RUPS",
+      "laporanTahunan": "Laporan Tahunan",
+      "keterbukaanInformasi": "Keterbukaan Informasi"
+    }
   },
   "language": {
     "label": "Bahasa",
@@ -138,6 +150,168 @@
       }
     }
   },
+  "karirPage": {
+    "meta": {
+      "title": "Karir | PT Janu Putra Sejahtera",
+      "description": "Bergabunglah bersama PT Janu Putra Sejahtera. Temukan peluang karir dan kembangkan potensimu bersama kami."
+    },
+    "hero": {
+      "badge": "Karir",
+      "title": "Karir",
+      "imageAlt": "Karir di PT Janu Putra Sejahtera"
+    },
+    "about": {
+      "title": "Mengapa Bergabung Bersama Kami?",
+      "description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.",
+      "description2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor."
+    },
+    "filter": {
+      "title": "Filter",
+      "reset": "Reset",
+      "searchLabel": "Cari Judul Pekerjaan",
+      "searchPlaceholder": "Cari mau apa..",
+      "locationLabel": "Lokasi",
+      "locationAll": "Semua Lokasi",
+      "jobTypeLabel": "Bidang Pekerjaan",
+      "jobTypeAll": "Semua Bidang",
+      "locations": {
+        "yogyakarta": "Yogyakarta",
+        "purbalingga": "Purbalingga",
+        "kebumen": "Kebumen"
+      },
+      "jobTypes": {
+        "marketing": "Marketing",
+        "sales": "Sales",
+        "legal": "Legal"
+      }
+    },
+    "list": {
+      "noResults": "Tidak ada lowongan yang sesuai dengan filter.",
+      "apply": "Lamar Sekarang"
+    },
+    "detail": {
+      "modalTitle": "Detail Karir",
+      "apply": "Lamar Sekarang"
+    },
+    "form": {
+      "modalTitle": "Form Lamar Sekarang",
+      "subtitle": "Butuh informasi lebih lanjut tentang produk atau ketersediaannya? Silakan isi formulir di bawah",
+      "fullNameLabel": "Nama Lengkap",
+      "fullNamePlaceholder": "Masukkan Nama Anda",
+      "emailLabel": "Alamat Email",
+      "emailPlaceholder": "Masukkan Alamat Email Anda",
+      "phoneLabel": "Nomor Telepon/WhatsApp",
+      "phonePlaceholder": "Masukkan Nama Anda",
+      "genderLabel": "Jenis Kelamin",
+      "genderPlaceholder": "Pilih Jenis Kelamin Anda",
+      "genderOptions": {
+        "male": "Laki-laki",
+        "female": "Perempuan"
+      },
+      "ageLabel": "Umur",
+      "agePlaceholder": "Masukkan Umur Anda",
+      "maritalStatusLabel": "Status Pernikahan",
+      "maritalStatusPlaceholder": "Pilih Status Pernikahan Anda",
+      "maritalStatusOptions": {
+        "single": "Belum Menikah",
+        "married": "Menikah",
+        "divorced": "Cerai"
+      },
+      "educationLevelLabel": "Level Pendidikan",
+      "educationLevelPlaceholder": "Pilih Level Pendidikan Anda",
+      "educationLevelOptions": {
+        "sma": "SMA/SMK",
+        "d3": "D3",
+        "s1": "S1",
+        "s2": "S2",
+        "s3": "S3"
+      },
+      "institutionLabel": "Institusi Pendidikan",
+      "institutionPlaceholder": "Masukkan Institusi Pendidikan Anda",
+      "majorLabel": "Jurusan",
+      "majorPlaceholder": "Masukkan Jurusan Anda",
+      "resumeLabel": "Unggah Resume",
+      "resumePlaceholder": "Pilih File",
+      "resumeHint": "Format File: PDF, JPG, atau PNG",
+      "reasonLabel": "Alasan Melamar Posisi Tersebut",
+      "reasonPlaceholder": "Tulis Alasan Anda",
+      "submit": "Kirim Lamaran"
+    }
+  },
+  "liniBisnisPage": {
+    "meta": {
+      "title": "Lini Bisnis | PT Janu Putra Sejahtera",
+      "description": "Jelajahi berbagai lini bisnis PT Janu Putra Sejahtera dalam industri peternakan terintegrasi."
+    },
+    "hero": {
+      "title": "Bisnis Kami",
+      "imageAlt": "Lini bisnis PT Janu Putra Sejahtera"
+    },
+    "section": {
+      "title": "Lini Bisnis"
+    },
+    "tabs": {
+      "pembibitan": "Peternakan Pembibitan",
+      "broiler": "Peternakan Broiler",
+      "petelur": "Peternakan Petelur",
+      "penetasan": "Penetasan Telur",
+      "rpa": "Rumah Potong Ayam"
+    },
+    "businesses": {
+      "pembibitan": {
+        "title": "Peternakan Pembibitan",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan pembibitan ayam di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta ekor per bulan. Setiap fasilitas dirancang untuk menghasilkan performa ayam yang optimal melalui pengelolaan kandang yang modern dan efisien.",
+        "description2": "Kandang pembibitan dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, pakan yang digunakan telah diformulasikan secara nutrisionis untuk mendukung pertumbuhan ayam yang sehat dan seragam. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan ternak.",
+        "button": "Informasi Peternakan"
+      },
+      "broiler": {
+        "title": "Peternakan Broiler",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan ayam broiler di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta ekor per bulan. Setiap fasilitas dirancang untuk menghasilkan performa ayam yang optimal melalui pengelolaan kandang yang modern dan efisien.",
+        "description2": "Kandang broiler dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, pakan yang digunakan telah diformulasikan secara nutrisionis untuk mendukung pertumbuhan ayam yang sehat dan seragam. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan ternak.",
+        "button": "Informasi Peternakan"
+      },
+      "petelur": {
+        "title": "Peternakan Petelur",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan ayam petelur di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta butir per bulan. Setiap fasilitas dirancang untuk menghasilkan performa ayam yang optimal melalui pengelolaan kandang yang modern dan efisien.",
+        "description2": "Kandang petelur dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, pakan yang digunakan telah diformulasikan secara nutrisionis untuk mendukung pertumbuhan ayam yang sehat dan seragam. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan ternak.",
+        "button": "Informasi Peternakan"
+      },
+      "penetasan": {
+        "title": "Penetasan Telur",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan fasilitas penetasan telur di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta ekor per bulan. Setiap fasilitas dirancang untuk menghasilkan performa penetasan yang optimal melalui pengelolaan mesin penetas yang modern dan efisien.",
+        "description2": "Fasilitas penetasan dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, telur yang digunakan telah melalui proses seleksi ketat untuk mendukung tingkat penetasan yang tinggi. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan DOC.",
+        "button": "Informasi Penetasan"
+      },
+      "rpa": {
+        "title": "Rumah Potong Ayam",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan Rumah Potong Ayam (RPA) di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai seratus ribu ekor per hari. Setiap fasilitas dirancang untuk menghasilkan produk karkas yang berkualitas melalui pengelolaan proses pemotongan yang modern dan efisien.",
+        "description2": "RPA dilengkapi dengan sistem kontrol kualitas yang memastikan setiap produk memenuhi standar keamanan pangan. Selain itu, proses pemotongan menggunakan teknologi modern untuk menjaga kesegaran dan kualitas daging. Seluruh proses operasional juga menerapkan standar higienitas dan halal yang ketat, sebagai langkah untuk menjaga kepercayaan konsumen.",
+        "button": "Informasi RPA"
+      }
+    },
+    "modal": {
+      "title": "Informasi Peternakan",
+      "subtitle": "Butuh informasi lebih lanjut tentang produk atau ketersediaannya? Silakan isi formulir di bawah",
+      "nameLabel": "Nama",
+      "namePlaceholder": "Masukkan Nama Anda",
+      "emailLabel": "Alamat Email",
+      "emailPlaceholder": "Masukkan Alamat Email Anda",
+      "phoneLabel": "Nomor Telepon/WhatsApp",
+      "phonePlaceholder": "Masukkan Nomor Telepon Anda",
+      "locationLabel": "Lokasi/Kota",
+      "locationPlaceholder": "Masukkan Lokasi/Kota Anda",
+      "messageLabel": "Pesan",
+      "messagePlaceholder": "Tulis Pesan Anda",
+      "submit": "Kirim"
+    },
+    "nav": {
+      "pembibitan": "Peternakan Pembibitan",
+      "broiler": "Peternakan Broiler",
+      "petelur": "Peternakan Petelur",
+      "penetasan": "Penetasan Telur",
+      "rpa": "Rumah Potong Ayam"
+    }
+  },
   "beritaPage": {
     "meta": {
       "title": "Berita | PT Janu Putra Sejahtera",
@@ -264,52 +438,288 @@
     }
   },
   "footer": {
-    "description": "Perusahaan peternakan ayam terintegrasi terkemuka di Indonesia yang berkomitmen menyediakan produk berkualitas tinggi untuk mendukung kebutuhan protein hewani masyarakat.",
+    "companyName": "PT Janu Putra Sejahtera Tbk",
+    "description": "Perusahaan terintegrator menghadirkan produk unggul dan kualitas terbaik",
     "columns": {
-      "products": {
-        "title": "Produk",
+      "beranda": {
+        "title": "Beranda",
         "links": {
-          "docParent": "DOC Parent Stock",
-          "docFinal": "DOC Final Stock",
-          "liveChicken": "Ayam Hidup",
-          "commercialEgg": "Telur Komersial",
-          "chickenCarcass": "Karkas Ayam"
-        }
-      },
-      "learning": {
-        "title": "Learning",
-        "links": {
-          "chickenFarming": "Budidaya Ayam",
-          "animalHealth": "Kesehatan Ternak",
-          "farmManagement": "Manajemen Farm",
-          "tips": "Tips & Trik"
-        }
-      },
-      "resources": {
-        "title": "Resources",
-        "links": {
-          "blog": "Blog",
-          "webinar": "Webinar",
-          "ebook": "E-Book",
+          "produk": "Produk",
+          "standar": "Standar",
+          "kataMitra": "Kata Mitra",
           "faq": "FAQ"
         }
       },
-      "about": {
-        "title": "About",
+      "tentang": {
+        "title": "Tentang",
         "links": {
-          "aboutUs": "Tentang Kami",
-          "career": "Karir",
-          "contact": "Hubungi Kami",
-          "investor": "Relasi Investor"
+          "videoProfil": "Video Profil",
+          "visiMisi": "Visi dan Misi",
+          "linimasaSejarah": "Linimasa Sejarah",
+          "lokasiUsaha": "Lokasi Usaha",
+          "strukturOrganisasi": "Struktur Organisasi"
+        }
+      },
+      "liniBisnis": {
+        "title": "Lini Bisnis",
+        "links": {
+          "peternakanPembibitan": "Peternakan Pembibitan",
+          "peternakanBroiler": "Peternakan Broiler",
+          "peternakanPetelur": "Peternakan Petelur",
+          "penetasanTelur": "Penetasan Telur",
+          "rumahPotongAyam": "Rumah Potong Ayam"
+        }
+      },
+      "produk": {
+        "title": "Produk",
+        "links": {
+          "docParentStock": "DOC Parent Stock",
+          "docFinalStock": "DOC Final Stock",
+          "ayamHidup": "Ayam Hidup",
+          "telurKomersial": "Telur Komersial",
+          "karkasAyam": "Karkas Ayam"
+        }
+      },
+      "berita": {
+        "title": "Berita",
+        "links": {
+          "berita": "Berita",
+          "blog": "Blog",
+          "pengumuman": "Pengumuman"
+        }
+      },
+      "karir": {
+        "title": "Karir",
+        "links": {
+          "pekerjaan": "Pekerjaan"
+        }
+      },
+      "relasiInvestor": {
+        "title": "Relasi Investor",
+        "links": {
+          "prospektus": "Prospektus",
+          "laporanKeuangan": "Laporan Keuangan",
+          "rups": "RUPS",
+          "laporanTahunan": "Laporan Tahunan",
+          "keterbukaanInformasi": "Keterbukaan Informasi"
+        }
+      },
+      "keberlanjutan": {
+        "title": "Keberlanjutan",
+        "links": {
+          "tinjauan": "Tinjauan",
+          "pendekatanKinerja": "Pendekatan dan Kinerja Manajemen",
+          "laporanKeberlanjutan": "Laporan Keberlanjutan"
         }
       }
     },
-    "rights": "© {year} Hak cipta dilindungi."
+    "statistics": {
+      "title": "Statistik Website",
+      "totalVisitors": "Total Pengunjung",
+      "totalVisitorsValue": "4.000.000",
+      "dailyVisitors": "Total Pengunjung Hari ini",
+      "dailyVisitorsValue": "9.000",
+      "monthlyVisitors": "Total Pengunjung Bulan ini",
+      "monthlyVisitorsValue": "140.000",
+      "yearlyVisitors": "Total Pengunjung Tahun ini",
+      "yearlyVisitorsValue": "2.302.000"
+    },
+    "rights": "© {year} Untitled UI. All rights reserved."
   },
   "meta": {
     "title": "PT Janu Putra Sejahtera - Perusahaan Peternakan Terintegrasi",
     "description": "PT Janu Putra Sejahtera - Perusahaan peternakan ayam terintegrasi terkemuka di Indonesia yang menyediakan produk berkualitas dan terjangkau.",
     "ogTitle": "PT Janu Putra Sejahtera - Perusahaan Peternakan Terintegrasi",
     "ogDescription": "Perusahaan peternakan ayam terintegrasi terkemuka di Indonesia yang menyediakan produk berkualitas dan terjangkau."
+  },
+  "tentangPage": {
+    "meta": {
+      "title": "Tentang Perusahaan - PT Janu Putra Sejahtera",
+      "description": "PT Janu Putra Sejahtera Tbk tersebar di daerah Yogyakarta dan Jawa Tengah. Perusahaan ayam terintegrasi."
+    },
+    "hero": {
+      "title": "Perusahaan Ayam Terintegrasi",
+      "subtitle": "PT Janu Putra Sejahtera Tbk tersebar di daerah Yogyakarta dan Jawa Tengah",
+      "imageAlt": "Hero Tentang Perusahaan",
+      "stats": {
+        "facilities": {
+          "value": "9+",
+          "label": "Fasilitas"
+        },
+        "businessLines": {
+          "value": "5+",
+          "label": "Lini Bisnis"
+        },
+        "products": {
+          "value": "5+",
+          "label": "Produk"
+        },
+        "employees": {
+          "value": "300+",
+          "label": "Karyawan"
+        }
+      }
+    },
+    "video": {
+      "sectionTitle": "PT Janu Putra Sejahtera Tbk dalam Xx Menit",
+      "imageAlt": "Video Profil PT Janu Putra Sejahtera"
+    },
+    "visiMisi": {
+      "sectionTitle": "Visi dan Misi Perusahaan",
+      "vision": "Menjadi perusahaan ayam integrator terkemuka di Indonesia yang memberikan kontribusi positif bagi peternakan ayam dan masyarakat",
+      "imageAlt": "Visi Misi Image",
+      "missions": {
+        "mission1": {
+          "icon": "product",
+          "text": "Memberikan produk berkualitas tinggi kepada konsumen"
+        },
+        "mission2": {
+          "icon": "welfare",
+          "text": "Menjaga kesejahteraan peternak ayam dan meningkatkan produktivitas peternakan"
+        },
+        "mission3": {
+          "icon": "efficiency",
+          "text": "Meningkatkan efisiensi dalam proses kerja dan sistem produksi"
+        },
+        "mission4": {
+          "icon": "environment",
+          "text": "Mengadopsi praktik-praktik bisnis yang ramah lingkungan"
+        },
+        "mission5": {
+          "icon": "social",
+          "text": "Mengembangkan program-program sosial yang bermanfaat bagi masyarakat"
+        },
+        "mission6": {
+          "icon": "profit",
+          "text": "Meningkatkan keuntungan perusahaan secara konsisten"
+        }
+      }
+    },
+    "nav": {
+      "videoProfil": "Video Profil",
+      "visiMisi": "Visi dan Misi",
+      "linimasaSejarah": "Linimasa Sejarah",
+      "lokasiUsaha": "Lokasi Usaha",
+      "strukturOrganisasi": "Struktur Organisasi"
+    },
+    "linimasa": {
+      "sectionTitle": "Linimasa Sejarah",
+      "scrollLeft": "Geser ke kiri",
+      "scrollRight": "Geser ke kanan",
+      "items": {
+        "y2007": {
+          "short": "Awal Berdirinya PT Janu Putra Sejahtera Tbk.",
+          "title": "2007 Linimasa Detail",
+          "detail": "Tahun ini menandai langkah pertama PT Janu Putra Sejahtera Tbk memasuki industri perunggasan. Pembangunan kandang broiler di Seyegan menjadi pijakan awal untuk membangun operasi yang terstruktur, profesional, dan berorientasi keberlanjutan"
+        },
+        "y2008": {
+          "short": "PT Janu Putra Sejahtera Tbk Memulai Kemitraan di Yogyakarta",
+          "title": "2008 Linimasa Detail",
+          "detail": "Pada tahun ini, PT Janu Putra Sejahtera Tbk mulai mengembangkan model kemitraan dengan peternak lokal di wilayah Yogyakarta. Langkah strategis ini memperluas jangkauan operasional sekaligus memperkuat ekosistem perunggasan melalui kolaborasi yang saling menguntungkan bagi perusahaan dan mitra peternak"
+        },
+        "y2009": {
+          "short": "Perluasan Kemitraan ke Jawa dan Luar Jawa (Bali)",
+          "title": "2009 Linimasa Detail",
+          "detail": "Di tahun ini, PT Janu Putra Sejahtera Tbk memperluas jaringan kemitraan hingga ke berbagai wilayah di Jawa dan Bali. Ekspansi ini memperkuat kehadiran perusahaan dalam industri perunggasan sekaligus membuka peluang kolaborasi dengan lebih banyak peternak lokal"
+        },
+        "y2012": {
+          "short": "Pengembangan Fasilitas Pembibitan di Karangmojo, Gunungkidul",
+          "title": "2012 Linimasa Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk mendirikan fasilitas pembibitan dan penetasan telur pertama di Karangmojo, Gunungkidul. Pembangunan ini menjadi langkah penting untuk meningkatkan kapasitas produksi dan memastikan kualitas bibit yang lebih terkontrol dan konsisten."
+        },
+        "y2013": {
+          "short": "Pendirian Fasilitas Pembibitan di Mulo, Gunungkidul",
+          "title": "2013 Linimasa Detail",
+          "detail": "Melanjutkan strategi integrasi hulu, PT Janu Putra Sejahtera membuka peternakan pembibitan baru di Mulo, Gunungkidul. Ekspansi fasilitas ini memperkuat pasokan DOC sekaligus mendukung pertumbuhan kebutuhan mitra di wilayah Yogyakarta dan sekitarnya."
+        },
+        "y2015": {
+          "short": "Pembangunan Fasilitas Pembibitan di Purbalingga, Jawa Tengah",
+          "title": "2015 Linimasa Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk memperluas jaringan fasilitas pembibitan ke Purbalingga, Jawa Tengah, sebagai langkah strategis untuk memperluas distribusi dan meningkatkan ketersediaan DOC berkualitas. Penambahan lokasi ini memperkuat peran PT Janu Putra Sejahtera Tbk sebagai penyedia bibit unggas yang kompetitif di kawasan Jawa."
+        },
+        "y2018": {
+          "short": "Peningkatan Kapasitas Peternakan Pembibitan di Purbalingga, Jawa Tengah",
+          "title": "2018 Linimasa Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk meningkatkan kapasitas peternakan pembibitan di Purbalingga, Jawa Tengah, sebagai langkah strategis untuk memenuhi permintaan DOC yang terus bertumbuh. Pengembangan ini memperkuat rantai produksi dan kesiapan suplai bagi mitra di berbagai wilayah."
+        },
+        "y2019": {
+          "short": "Upgrade Fasilitas Pembibitan ke GPS (Grand Parent Stock)",
+          "title": "2019 Linimasa Detail",
+          "detail": "Fasilitas pembibitan di Mulo, Gunungkidul ditingkatkan menjadi kandang GPS (Grand Parent Stock). Pembaruan ini memungkinkan PT Janu Putra Sejahtera Tbk menghasilkan bibit unggas berkualitas lebih tinggi dan memperkuat struktur produksi dari hulu."
+        },
+        "y2020": {
+          "short": "Pembentukan PT Janu Putra Abadi",
+          "title": "2020 Linimasa Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk membentuk PT Janu Putra Abadi dan menjalin kerja sama dengan De Heus untuk mengoptimalkan pengembangan perusahaan. Kolaborasi ini menjadi fondasi peningkatan efisiensi, teknologi, serta kualitas operasional secara menyeluruh."
+        },
+        "y2021": {
+          "short": "Pendirian Grand Parent Stick dengan Standar Internasional",
+          "title": "2021 Linimasa Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk bersama De Heus mendirikan kandang Grand Parent Stick dengan standar internasional, memperkuat struktur produksi unggas dari lini tertinggi. Fasilitas ini berperan penting dalam peningkatan kualitas bibit dan daya saing PT Janu Putra Sejahtera Tbk di pasar nasional."
+        },
+        "y2022": {
+          "short": "Pembangunan Kandang Broiler di Karanganyar, Jawa Tengah",
+          "title": "2022 Linimasa Detail",
+          "detail": "Untuk memperluas kapasitas produksi, PT Janu Putra Sejahtera Tbk mengakuisisi kandang broiler baru di Karanganyar, Jawa Tengah. Langkah ini meningkatkan kemampuan suplai dan memperkuat jaringan operasional di wilayah Jawa."
+        }
+      }
+    },
+    "lokasi": {
+      "sectionTitle": "Lokasi Usaha",
+      "viewMore": "Selengkapnya",
+      "items": {
+        "pembibitan": {
+          "title": "Peternakan Pembibitan",
+          "loc1": "Purbalingga, Jawa Tengah",
+          "loc2": "Gunungkidul, DI Yogyakarta"
+        },
+        "broiler": {
+          "title": "Peternakan Broiler",
+          "loc1": "Karanganyar, Jawa Tengah",
+          "loc2": "Sleman, DI Yogyakarta"
+        },
+        "petelur": {
+          "title": "Peternakan Petelur",
+          "loc1": "Lendah, Kulon Progo",
+          "loc2": "Cangkringan, Sleman",
+          "loc3": "Rajek, Sleman"
+        },
+        "penetasan": {
+          "title": "Penetasan Telur",
+          "loc1": "Karangmojo, Gunungkidul, DI Yogyakarta"
+        },
+        "rpa": {
+          "title": "Rumah Potong Ayam",
+          "loc1": "Cebongan, Mlati, Sleman, DI Yogyakarta"
+        }
+      }
+    },
+    "struktur": {
+      "sectionTitle": "Struktur Organisasi",
+      "imageAlt": "Struktur Organisasi PT Janu Putra Sejahtera",
+      "zoomIn": "Perbesar",
+      "zoomOut": "Perkecil",
+      "resetZoom": "Reset",
+      "zoomHint": "Gunakan Ctrl + Scroll untuk zoom, atau klik dan geser untuk melihat"
+    },
+    "dewan": {
+      "sectionTitle": "Dewan Komisaris",
+      "tabs": {
+        "komisaris": "Dewan Komisaris",
+        "direksi": "Dewan Direksi",
+        "manager": "Manager",
+        "staff": "Staff"
+      },
+      "positions": {
+        "komisarisUtama": "Komisaris Utama",
+        "komisarisIndependen": "Komisaris Independen",
+        "direkturUtama": "Direktur Utama",
+        "direktur": "Direktur",
+        "managerOperasional": "Manager Operasional",
+        "managerKeuangan": "Manager Keuangan",
+        "staffAdministrasi": "Staff Administrasi",
+        "staffKeuangan": "Staff Keuangan"
+      }
+    }
   }
 }

@@ -25,8 +25,32 @@ useHead({
 
 const navItems = [
   { key: 'home', href: '#beranda', labelKey: 'nav.home', hasDropdown: false },
-  { key: 'about', href: '#tentang', labelKey: 'nav.about', hasDropdown: true },
-  { key: 'business', href: '#nilai-kami', labelKey: 'nav.business', hasDropdown: false },
+  {
+    key: 'about',
+    route: '/tentang-perusahaan',
+    labelKey: 'nav.about',
+    hasDropdown: true,
+    children: [
+      { key: 'about-video', labelKey: 'tentangPage.nav.videoProfil', route: '/tentang-perusahaan#video-profil' },
+      { key: 'about-visi-misi', labelKey: 'tentangPage.nav.visiMisi', route: '/tentang-perusahaan#visi-misi' },
+      { key: 'about-sejarah', labelKey: 'tentangPage.nav.linimasaSejarah', route: '/tentang-perusahaan#linimasa-sejarah' },
+      { key: 'about-lokasi', labelKey: 'tentangPage.nav.lokasiUsaha', route: '/tentang-perusahaan#lokasi-usaha' },
+      { key: 'about-struktur', labelKey: 'tentangPage.nav.strukturOrganisasi', route: '/tentang-perusahaan#struktur-organisasi' },
+    ],
+  },
+  {
+    key: 'business',
+    route: '/lini-bisnis/pembibitan',
+    labelKey: 'nav.business',
+    hasDropdown: true,
+    children: [
+      { key: 'business-pembibitan', labelKey: 'liniBisnisPage.nav.pembibitan', route: '/lini-bisnis/pembibitan' },
+      { key: 'business-broiler', labelKey: 'liniBisnisPage.nav.broiler', route: '/lini-bisnis/broiler' },
+      { key: 'business-petelur', labelKey: 'liniBisnisPage.nav.petelur', route: '/lini-bisnis/petelur' },
+      { key: 'business-penetasan', labelKey: 'liniBisnisPage.nav.penetasan', route: '/lini-bisnis/penetasan' },
+      { key: 'business-rpa', labelKey: 'liniBisnisPage.nav.rpa', route: '/lini-bisnis/rpa' },
+    ],
+  },
   { key: 'products', route: '/produk', labelKey: 'nav.products', hasDropdown: false },
   {
     key: 'news',
@@ -34,23 +58,23 @@ const navItems = [
     labelKey: 'nav.news',
     hasDropdown: true,
     children: [
-      { key: 'news-berita', label: 'Berita', route: '/berita' },
-      { key: 'news-blog', label: 'Blog', route: '/blog' },
-      { key: 'news-pengumuman', label: 'Pengumuman', route: '/pengumuman' },
+      { key: 'news-berita', labelKey: 'nav.newsItems.berita', route: '/berita' },
+      { key: 'news-blog', labelKey: 'nav.newsItems.blog', route: '/blog' },
+      { key: 'news-pengumuman', labelKey: 'nav.newsItems.pengumuman', route: '/pengumuman' },
     ],
   },
-  { key: 'career', href: '#karir', labelKey: 'nav.career', hasDropdown: false },
+  { key: 'career', route: '/karir', labelKey: 'nav.career', hasDropdown: false },
   {
     key: 'investor',
     route: '/relasi-investor/prospektus',
     labelKey: 'nav.investor',
     hasDropdown: true,
     children: [
-      { key: 'investor-prospektus', label: 'Prospektus', route: '/relasi-investor/prospektus' },
-      { key: 'investor-laporan-keuangan', label: 'Laporan Keuangan', route: '/relasi-investor/laporan-keuangan' },
-      { key: 'investor-rups', label: 'RUPS', route: '/relasi-investor/rups' },
-      { key: 'investor-laporan-tahunan', label: 'Laporan Tahunan', route: '/relasi-investor/laporan-tahunan' },
-      { key: 'investor-keterbukaan-informasi', label: 'Keterbukaan Informasi', route: '/relasi-investor/keterbukaan-informasi' },
+      { key: 'investor-prospektus', labelKey: 'nav.investorItems.prospektus', route: '/relasi-investor/prospektus' },
+      { key: 'investor-laporan-keuangan', labelKey: 'nav.investorItems.laporanKeuangan', route: '/relasi-investor/laporan-keuangan' },
+      { key: 'investor-rups', labelKey: 'nav.investorItems.rups', route: '/relasi-investor/rups' },
+      { key: 'investor-laporan-tahunan', labelKey: 'nav.investorItems.laporanTahunan', route: '/relasi-investor/laporan-tahunan' },
+      { key: 'investor-keterbukaan-informasi', labelKey: 'nav.investorItems.keterbukaanInformasi', route: '/relasi-investor/keterbukaan-informasi' },
     ],
   },
 ]
@@ -61,8 +85,17 @@ const activeNavKey = computed(() => {
   if (route.path === '/produk') {
     return 'products'
   }
+  if (route.path.startsWith('/tentang-perusahaan')) {
+    return 'about'
+  }
+  if (route.path.startsWith('/lini-bisnis')) {
+    return 'business'
+  }
   if (route.path.startsWith('/berita') || route.path.startsWith('/blog') || route.path.startsWith('/pengumuman')) {
     return 'news'
+  }
+  if (route.path.startsWith('/karir')) {
+    return 'career'
   }
   if (route.path.startsWith('/relasi-investor')) {
     return 'investor'
@@ -180,7 +213,7 @@ onUnmounted(() => {
 
               <div
                 v-if="item.children && openDropdown === item.key"
-                class="absolute left-1/2 top-full mt-2 -translate-x-1/2 min-w-[180px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2"
+                class="absolute left-1/2 top-full mt-2 -translate-x-1/2 min-w-[200px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2"
               >
                 <NuxtLink
                   v-for="child in item.children"
@@ -189,7 +222,7 @@ onUnmounted(() => {
                   class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
                   @click="openDropdown = null"
                 >
-                  <span>{{ child.label }}</span>
+                  <span>{{ t(child.labelKey) }}</span>
                   <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
                 </NuxtLink>
               </div>
@@ -317,7 +350,7 @@ onUnmounted(() => {
                     class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/85 rounded-lg hover:bg-white/10 transition"
                     @click="closeMobileMenu"
                   >
-                    <span>{{ child.label }}</span>
+                    <span>{{ t(child.labelKey) }}</span>
                     <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
                   </NuxtLink>
                 </div>

@@ -8,7 +8,19 @@
     "career": "Careers",
     "investor": "Investor Relations",
     "contact": "Contact Us",
-    "menuToggle": "Toggle navigation menu"
+    "menuToggle": "Toggle navigation menu",
+    "newsItems": {
+      "berita": "News",
+      "blog": "Blog",
+      "pengumuman": "Announcements"
+    },
+    "investorItems": {
+      "prospektus": "Prospectus",
+      "laporanKeuangan": "Financial Reports",
+      "rups": "AGM",
+      "laporanTahunan": "Annual Reports",
+      "keterbukaanInformasi": "Information Disclosure"
+    }
   },
   "language": {
     "label": "Language",
@@ -138,6 +150,168 @@
       }
     }
   },
+  "karirPage": {
+    "meta": {
+      "title": "Careers | PT Janu Putra Sejahtera",
+      "description": "Join PT Janu Putra Sejahtera. Find career opportunities and grow your potential with us."
+    },
+    "hero": {
+      "badge": "Careers",
+      "title": "Careers",
+      "imageAlt": "Careers at PT Janu Putra Sejahtera"
+    },
+    "about": {
+      "title": "Why Join Us?",
+      "description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.",
+      "description2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor."
+    },
+    "filter": {
+      "title": "Filter",
+      "reset": "Reset",
+      "searchLabel": "Search Job Title",
+      "searchPlaceholder": "Search...",
+      "locationLabel": "Location",
+      "locationAll": "All Locations",
+      "jobTypeLabel": "Job Field",
+      "jobTypeAll": "All Fields",
+      "locations": {
+        "yogyakarta": "Yogyakarta",
+        "purbalingga": "Purbalingga",
+        "kebumen": "Kebumen"
+      },
+      "jobTypes": {
+        "marketing": "Marketing",
+        "sales": "Sales",
+        "legal": "Legal"
+      }
+    },
+    "list": {
+      "noResults": "No jobs match your filter criteria.",
+      "apply": "Apply Now"
+    },
+    "detail": {
+      "modalTitle": "Career Detail",
+      "apply": "Apply Now"
+    },
+    "form": {
+      "modalTitle": "Application Form",
+      "subtitle": "Need more information about products or availability? Please fill in the form below",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Enter Your Name",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter Your Email Address",
+      "phoneLabel": "Phone/WhatsApp Number",
+      "phonePlaceholder": "Enter Your Name",
+      "genderLabel": "Gender",
+      "genderPlaceholder": "Select Your Gender",
+      "genderOptions": {
+        "male": "Male",
+        "female": "Female"
+      },
+      "ageLabel": "Age",
+      "agePlaceholder": "Enter Your Age",
+      "maritalStatusLabel": "Marital Status",
+      "maritalStatusPlaceholder": "Select Your Marital Status",
+      "maritalStatusOptions": {
+        "single": "Single",
+        "married": "Married",
+        "divorced": "Divorced"
+      },
+      "educationLevelLabel": "Education Level",
+      "educationLevelPlaceholder": "Select Your Education Level",
+      "educationLevelOptions": {
+        "sma": "High School",
+        "d3": "Associate Degree",
+        "s1": "Bachelor's Degree",
+        "s2": "Master's Degree",
+        "s3": "Doctoral Degree"
+      },
+      "institutionLabel": "Educational Institution",
+      "institutionPlaceholder": "Enter Your Educational Institution",
+      "majorLabel": "Major",
+      "majorPlaceholder": "Enter Your Major",
+      "resumeLabel": "Upload Resume",
+      "resumePlaceholder": "Choose File",
+      "resumeHint": "File Format: PDF, JPG, or PNG",
+      "reasonLabel": "Reason for Applying to This Position",
+      "reasonPlaceholder": "Write Your Reason",
+      "submit": "Submit Application"
+    }
+  },
+  "liniBisnisPage": {
+    "meta": {
+      "title": "Business Lines | PT Janu Putra Sejahtera",
+      "description": "Explore various business lines of PT Janu Putra Sejahtera in the integrated poultry industry."
+    },
+    "hero": {
+      "title": "Our Business",
+      "imageAlt": "Business lines of PT Janu Putra Sejahtera"
+    },
+    "section": {
+      "title": "Business Lines"
+    },
+    "tabs": {
+      "pembibitan": "Breeding Farm",
+      "broiler": "Broiler Farm",
+      "petelur": "Layer Farm",
+      "penetasan": "Hatchery",
+      "rpa": "Slaughterhouse"
+    },
+    "businesses": {
+      "pembibitan": {
+        "title": "Breeding Farm",
+        "description1": "PT Janu Putra Sejahtera Tbk operates breeding farms in Karanganyar and Seyegan, with a production capacity of one million birds per month. Each facility is designed to achieve optimal chicken performance through modern and efficient farm management.",
+        "description2": "Breeding houses are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, the feed used has been formulated nutritionally to support healthy and uniform chicken growth. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of livestock.",
+        "button": "Farm Information"
+      },
+      "broiler": {
+        "title": "Broiler Farm",
+        "description1": "PT Janu Putra Sejahtera Tbk operates broiler farms in Karanganyar and Seyegan, with a production capacity of one million birds per month. Each facility is designed to achieve optimal chicken performance through modern and efficient farm management.",
+        "description2": "Broiler houses are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, the feed used has been formulated nutritionally to support healthy and uniform chicken growth. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of livestock.",
+        "button": "Farm Information"
+      },
+      "petelur": {
+        "title": "Layer Farm",
+        "description1": "PT Janu Putra Sejahtera Tbk operates layer farms in Karanganyar and Seyegan, with a production capacity of one million eggs per month. Each facility is designed to achieve optimal chicken performance through modern and efficient farm management.",
+        "description2": "Layer houses are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, the feed used has been formulated nutritionally to support healthy and uniform chicken growth. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of livestock.",
+        "button": "Farm Information"
+      },
+      "penetasan": {
+        "title": "Hatchery",
+        "description1": "PT Janu Putra Sejahtera Tbk operates hatchery facilities in Karanganyar and Seyegan, with a production capacity of one million birds per month. Each facility is designed to achieve optimal hatching performance through modern and efficient incubator management.",
+        "description2": "Hatchery facilities are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, eggs used have undergone strict selection processes to support high hatch rates. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of DOC.",
+        "button": "Hatchery Information"
+      },
+      "rpa": {
+        "title": "Slaughterhouse",
+        "description1": "PT Janu Putra Sejahtera Tbk operates Slaughterhouses (RPA) in Karanganyar and Seyegan, with a production capacity of one hundred thousand birds per day. Each facility is designed to produce quality carcass products through modern and efficient slaughtering processes.",
+        "description2": "The slaughterhouse is equipped with quality control systems that ensure each product meets food safety standards. Additionally, the slaughtering process uses modern technology to maintain meat freshness and quality. All operational processes also implement strict hygiene and halal standards to maintain consumer trust.",
+        "button": "Slaughterhouse Information"
+      }
+    },
+    "modal": {
+      "title": "Farm Information",
+      "subtitle": "Need more information about products or availability? Please fill in the form below",
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter Your Name",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter Your Email Address",
+      "phoneLabel": "Phone/WhatsApp Number",
+      "phonePlaceholder": "Enter Your Phone Number",
+      "locationLabel": "Location/City",
+      "locationPlaceholder": "Enter Your Location/City",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Write Your Message",
+      "submit": "Submit"
+    },
+    "nav": {
+      "pembibitan": "Breeding Farm",
+      "broiler": "Broiler Farm",
+      "petelur": "Layer Farm",
+      "penetasan": "Hatchery",
+      "rpa": "Slaughterhouse"
+    }
+  },
   "beritaPage": {
     "meta": {
       "title": "News | PT Janu Putra Sejahtera",
@@ -264,52 +438,288 @@
     }
   },
   "footer": {
-    "description": "A leading integrated poultry company in Indonesia, committed to delivering high-quality products that support protein needs for communities.",
+    "companyName": "PT Janu Putra Sejahtera Tbk",
+    "description": "Integrator company delivering superior products with the best quality",
     "columns": {
-      "products": {
-        "title": "Products",
+      "beranda": {
+        "title": "Home",
         "links": {
-          "docParent": "DOC Parent Stock",
-          "docFinal": "DOC Final Stock",
-          "liveChicken": "Live Chicken",
-          "commercialEgg": "Commercial Eggs",
-          "chickenCarcass": "Chicken Carcass"
-        }
-      },
-      "learning": {
-        "title": "Learning",
-        "links": {
-          "chickenFarming": "Chicken Farming",
-          "animalHealth": "Animal Health",
-          "farmManagement": "Farm Management",
-          "tips": "Tips & Tricks"
-        }
-      },
-      "resources": {
-        "title": "Resources",
-        "links": {
-          "blog": "Blog",
-          "webinar": "Webinar",
-          "ebook": "E-Book",
+          "produk": "Products",
+          "standar": "Standards",
+          "kataMitra": "Partner Testimonials",
           "faq": "FAQ"
         }
       },
-      "about": {
+      "tentang": {
         "title": "About",
         "links": {
-          "aboutUs": "About Us",
-          "career": "Careers",
-          "contact": "Contact Us",
-          "investor": "Investor Relations"
+          "videoProfil": "Video Profile",
+          "visiMisi": "Vision & Mission",
+          "linimasaSejarah": "History Timeline",
+          "lokasiUsaha": "Business Locations",
+          "strukturOrganisasi": "Organization Structure"
+        }
+      },
+      "liniBisnis": {
+        "title": "Business Lines",
+        "links": {
+          "peternakanPembibitan": "Breeding Farm",
+          "peternakanBroiler": "Broiler Farm",
+          "peternakanPetelur": "Layer Farm",
+          "penetasanTelur": "Hatchery",
+          "rumahPotongAyam": "Slaughterhouse"
+        }
+      },
+      "produk": {
+        "title": "Products",
+        "links": {
+          "docParentStock": "DOC Parent Stock",
+          "docFinalStock": "DOC Final Stock",
+          "ayamHidup": "Live Chicken",
+          "telurKomersial": "Commercial Eggs",
+          "karkasAyam": "Chicken Carcass"
+        }
+      },
+      "berita": {
+        "title": "News",
+        "links": {
+          "berita": "News",
+          "blog": "Blog",
+          "pengumuman": "Announcements"
+        }
+      },
+      "karir": {
+        "title": "Career",
+        "links": {
+          "pekerjaan": "Jobs"
+        }
+      },
+      "relasiInvestor": {
+        "title": "Investor Relations",
+        "links": {
+          "prospektus": "Prospectus",
+          "laporanKeuangan": "Financial Report",
+          "rups": "GMS",
+          "laporanTahunan": "Annual Report",
+          "keterbukaanInformasi": "Information Disclosure"
+        }
+      },
+      "keberlanjutan": {
+        "title": "Sustainability",
+        "links": {
+          "tinjauan": "Overview",
+          "pendekatanKinerja": "Approach and Management Performance",
+          "laporanKeberlanjutan": "Sustainability Report"
         }
       }
     },
-    "rights": "© {year} All rights reserved."
+    "statistics": {
+      "title": "Website Statistics",
+      "totalVisitors": "Total Visitors",
+      "totalVisitorsValue": "4,000,000",
+      "dailyVisitors": "Today's Visitors",
+      "dailyVisitorsValue": "9,000",
+      "monthlyVisitors": "Monthly Visitors",
+      "monthlyVisitorsValue": "140,000",
+      "yearlyVisitors": "Yearly Visitors",
+      "yearlyVisitorsValue": "2,302,000"
+    },
+    "rights": "© {year} Untitled UI. All rights reserved."
   },
   "meta": {
     "title": "PT Janu Putra Sejahtera - Integrated Poultry Company",
     "description": "PT Janu Putra Sejahtera is a leading integrated poultry company in Indonesia, delivering quality and affordable products.",
     "ogTitle": "PT Janu Putra Sejahtera - Integrated Poultry Company",
     "ogDescription": "Leading integrated poultry company in Indonesia providing high-quality, affordable products."
+  },
+  "tentangPage": {
+    "meta": {
+      "title": "About Company - PT Janu Putra Sejahtera",
+      "description": "PT Janu Putra Sejahtera Tbk is spread across Yogyakarta and Central Java. An integrated poultry company."
+    },
+    "hero": {
+      "title": "Integrated Poultry Company",
+      "subtitle": "PT Janu Putra Sejahtera Tbk is spread across Yogyakarta and Central Java",
+      "imageAlt": "About Company Hero",
+      "stats": {
+        "facilities": {
+          "value": "9+",
+          "label": "Facilities"
+        },
+        "businessLines": {
+          "value": "5+",
+          "label": "Business Lines"
+        },
+        "products": {
+          "value": "5+",
+          "label": "Products"
+        },
+        "employees": {
+          "value": "300+",
+          "label": "Employees"
+        }
+      }
+    },
+    "video": {
+      "sectionTitle": "PT Janu Putra Sejahtera Tbk in Xx Minutes",
+      "imageAlt": "PT Janu Putra Sejahtera Profile Video"
+    },
+    "visiMisi": {
+      "sectionTitle": "Company Vision and Mission",
+      "vision": "To become the leading poultry integrator company in Indonesia that contributes positively to poultry farming and society",
+      "imageAlt": "Vision Mission Image",
+      "missions": {
+        "mission1": {
+          "icon": "product",
+          "text": "Providing high-quality products to consumers"
+        },
+        "mission2": {
+          "icon": "welfare",
+          "text": "Maintaining poultry farmer welfare and improving farm productivity"
+        },
+        "mission3": {
+          "icon": "efficiency",
+          "text": "Improving efficiency in work processes and production systems"
+        },
+        "mission4": {
+          "icon": "environment",
+          "text": "Adopting environmentally friendly business practices"
+        },
+        "mission5": {
+          "icon": "social",
+          "text": "Developing social programs that benefit the community"
+        },
+        "mission6": {
+          "icon": "profit",
+          "text": "Consistently increasing company profits"
+        }
+      }
+    },
+    "nav": {
+      "videoProfil": "Video Profile",
+      "visiMisi": "Vision & Mission",
+      "linimasaSejarah": "History Timeline",
+      "lokasiUsaha": "Business Locations",
+      "strukturOrganisasi": "Organization Structure"
+    },
+    "linimasa": {
+      "sectionTitle": "History Timeline",
+      "scrollLeft": "Scroll left",
+      "scrollRight": "Scroll right",
+      "items": {
+        "y2007": {
+          "short": "Founding of PT Janu Putra Sejahtera Tbk.",
+          "title": "2007 Timeline Detail",
+          "detail": "This year marked the first step of PT Janu Putra Sejahtera Tbk entering the poultry industry. The construction of a broiler farm in Seyegan became the initial foundation for building structured, professional, and sustainability-oriented operations"
+        },
+        "y2008": {
+          "short": "PT Janu Putra Sejahtera Tbk Starts Partnership in Yogyakarta",
+          "title": "2008 Timeline Detail",
+          "detail": "This year, PT Janu Putra Sejahtera Tbk began developing partnership models with local farmers in the Yogyakarta region. This strategic move expanded operational reach while strengthening the poultry ecosystem through mutually beneficial collaboration for both the company and partner farmers"
+        },
+        "y2009": {
+          "short": "Partnership Expansion to Java and Outside Java (Bali)",
+          "title": "2009 Timeline Detail",
+          "detail": "In this year, PT Janu Putra Sejahtera Tbk expanded its partnership network to various regions in Java and Bali. This expansion strengthened the company's presence in the poultry industry while opening up collaboration opportunities with more local farmers"
+        },
+        "y2012": {
+          "short": "Development of Breeding Facility in Karangmojo, Gunungkidul",
+          "title": "2012 Timeline Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk established its first breeding and hatchery facility in Karangmojo, Gunungkidul. This development became an important step to increase production capacity and ensure more controlled and consistent chick quality."
+        },
+        "y2013": {
+          "short": "Establishment of Breeding Facility in Mulo, Gunungkidul",
+          "title": "2013 Timeline Detail",
+          "detail": "Continuing the upstream integration strategy, PT Janu Putra Sejahtera opened a new breeding farm in Mulo, Gunungkidul. This facility expansion strengthened DOC supply while supporting the growth needs of partners in Yogyakarta and surrounding areas."
+        },
+        "y2015": {
+          "short": "Construction of Breeding Facility in Purbalingga, Central Java",
+          "title": "2015 Timeline Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk expanded its breeding facility network to Purbalingga, Central Java, as a strategic step to expand distribution and increase the availability of quality DOC. This location addition strengthened PT Janu Putra Sejahtera Tbk's role as a competitive poultry provider in the Java region."
+        },
+        "y2018": {
+          "short": "Capacity Increase of Breeding Farm in Purbalingga, Central Java",
+          "title": "2018 Timeline Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk increased the capacity of its breeding farm in Purbalingga, Central Java, as a strategic step to meet the growing demand for DOC. This development strengthened the production chain and supply readiness for partners in various regions."
+        },
+        "y2019": {
+          "short": "Upgrade of Breeding Facility to GPS (Grand Parent Stock)",
+          "title": "2019 Timeline Detail",
+          "detail": "The breeding facility in Mulo, Gunungkidul was upgraded to a GPS (Grand Parent Stock) farm. This upgrade enabled PT Janu Putra Sejahtera Tbk to produce higher quality poultry chicks and strengthen the upstream production structure."
+        },
+        "y2020": {
+          "short": "Formation of PT Janu Putra Abadi",
+          "title": "2020 Timeline Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk formed PT Janu Putra Abadi and established a partnership with De Heus to optimize company development. This collaboration became the foundation for improving efficiency, technology, and overall operational quality."
+        },
+        "y2021": {
+          "short": "Establishment of Grand Parent Stock with International Standards",
+          "title": "2021 Timeline Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk together with De Heus established a Grand Parent Stock farm with international standards, strengthening the poultry production structure from the highest level. This facility plays an important role in improving chick quality and PT Janu Putra Sejahtera Tbk's competitiveness in the national market."
+        },
+        "y2022": {
+          "short": "Construction of Broiler Farm in Karanganyar, Central Java",
+          "title": "2022 Timeline Detail",
+          "detail": "To expand production capacity, PT Janu Putra Sejahtera Tbk acquired a new broiler farm in Karanganyar, Central Java. This step increased supply capability and strengthened the operational network in the Java region."
+        }
+      }
+    },
+    "lokasi": {
+      "sectionTitle": "Business Locations",
+      "viewMore": "View More",
+      "items": {
+        "pembibitan": {
+          "title": "Breeding Farm",
+          "loc1": "Purbalingga, Central Java",
+          "loc2": "Gunungkidul, DI Yogyakarta"
+        },
+        "broiler": {
+          "title": "Broiler Farm",
+          "loc1": "Karanganyar, Central Java",
+          "loc2": "Sleman, DI Yogyakarta"
+        },
+        "petelur": {
+          "title": "Layer Farm",
+          "loc1": "Lendah, Kulon Progo",
+          "loc2": "Cangkringan, Sleman",
+          "loc3": "Rajek, Sleman"
+        },
+        "penetasan": {
+          "title": "Hatchery",
+          "loc1": "Karangmojo, Gunungkidul, DI Yogyakarta"
+        },
+        "rpa": {
+          "title": "Slaughterhouse",
+          "loc1": "Cebongan, Mlati, Sleman, DI Yogyakarta"
+        }
+      }
+    },
+    "struktur": {
+      "sectionTitle": "Organization Structure",
+      "imageAlt": "Organization Structure of PT Janu Putra Sejahtera",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "resetZoom": "Reset",
+      "zoomHint": "Use Ctrl + Scroll to zoom, or click and drag to pan"
+    },
+    "dewan": {
+      "sectionTitle": "Board of Commissioners",
+      "tabs": {
+        "komisaris": "Board of Commissioners",
+        "direksi": "Board of Directors",
+        "manager": "Manager",
+        "staff": "Staff"
+      },
+      "positions": {
+        "komisarisUtama": "President Commissioner",
+        "komisarisIndependen": "Independent Commissioner",
+        "direkturUtama": "President Director",
+        "direktur": "Director",
+        "managerOperasional": "Operational Manager",
+        "managerKeuangan": "Finance Manager",
+        "staffAdministrasi": "Administrative Staff",
+        "staffKeuangan": "Finance Staff"
+      }
+    }
   }
 }
