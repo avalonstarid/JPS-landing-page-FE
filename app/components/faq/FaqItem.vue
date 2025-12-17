@@ -21,10 +21,10 @@ const toggle = () => {
 </script>
 
 <template>
-  <div class="py-2">
+  <div v-reveal class="py-2 reveal">
     <button
       :id="`faq-button-${faq.id}`"
-      class="w-full py-4 flex items-center justify-between text-left group rounded-lg bg-white"
+      class="w-full py-4 flex items-center justify-between text-left group rounded-lg bg-white duration-300 hover:-translate-y-1"
       :aria-expanded="isOpen"
       :aria-controls="`faq-panel-${faq.id}`"
       @click="toggle"
@@ -66,4 +66,3 @@ const toggle = () => {
     </Transition>
   </div>
 </template>
-

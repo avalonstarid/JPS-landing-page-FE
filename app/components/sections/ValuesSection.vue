@@ -18,7 +18,7 @@ onMounted(async () => {
     aria-labelledby="values-title"
     style="background: #fdeee0;"
   >
-    <div class="container-main">
+    <div v-reveal class="container-main reveal">
       <!-- Section Header -->
       <div class="text-center mb-10">
         <h2 class="text-3xl md:text-4xl font-bold text-[#4c68c4]">
@@ -38,7 +38,7 @@ onMounted(async () => {
       <div v-else class="grid grid-cols-1 lg:grid-cols-[.75fr_1.1fr] gap-6 lg:gap-8 items-center">
         <!-- Left: Image -->
         <div class="order-2 lg:order-1 h-full">
-          <div class="rounded-[28px] overflow-hidden shadow-lg h-full">
+          <div class="duration-300 hover:-translate-y-2 rounded-[28px] overflow-hidden shadow-lg h-full">
             <img
               src="~/assets/images/standar-main.png"
               :alt="t('values.imageAlt')"

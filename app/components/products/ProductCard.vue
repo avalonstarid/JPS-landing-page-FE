@@ -17,7 +17,7 @@ const goToProduk = () => {
 
 <template>
   <article
-    class="relative overflow-visible p-5 md:p-6 pt-12 flex flex-col gap-4 duration-200 hover:-translate-y-1 mt-20 rounded-[24px] w-full max-w-[320px] bg-white h-[250px]"
+    class="relative overflow-visible p-5 md:p-6 pt-12 flex flex-col gap-4 duration-300 hover:-translate-y-2 mt-20 rounded-[24px] w-full max-w-[320px] bg-white h-[250px]"
 
   >
     <!-- Image Container -->

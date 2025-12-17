@@ -177,10 +177,12 @@ const getIconPath = (icon: string): string => {
               <div class="relative flex items-center">
                 <!-- Line Connector Before (except first) -->
                 <img
-                  v-if="index !== 0"
                   :src="lineConnector"
                   alt=""
-                  class="h-[28px] md:h-[36px] w-auto mr-[-4px]"
+                  :class="[
+                    'h-[28px] md:h-[36px] w-auto mr-[-40px]',
+                    index === 0 ? 'invisible' : '',
+                  ]"
                 />
 
                 <!-- Icon Circle with white ring -->
@@ -196,10 +198,13 @@ const getIconPath = (icon: string): string => {
 
                 <!-- Line Connector After (except last) -->
                 <img
-                  v-if="index !== timelineItems.length - 1"
                   :src="lineConnector"
                   alt=""
-                  class="h-[28px] md:h-[36px] w-auto ml-[-4px]"
+                  :class="[
+                    'h-[28px] md:h-[36px] w-auto ml-[-40px]',
+                    index === timelineItems.length - 1 ? 'invisible' : '',
+                  ]"
+
                 />
               </div>
 
@@ -268,4 +273,3 @@ const getIconPath = (icon: string): string => {
   transform: translate(-50%, -90%);
 }
 </style>
-

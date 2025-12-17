@@ -2,7 +2,6 @@
 import { storeToRefs } from 'pinia'
 import { useTestimonialStore } from '~/stores/testimonial'
 import bgMitra from '~/assets/images/mitra.png'
-import containerTesti from '~/assets/images/container-testi.png'
 const { t } = useI18n()
 
 const testimonialStore = useTestimonialStore()
@@ -49,31 +48,14 @@ const goToNext = () => {
       </div>
 
       <!-- Testimonial Content -->
-      <div v-else-if="currentTestimonial" class="mx-auto">
-        <div
-          class="relative rounded-[30px] px-6 py-8 md:px-10 md:py-12 w-full max-w-5xl min-h-[420px] md:min-h-[500px] mx-auto bg-no-repeat bg-center bg-contain"
-          :style="{
-            backgroundImage: `url(${containerTesti})`,
-          }"
+      <div v-reveal v-else-if="currentTestimonial" class="mx-auto reveal">
+        <UiTestimonialsFrame
+          class="rounded-[30px] px-6 py-8 md:px-10 md:py-12 w-full max-w-5xl min-h-[420px] md:min-h-[500px] mx-auto"
+          :prev-label="t('testimonials.ariaPrev')"
+          :next-label="t('testimonials.ariaNext')"
+          @prev="goToPrev"
+          @next="goToNext"
         >
-          <!-- Navigation Arrows -->
-          <div class="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 pointer-events-none">
-            <button
-              class="w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-[#f6993c] hover:shadow-xl transition-all duration-200 pointer-events-auto"
-              @click="goToPrev"
-              :aria-label="t('testimonials.ariaPrev')"
-            >
-              <i class="mdi mdi-arrow-left text-2xl" aria-hidden="true" />
-            </button>
-            <button
-              class="w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-[#f6993c] hover:shadow-xl transition-all duration-200 pointer-events-auto"
-              @click="goToNext"
-              :aria-label="t('testimonials.ariaNext')"
-            >
-              <i class="mdi mdi-arrow-right text-2xl" aria-hidden="true" />
-            </button>
-          </div>
-
           <!-- Content -->
           <div class="text-center space-y-4">
             <p class="text-lg font-semibold text-[#4c68c4]">
@@ -90,7 +72,7 @@ const goToNext = () => {
               <p class="text-sm italic text-gray-600">{{ t(currentTestimonial.roleKey) }}</p>
             </div>
           </div>
-        </div>
+        </UiTestimonialsFrame>
 
         <!-- Pagination Dots -->
         <div class="flex justify-center gap-2 mt-6">

@@ -1,6 +1,7 @@
 <template>
   <div
-    class="card-wrapper relative cursor-pointer"
+    v-reveal
+    class="card-wrapper reveal relative cursor-pointer"
     :style="containerStyle"
     ref="cardRef"
     role="button"

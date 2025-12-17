@@ -19,8 +19,9 @@ const goToProduk = () => {
 
 <template>
   <section
+    v-reveal
     id="produk"
-    class="section-padding"
+    class="section-padding reveal"
     aria-labelledby="products-title"
     style="background: #fdeee0;"
   >

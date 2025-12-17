@@ -13,7 +13,7 @@ const { t } = useI18n()
       </h2>
 
       <!-- Video Thumbnail -->
-      <div class="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg cursor-pointer group">
+      <div class="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg cursor-pointer group duration-300 hover:-translate-y-2">
         <img
           :src="videoThumbnail"
           :alt="t('tentangPage.video.imageAlt')"

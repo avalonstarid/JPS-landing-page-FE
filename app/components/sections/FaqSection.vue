@@ -34,7 +34,7 @@ onMounted(async () => {
       </div>
 
       <!-- FAQ Content Grid -->
-      <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <div v-reveal v-else class="reveal grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
         <!-- Left: FAQ Accordion -->
         <div class="bg-[#fdeee0] rounded-xl shadow-none border border-transparent">
           <div class="divide-y divide-gray-900">
@@ -63,7 +63,7 @@ onMounted(async () => {
         
 
         <!-- Right: Image -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg hidden lg:block">
+        <div class="duration-300 hover:-translate-y-2 relative rounded-2xl overflow-hidden shadow-lg hidden lg:block">
           <img
             src="~/assets/images/pertanyaan.png"
             :alt="t('faq.imageAlt')"
