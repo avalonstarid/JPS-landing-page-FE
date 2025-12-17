@@ -45,14 +45,15 @@ export default defineNuxtConfig({
         },
       ],
     },
-    pageTransition: {
-      name: 'page',
-      mode: 'out-in',
-    },
-    layoutTransition: {
-      name: 'layout',
-      mode: 'out-in',
-    },
+    // pageTransition: {
+    //   name: 'page',
+    //   // Avoid blank gaps during route changes (keep current page until next enters)
+    //   mode: 'in-out',
+    // },
+    // layoutTransition: {
+    //   name: 'layout',
+    //   mode: 'in-out',
+    // },
   },
 
   i18n: {

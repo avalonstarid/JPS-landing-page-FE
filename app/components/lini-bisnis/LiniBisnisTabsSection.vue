@@ -19,7 +19,7 @@ const handleTabClick = (slug: string) => {
   <section class="bg-[#fdeee0] py-12 md:py-16" aria-label="Business lines navigation">
     <div class="container-main">
       <!-- Section Title -->
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3d4f92] text-center mb-8 md:mb-10">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary text-center mb-8 md:mb-10">
         {{ t('liniBisnisPage.section.title') }}
       </h2>
 
@@ -32,8 +32,8 @@ const handleTabClick = (slug: string) => {
           class="px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 border-2"
           :class="[
             props.activeSlug === tab.slug
-              ? 'bg-[#3d4f92] text-white border-[#3d4f92] shadow-lg'
-              : 'bg-white text-[#1f2937] border-gray-300 hover:border-[#3d4f92] hover:text-[#3d4f92]'
+              ? 'bg-primary text-white border-primary shadow-lg'
+              : 'bg-white text-[#1f2937] border-gray-300 hover:border-primary hover:text-primary'
           ]"
           :aria-current="props.activeSlug === tab.slug ? 'true' : undefined"
           @click="handleTabClick(tab.slug)"

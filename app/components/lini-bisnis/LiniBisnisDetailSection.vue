@@ -67,45 +67,15 @@ const handleOpenModal = () => {
         </div>
 
         <!-- Image Stack Column -->
-        <div class="relative w-full aspect-[4/3] lg:aspect-square">
-          <!-- Behind Bottom Image (largest, most behind) -->
-          <div 
-            class="absolute right-0 bottom-0 w-[70%] md:w-[65%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl"
-          >
-            <img
-              :src="imageBehindBottom"
-              alt="Fasilitas peternakan"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-
-          <!-- Behind Top Image (middle layer) -->
-          <div 
-            class="absolute right-[15%] md:right-[20%] bottom-[25%] md:bottom-[30%] w-[55%] md:w-[50%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl"
-          >
-            <img
-              :src="imageBehindTop"
-              alt="Kandang ayam modern"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-
-          <!-- Most Top Image (smallest, front) -->
-          <div 
-            class="absolute left-0 top-0 w-[60%] md:w-[55%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
-          >
-            <img
-              :src="imageMostTop"
-              alt="Interior kandang ayam"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        </div>
+        <UiStackedImagePreview
+          :top-src="imageMostTop"
+          :back-top-src="imageBehindTop"
+          :back-bottom-src="imageBehindBottom"
+          top-alt="Interior kandang ayam"
+          back-top-alt="Kandang ayam modern"
+          back-bottom-alt="Fasilitas peternakan"
+        />
       </div>
     </div>
   </section>
 </template>
-

@@ -87,6 +87,12 @@
   will-change: opacity, transform, filter;
 }
 
+/* Keep previous page visible a bit longer to avoid "blank" gaps during navigation. */
+.page-leave-active,
+.layout-leave-active {
+  transition-delay: 120ms;
+}
+
 .page-enter-from,
 .layout-enter-from {
   opacity: 0;

@@ -33,7 +33,7 @@ const missions = [
             <div
               v-for="mission in missions"
               :key="mission.key"
-              class="relative bg-white rounded-2xl px-4 pt-8 pb-5 shadow-sm hover:shadow-md transition-shadow min-h-[180px]"
+              class="relative bg-white rounded-2xl px-4 pt-8 pb-5 shadow-sm hover:shadow-md min-h-[180px] duration-300 hover:-translate-y-2"
             >
               <!-- Icon - Offset to top -->
               <div class="absolute -top-6 left-1/2 -translate-x-1/2">
@@ -85,7 +85,7 @@ const missions = [
         </div>
 
         <!-- Right Side: Image - 4 columns -->
-        <div class="lg:col-span-3 flex justify-center lg:justify-end">
+        <div class="lg:col-span-3 flex justify-center lg:justify-end duration-300 hover:-translate-y-2">
           <img
             :src="visiMisiImage"
             :alt="t('tentangPage.visiMisi.imageAlt')"

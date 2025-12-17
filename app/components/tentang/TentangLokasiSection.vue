@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import backgroundImage from '~/assets/images/tentang/background-lokasi-usaha.jpg'
 import bisnisImage from '~/assets/images/bisnis/bisnis-most-top.png'
+import bisnisImageAlt1 from '~/assets/images/bisnis/bisnis-behind-top.png'
+import bisnisImageAlt2 from '~/assets/images/bisnis/bisnis-behind-bottom.png'
 
 const { t } = useI18n()
 
 interface LocationItem {
   key: string
   image: string
+  gallery: string[]
   title: string
   locations: string[]
+  infoText: string
   route: string
 }
 
@@ -16,53 +20,76 @@ const locationItems = computed<LocationItem[]>(() => [
   {
     key: 'pembibitan',
     image: bisnisImage,
+    gallery: [bisnisImage, bisnisImageAlt1, bisnisImageAlt2],
     title: t('tentangPage.lokasi.items.pembibitan.title'),
     locations: [
       t('tentangPage.lokasi.items.pembibitan.loc1'),
       t('tentangPage.lokasi.items.pembibitan.loc2'),
     ],
+    infoText: t('tentangPage.lokasi.items.pembibitan.info'),
     route: '/lini-bisnis/pembibitan',
   },
   {
     key: 'broiler',
     image: bisnisImage,
+    gallery: [bisnisImageAlt1, bisnisImage, bisnisImageAlt2],
     title: t('tentangPage.lokasi.items.broiler.title'),
     locations: [
       t('tentangPage.lokasi.items.broiler.loc1'),
       t('tentangPage.lokasi.items.broiler.loc2'),
     ],
+    infoText: t('tentangPage.lokasi.items.broiler.info'),
     route: '/lini-bisnis/broiler',
   },
   {
     key: 'petelur',
     image: bisnisImage,
+    gallery: [bisnisImageAlt2, bisnisImage, bisnisImageAlt1],
     title: t('tentangPage.lokasi.items.petelur.title'),
     locations: [
       t('tentangPage.lokasi.items.petelur.loc1'),
       t('tentangPage.lokasi.items.petelur.loc2'),
       t('tentangPage.lokasi.items.petelur.loc3'),
     ],
+    infoText: t('tentangPage.lokasi.items.petelur.info'),
     route: '/lini-bisnis/petelur',
   },
   {
     key: 'penetasan',
     image: bisnisImage,
+    gallery: [bisnisImage, bisnisImageAlt2, bisnisImageAlt1],
     title: t('tentangPage.lokasi.items.penetasan.title'),
     locations: [
       t('tentangPage.lokasi.items.penetasan.loc1'),
     ],
+    infoText: t('tentangPage.lokasi.items.penetasan.info'),
     route: '/lini-bisnis/penetasan',
   },
   {
     key: 'rpa',
     image: bisnisImage,
+    gallery: [bisnisImageAlt1, bisnisImageAlt2, bisnisImage],
     title: t('tentangPage.lokasi.items.rpa.title'),
     locations: [
       t('tentangPage.lokasi.items.rpa.loc1'),
     ],
+    infoText: t('tentangPage.lokasi.items.rpa.info'),
     route: '/lini-bisnis/rpa',
   },
 ])
+
+const modalOpen = ref(false)
+const modalItem = ref<LocationItem | null>(null)
+
+const openModal = (item: LocationItem) => {
+  modalItem.value = item
+  modalOpen.value = true
+}
+
+const closeModal = () => {
+  modalOpen.value = false
+  modalItem.value = null
+}
 </script>
 
 <template>
@@ -80,149 +107,33 @@ const locationItems = computed<LocationItem[]>(() => [
       </h2>
 
       <!-- Grid Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
-        <!-- First Row - 2 cards -->
-        <div
-          v-for="item in locationItems.slice(0, 2)"
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <UiLokasiCard
+          v-for="item in locationItems"
           :key="item.key"
-          class="location-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-        >
-          <div class="flex">
-            <!-- Image -->
-            <div class="w-1/3 min-h-[180px]">
-              <img
-                :src="item.image"
-                :alt="item.title"
-                class="w-full h-full object-cover"
-              />
-            </div>
-
-            <!-- Content -->
-            <div class="w-2/3 p-4 md:p-5 flex flex-col justify-between">
-              <div>
-                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-                  {{ item.title }}
-                </h3>
-                <ul class="text-sm text-gray-600 space-y-1">
-                  <li v-for="(loc, idx) in item.locations" :key="idx" class="flex items-start">
-                    <span class="mr-2">{{ idx + 1 }}.</span>
-                    <span>{{ loc }}</span>
-                  </li>
-                </ul>
-              </div>
-
-              <NuxtLink
-                :to="item.route"
-                class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-[#f6993c] text-white text-sm font-medium rounded-full hover:bg-[#e8872e] transition-colors w-fit"
-              >
-                {{ t('tentangPage.lokasi.viewMore') }}
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-
-        <!-- Second Row - 2 cards -->
-        <div
-          v-for="item in locationItems.slice(2, 4)"
-          :key="item.key"
-          class="location-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-        >
-          <div class="flex">
-            <!-- Image -->
-            <div class="w-1/3 min-h-[180px]">
-              <img
-                :src="item.image"
-                :alt="item.title"
-                class="w-full h-full object-cover"
-              />
-            </div>
-
-            <!-- Content -->
-            <div class="w-2/3 p-4 md:p-5 flex flex-col justify-between">
-              <div>
-                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-                  {{ item.title }}
-                </h3>
-                <ul class="text-sm text-gray-600 space-y-1">
-                  <li v-for="(loc, idx) in item.locations" :key="idx" class="flex items-start">
-                    <span class="mr-2">{{ idx + 1 }}.</span>
-                    <span>{{ loc }}</span>
-                  </li>
-                </ul>
-              </div>
-
-              <NuxtLink
-                :to="item.route"
-                class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-[#f6993c] text-white text-sm font-medium rounded-full hover:bg-[#e8872e] transition-colors w-fit"
-              >
-                {{ t('tentangPage.lokasi.viewMore') }}
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-
-        <!-- Third Row - 1 card centered -->
-        <div class="md:col-span-2 flex justify-center">
-          <div
-            v-for="item in locationItems.slice(4, 5)"
-            :key="item.key"
-            class="location-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow w-full md:w-1/2"
-          >
-            <div class="flex">
-              <!-- Image -->
-              <div class="w-1/3 min-h-[180px]">
-                <img
-                  :src="item.image"
-                  :alt="item.title"
-                  class="w-full h-full object-cover"
-                />
-              </div>
-
-              <!-- Content -->
-              <div class="w-2/3 p-4 md:p-5 flex flex-col justify-between">
-                <div>
-                  <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-                    {{ item.title }}
-                  </h3>
-                  <ul class="text-sm text-gray-600 space-y-1">
-                    <li v-for="(loc, idx) in item.locations" :key="idx" class="flex items-start">
-                      <span v-if="item.locations.length > 1" class="mr-2">{{ idx + 1 }}.</span>
-                      <span>{{ loc }}</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <NuxtLink
-                  :to="item.route"
-                  class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-[#f6993c] text-white text-sm font-medium rounded-full hover:bg-[#e8872e] transition-colors w-fit"
-                >
-                  {{ t('tentangPage.lokasi.viewMore') }}
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </NuxtLink>
-              </div>
-            </div>
-          </div>
-        </div>
+          :title="item.title"
+          :locations="item.locations"
+          :image-src="item.image"
+          :button-text="t('tentangPage.lokasi.viewMore')"
+          @more="openModal(item)"
+        />
       </div>
+
+      <UiImageGalleryModal
+        v-if="modalItem"
+        :show="modalOpen"
+        :title="modalItem.title"
+        :subtitle="modalItem.locations.join(', ')"
+        :info-text="modalItem.infoText"
+        :maps-href="`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(modalItem.locations[0] ?? modalItem.title)}`"
+        whatsapp-href="https://wa.me/628123456789"
+        :images="modalItem.gallery"
+        @close="closeModal"
+      />
     </div>
   </section>
 </template>
 
 <style scoped>
-.location-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.location-card:hover {
-  transform: translateY(-4px);
-}
+/* kept empty intentionally */
 </style>
-

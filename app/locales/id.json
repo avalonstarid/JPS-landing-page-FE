@@ -671,26 +671,31 @@
         "pembibitan": {
           "title": "Peternakan Pembibitan",
           "loc1": "Purbalingga, Jawa Tengah",
-          "loc2": "Gunungkidul, DI Yogyakarta"
+          "loc2": "Gunungkidul, DI Yogyakarta",
+          "info": "Terdiri dari 9 kandang dengan total kapasitas 90 ribu ekor ayam."
         },
         "broiler": {
           "title": "Peternakan Broiler",
           "loc1": "Karanganyar, Jawa Tengah",
-          "loc2": "Sleman, DI Yogyakarta"
+          "loc2": "Sleman, DI Yogyakarta",
+          "info": "Terdiri dari beberapa kandang broiler dengan kapasitas operasional yang terintegrasi."
         },
         "petelur": {
           "title": "Peternakan Petelur",
           "loc1": "Lendah, Kulon Progo",
           "loc2": "Cangkringan, Sleman",
-          "loc3": "Rajek, Sleman"
+          "loc3": "Rajek, Sleman",
+          "info": "Unit petelur dengan manajemen produksi telur yang konsisten dan terjaga."
         },
         "penetasan": {
           "title": "Penetasan Telur",
-          "loc1": "Karangmojo, Gunungkidul, DI Yogyakarta"
+          "loc1": "Karangmojo, Gunungkidul, DI Yogyakarta",
+          "info": "Fasilitas penetasan untuk mendukung pasokan DOC berkualitas."
         },
         "rpa": {
           "title": "Rumah Potong Ayam",
-          "loc1": "Cebongan, Mlati, Sleman, DI Yogyakarta"
+          "loc1": "Cebongan, Mlati, Sleman, DI Yogyakarta",
+          "info": "Fasilitas pemrosesan dengan standar kebersihan dan mutu produk."
         }
       }
     },

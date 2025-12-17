@@ -5,6 +5,10 @@ import photoDocFinal from '~/assets/images/produk/produk2.png'
 import imgLiveChicken from '~/assets/images/jsp-produk/ayam-hidup.png'
 import imgCommercialEgg from '~/assets/images/jsp-produk/telur.png'
 import imgCarcass from '~/assets/images/jsp-produk/karkas-ayam.png'
+import behindRight from '~/assets/images/produk/produk-behind-right.png'
+import behindLeft from '~/assets/images/produk/produk-behind-left.jpg'
+import topRight from '~/assets/images/produk/produk-top-right.jpg'
+import topLeft from '~/assets/images/produk/produk-top-left.jpg'
 
 const { t } = useI18n()
 
@@ -17,6 +21,9 @@ const productItems = computed(() => [
     alt: t('produkPage.items.docParent.alt'),
     accent: '#3d4f92',
     reverse: true,
+    stackSide: 'right',
+    stackBaseImage: behindRight,
+    stackTopImage: topRight,
   },
   {
     key: 'docFinal',
@@ -26,6 +33,9 @@ const productItems = computed(() => [
     alt: t('produkPage.items.docFinal.alt'),
     accent: '#f6993c',
     reverse: false,
+    stackSide: 'left',
+    stackBaseImage: behindLeft,
+    stackTopImage: topLeft,
   },
   {
     key: 'liveChicken',
@@ -35,6 +45,9 @@ const productItems = computed(() => [
     alt: t('produkPage.items.liveChicken.alt'),
     accent: '#2d70c0',
     reverse: true,
+    stackSide: 'right',
+    stackBaseImage: behindRight,
+    stackTopImage: topRight,
   },
   {
     key: 'commercialEgg',
@@ -44,6 +57,9 @@ const productItems = computed(() => [
     alt: t('produkPage.items.commercialEgg.alt'),
     accent: '#c47c2e',
     reverse: false,
+    stackSide: 'left',
+    stackBaseImage: behindLeft,
+    stackTopImage: topLeft,
   },
   {
     key: 'chickenCarcass',
@@ -53,6 +69,9 @@ const productItems = computed(() => [
     alt: t('produkPage.items.chickenCarcass.alt'),
     accent: '#5b3f8c',
     reverse: true,
+    stackSide: 'right',
+    stackBaseImage: behindRight,
+    stackTopImage: topRight,
   },
 ])
 </script>
@@ -71,7 +90,7 @@ const productItems = computed(() => [
 
       <div class="space-y-10">
         <ProdukItemCard
-          v-for="item in productItems"
+          v-for="(item, index) in productItems"
           :key="item.key"
           :title="item.title"
           :description="item.description"
@@ -79,6 +98,10 @@ const productItems = computed(() => [
           :image-alt="item.alt"
           :reverse="item.reverse"
           :accent="item.accent"
+          :index="index"
+          :stack-side="item.stackSide"
+          :stack-base-image="item.stackBaseImage"
+          :stack-top-image="item.stackTopImage"
         />
       </div>
     </div>

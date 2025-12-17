@@ -671,26 +671,31 @@
         "pembibitan": {
           "title": "Breeding Farm",
           "loc1": "Purbalingga, Central Java",
-          "loc2": "Gunungkidul, DI Yogyakarta"
+          "loc2": "Gunungkidul, DI Yogyakarta",
+          "info": "Consists of 9 houses with a total capacity of 90 thousand chickens."
         },
         "broiler": {
           "title": "Broiler Farm",
           "loc1": "Karanganyar, Central Java",
-          "loc2": "Sleman, DI Yogyakarta"
+          "loc2": "Sleman, DI Yogyakarta",
+          "info": "Operated across multiple broiler houses with integrated capacity."
         },
         "petelur": {
           "title": "Layer Farm",
           "loc1": "Lendah, Kulon Progo",
           "loc2": "Cangkringan, Sleman",
-          "loc3": "Rajek, Sleman"
+          "loc3": "Rajek, Sleman",
+          "info": "Layer units with consistent and well-managed egg production."
         },
         "penetasan": {
           "title": "Hatchery",
-          "loc1": "Karangmojo, Gunungkidul, DI Yogyakarta"
+          "loc1": "Karangmojo, Gunungkidul, DI Yogyakarta",
+          "info": "Hatchery facilities to support quality DOC supply."
         },
         "rpa": {
           "title": "Slaughterhouse",
-          "loc1": "Cebongan, Mlati, Sleman, DI Yogyakarta"
+          "loc1": "Cebongan, Mlati, Sleman, DI Yogyakarta",
+          "info": "Processing facilities with hygiene and product quality standards."
         }
       }
     },
