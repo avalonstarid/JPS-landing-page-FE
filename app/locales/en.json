@@ -132,28 +132,54 @@
     "items": {
       "docParent": {
         "title": "Day Old Chick (DOC) - Parent Stock",
-        "description": "DOC stands for Day Old Chick, our naming for day-old chicks. Parent stock will grow into the chickens that produce broilers. We facilitate the supply of DOC Parent Stock ready for distribution to poultry farms across Indonesia, providing only the best quality chicks for broiler breeders.",
+        "description": "DOC atau singkatan dari \"Day Old Chick\" merupakan sebutan untuk bibit ayam. DOC parent stock nantinya akan menjadi ayam yang akan menghasilkan ayam broiler.Kami memfasilitasi pasokan DOC Parent Stock yang tersedia untuk distribusi ke industri peternakan ayam di seluruh Indonesia. Kami menyadari bahwa peternak memerlukan bibit ayam broiler berkualitas, sehingga kami hanya menyediakan DOC terbaik.",
         "alt": "DOC parent stock ready for distribution"
       },
       "docFinal": {
         "title": "Day Old Chick (DOC) - Final Stock",
-        "description": "DOC stands for Day Old Chick, our naming for day-old chicks. Final stock DOC will be raised into commercial broiler chickens. We provide high-quality DOC final stock for distribution to consumers across Java and Bali.",
+        "description": "DOC atau singkatan dari \"Day Old Chick\" merupakan sebutan untuk bibit ayam. DOC final stock nantinya akan dibesarkan menjadi ayam broiler komersil. Kami memfasilitasi pasokan DOC final stock yang berkualitas dan terbaik untuk distribusi ke seluruh konsumen di wilayah Jawa.",
         "alt": "DOC final stock in brooders"
       },
       "liveChicken": {
-        "title": "Live Commercial Broiler",
-        "description": "Broiler chickens are commercial birds used for consumption. We supply live commercial broilers to guarantee quality and freshness so they can be processed into dressed chicken. They are raised with careful control of temperature, housing, and feed to uphold product quality.",
+        "title": "Ayam Hidup Broiler Komersial",
+        "description": "PT Janu Putra Sejahtera Tbk menyediakan ayam hidup (livebird) yang berasal dari strain Cobb. Cakar ayam berwarna kuning, berat rata-rata 2kg, serta dada yang besar tidak berbentuk runcing. Ayam broiler diproduksi dengan kualitas unggul untuk menjamin kualitas dan kesegaran ayam dapat diolah secara industri menjadi ayam karkas atau produk lainnya.",
         "alt": "Live commercial broiler chickens"
       },
       "commercialEgg": {
-        "title": "Commercial Eggs",
-        "description": "Commercial eggs are produced for consumption. Janu Putra Sejahtera eggs come from quality layer farms with efficient, integrated standards and systems to guarantee the eggs we produce.",
+        "title": "Telur Komersial",
+        "description": "PT Janu Putra Sejahtera Tbk menyediakan telur dengan kualitas unggul. Cangkang kuat berwarna coklat, serta ukuran yang proporsional. Telur dari PT Janu Putra Sejahtera dihasilkan dari peternakan petelur yang berkualitas dengan standar dan sistem yang baik, efisien, dan terintegrasi.",
         "alt": "Commercial eggs ready for market"
       },
       "chickenCarcass": {
-        "title": "Chicken Carcass",
-        "description": "Chicken carcass is the dressed chicken produced from commercial broilers that have been processed at the plant. The poultry we distribute to the food industry is guaranteed for safety, quality, and halal compliance thanks to strict production processes and technology optimization.",
+        "title": "Produk RPA",
+        "description": "PT Janu Putra Sejahtera Tbk memiliki Rumah Potong Ayam (RPA) yang menyediakan berbagai macam produk, seperti ayam karkas, ayam tanpa tulang, ayam segar, dan sebagainya. Ayam yang dikomersilkan ini diambil dari peternakan PT Janu Putra Sejahtera yang terjamin mutu serta kualitasnya",
         "alt": "High-quality chicken carcass"
+      }
+    },
+    "stockUpdate": {
+      "title": "Stock Update",
+      "updatedAt": "Last updated 29 November 2025",
+      "items": {
+        "docParent": {
+          "value": "1k",
+          "label": "DOC Parent Stock"
+        },
+        "docFinal": {
+          "value": "1.5k",
+          "label": "DOC Final Stock"
+        },
+        "commercialEgg": {
+          "value": "2.3k",
+          "label": "Commercial Eggs"
+        },
+        "rpa": {
+          "value": "1.8k",
+          "label": "RPA Products"
+        },
+        "livebird": {
+          "value": "900",
+          "label": "Livebird"
+        }
       }
     }
   },

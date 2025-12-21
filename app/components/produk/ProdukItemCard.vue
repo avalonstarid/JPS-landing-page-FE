@@ -40,7 +40,7 @@ const topImage = computed(() => props.stackTopImage || (isTopRight.value ? topRi
 </script>
 
 <template>
-  <article class="grid lg:grid-cols-2 gap-8 items-center rounded-[28px] p-2 md:p-4 lg:p-2">
+  <article class="grid lg:grid-cols-2 gap-8 items-center rounded-[20px] p-2 md:p-4 lg:p-2">
     <div :class="['space-y-4', props.reverse ? 'lg:order-2' : '']">
       <h3 class="text-2xl md:text-3xl font-semibold text-[#2f4172] leading-tight">
         {{ title }}
@@ -66,13 +66,13 @@ const topImage = computed(() => props.stackTopImage || (isTopRight.value ? topRi
         <!-- Stacked images -->
         <div class="relative aspect-[4/3] w-full">
           <!-- Base image -->
-          <div class="absolute inset-0 overflow-hidden rounded-[28px] bg-white shadow-xl">
+          <div class="absolute inset-0 overflow-hidden rounded-[20px] bg-white shadow-xl">
             <img :src="baseImage" :alt="imageAlt" class="h-full w-full object-cover" loading="lazy" />
           </div>
 
           <!-- Top image (offset left/right depending on index) -->
           <div
-            class="absolute top-1/2 h-[72%] w-[54%] -translate-y-1/2 overflow-hidden rounded-[28px] bg-white shadow-2xl ring-[20px] ring-[#fdeee0] transition-all duration-500 ease-out
+            class="absolute top-1/2 h-[62%] w-[34%] -translate-y-1/2 overflow-hidden rounded-[20px] bg-white shadow-2xl ring-[20px] ring-[#fdeee0] transition-all duration-500 ease-out
               group-hover:-translate-y-[52%] group-hover:scale-[1.03]"
             :class="isTopRight ? 'right-0 translate-x-[10px]' : 'left-0 -translate-x-[10px]'"
           >

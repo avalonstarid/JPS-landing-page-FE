@@ -12,6 +12,29 @@ import topLeft from '~/assets/images/produk/produk-top-left.jpg'
 
 const { t } = useI18n()
 
+const stockItems = computed(() => [
+  {
+    value: t('produkPage.stockUpdate.items.docParent.value'),
+    label: t('produkPage.stockUpdate.items.docParent.label'),
+  },
+  {
+    value: t('produkPage.stockUpdate.items.docFinal.value'),
+    label: t('produkPage.stockUpdate.items.docFinal.label'),
+  },
+  {
+    value: t('produkPage.stockUpdate.items.commercialEgg.value'),
+    label: t('produkPage.stockUpdate.items.commercialEgg.label'),
+  },
+  {
+    value: t('produkPage.stockUpdate.items.rpa.value'),
+    label: t('produkPage.stockUpdate.items.rpa.label'),
+  },
+  {
+    value: t('produkPage.stockUpdate.items.livebird.value'),
+    label: t('produkPage.stockUpdate.items.livebird.label'),
+  },
+])
+
 const productItems = computed(() => [
   {
     key: 'docParent',
@@ -83,9 +106,42 @@ const productItems = computed(() => [
         <h2 class="text-3xl md:text-4xl font-bold text-[#3d4f92]">
           {{ t('produkPage.list.title') }}
         </h2>
-        <p class="text-lg text-[#4b4b4b] max-w-3xl mx-auto leading-relaxed">
+        <!-- <p class="text-lg text-[#4b4b4b] max-w-3xl mx-auto leading-relaxed">
           {{ t('produkPage.list.subtitle') }}
-        </p>
+        </p> -->
+      </div>
+
+      <div class="relative overflow-hidden rounded-2xl bg-[#3A52A3] text-white px-6 py-6 md:px-10 md:py-8">
+        <div
+          class="absolute -top-12 -right-12 h-32 w-32 rounded-full"
+          style="background: radial-gradient(circle, #F6993C80 0%, transparent 70%);"
+          aria-hidden="true"
+        />
+        <div
+          class="absolute -bottom-16 -left-10 h-36 w-36 rounded-full"
+          style="background: radial-gradient(circle, #F6993C80 0%, transparent 70%);"
+          aria-hidden="true"
+        />
+
+        <div class="relative text-center space-y-1">
+          <h3 class="text-lg md:text-2xl font-semibold">
+            {{ t('produkPage.stockUpdate.title') }}
+          </h3>
+          <p class="text-xs md:text-sm text-white/90">
+            {{ t('produkPage.stockUpdate.updatedAt') }}
+          </p>
+        </div>
+
+        <div class="relative mt-6 flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <div v-for="item in stockItems" :key="item.label" class="text-center min-w-[120px]">
+            <div class="text-2xl md:text-4xl font-semibold tracking-tight">
+              {{ item.value }}
+            </div>
+            <div class="mt-1 text-xs md:text-sm text-white/90">
+              {{ item.label }}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="space-y-10">
