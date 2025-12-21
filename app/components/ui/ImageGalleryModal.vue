@@ -86,8 +86,8 @@ onBeforeUnmount(() => {
         aria-modal="true"
         @click.self="close"
       >
-        <div class="h-full w-full p-4 md:p-8">
-          <div class="mx-auto h-full max-w-5xl overflow-auto rounded-3xl bg-white p-6 md:p-10">
+        <div class="h-full w-full p-4 md:p-8 overflow-y-auto">
+          <div class="mx-auto max-w-5xl rounded-3xl bg-white p-6 md:p-10">
             <div class="flex items-start justify-between gap-4">
               <div>
                 <h3 class="text-2xl md:text-4xl font-extrabold text-gray-900">{{ title }}</h3>
@@ -124,7 +124,7 @@ onBeforeUnmount(() => {
               </div>
 
               <div>
-                <div class="relative overflow-hidden rounded-[42px] bg-gray-100 aspect-[16/9] max-h-[56vh]">
+                <div class="relative overflow-hidden rounded-[42px] bg-gray-100 aspect-[16/9]">
                   <img v-if="activeSrc" :src="activeSrc" alt="" class="h-full w-full object-cover" />
                   <div v-else class="h-full w-full" />
 

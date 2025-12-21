@@ -88,10 +88,17 @@ const timelineItems = computed<TimelineItem[]>(() => [
   },
   {
     year: '2022',
-    icon: 'expansion',
+    icon: 'facility',
     shortDesc: t('tentangPage.linimasa.items.y2022.short'),
     detailTitle: t('tentangPage.linimasa.items.y2022.title'),
     detailDesc: t('tentangPage.linimasa.items.y2022.detail'),
+  },
+  {
+    year: '2023',
+    icon: 'facility',
+    shortDesc: t('tentangPage.linimasa.items.y2022b.short'),
+    detailTitle: t('tentangPage.linimasa.items.y2022b.title'),
+    detailDesc: t('tentangPage.linimasa.items.y2022b.detail'),
   },
 ])
 

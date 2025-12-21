@@ -645,12 +645,12 @@
           "detail": "PT Janu Putra Sejahtera Tbk memperluas jaringan fasilitas pembibitan ke Purbalingga, Jawa Tengah, sebagai langkah strategis untuk memperluas distribusi dan meningkatkan ketersediaan DOC berkualitas. Penambahan lokasi ini memperkuat peran PT Janu Putra Sejahtera Tbk sebagai penyedia bibit unggas yang kompetitif di kawasan Jawa."
         },
         "y2018": {
-          "short": "Peningkatan Kapasitas Peternakan Pembibitan di Purbalingga, Jawa Tengah",
+          "short": "Peningkatan Kapasitas Pembibitan di Purbalingga",
           "title": "2018 Linimasa Detail",
           "detail": "PT Janu Putra Sejahtera Tbk meningkatkan kapasitas peternakan pembibitan di Purbalingga, Jawa Tengah, sebagai langkah strategis untuk memenuhi permintaan DOC yang terus bertumbuh. Pengembangan ini memperkuat rantai produksi dan kesiapan suplai bagi mitra di berbagai wilayah."
         },
         "y2019": {
-          "short": "Upgrade Fasilitas Pembibitan ke GPS (Grand Parent Stock)",
+          "short": "Transformasi Kandang Pembibitan di Mulo Menjadi Fasilitas GPS",
           "title": "2019 Linimasa Detail",
           "detail": "Fasilitas pembibitan di Mulo, Gunungkidul ditingkatkan menjadi kandang GPS (Grand Parent Stock). Pembaruan ini memungkinkan PT Janu Putra Sejahtera Tbk menghasilkan bibit unggas berkualitas lebih tinggi dan memperkuat struktur produksi dari hulu."
         },
@@ -660,14 +660,19 @@
           "detail": "PT Janu Putra Sejahtera Tbk membentuk PT Janu Putra Abadi dan menjalin kerja sama dengan De Heus untuk mengoptimalkan pengembangan perusahaan. Kolaborasi ini menjadi fondasi peningkatan efisiensi, teknologi, serta kualitas operasional secara menyeluruh."
         },
         "y2021": {
-          "short": "Pendirian Grand Parent Stick dengan Standar Internasional",
+          "short": "Pendirian Kandang Grand Parent Stock Berskala Internasional",
           "title": "2021 Linimasa Detail",
           "detail": "PT Janu Putra Sejahtera Tbk bersama De Heus mendirikan kandang Grand Parent Stick dengan standar internasional, memperkuat struktur produksi unggas dari lini tertinggi. Fasilitas ini berperan penting dalam peningkatan kualitas bibit dan daya saing PT Janu Putra Sejahtera Tbk di pasar nasional."
         },
         "y2022": {
-          "short": "Pembangunan Kandang Broiler di Karanganyar, Jawa Tengah",
+          "short": "Pendirian Rumah Potong Ayam Cebongan dengan Fasilitas Cold Storage",
           "title": "2022 Linimasa Detail",
-          "detail": "Untuk memperluas kapasitas produksi, PT Janu Putra Sejahtera Tbk mengakuisisi kandang broiler baru di Karanganyar, Jawa Tengah. Langkah ini meningkatkan kemampuan suplai dan memperkuat jaringan operasional di wilayah Jawa."
+          "detail": "PT Janu Putra Sejahtera Tbk mendirikan Rumah Potong Ayam di Cebongan yang dilengkapi fasilitas cold storage untuk menjaga kualitas dan kesiapan distribusi produk."
+        },
+        "y2022b": {
+          "short": "Pembelian Kandang Broiler di Karanganyar",
+          "title": "2023 Linimasa Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk membeli kandang broiler di Karanganyar untuk memperluas kapasitas produksi dan memperkuat jaringan operasional."
         }
       }
     },
@@ -691,7 +696,7 @@
           "title": "Peternakan Petelur",
           "loc1": "Lendah, Kulon Progo",
           "loc2": "Cangkringan, Sleman",
-          "loc3": "Rajek, Sleman",
+          "loc3": "Karangmojo, Gunungkidul",
           "info": "Unit petelur dengan manajemen produksi telur yang konsisten dan terjaga."
         },
         "penetasan": {

@@ -114,10 +114,10 @@ const setActiveTab = (key: string) => {
         {{ t('tentangPage.dewan.sectionTitle') }}
       </h2>
 
-      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+      <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-5xl mx-auto">
         <!-- People Cards -->
-        <div class="flex-1">
-          <div class="flex flex-wrap gap-6 md:gap-8 justify-center lg:justify-start">
+        <div class="flex justify-center">
+          <div class="flex flex-wrap gap-6 md:gap-8 justify-center">
             <div
               v-for="person in currentTab.people"
               :key="person.name"
@@ -148,8 +148,8 @@ const setActiveTab = (key: string) => {
         </div>
 
         <!-- Tab Navigation -->
-        <div class="lg:w-64">
-          <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="lg:w-64 flex justify-center">
+          <div class="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-xs">
             <button
               v-for="tab in tabs"
               :key="tab.key"
@@ -180,4 +180,3 @@ const setActiveTab = (key: string) => {
   transform: translateY(-4px);
 }
 </style>
-

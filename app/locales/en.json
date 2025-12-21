@@ -615,7 +615,7 @@
       "scrollRight": "Scroll right",
       "items": {
         "y2007": {
-          "short": "Founding of PT Janu Putra Sejahtera Tbk.",
+          "short": "Establishment of PT Janu Putra Sejahtera Tbk.",
           "title": "2007 Timeline Detail",
           "detail": "This year marked the first step of PT Janu Putra Sejahtera Tbk entering the poultry industry. The construction of a broiler farm in Seyegan became the initial foundation for building structured, professional, and sustainability-oriented operations"
         },
@@ -645,12 +645,12 @@
           "detail": "PT Janu Putra Sejahtera Tbk expanded its breeding facility network to Purbalingga, Central Java, as a strategic step to expand distribution and increase the availability of quality DOC. This location addition strengthened PT Janu Putra Sejahtera Tbk's role as a competitive poultry provider in the Java region."
         },
         "y2018": {
-          "short": "Capacity Increase of Breeding Farm in Purbalingga, Central Java",
+          "short": "Capacity Increase of Breeding in Purbalingga",
           "title": "2018 Timeline Detail",
           "detail": "PT Janu Putra Sejahtera Tbk increased the capacity of its breeding farm in Purbalingga, Central Java, as a strategic step to meet the growing demand for DOC. This development strengthened the production chain and supply readiness for partners in various regions."
         },
         "y2019": {
-          "short": "Upgrade of Breeding Facility to GPS (Grand Parent Stock)",
+          "short": "Transformation of the Mulo Breeding House into a GPS Facility",
           "title": "2019 Timeline Detail",
           "detail": "The breeding facility in Mulo, Gunungkidul was upgraded to a GPS (Grand Parent Stock) farm. This upgrade enabled PT Janu Putra Sejahtera Tbk to produce higher quality poultry chicks and strengthen the upstream production structure."
         },
@@ -660,14 +660,19 @@
           "detail": "PT Janu Putra Sejahtera Tbk formed PT Janu Putra Abadi and established a partnership with De Heus to optimize company development. This collaboration became the foundation for improving efficiency, technology, and overall operational quality."
         },
         "y2021": {
-          "short": "Establishment of Grand Parent Stock with International Standards",
+          "short": "Establishment of Grand Parent Stock Houses at International Scale",
           "title": "2021 Timeline Detail",
           "detail": "PT Janu Putra Sejahtera Tbk together with De Heus established a Grand Parent Stock farm with international standards, strengthening the poultry production structure from the highest level. This facility plays an important role in improving chick quality and PT Janu Putra Sejahtera Tbk's competitiveness in the national market."
         },
         "y2022": {
-          "short": "Construction of Broiler Farm in Karanganyar, Central Java",
+          "short": "Establishment of the Cebongan Slaughterhouse with Cold Storage Facilities",
           "title": "2022 Timeline Detail",
-          "detail": "To expand production capacity, PT Janu Putra Sejahtera Tbk acquired a new broiler farm in Karanganyar, Central Java. This step increased supply capability and strengthened the operational network in the Java region."
+          "detail": "PT Janu Putra Sejahtera Tbk established a slaughterhouse in Cebongan with cold storage facilities to maintain quality and distribution readiness."
+        },
+        "y2022b": {
+          "short": "Acquisition of a Broiler House in Karanganyar",
+          "title": "2023 Timeline Detail",
+          "detail": "PT Janu Putra Sejahtera Tbk acquired a broiler house in Karanganyar to expand production capacity and strengthen the operational network."
         }
       }
     },
@@ -691,7 +696,7 @@
           "title": "Layer Farm",
           "loc1": "Lendah, Kulon Progo",
           "loc2": "Cangkringan, Sleman",
-          "loc3": "Rajek, Sleman",
+          "loc3": "Karangmojo, Gunungkidul",
           "info": "Layer units with consistent and well-managed egg production."
         },
         "penetasan": {

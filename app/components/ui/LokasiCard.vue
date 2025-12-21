@@ -18,7 +18,7 @@ const emit = defineEmits<{
 }>()
 
 const svgWidth = 520
-const svgHeight = 420
+const svgHeight = 620
 
 const imageCornerRadius = 26
 const notchSize = 150
@@ -133,7 +133,7 @@ const clipPathId = computed(() => `lokasi-img-clip-${stableId}`)
 .lokasi-cta {
   margin-top: auto;
   padding-top: 14px;
-  margin-left: -56px;
+  margin-left: -66px;
 }
 
 .lokasi-btn {
