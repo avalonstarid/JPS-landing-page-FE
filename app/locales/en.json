@@ -267,32 +267,32 @@
     "businesses": {
       "pembibitan": {
         "title": "Breeding Farm",
-        "description1": "PT Janu Putra Sejahtera Tbk operates breeding farms in Karanganyar and Seyegan, with a production capacity of one million birds per month. Each facility is designed to achieve optimal chicken performance through modern and efficient farm management.",
-        "description2": "Breeding houses are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, the feed used has been formulated nutritionally to support healthy and uniform chicken growth. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of livestock.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengelola peternakan pembibitan yang berfokus pada menghasilkan bibit ayam berkualitas tinggi melalui proses pemuliaan yang terstandar. Fasilitas pembibitan dirancang untuk memastikan kesehatan indukan, produktivitas telur, serta kualitas bibit yang dihasilkan.",
+        "description2": "Setiap tahap mulai dari seleksi indukan, manajemen reproduksi, pengelolaan pakan, hingga pengawasan kesehatan, diterapkan dengan kontrol yang ketat. Teknologi monitoring lingkungan membantu menjaga kondisi kandang tetap stabil, sehingga mendukung performa reproduksi yang optimal. Melalui pendekatan yang terintegrasi, perusahaan dapat menyediakan bibit ayam yang unggul, sehat, dan konsisten untuk memenuhi kebutuhan industri perunggasan.",
         "button": "Farm Information"
       },
       "broiler": {
         "title": "Broiler Farm",
-        "description1": "PT Janu Putra Sejahtera Tbk operates broiler farms in Karanganyar and Seyegan, with a production capacity of one million birds per month. Each facility is designed to achieve optimal chicken performance through modern and efficient farm management.",
-        "description2": "Broiler houses are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, the feed used has been formulated nutritionally to support healthy and uniform chicken growth. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of livestock.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan ayam broiler di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta ekor per bulan. Setiap fasilitas dirancang untuk menghasilkan performa ayam yang optimal melalui pengelolaan kandang yang modern dan efisien.",
+        "description2": "Kandang broiler dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, pakan yang digunakan telah diformulasikan secara nutrisionis untuk mendukung pertumbuhan ayam yang sehat dan seragam. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan ternak.",
         "button": "Farm Information"
       },
       "petelur": {
         "title": "Layer Farm",
-        "description1": "PT Janu Putra Sejahtera Tbk operates layer farms in Karanganyar and Seyegan, with a production capacity of one million eggs per month. Each facility is designed to achieve optimal chicken performance through modern and efficient farm management.",
-        "description2": "Layer houses are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, the feed used has been formulated nutritionally to support healthy and uniform chicken growth. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of livestock.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan petelur di Lendah, Kulon Progo, Srunen, Sleman dan Ngipak, serta Gunungkidul yang memiliki kapasitas produksi mencapai 200 ribu ekor ayam. Seluruh fasilitas telah dilengkapi dengan sistem pemberian pakan dan air otomatis yang terintegrasi untuk memastikan efisiensi dan kualitas produksi.",
+        "description2": "Penerapan standar kebersihan dan sanitasi yang baik menjadi fokus utama, sebagai bagian dari upaya preventif dalam menjaga kesehatan dan mencegah penyebaran penyakit pada populasi ayam.",
         "button": "Farm Information"
       },
       "penetasan": {
         "title": "Hatchery",
-        "description1": "PT Janu Putra Sejahtera Tbk operates hatchery facilities in Karanganyar and Seyegan, with a production capacity of one million birds per month. Each facility is designed to achieve optimal hatching performance through modern and efficient incubator management.",
-        "description2": "Hatchery facilities are equipped with environmental control systems that maintain stable temperature and humidity. Additionally, eggs used have undergone strict selection processes to support high hatch rates. All operational processes also implement strict hygiene and biosecurity standards as preventive measures to maintain the quality and health of DOC.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan fasilitas penetasan telur di Karangmojo dengan kapasitas produksi mencapai 100 ribu telur per hari. Fasilitas ini dirancang untuk mendukung proses penetasan yang konsisten dan efisien melalui pengelolaan yang terstandar.",
+        "description2": "Sistem penetasan dilengkapi dengan teknologi pengaturan suhu, kelembapan, dan waktu inkubasi yang presisi, sehingga setiap tahap dapat dipantau secara optimal. Selain itu, penyediaan pakan dan air untuk DOC dilakukan secara terintegrasi untuk memastikan kualitas hasil tetas yang maksimal dan seragam. Standar higienitas juga diterapkan secara ketat sebagai bagian dari upaya menjaga kesehatan dan performa anak ayam.",
         "button": "Hatchery Information"
       },
       "rpa": {
         "title": "Slaughterhouse",
-        "description1": "PT Janu Putra Sejahtera Tbk operates Slaughterhouses (RPA) in Karanganyar and Seyegan, with a production capacity of one hundred thousand birds per day. Each facility is designed to produce quality carcass products through modern and efficient slaughtering processes.",
-        "description2": "The slaughterhouse is equipped with quality control systems that ensure each product meets food safety standards. Additionally, the slaughtering process uses modern technology to maintain meat freshness and quality. All operational processes also implement strict hygiene and halal standards to maintain consumer trust.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan fasilitas Rumah Potong Ayam (RPA) yang dirancang untuk menghasilkan produk unggas dengan standar kualitas yang tinggi. Proses produksi dilakukan secara terkontrol dan higienis, mulai dari penerimaan ayam hidup hingga tahap pemotongan, pendinginan, dan pengemasan.",
+        "description2": "Fasilitas RPA ini telah dilengkapi dengan teknologi yang memastikan keamanan pangan, efisiensi proses, serta kepatuhan terhadap standar kesehatan dan sanitasi. Setiap tahapan operasional diawasi secara ketat untuk menjaga kualitas daging ayam yang dihasilkan, sehingga dapat memenuhi kebutuhan pasar modern maupun industri makanan.",
         "button": "Slaughterhouse Information"
       }
     },

@@ -49,7 +49,7 @@ export const liniBisnisList: LiniBisnis[] = [
     titleKey: 'liniBisnisPage.businesses.rpa.title',
     description1Key: 'liniBisnisPage.businesses.rpa.description1',
     description2Key: 'liniBisnisPage.businesses.rpa.description2',
-    buttonKey: 'liniBisnisPage.businesses.rpa.button',
+    buttonKey: 'liniBisnisPage.businesses.penetasan.button',
   },
 ]
 

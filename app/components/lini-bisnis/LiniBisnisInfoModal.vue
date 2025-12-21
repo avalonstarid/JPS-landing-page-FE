@@ -80,7 +80,7 @@ watch(() => props.isOpen, (isOpen) => {
 
         <!-- Modal Content -->
         <div 
-          class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
+          class="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
         >
           <!-- Header -->
           <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between z-10">

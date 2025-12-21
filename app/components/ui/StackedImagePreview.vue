@@ -8,34 +8,71 @@ type Props = {
   backBottomAlt?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   topAlt: '',
   backTopAlt: '',
   backBottomAlt: '',
 })
+
+const activeIndex = ref(0)
+const images = computed(() => [props.topSrc, props.backTopSrc, props.backBottomSrc])
+const alts = computed(() => [props.topAlt, props.backTopAlt, props.backBottomAlt])
+const imageCount = computed(() => images.value.length)
+
+const getRoleIndex = (index: number) => {
+  const count = imageCount.value
+  if (!count) return 0
+  return (index - activeIndex.value + count) % count
+}
+
+const getPositionClass = (roleIndex: number) => {
+  if (roleIndex === 0) return 'card-top'
+  if (roleIndex === 1) return 'card-back-top'
+  return 'card-back-bottom'
+}
+
+let rotateTimer: ReturnType<typeof setInterval> | null = null
+
+const startRotation = () => {
+  if (rotateTimer || images.value.length < 2) return
+  rotateTimer = setInterval(() => {
+    activeIndex.value = (activeIndex.value + 1) % images.value.length
+  }, 4000)
+}
+
+const stopRotation = () => {
+  if (rotateTimer) clearInterval(rotateTimer)
+  rotateTimer = null
+}
+
+onMounted(startRotation)
+onBeforeUnmount(stopRotation)
+
+watch(
+  images,
+  () => {
+    activeIndex.value = 0
+    stopRotation()
+    startRotation()
+  },
+  { deep: true }
+)
 </script>
 
 <template>
-  <div class="group relative w-full max-w-[420px] mx-auto aspect-[4/3] lg:aspect-square">
+  <div class="group relative w-full max-w-[360px] mx-auto aspect-[4/3] lg:aspect-square">
     <div
-      class="absolute right-[2%] top-[8%] w-[68%] rotate-8 rounded-3xl overflow-hidden shadow-xl opacity-90 transition-all duration-500 ease-out
-        group-hover:-translate-y-4 group-hover:translate-x-2 group-hover:rotate-[16deg] group-hover:opacity-100 group-hover:scale-[1.02]"
+      v-for="(src, index) in images"
+      :key="`${src}-${index}`"
+      class="absolute rounded-3xl overflow-hidden shadow-xl stacked-card"
+      :class="getPositionClass(getRoleIndex(index))"
     >
-      <img :src="backTopSrc" :alt="backTopAlt" class="h-full w-full object-cover" loading="lazy" />
-    </div>
-
-    <div
-      class="absolute left-[2%] bottom-[4%] w-[72%] -rotate-8 rounded-3xl overflow-hidden shadow-xl opacity-85 transition-all duration-500 ease-out
-        group-hover:translate-y-4 group-hover:-translate-x-2 group-hover:-rotate-[16deg] group-hover:opacity-100 group-hover:scale-[1.02]"
-    >
-      <img :src="backBottomSrc" :alt="backBottomAlt" class="h-full w-full object-cover" loading="lazy" />
-    </div>
-
-    <div
-      class="absolute left-1/2 top-1/2 w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-[34px] overflow-hidden shadow-2xl ring-4 ring-white transition-all duration-500 ease-out
-        group-hover:scale-[1.06] group-hover:-translate-y-[52%] group-hover:rotate-[0.8deg]"
-    >
-      <img :src="topSrc" :alt="topAlt" class="h-full w-full object-cover" loading="lazy" />
+      <img
+        :src="src"
+        :alt="alts[index] || ''"
+        class="h-full w-full object-cover"
+        loading="lazy"
+      />
     </div>
 
     <div
@@ -46,3 +83,57 @@ withDefaults(defineProps<Props>(), {
     />
   </div>
 </template>
+
+<style scoped>
+.stacked-card {
+  left: 50%;
+  top: 50%;
+  width: var(--w);
+  opacity: var(--opacity);
+  transform: translate3d(calc(-50% + var(--x)), calc(-50% + var(--y)), 0)
+    rotate(var(--rotate))
+    scale(var(--scale));
+  transition:
+    transform 1400ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1400ms ease,
+    box-shadow 1400ms ease,
+    width 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+.card-top {
+  z-index: 3;
+  --w: 76%;
+  --x: 0%;
+  --y: 0%;
+  --rotate: 0deg;
+  --scale: 1;
+  --opacity: 1;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  outline: 4px solid #fff;
+}
+
+.card-back-top {
+  z-index: 2;
+  --w: 72%;
+  --x: 12%;
+  --y: -8%;
+  --rotate: 4deg;
+  --scale: 0.985;
+  --opacity: 0.78;
+  outline: 0 solid transparent;
+}
+
+.card-back-bottom {
+  z-index: 1;
+  --w: 70%;
+  --x: -12%;
+  --y: 8%;
+  --rotate: -4deg;
+  --scale: 0.975;
+  --opacity: 0.7;
+  outline: 0 solid transparent;
+}
+</style>

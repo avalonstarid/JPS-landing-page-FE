@@ -267,8 +267,8 @@
     "businesses": {
       "pembibitan": {
         "title": "Peternakan Pembibitan",
-        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan pembibitan ayam di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta ekor per bulan. Setiap fasilitas dirancang untuk menghasilkan performa ayam yang optimal melalui pengelolaan kandang yang modern dan efisien.",
-        "description2": "Kandang pembibitan dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, pakan yang digunakan telah diformulasikan secara nutrisionis untuk mendukung pertumbuhan ayam yang sehat dan seragam. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan ternak.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengelola peternakan pembibitan yang berfokus pada menghasilkan bibit ayam berkualitas tinggi melalui proses pemuliaan yang terstandar. Fasilitas pembibitan dirancang untuk memastikan kesehatan indukan, produktivitas telur, serta kualitas bibit yang dihasilkan.",
+        "description2": "Setiap tahap mulai dari seleksi indukan, manajemen reproduksi, pengelolaan pakan, hingga pengawasan kesehatan, diterapkan dengan kontrol yang ketat. Teknologi monitoring lingkungan membantu menjaga kondisi kandang tetap stabil, sehingga mendukung performa reproduksi yang optimal. Melalui pendekatan yang terintegrasi, perusahaan dapat menyediakan bibit ayam yang unggul, sehat, dan konsisten untuk memenuhi kebutuhan industri perunggasan.",
         "button": "Informasi Peternakan"
       },
       "broiler": {
@@ -279,20 +279,20 @@
       },
       "petelur": {
         "title": "Peternakan Petelur",
-        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan ayam petelur di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta butir per bulan. Setiap fasilitas dirancang untuk menghasilkan performa ayam yang optimal melalui pengelolaan kandang yang modern dan efisien.",
-        "description2": "Kandang petelur dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, pakan yang digunakan telah diformulasikan secara nutrisionis untuk mendukung pertumbuhan ayam yang sehat dan seragam. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan ternak.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan peternakan petelur di Lendah, Kulon Progo, Srunen, Sleman dan Ngipak, serta Gunungkidul yang memiliki kapasitas produksi mencapai 200 ribu ekor ayam. Seluruh fasilitas telah dilengkapi dengan sistem pemberian pakan dan air otomatis yang terintegrasi untuk memastikan efisiensi dan kualitas produksi.",
+        "description2": "Penerapan standar kebersihan dan sanitasi yang baik menjadi fokus utama, sebagai bagian dari upaya preventif dalam menjaga kesehatan dan mencegah penyebaran penyakit pada populasi ayam.",
         "button": "Informasi Peternakan"
       },
       "penetasan": {
         "title": "Penetasan Telur",
-        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan fasilitas penetasan telur di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai satu juta ekor per bulan. Setiap fasilitas dirancang untuk menghasilkan performa penetasan yang optimal melalui pengelolaan mesin penetas yang modern dan efisien.",
-        "description2": "Fasilitas penetasan dilengkapi dengan sistem kontrol lingkungan yang memastikan suhu dan kelembapan tetap stabil. Selain itu, telur yang digunakan telah melalui proses seleksi ketat untuk mendukung tingkat penetasan yang tinggi. Seluruh proses operasional juga menerapkan standar higienitas dan biosekuriti yang ketat, sebagai langkah preventif untuk menjaga kualitas dan kesehatan DOC.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan fasilitas penetasan telur di Karangmojo dengan kapasitas produksi mencapai 100 ribu telur per hari. Fasilitas ini dirancang untuk mendukung proses penetasan yang konsisten dan efisien melalui pengelolaan yang terstandar.",
+        "description2": "Sistem penetasan dilengkapi dengan teknologi pengaturan suhu, kelembapan, dan waktu inkubasi yang presisi, sehingga setiap tahap dapat dipantau secara optimal. Selain itu, penyediaan pakan dan air untuk DOC dilakukan secara terintegrasi untuk memastikan kualitas hasil tetas yang maksimal dan seragam. Standar higienitas juga diterapkan secara ketat sebagai bagian dari upaya menjaga kesehatan dan performa anak ayam.",
         "button": "Informasi Penetasan"
       },
       "rpa": {
         "title": "Rumah Potong Ayam",
-        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan Rumah Potong Ayam (RPA) di Karanganyar dan Seyegan, dengan kapasitas produksi mencapai seratus ribu ekor per hari. Setiap fasilitas dirancang untuk menghasilkan produk karkas yang berkualitas melalui pengelolaan proses pemotongan yang modern dan efisien.",
-        "description2": "RPA dilengkapi dengan sistem kontrol kualitas yang memastikan setiap produk memenuhi standar keamanan pangan. Selain itu, proses pemotongan menggunakan teknologi modern untuk menjaga kesegaran dan kualitas daging. Seluruh proses operasional juga menerapkan standar higienitas dan halal yang ketat, sebagai langkah untuk menjaga kepercayaan konsumen.",
+        "description1": "PT Janu Putra Sejahtera Tbk mengoperasikan fasilitas Rumah Potong Ayam (RPA) yang dirancang untuk menghasilkan produk unggas dengan standar kualitas yang tinggi. Proses produksi dilakukan secara terkontrol dan higienis, mulai dari penerimaan ayam hidup hingga tahap pemotongan, pendinginan, dan pengemasan.",
+        "description2": "Fasilitas RPA ini telah dilengkapi dengan teknologi yang memastikan keamanan pangan, efisiensi proses, serta kepatuhan terhadap standar kesehatan dan sanitasi. Setiap tahapan operasional diawasi secara ketat untuk menjaga kualitas daging ayam yang dihasilkan, sehingga dapat memenuhi kebutuhan pasar modern maupun industri makanan.",
         "button": "Informasi RPA"
       }
     },

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { LiniBisnis } from '~/utils/liniBisnisData'
-import imageMostTop from '~/assets/images/bisnis/bisnis-most-top.png'
-import imageBehindTop from '~/assets/images/bisnis/bisnis-behind-top.png'
-import imageBehindBottom from '~/assets/images/bisnis/bisnis-behind-bottom.png'
+import imageMostTop from '~/assets/images/bisnis/bisnis-1.png'
+import imageBehindTop from '~/assets/images/bisnis/bisnis-2.jpg'
+import imageBehindBottom from '~/assets/images/bisnis/bisnis-3.jpg'
 
 const { t } = useI18n()
 
@@ -28,7 +28,7 @@ const handleOpenModal = () => {
         <!-- Content Column -->
         <div class="space-y-6">
           <!-- Title -->
-          <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1f2937]">
+          <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3d4f92]">
             {{ t(props.business.titleKey) }}
           </h3>
 

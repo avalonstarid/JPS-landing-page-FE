@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import backgroundImage from '~/assets/images/tentang/background-lokasi-usaha.jpg'
-import bisnisImage from '~/assets/images/bisnis/bisnis-most-top.png'
+import bisnisImage from '~/assets/images/bisnis/bisnis-1.png'
 import bisnisImageAlt1 from '~/assets/images/bisnis/bisnis-behind-top.png'
 import bisnisImageAlt2 from '~/assets/images/bisnis/bisnis-behind-bottom.png'
 
