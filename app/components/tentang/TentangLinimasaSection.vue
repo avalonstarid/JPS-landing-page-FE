@@ -128,21 +128,21 @@ const handleMouseLeave = () => {
   hoveredItem.value = null
 }
 
-const getIconPath = (icon: string): string => {
+const getIconClass = (icon: string): string => {
   const icons: Record<string, string> = {
-    building: 'M3 21h18M5 21V7l8-4v18M13 21V3l6 3v15M9 9h1M9 12h1M9 15h1M17 9h1M17 12h1M17 15h1',
-    partnership: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
-    expansion: 'M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 0 1 9-9',
-    facility: 'M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16',
-    growth: 'M23 6l-9.5 9.5-5-5L1 18M17 6h6v6',
-    international: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4',
+    building: 'mdi-domain',
+    partnership: 'mdi-account-group-outline',
+    expansion: 'mdi-earth',
+    facility: 'mdi-warehouse',
+    growth: 'mdi-chart-line',
+    international: 'mdi-earth',
   }
   return icons[icon] || icons.building
 }
 </script>
 
 <template>
-  <section id="linimasa-sejarah" class="py-12 md:py-20 bg-[#3A52A3]">
+  <section id="linimasa-sejarah" class="py-12 md:py-20 bg-[#3A52A3] overflow-hidden">
     <div class="container-main">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-center mb-10 md:mb-14">
         {{ t('tentangPage.linimasa.sectionTitle') }}
@@ -197,9 +197,7 @@ const getIconPath = (icon: string): string => {
                   class="relative z-10 w-[56px] h-[56px] md:w-[64px] md:h-[64px] rounded-full bg-white p-[3px] cursor-pointer transition-transform hover:scale-110"
                 >
                   <div class="w-full h-full rounded-full bg-[#f6993c] flex items-center justify-center">
-                    <svg class="w-6 h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" :d="getIconPath(item.icon)" />
-                    </svg>
+                    <i class="mdi text-white text-2xl md:text-[28px]" :class="getIconClass(item.icon)" aria-hidden="true" />
                   </div>
                 </div>
 
