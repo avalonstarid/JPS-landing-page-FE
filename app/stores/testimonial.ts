@@ -19,7 +19,7 @@ const mockTestimonials: Testimonial[] = [
     id: 1,
     titleKey: 'testimonials.items.trustedBroiler.title',
     contentKey: 'testimonials.items.trustedBroiler.content',
-    author: 'Irvan Agustian',
+    author: 'Iman Agustina',
     roleKey: 'testimonials.items.trustedBroiler.role',
   },
   {

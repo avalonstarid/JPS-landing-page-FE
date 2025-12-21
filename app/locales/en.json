@@ -33,40 +33,47 @@
     "loading": "Loading..."
   },
   "hero": {
-    "title": "PT Janu Putra Sejahtera",
-    "subtitle": "Integrated Poultry Company",
-    "description": "Janu Putra Sejahtera is committed to becoming Indonesia's leading poultry integrator, delivering positive impact to farmers and communities.",
+    "title": "Integrated Poultry Company",
+    "subtitlePrefix": "PT Janu Putra Sejahtera Tbk provides",
+    "rotatingWords": [
+      "DOC Parent Stock",
+      "DOC Final Stock",
+      "Live Chicken",
+      "Commercial Eggs",
+      "RPA Products"
+    ],
+    "description": "",
     "cta": "Learn More",
     "imageAlt": "Poultry farm of PT Janu Putra Sejahtera"
   },
   "values": {
-    "title": "Standar yang Kami Terapkan",
-    "subtitle": "PT Janu Putra Sejahtera Tbk berkomitmen untuk menyediakan produk yang unggul dan berkualitas",
+    "title": "Standards We Apply",
+    "subtitle": "PT Janu Putra Sejahtera Tbk is committed to providing superior and high-quality products",
     "imageAlt": "Interior peternakan ayam modern PT Janu Putra Sejahtera",
     "items": {
       "quality": {
         "title": "Quality",
-        "description": "We provide high-quality poultry products with the best health and hygiene standards."
+        "description": "Always prioritizing quality across all aspects of the business, from products to customer service"
       },
       "professionalism": {
         "title": "Professionalism",
-        "description": "Our professional team works with dedication to ensure every product meets the highest standards."
+        "description": "Always upholding ethics and professionalism in every business action"
       },
       "innovation": {
         "title": "Innovation",
-        "description": "We continuously innovate in farming technology to deliver better and more efficient products."
+        "description": "Continuously striving to create new, leading solutions in delivering high-quality poultry products"
       },
       "environment": {
         "title": "Environment",
-        "description": "Our farming practices are eco-friendly with responsible waste management."
+        "description": "Caring for the environment and consistently promoting eco-friendly business practices"
       },
       "welfare": {
         "title": "Welfare",
-        "description": "We uphold animal welfare and employee wellbeing across all operations."
+        "description": "Always valuing poultry farmers' contributions and paying close attention to their welfare"
       },
       "social": {
         "title": "Social",
-        "description": "We actively contribute to local economic growth and community wellbeing."
+        "description": "Always mindful of business impacts on society and contributing positively to community empowerment"
       }
     }
   },
@@ -85,24 +92,24 @@
     },
     "items": {
       "docParent": {
-        "name": "Day Old Chick (DOC) – Parent Stock",
+        "name": "DOC Parent Stock",
         "description": "Day Old Chick refers to poultry chicks. DOC parent stock will produce broiler chickens."
       },
       "docFinal": {
-        "name": "Day Old Chick (DOC) – Final Stock",
+        "name": "DOC Final Stock",
         "description": "Day Old Chick refers to poultry chicks. DOC final stock will be raised into commercial broiler chickens."
       },
       "liveChicken": {
         "name": "Live Chicken",
-        "description": "Broiler chickens provided alive to ensure quality and freshness for consumption."
+        "description": "PT Janu Putra Sejahtera Tbk provides live chickens (livebird) with superior quality and freshness."
       },
       "commercialEgg": {
         "name": "Commercial Eggs",
-        "description": "Commercial eggs for consumption with good quality, standards, and systems."
+        "description": "PT Janu Putra Sejahtera Tbk provides commercial eggs for consumption with superior quality."
       },
       "chickenCarcass": {
-        "name": "Chicken Carcass",
-        "description": "Chicken carcass is the processed result of commercial broiler chickens from the processing plant."
+        "name": "RPA Products",
+        "description": "Chicken carcass or dressed chicken is produced from commercial broilers through processing at the slaughterhouse."
       }
     }
   },
@@ -337,15 +344,15 @@
     }
   },
   "testimonials": {
-    "label": "Testimonials",
+    "label": "Customer Words",
     "ariaPrev": "Previous testimonial",
     "ariaNext": "Next testimonial",
     "ariaDot": "Go to testimonial {index}",
     "items": {
       "trustedBroiler": {
-        "title": "Trusted Broiler Solution",
-        "content": "I partner with the largest broiler network in Indonesia and work hand-in-hand with JPS. We trust the quality of their products, and our consumers already know and trust Janu Putra Sejahtera.",
-        "role": "Director, Ayam Broiler Sejahtera"
+        "title": "Trusted Broiler Chicken Solution",
+        "content": "I own the largest grilled chicken restaurant in Indonesia and have subscribed to Janu Putra Sejahtera since 2018, and all products provided are high-quality. Our customers are also satisfied with products from Janu Putra",
+        "role": "Director of Ayam Bakar Indo"
       },
       "profitablePartnership": {
         "title": "Profitable Partnership",
@@ -366,20 +373,20 @@
     "contactLink": "Contact us",
     "items": {
       "about": {
-        "question": "What is PT Janu Putra Sejahtera?",
-        "answer": "PT Janu Putra Sejahtera is committed to becoming Indonesia's leading poultry integrator, delivering positive contributions to poultry farmers and society. We run integrated operations from breeding and grow-out to distributing high-quality poultry products."
+        "question": "What is PT Janu Putra Sejahtera Tbk?",
+        "answer": "PT Janu Putra Sejahtera Tbk is a public company engaged in poultry farming, specifically integrated chicken operations."
       },
       "products": {
-        "question": "What products does PT Janu Putra Sejahtera offer?",
-        "answer": "We provide high-quality poultry products including Day Old Chick (DOC) Parent Stock, DOC Final Stock, Live Chicken, Commercial Eggs, and Chicken Carcass. All products are produced with high standards and modern farming practices."
+        "question": "What products does PT Janu Putra Sejahtera Tbk offer?",
+        "answer": "PT Janu Putra Sejahtera Tbk provides a wide range of chicken products, from breeding to chicken carcass."
       },
       "business": {
-        "question": "What are the business lines at PT Janu Putra Sejahtera?",
-        "answer": "PT Janu Putra Sejahtera has several core business lines: breeding farm, commercial farm, feed mill, poultry processing plant, and distribution. All lines are integrated to ensure quality from upstream to downstream."
+        "question": "What business lines does PT Janu Putra Sejahtera Tbk have?",
+        "answer": "Not sure\nNot sure"
       },
       "why": {
-        "question": "Why choose PT Janu Putra Sejahtera?",
-        "answer": "We are a trusted choice because: 1) Quality products with international standards, 2) Over 20 years of poultry industry experience, 3) Profitable partnerships for farmers, 4) Professional technical support, 5) Commitment to animal welfare and the environment."
+        "question": "Why choose PT Janu Putra Sejahtera Tbk?",
+        "answer": "PT Janu Putra Sejahtera Tbk is committed to always providing products with superior quality at affordable prices for farming communities and the public."
       }
     }
   },

@@ -29,14 +29,7 @@ const navItems = [
     key: 'about',
     route: '/tentang-perusahaan',
     labelKey: 'nav.about',
-    hasDropdown: true,
-    children: [
-      { key: 'about-video', labelKey: 'tentangPage.nav.videoProfil', route: '/tentang-perusahaan#video-profil' },
-      { key: 'about-visi-misi', labelKey: 'tentangPage.nav.visiMisi', route: '/tentang-perusahaan#visi-misi' },
-      { key: 'about-sejarah', labelKey: 'tentangPage.nav.linimasaSejarah', route: '/tentang-perusahaan#linimasa-sejarah' },
-      { key: 'about-lokasi', labelKey: 'tentangPage.nav.lokasiUsaha', route: '/tentang-perusahaan#lokasi-usaha' },
-      { key: 'about-struktur', labelKey: 'tentangPage.nav.strukturOrganisasi', route: '/tentang-perusahaan#struktur-organisasi' },
-    ],
+    hasDropdown: false,
   },
   {
     key: 'business',
@@ -116,7 +109,7 @@ const toggleMobileMenu = () => {
 const navigateToContact = async () => {
   closeMobileMenu()
   openDropdown.value = null
-  await router.push('/hubungi-kamu')
+  await router.push('/hubungi-kami')
 }
 
 const closeMobileMenu = () => {
@@ -187,7 +180,9 @@ onUnmounted(() => {
           <div
             :class="[
               'flex items-center gap-1 rounded-full px-4 py-2 transition-all duration-300 backdrop-blur-2xl border shadow-2xl',
-              'bg-gradient-to-r from-white/15 via-white/10 to-white/15 border-white/20',
+              isScrolled
+                ? 'bg-gradient-to-r from-black/35 via-black/25 to-black/35 border-white/20'
+                : 'bg-gradient-to-r from-white/15 via-white/10 to-white/15 border-white/20',
               isScrolled ? 'shadow-[0_20px_70px_-25px_rgba(0,0,0,0.6)]' : 'shadow-[0_20px_80px_-35px_rgba(0,0,0,0.55)]',
             ]"
           >
@@ -202,13 +197,16 @@ onUnmounted(() => {
                 :class="[
                   activeNavKey === item.key
                     ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
-                    : 'text-white/85 hover:text-white hover:bg-white/10',
+                    : 'text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]',
                 ]"
                 :aria-current="activeNavKey === item.key ? 'page' : undefined"
                 @click.prevent="handleDesktopNav(item)"
               >
                 <span>{{ t(item.labelKey) }}</span>
-                <i v-if="item.hasDropdown" class="mdi mdi-chevron-down text-base opacity-80"></i>
+                <i
+                  v-if="item.hasDropdown"
+                  class="mdi mdi-chevron-down text-base opacity-80 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
+                />
               </button>
 
               <div
@@ -228,18 +226,22 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <div class="mx-3 h-6 w-px bg-white/0" aria-hidden="true" />
+            <div class="mx-3 h-6 w-px" :class="isScrolled ? 'bg-white/15' : 'bg-white/0'" aria-hidden="true" />
           </div>
         </div>
 
         <!-- Actions outside glass -->
         <div class="hidden lg:flex items-center gap-3 pointer-events-auto">
-          <div class="flex items-center text-sm font-semibold text-white/85">
+          <div class="flex items-center text-sm font-semibold" :class="isScrolled ? 'text-white/90' : 'text-white/85'">
             <template v-for="(lang, idx) in availableLanguages" :key="lang.code">
               <button
                 type="button"
                 class="flex items-center gap-2 px-2 transition"
-                :class="currentLanguage === lang.label ? 'text-white' : 'text-white/70 hover:text-white/85'"
+                :class="
+                  currentLanguage === lang.label
+                    ? 'text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]'
+                    : (isScrolled ? 'text-white/70 hover:text-white/90 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]' : 'text-white/70 hover:text-white/85')
+                "
                 @click="setLanguage(lang.code)"
                 :aria-pressed="currentLanguage === lang.label"
               >
@@ -253,7 +255,8 @@ onUnmounted(() => {
               </button>
               <div
                 v-if="idx === 0"
-                class="h-5 w-px bg-white/40 mx-2"
+                class="h-5 w-px mx-2"
+                :class="isScrolled ? 'bg-white/25' : 'bg-white/40'"
                 aria-hidden="true"
               />
             </template>
@@ -272,7 +275,8 @@ onUnmounted(() => {
         <!-- Mobile actions -->
         <div class="flex lg:hidden items-center gap-2 pointer-events-auto">
           <button
-            class="flex items-center gap-1 rounded-full bg-white/10 px-3 py-2 text-xs font-semibold text-white/85 backdrop-blur-lg border border-white/20 shadow-lg transition hover:bg-white/15"
+            class="flex items-center gap-1 rounded-full px-3 py-2 text-xs font-semibold backdrop-blur-lg border shadow-lg transition"
+            :class="isScrolled ? 'bg-black/30 text-white/90 border-white/20 hover:bg-black/35' : 'bg-white/10 text-white/85 border-white/20 hover:bg-white/15'"
             @click="setLanguage(locale.value === 'id' ? 'en' : 'id')"
             :aria-label="t('language.label')"
           >
@@ -289,7 +293,8 @@ onUnmounted(() => {
           </button>
 
           <button
-            class="inline-flex items-center justify-center rounded-full bg-white/10 p-2 text-white backdrop-blur-lg border border-white/20 shadow-lg transition hover:bg-white/15"
+            class="inline-flex items-center justify-center rounded-full p-2 backdrop-blur-lg border shadow-lg transition"
+            :class="isScrolled ? 'bg-black/30 text-white border-white/20 hover:bg-black/35' : 'bg-white/10 text-white border-white/20 hover:bg-white/15'"
             @click="toggleMobileMenu"
             :aria-expanded="isMobileMenuOpen"
             aria-controls="mobile-menu"

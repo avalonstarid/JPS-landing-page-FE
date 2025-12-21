@@ -13,7 +13,7 @@ onMounted(async () => {
 })
 
 const goToProduk = () => {
-  router.push('/produk')
+  router.push('/hubungi-kami')
 }
 </script>
 

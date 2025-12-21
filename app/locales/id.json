@@ -33,9 +33,16 @@
     "loading": "Memuat..."
   },
   "hero": {
-    "title": "PT Janu Putra Sejahtera",
-    "subtitle": "Perusahaan Peternakan Terintegrasi",
-    "description": "Janu Putra Sejahtera berkomitmen menjadi perusahaan ayam integrator terkemuka di Indonesia yang memberikan kontribusi positif bagi peternak ayam dan masyarakat.",
+    "title": "Perusahaan Peternakan Ayam Terintegrasi",
+    "subtitlePrefix": "PT Janu Putra Sejahtera Tbk menyediakan",
+    "rotatingWords": [
+      "DOC Parent Stock",
+      "DOC Final Stock",
+      "Ayam Hidup",
+      "Telur Komersial",
+      "Produk RPA"
+    ],
+    "description": "",
     "cta": "Selengkapnya",
     "imageAlt": "Peternakan ayam PT Janu Putra Sejahtera"
   },
@@ -46,27 +53,27 @@
     "items": {
       "quality": {
         "title": "Kualitas",
-        "description": "Kami berkomitmen menyediakan produk peternakan berkualitas tinggi dengan standar kesehatan dan kebersihan terbaik."
+        "description": "Selalu mengedepankan kualitas dalam semua aspek bisnisnya, mulai dari produk hingga pelayanan kepada konsumen"
       },
       "professionalism": {
         "title": "Profesionalisme",
-        "description": "Tim profesional kami bekerja dengan dedikasi tinggi untuk memastikan setiap produk memenuhi standar kualitas tertinggi."
+        "description": "Selalu mengedepankan etika dan profesionalisme dalam semua tindakan bisnisnya"
       },
       "innovation": {
         "title": "Inovasi",
-        "description": "Kami terus berinovasi dalam teknologi peternakan untuk menghasilkan produk yang lebih baik dan efisien."
+        "description": "Selalu berusaha menciptakan solusi baru dan terdepan dalam menyediakan produk-produk ayam yang berkualitas tinggi"
       },
       "environment": {
         "title": "Lingkungan",
-        "description": "Praktik peternakan kami ramah lingkungan dengan pengelolaan limbah yang bertanggung jawab."
+        "description": "Peduli terhadap lingkungan dan selalu mengedepankan praktik-praktik bisnis yang ramah lingkungan"
       },
       "welfare": {
         "title": "Kesejahteraan",
-        "description": "Kami menjunjung tinggi kesejahteraan hewan dan karyawan dalam setiap aspek operasional perusahaan."
+        "description": "Selalu menghargai kontribusi peternak ayam dan selalu memperhatikan kesejahteraan mereka"
       },
       "social": {
         "title": "Sosial",
-        "description": "Kami aktif berkontribusi pada pembangunan ekonomi lokal dan kesejahteraan masyarakat sekitar."
+        "description": "Selalu memperhatikan dampak bisnisnya terhadap masyarakat dan berkontribusi positif bagi pemberdayaan masyarakat"
       }
     }
   },
@@ -85,24 +92,24 @@
     },
     "items": {
       "docParent": {
-        "name": "Day Old Chick (DOC) – Parent Stock",
+        "name": "DOC Parent Stock",
         "description": "Day Old Chick merupakan sebutan untuk bibit ayam. DOC parent stock akan menjadi ayam yang menghasilkan ayam broiler."
       },
       "docFinal": {
-        "name": "Day Old Chick (DOC) – Final Stock",
+        "name": "DOC Final Stock",
         "description": "Day Old Chick merupakan sebutan untuk bibit ayam. DOC final stock akan dibesarkan menjadi ayam broiler komersil."
       },
       "liveChicken": {
         "name": "Ayam Hidup",
-        "description": "Ayam broiler merupakan ayam komersil sebagai ayam konsumsi. Disediakan dalam keadaan hidup untuk menjamin kualitas dan kesegaran."
+        "description": "PT Janu Putra Sejahtera Tbk menyediakan ayam hidup (livebird) dengan kualitas unggul dan kesegaran yang terjaga"
       },
       "commercialEgg": {
         "name": "Telur Komersial",
-        "description": "Telur komersial merupakan telur yang digunakan untuk keperluan konsumsi dengan kualitas, standar, dan sistem yang baik."
+        "description": "PT Janu Putra Sejahtera Tbk menyediakan telur komersial yang digunakan untuk keperluan konsumsi dengan kualitas unggul"
       },
       "chickenCarcass": {
-        "name": "Karkas Ayam",
-        "description": "Karkas ayam atau ayam potong merupakan hasil produksi ayam broiler komersial yang telah melalui proses di rumah potong."
+        "name": "Produk RPA",
+        "description": "Karkas ayam atau ayam potong merupakan hasil produksi ayam broiler komersial yang telah melalui proses di rumah potong"
       }
     }
   },
@@ -337,15 +344,15 @@
     }
   },
   "testimonials": {
-    "label": "Kata Mitra Kami",
+    "label": "Kata Konsumen",
     "ariaPrev": "Testimoni sebelumnya",
     "ariaNext": "Testimoni selanjutnya",
     "ariaDot": "Pergi ke testimoni {index}",
     "items": {
       "trustedBroiler": {
         "title": "Solusi Ayam Broiler Terpercaya",
-        "content": "Saya memiliki mitra ayam broiler terbesar di Indonesia dan bergandengan tangan dengan JPS. Kami percaya bahwa produk yang dihasilkan sangat berkualitas. Para konsumen pun sudah mengenal dan percaya dengan produk dari Janu Putra Sejahtera.",
-        "role": "Direktur Ayam Broiler Sejahtera"
+        "content": "Saya memiliki resto ayam bakar terbesar di Indonesia dan berlangganan di Janu Putra Sejahtera sejak 2018 dan semua produk yang disediakan sangat berkualitas. Para konsumen pun merasa puas dengan produk dari Janu Putra",
+        "role": "Direktur Ayam Bakar Indo"
       },
       "profitablePartnership": {
         "title": "Kemitraan yang Menguntungkan",
@@ -366,20 +373,20 @@
     "contactLink": "Hubungi kami",
     "items": {
       "about": {
-        "question": "Apa itu PT Janu Putra Sejahtera?",
-        "answer": "PT Janu Putra Sejahtera berkomitmen menjadi perusahaan ayam integrator terkemuka di Indonesia yang memberikan kontribusi positif bagi peternak ayam dan masyarakat. Kami mengelola operasi peternakan terintegrasi mulai dari pembibitan, pemeliharaan, hingga distribusi produk unggas berkualitas tinggi."
+        "question": "Apa itu PT Janu Putra Sejahtera Tbk?",
+        "answer": "PT Janu Putra Sejahtera Tbk merupakan sebuah perusahaan terbuka yang bergerak di bidang peternakan, khususnya ayam yang terintegrasi"
       },
       "products": {
-        "question": "Apa produk dari PT Janu Putra Sejahtera?",
-        "answer": "Kami menyediakan berbagai produk unggas berkualitas termasuk Day Old Chick (DOC) Parent Stock, DOC Final Stock, Ayam Hidup, Telur Komersial, dan Karkas Ayam. Semua produk diproduksi dengan standar kualitas tinggi dan praktik peternakan modern."
+        "question": "Apa produk dari PT Janu Putra Sejahtera Tbk?",
+        "answer": "PT Janu Putra Sejahtera Tbk menyediakan berbagai macam macam produk ayam, mulai dari pembibitan hingga ayam karkas"
       },
       "business": {
-        "question": "Apa saja bisnis di PT Janu Putra Sejahtera?",
-        "answer": "PT Janu Putra Sejahtera memiliki beberapa lini bisnis utama meliputi: pembibitan ayam (breeding farm), peternakan komersial, pabrik pakan ternak, rumah potong ayam (RPA), dan distribusi produk unggas. Semua lini bisnis terintegrasi untuk menjamin kualitas dari hulu ke hilir."
+        "question": "Apa saja bisnis di PT Janu Putra Sejahtera Tbk?",
+        "answer": "Belum Tahu\nBelum Tahu"
       },
       "why": {
-        "question": "Mengapa memilih PT Janu Putra Sejahtera?",
-        "answer": "Kami adalah pilihan terpercaya karena: 1) Kualitas produk terjamin dengan standar internasional, 2) Pengalaman lebih dari 20 tahun di industri perunggasan, 3) Kemitraan yang menguntungkan bagi peternak, 4) Dukungan teknis profesional, 5) Komitmen terhadap kesejahteraan hewan dan lingkungan."
+        "question": "Mengapa memilih PT Janu Putra Sejahtera Tbk?",
+        "answer": "PT Janu Putra Sejahtera Tbk berkomitmen untuk selalu menyediakan produk yang memiliki kualitas unggul dengan harga yang terjangkau untuk komunitas peternak dan juga masyarakat"
       }
     }
   },

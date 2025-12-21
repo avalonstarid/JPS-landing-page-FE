@@ -1,6 +1,27 @@
 <script setup lang="ts">
-const { t } = useI18n()
 import heroImage from '~/assets/images/most-top.png'
+
+const { t, tm, rt } = useI18n()
+const activeWordIndex = ref(0)
+
+const rotatingWords = computed(() => {
+  const words = tm('hero.rotatingWords')
+  if (!Array.isArray(words)) return []
+  return words.map((word) => rt(word))
+})
+
+let rotateTimer: ReturnType<typeof setInterval> | null = null
+
+onMounted(() => {
+  if (!rotatingWords.value.length) return
+  rotateTimer = setInterval(() => {
+    activeWordIndex.value = (activeWordIndex.value + 1) % rotatingWords.value.length
+  }, 2000)
+})
+
+onBeforeUnmount(() => {
+  if (rotateTimer) clearInterval(rotateTimer)
+})
 </script>
 
 <template>
@@ -23,19 +44,32 @@ import heroImage from '~/assets/images/most-top.png'
 
     <!-- Content -->
     <div class="relative z-10 container-main py-20 lg:py-32">
-      <div class="max-w-3xl text-left xl:ml-[-34rem]">
+      <div class="text-left xl:ml-[-14rem]">
         <!-- Title -->
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
           {{ t('hero.title') }}
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6">
-          {{ t('hero.subtitle') }}
-        </p>
+        <div class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6 flex flex-nowrap gap-2 whitespace-nowrap">
+          <span>{{ t('hero.subtitlePrefix') }}</span>
+          <span class="relative inline-flex h-[1.3em] overflow-hidden">
+            <Transition name="hero-rotate" mode="out-in">
+              <span
+                :key="activeWordIndex"
+                class="text-primary-500 inline-flex items-center"
+              >
+                {{ rotatingWords[activeWordIndex] }}
+              </span>
+            </Transition>
+          </span>
+        </div>
 
         <!-- Description -->
-        <p class="text-base md:text-lg text-white/90 mb-8 max-w-2xl leading-relaxed">
+        <p
+          v-if="t('hero.description')"
+          class="text-base md:text-lg text-white/90 mb-8 max-w-2xl leading-relaxed"
+        >
           {{ t('hero.description') }}
         </p>
 
@@ -45,6 +79,7 @@ import heroImage from '~/assets/images/most-top.png'
           size="lg"
           class="group bg-[#f6993c] hover:bg-[#f28a26] text-white border-none"
           :aria-label="t('hero.cta')"
+          href="/tentang-perusahaan"
         >
           <span>{{ t('hero.cta') }}</span>
           <span
@@ -65,3 +100,30 @@ import heroImage from '~/assets/images/most-top.png'
     </div>
   </section>
 </template>
+
+<style scoped>
+.hero-rotate-enter-active,
+.hero-rotate-leave-active {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.hero-rotate-enter-from {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.hero-rotate-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.hero-rotate-leave-from {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.hero-rotate-leave-to {
+  transform: translateY(100%);
+  opacity: 0;
+}
+</style>
