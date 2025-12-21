@@ -26,7 +26,7 @@ const statStyle = (index: number) => {
 </script>
 
 <template>
-  <section class="relative min-h-[70vh] md:min-h-[85vh] flex items-center">
+  <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center">
     <!-- Background Image -->
     <img
       :src="heroImage"

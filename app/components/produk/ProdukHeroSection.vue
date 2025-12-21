@@ -6,7 +6,7 @@ const { t } = useI18n()
 
 <template>
   <section
-    class="relative overflow-hidden bg-[#0f1c3f] min-h-screen flex items-center"
+    class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-center"
     aria-label="Produk hero section"
   >
     <div class="absolute inset-0">

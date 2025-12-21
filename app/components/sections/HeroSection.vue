@@ -27,7 +27,7 @@ onBeforeUnmount(() => {
 <template>
   <section
     id="beranda"
-    class="relative min-h-screen flex items-center justify-start overflow-hidden"
+    class="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-start overflow-hidden"
     aria-label="Hero section"
   >
     <!-- Background Image -->
