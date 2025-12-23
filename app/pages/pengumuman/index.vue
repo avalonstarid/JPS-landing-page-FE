@@ -6,12 +6,12 @@ const { t } = useI18n()
 
 <template>
   <div class="bg-[#fdeee0] min-h-screen">
-    <section class="relative overflow-hidden">
+    <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
         <img :src="pengumumanHero" alt="Pengumuman" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/60 to-black/30" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
-      <div class="relative z-10 container-main py-20 lg:py-24 space-y-3">
+      <div class="relative z-10 container-main pb-16 md:pb-20 lg:pb-24 space-y-3 w-full">
         <p class="text-sm uppercase tracking-[0.2em] text-white/80">Pengumuman</p>
         <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight max-w-3xl">
           Informasi terbaru dari PT Janu Putra Sejahtera

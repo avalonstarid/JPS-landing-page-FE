@@ -14,7 +14,7 @@ const missions = [
 </script>
 
 <template>
-  <section id="visi-misi" class="py-12 md:py-20 bg-[#FDEEE0]">
+  <section id="visi-misi" v-reveal  class="reveal py-12 md:py-20 bg-[#FDEEE0]">
     <div class="container-main">
       <!-- Section Title & Vision Statement - Side by Side -->
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8 items-center">

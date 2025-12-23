@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section id="struktur-organisasi" class="py-12 md:py-20 bg-[#27376D]">
+  <section id="struktur-organisasi" v-reveal  class="reveal py-12 md:py-20 bg-[#27376D]">
     <div class="container-main">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-center mb-10 md:mb-14">
         {{ t('tentangPage.struktur.sectionTitle') }}

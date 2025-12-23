@@ -32,6 +32,10 @@
     "viewAll": "Lihat Semua",
     "loading": "Memuat..."
   },
+  "share": {
+    "title": "Bagikan {label}",
+    "copy": "Salin Tautan {label}"
+  },
   "hero": {
     "title": "Perusahaan Peternakan Ayam Terintegrasi",
     "subtitlePrefix": "PT Janu Putra Sejahtera Tbk menyediakan",
@@ -367,6 +371,16 @@
       "back": "Kembali ke Berita",
       "summary": "Ringkasan",
       "related": "Berita Terkait"
+    }
+  },
+  "blogPage": {
+    "detail": {
+      "back": "Kembali ke Blog"
+    }
+  },
+  "pengumumanPage": {
+    "detail": {
+      "back": "Kembali ke Pengumuman"
     }
   },
   "testimonials": {

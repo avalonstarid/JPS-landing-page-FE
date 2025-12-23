@@ -40,7 +40,7 @@ const topImage = computed(() => props.stackTopImage || (isTopRight.value ? topRi
 </script>
 
 <template>
-  <article class="grid lg:grid-cols-2 gap-8 items-center rounded-[20px] p-2 md:p-4 lg:p-2">
+  <article v-reveal  class="reveal  grid lg:grid-cols-2 gap-8 items-center rounded-[20px] p-2 md:p-4 lg:p-2">
     <div :class="['space-y-4', props.reverse ? 'lg:order-2' : '']">
       <h3 class="text-2xl md:text-3xl font-semibold text-[#2f4172] leading-tight">
         {{ title }}

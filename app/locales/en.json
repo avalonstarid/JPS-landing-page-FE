@@ -32,6 +32,10 @@
     "viewAll": "View All",
     "loading": "Loading..."
   },
+  "share": {
+    "title": "Share {label}",
+    "copy": "Copy {label} link"
+  },
   "hero": {
     "title": "Integrated Poultry Company",
     "subtitlePrefix": "PT Janu Putra Sejahtera Tbk provides",
@@ -367,6 +371,16 @@
       "back": "Back to News",
       "summary": "Summary",
       "related": "Related News"
+    }
+  },
+  "blogPage": {
+    "detail": {
+      "back": "Back to Blog"
+    }
+  },
+  "pengumumanPage": {
+    "detail": {
+      "back": "Back to Announcements"
     }
   },
   "testimonials": {

@@ -95,7 +95,7 @@ const closeModal = () => {
 <template>
   <section
     id="lokasi-usaha"
-    class="py-12 md:py-20 bg-cover bg-center bg-no-repeat relative"
+    v-reveal  class="reveal py-12 md:py-20 bg-cover bg-center bg-no-repeat relative"
     :style="{ backgroundImage: `url(${backgroundImage})` }"
   >
     <!-- Overlay -->

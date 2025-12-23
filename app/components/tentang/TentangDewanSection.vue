@@ -108,7 +108,7 @@ const setActiveTab = (key: string) => {
 </script>
 
 <template>
-  <section id="dewan-komisaris" class="py-12 md:py-20 bg-[#FDEEE0]">
+  <section id="dewan-komisaris" v-reveal  class="reveal py-12 md:py-20 bg-[#FDEEE0]">
     <div class="container-main">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3d4f92] mb-10 md:mb-14">
         {{ t('tentangPage.dewan.sectionTitle') }}

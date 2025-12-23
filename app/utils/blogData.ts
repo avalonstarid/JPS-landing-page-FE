@@ -1,7 +1,21 @@
-import beritaImage1 from '~/assets/images/berita/2fa79353f2c6d11db6ebf3c735e26c6463ee7010.jpg'
+﻿import beritaImage1 from '~/assets/images/berita/2fa79353f2c6d11db6ebf3c735e26c6463ee7010.jpg'
 import beritaImage2 from '~/assets/images/berita/5185210dd6882a42d78b993139d925e1ca8738f3.jpg'
 import beritaImage3 from '~/assets/images/berita/55959f0ca16246400a14b5d0cca9cc4307d77972.jpg'
 import beritaImage4 from '~/assets/images/berita/60faff34dda2aa3e5d32fbf3577e7ff171007a1e.jpg'
+
+export interface LocalizedText {
+  id: string
+  en: string
+}
+
+export interface ContentBlock {
+  type: 'paragraph' | 'quote' | 'image'
+  text?: LocalizedText
+  cite?: LocalizedText
+  src?: string
+  alt?: LocalizedText
+  caption?: LocalizedText
+}
 
 export interface BlogArticle {
   id: string
@@ -11,7 +25,7 @@ export interface BlogArticle {
   image: string
   timeAgo: string
   company: string
-  content: string[]
+  content: ContentBlock[]
 }
 
 const sharedExcerpt =
@@ -28,9 +42,61 @@ export const blogArticles: BlogArticle[] = [
     timeAgo: '1 jam yang lalu',
     company: 'PT Janu Putra Sejahtera',
     content: [
-      'Transformasi digital kandang mempermudah pemantauan kondisi ayam secara real-time.',
-      'Dashboard terpusat memberi insight cepat untuk penyesuaian pakan dan ventilasi.',
-      'Hasilnya adalah pertumbuhan yang lebih stabil dan efisiensi operasional yang lebih tinggi.',
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Transformasi digital kandang mempermudah pemantauan kondisi ayam secara real-time, dari suhu hingga kualitas udara.',
+          en: 'Digital farm transformation simplifies real-time monitoring of flock conditions, from temperature to air quality.',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Dashboard terpusat memberi insight cepat untuk penyesuaian pakan, ventilasi, dan kepadatan kandang.',
+          en: 'A centralized dashboard provides fast insights to adjust feed, ventilation, and stocking density.',
+        },
+      },
+      {
+        type: 'quote',
+        text: {
+          id: '"Data real-time membuat keputusan lapangan lebih presisi dan cepat."',
+          en: '"Real-time data makes field decisions more precise and faster."',
+        },
+        cite: {
+          id: 'Tim Operasional JPS',
+          en: 'JPS Operations Team',
+        },
+      },
+      {
+        type: 'image',
+        src: beritaImage2,
+        alt: {
+          id: 'Sensor IoT di dalam kandang ayam',
+          en: 'IoT sensors inside a poultry house',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Model prediktif membantu memperkirakan pertumbuhan berdasarkan pola konsumsi pakan dan suhu harian.',
+          en: 'Predictive models estimate growth based on feed intake patterns and daily temperature.',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Hasilnya adalah pertumbuhan lebih stabil, efisiensi energi, dan catatan produksi yang mudah diaudit.',
+          en: 'The result is steadier growth, better energy efficiency, and production logs that are easy to audit.',
+        },
+      },
+      {
+        type: 'image',
+        src: beritaImage3,
+        alt: {
+          id: 'Visualisasi data produksi unggas',
+          en: 'Poultry production data visualization',
+        },
+      },
     ],
   },
   {
@@ -43,9 +109,46 @@ export const blogArticles: BlogArticle[] = [
     timeAgo: '3 jam yang lalu',
     company: 'PT Janu Putra Sejahtera',
     content: [
-      'Armada berpendingin dipantau dengan sensor suhu untuk menjaga konsistensi pengiriman.',
-      'Setiap pengiriman memiliki log suhu yang dapat ditelusuri oleh tim QA.',
-      'Transparansi ini meningkatkan kepercayaan mitra dan konsumen terhadap kualitas produk.',
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Armada berpendingin dipantau dengan sensor suhu untuk menjaga konsistensi pengiriman.',
+          en: 'Refrigerated fleets are monitored with temperature sensors to maintain consistent deliveries.',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Setiap pengiriman memiliki log suhu yang dapat ditelusuri oleh tim QA dan mitra logistik.',
+          en: 'Each shipment has a temperature log that can be traced by QA teams and logistics partners.',
+        },
+      },
+      {
+        type: 'image',
+        src: beritaImage4,
+        alt: {
+          id: 'Armada distribusi dengan kontrol suhu',
+          en: 'Distribution fleet with temperature control',
+        },
+      },
+      {
+        type: 'quote',
+        text: {
+          id: '"Rantai dingin yang konsisten menjaga kualitas produk sampai ke meja konsumen."',
+          en: '"A consistent cold chain preserves product quality all the way to consumers."',
+        },
+        cite: {
+          id: 'Quality Assurance',
+          en: 'Quality Assurance',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Transparansi ini meningkatkan kepercayaan mitra dan konsumen terhadap kualitas produk.',
+          en: 'This transparency increases partner and consumer trust in product quality.',
+        },
+      },
     ],
   },
   {
@@ -58,9 +161,46 @@ export const blogArticles: BlogArticle[] = [
     timeAgo: '6 jam yang lalu',
     company: 'PT Janu Putra Sejahtera',
     content: [
-      'Kenyamanan kandang berpengaruh langsung pada kualitas daging dan telur.',
-      'Tim lapangan rutin mengevaluasi kepadatan kandang dan pola makan.',
-      'Pendekatan ini menjaga keseimbangan antara produktivitas dan kesejahteraan hewan.',
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Kenyamanan kandang berpengaruh langsung pada kualitas daging dan telur.',
+          en: 'Housing comfort directly impacts meat and egg quality.',
+        },
+      },
+      {
+        type: 'image',
+        src: beritaImage1,
+        alt: {
+          id: 'Kandang ayam dengan ventilasi baik',
+          en: 'Poultry house with proper ventilation',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Tim lapangan rutin mengevaluasi kepadatan kandang dan pola makan agar pertumbuhan merata.',
+          en: 'Field teams routinely evaluate stocking density and feeding patterns to keep growth uniform.',
+        },
+      },
+      {
+        type: 'quote',
+        text: {
+          id: '"Kesejahteraan ternak adalah pondasi kualitas produk."',
+          en: '"Animal welfare is the foundation of product quality."',
+        },
+        cite: {
+          id: 'Tim Animal Care',
+          en: 'Animal Care Team',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Pendekatan ini menjaga keseimbangan antara produktivitas dan kesejahteraan hewan.',
+          en: 'This approach balances productivity with animal welfare.',
+        },
+      },
     ],
   },
   {
@@ -73,9 +213,46 @@ export const blogArticles: BlogArticle[] = [
     timeAgo: '9 jam yang lalu',
     company: 'PT Janu Putra Sejahtera',
     content: [
-      'Kolaborasi dengan mitra logistik mempersingkat waktu tempuh ke pasar regional.',
-      'Skema pelatihan bersama memastikan standar mutu seragam di seluruh rantai pasok.',
-      'Inisiatif ini meningkatkan akses konsumen terhadap produk unggas berkualitas.',
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Kolaborasi dengan mitra logistik mempersingkat waktu tempuh ke pasar regional.',
+          en: 'Collaboration with logistics partners shortens delivery times to regional markets.',
+        },
+      },
+      {
+        type: 'image',
+        src: beritaImage2,
+        alt: {
+          id: 'Koordinasi tim logistik',
+          en: 'Logistics team coordination',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Skema pelatihan bersama memastikan standar mutu seragam di seluruh rantai pasok.',
+          en: 'Joint training ensures consistent quality standards across the supply chain.',
+        },
+      },
+      {
+        type: 'quote',
+        text: {
+          id: '"Kolaborasi kuat menciptakan pengiriman yang cepat dan terpercaya."',
+          en: '"Strong collaboration creates fast and reliable deliveries."',
+        },
+        cite: {
+          id: 'Tim Kemitraan',
+          en: 'Partnership Team',
+        },
+      },
+      {
+        type: 'paragraph',
+        text: {
+          id: 'Inisiatif ini meningkatkan akses konsumen terhadap produk unggas berkualitas.',
+          en: 'This initiative expands consumer access to high-quality poultry products.',
+        },
+      },
     ],
   },
 ]

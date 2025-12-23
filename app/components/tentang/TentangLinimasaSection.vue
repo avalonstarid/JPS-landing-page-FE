@@ -142,7 +142,7 @@ const getIconClass = (icon: string): string => {
 </script>
 
 <template>
-  <section id="linimasa-sejarah" class="py-12 md:py-20 bg-[#3A52A3] overflow-hidden">
+  <section id="linimasa-sejarah" v-reveal  class="reveal py-12 md:py-20 bg-[#3A52A3] overflow-hidden">
     <div class="container-main">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-center mb-10 md:mb-14">
         {{ t('tentangPage.linimasa.sectionTitle') }}

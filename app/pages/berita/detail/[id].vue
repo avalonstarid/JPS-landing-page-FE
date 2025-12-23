@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import logoJps from '~/assets/images/logo-jps.png'
 import UiCard from '~/components/ui/Card.vue'
+import SharePanel from '~/components/ui/SharePanel.vue'
 import { findBeritaById, latestLayout } from '~/utils/beritaData'
 
 const route = useRoute()
 const router = useRouter()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 definePageMeta({
   key: (currentRoute) => currentRoute.fullPath,
@@ -17,6 +18,22 @@ const latestArticles = computed(() => latestLayout.filter((item) => item.id !== 
 
 const goBack = () => {
   router.push('/berita')
+}
+
+const shareTitle = computed(() => t('share.title', { label: t('nav.news') }))
+const shareCopyLabel = computed(() => t('share.copy', { label: t('nav.news') }))
+
+const resolveText = (value?: { id: string; en: string } | string) => {
+  if (!value) {
+    return ''
+  }
+
+  if (typeof value === 'string') {
+    return value
+  }
+
+  const currentLocale = locale.value === 'en' ? 'en' : 'id'
+  return value[currentLocale] ?? value.id
 }
 
 useHead(() => ({
@@ -45,27 +62,26 @@ useHead(() => ({
 <template>
   <div class="bg-[#fdeee0] min-h-screen">
     <!-- Hero Header -->
-    <section class="relative overflow-hidden">
+    <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
         <img :src="article.image" :alt="article.title" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/30" />
-      </div>
-
-      <div class="relative z-10 container-main py-20 lg:py-28 space-y-6">
-        <div class="min-h-[20rem]"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
     </section>
 
-    <div class="container-main py-12 lg:py-16 space-y-6">
+    <div class="relative container-main py-12 lg:py-16 space-y-6">
       <!-- Breadcrumb & Back -->
-      <button
-        class="inline-flex items-center gap-2 rounded-full bg-white px-3 text-[#3d4f92] shadow hover:shadow-md transition"
-        type="button"
-        @click="goBack"
-      >
-        <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
-        <span>{{ t('beritaPage.detail.back') }}</span>
-      </button>
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <button
+          class="inline-flex items-center gap-2 rounded-full bg-white px-3 text-[#3d4f92] shadow hover:shadow-md transition"
+          type="button"
+          @click="goBack"
+        >
+          <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
+          <span>{{ t('beritaPage.detail.back') }}</span>
+        </button>
+        <SharePanel :title="shareTitle" :copy-label="shareCopyLabel" />
+      </div>
       <div class="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-700">
         <div class="flex items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">
           <NuxtLink to="/" class="hover:underline">{{ t('nav.home') }}</NuxtLink>
@@ -79,22 +95,6 @@ useHead(() => ({
         <h1 class="text-3xl md:text-4xl font-bold text-[#3d4f92] leading-tight max-w-3xl">
           {{ article.title }}
         </h1>
-        <div class="flex items-center gap-2">
-          <button
-            class="w-11 h-11 rounded-full flex items-center justify-center text-black hover:shadow-md transition"
-            type="button"
-            aria-label="Sukai"
-          >
-            <i class="mdi mdi-heart-outline text-xl" aria-hidden="true"></i>
-          </button>
-          <button
-            class="w-11 h-11 rounded-full flex items-center justify-center text-black hover:shadow-md transition"
-            type="button"
-            aria-label="Bagikan"
-          >
-            <i class="mdi mdi-share-variant text-xl" aria-hidden="true"></i>
-          </button>
-        </div>
       </div>
       <div class="grid gap-10 lg:grid-cols-[1fr_290px]">
         <!-- Main Article -->
@@ -109,8 +109,29 @@ useHead(() => ({
               <span>{{ article.timeAgo }}</span>
             </div>
 
-            <div class="mt-6 text-[#333] leading-relaxed text-lg ">
-              <p v-for="(paragraph, idx) in article.content" :key="idx">{{ paragraph }}</p>
+            <div class="mt-6 text-[#333] leading-relaxed text-lg space-y-4">
+              <template v-for="(block, idx) in article.content" :key="idx">
+                <p v-if="block.type === 'paragraph'">{{ resolveText(block.text) }}</p>
+                <figure v-else-if="block.type === 'image'" class="space-y-2">
+                  <img
+                    :src="block.src"
+                    :alt="resolveText(block.alt)"
+                    class="w-full aspect-video rounded-2xl object-cover"
+                  />
+                  <figcaption v-if="block.caption" class="text-xs text-gray-500">
+                    {{ resolveText(block.caption) }}
+                  </figcaption>
+                </figure>
+                <blockquote
+                  v-else-if="block.type === 'quote'"
+                  class="border-l-4 border-[#3d4f92] pl-4 text-lg italic text-[#3d4f92]"
+                >
+                  <p>{{ resolveText(block.text) }}</p>
+                  <footer v-if="block.cite" class="mt-2 text-sm text-gray-500 not-italic">
+                    - {{ resolveText(block.cite) }}
+                  </footer>
+                </blockquote>
+              </template>
             </div>
           </div>
         </article>
