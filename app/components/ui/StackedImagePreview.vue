@@ -60,7 +60,7 @@ watch(
 </script>
 
 <template>
-  <div class="group relative w-full max-w-[360px] mx-auto aspect-[4/3] lg:aspect-square">
+  <div class="group relative w-full max-w-[360px] mx-auto aspect-[4/3] lg:aspect-square my-10 lg:my-0">
     <div
       v-for="(src, index) in images"
       :key="`${src}-${index}`"
@@ -105,7 +105,7 @@ watch(
 
 .card-top {
   z-index: 3;
-  --w: 76%;
+  --w: 68%;
   --x: 0%;
   --y: 0%;
   --rotate: 0deg;
@@ -117,7 +117,7 @@ watch(
 
 .card-back-top {
   z-index: 2;
-  --w: 72%;
+  --w: 64%;
   --x: 12%;
   --y: -8%;
   --rotate: 4deg;
@@ -128,7 +128,7 @@ watch(
 
 .card-back-bottom {
   z-index: 1;
-  --w: 70%;
+  --w: 62%;
   --x: -12%;
   --y: 8%;
   --rotate: -4deg;
@@ -139,17 +139,17 @@ watch(
 
 @media (max-width: 640px) {
   .card-top {
-    --w: 84%;
+    --w: 76%;
   }
 
   .card-back-top {
-    --w: 80%;
+    --w: 72%;
     --x: 6%;
     --y: -4%;
   }
 
   .card-back-bottom {
-    --w: 78%;
+    --w: 70%;
     --x: -6%;
     --y: 4%;
   }

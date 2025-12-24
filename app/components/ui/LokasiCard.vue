@@ -20,9 +20,9 @@ const emit = defineEmits<{
 const svgWidth = 520
 const svgHeight = 620
 
-const imageCornerRadius = 26
+const imageCornerRadius = 100
 const notchSize = 150
-const notchRadius = 22
+const notchRadius = 30
 
 const imagePath = computed(() => {
   const w = svgWidth
@@ -62,7 +62,7 @@ const clipPathId = computed(() => `lokasi-img-clip-${stableId}`)
       <svg
         class="absolute inset-0 h-full w-full"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-        preserveAspectRatio="none"
+        preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
       >
         <defs>
@@ -175,6 +175,23 @@ const clipPathId = computed(() => `lokasi-img-clip-${stableId}`)
 }
 
 @media (max-width: 639px) {
+  .lokasi-row {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .lokasi-image {
+    height: 180px;
+  }
+
+  .lokasi-content {
+    min-height: auto;
+  }
+
+  .lokasi-cta {
+    padding-top: 10px;
+  }
+
   .lokasi-cta {
     margin-left: 0;
   }

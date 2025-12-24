@@ -15,7 +15,7 @@
       <svg
         class="absolute inset-0 w-full h-full drop-shadow-[0_10px_30px_-18px_rgba(0,0,0,0.35)]"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-        preserveAspectRatio="none"
+        preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
       >
         <path :d="cardPath" fill="#ffffff" />
@@ -48,7 +48,7 @@
       <svg
         class="absolute inset-0 w-full h-full"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-        preserveAspectRatio="none"
+        preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
       >
         <defs>

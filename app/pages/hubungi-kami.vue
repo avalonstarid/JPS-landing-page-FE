@@ -35,16 +35,16 @@ const contactCards = computed(() => [
   {
     key: 'whatsapp',
     title: t('contactPage.contactMore.cards.whatsapp.title'),
-    description: t('contactPage.contactMore.cards.whatsapp.value'),
+    description: '0878 0941 2474',
     iconClass: 'mdi mdi-whatsapp',
     iconBgClass: 'bg-[#EAF7EF]',
     iconColorClass: 'text-[#25D366]',
-    href: t('contactPage.contactMore.cards.whatsapp.href'),
+    href: 'https://wa.me/6287809412474',
   },
   {
     key: 'email',
     title: t('contactPage.contactMore.cards.email.title'),
-    description: emailAddress,
+    description: 'marketing@jpsejah\ntera.co.id',
     iconClass: 'mdi mdi-gmail',
     iconBgClass: 'bg-[#FFF0F0]',
     iconColorClass: 'text-[#EA4335]',
@@ -219,6 +219,7 @@ const contactCards = computed(() => [
               :height="190"
               :fill-parent="true"
               :aria-label="card.title"
+              :class="['contact-more-card', { 'contact-more-card-email': card.key === 'email' }]"
             />
           </a>
         </div>
@@ -226,3 +227,21 @@ const contactCards = computed(() => [
     </section>
   </div>
 </template>
+
+<style scoped>
+:deep(.contact-more-card .text-base) {
+  font-size: 1.125rem;
+  line-height: 1.65rem;
+}
+
+:deep(.contact-more-card .text-sm) {
+  font-size: 0.975rem;
+  line-height: 1.45rem;
+}
+
+@media (min-width: 1024px) {
+  :deep(.contact-more-card-email .text-sm) {
+    white-space: pre-line;
+  }
+}
+</style>
