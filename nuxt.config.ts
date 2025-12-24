@@ -57,6 +57,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    restructureDir: false,
     strategy: 'no_prefix',
     defaultLocale: 'id',
     lazy: true,
