@@ -62,8 +62,8 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: 'locales',
     locales: [
-      { code: 'id', iso: 'id-ID', file: 'id.json', name: 'Bahasa Indonesia' },
-      { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
+      { code: 'id', language: 'id-ID', file: 'id.json', name: 'Bahasa Indonesia' },
+      { code: 'en', language: 'en-US', file: 'en.json', name: 'English' },
     ],
     detectBrowserLanguage: {
       useCookie: true,

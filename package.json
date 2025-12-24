@@ -2,6 +2,7 @@
   "name": "jps-landingpage",
   "type": "module",
   "private": true,
+  "packageManager": "bun@1.1.38",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

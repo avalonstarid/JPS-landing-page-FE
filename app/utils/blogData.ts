@@ -2,20 +2,7 @@
 import beritaImage2 from '~/assets/images/berita/5185210dd6882a42d78b993139d925e1ca8738f3.jpg'
 import beritaImage3 from '~/assets/images/berita/55959f0ca16246400a14b5d0cca9cc4307d77972.jpg'
 import beritaImage4 from '~/assets/images/berita/60faff34dda2aa3e5d32fbf3577e7ff171007a1e.jpg'
-
-export interface LocalizedText {
-  id: string
-  en: string
-}
-
-export interface ContentBlock {
-  type: 'paragraph' | 'quote' | 'image'
-  text?: LocalizedText
-  cite?: LocalizedText
-  src?: string
-  alt?: LocalizedText
-  caption?: LocalizedText
-}
+import type { ContentBlock } from '~/utils/contentTypes'
 
 export interface BlogArticle {
   id: string

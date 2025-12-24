@@ -4,20 +4,7 @@ import beritaImage3 from '~/assets/images/berita/55959f0ca16246400a14b5d0cca9cc4
 import beritaImage4 from '~/assets/images/berita/60faff34dda2aa3e5d32fbf3577e7ff171007a1e.jpg'
 import beritaImage5 from '~/assets/images/berita/9872d0a0d2ef28751fd00c086e88b73755d4965f.jpg'
 import beritaImage6 from '~/assets/images/berita/fe6bc84f1ce918f59574af799012aaf45f97683b.jpg'
-
-export interface LocalizedText {
-  id: string
-  en: string
-}
-
-export interface ContentBlock {
-  type: 'paragraph' | 'quote' | 'image'
-  text?: LocalizedText
-  cite?: LocalizedText
-  src?: string
-  alt?: LocalizedText
-  caption?: LocalizedText
-}
+import type { ContentBlock } from '~/utils/contentTypes'
 
 export interface BeritaArticle {
   id: string
