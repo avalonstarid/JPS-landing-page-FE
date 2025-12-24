@@ -136,4 +136,22 @@ watch(
   --opacity: 0.7;
   outline: 0 solid transparent;
 }
+
+@media (max-width: 640px) {
+  .card-top {
+    --w: 84%;
+  }
+
+  .card-back-top {
+    --w: 80%;
+    --x: 6%;
+    --y: -4%;
+  }
+
+  .card-back-bottom {
+    --w: 78%;
+    --x: -6%;
+    --y: 4%;
+  }
+}
 </style>

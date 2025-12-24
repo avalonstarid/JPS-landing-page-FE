@@ -79,7 +79,6 @@ useHead(() => ({
           <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
           <span>{{ t('pengumumanPage.detail.back') }}</span>
         </button>
-        <SharePanel :title="shareTitle" :copy-label="shareCopyLabel" />
       </div>
 
       <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">
@@ -128,6 +127,9 @@ useHead(() => ({
                 </footer>
               </blockquote>
             </template>
+          </div>
+          <div class="pt-6">
+            <SharePanel :title="shareTitle" :copy-label="shareCopyLabel" />
           </div>
         </article>
 

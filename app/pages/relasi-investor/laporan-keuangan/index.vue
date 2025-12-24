@@ -164,8 +164,10 @@ const setMetric = (option: typeof chartOptions[number]) => {
             </div>
           </div>
 
-          <div class="mt-5 grid grid-cols-4 gap-2 text-[11px] text-gray-500 md:grid-cols-8">
-            <span v-for="tick in chartTicks" :key="tick" class="text-center">{{ formatCurrency(tick) }}</span>
+          <div class="mt-5 overflow-x-auto">
+            <div class="flex min-w-max items-center gap-3 text-[11px] text-gray-500">
+              <span v-for="tick in chartTicks" :key="tick" class="shrink-0 text-center whitespace-nowrap">{{ formatCurrency(tick) }}</span>
+            </div>
           </div>
         </section>
 

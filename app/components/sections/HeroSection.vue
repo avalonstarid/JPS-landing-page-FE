@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
         </h1>
 
         <!-- Subtitle -->
-        <div class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6 flex flex-nowrap gap-2 whitespace-nowrap">
+        <div class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6 flex flex-wrap md:flex-nowrap gap-2 whitespace-normal md:whitespace-nowrap">
           <span>{{ t('hero.subtitlePrefix') }}</span>
           <span
             class="relative inline-flex h-[1.3em] overflow-hidden"

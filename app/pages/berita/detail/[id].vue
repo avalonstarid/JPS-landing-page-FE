@@ -80,7 +80,6 @@ useHead(() => ({
           <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
           <span>{{ t('beritaPage.detail.back') }}</span>
         </button>
-        <SharePanel :title="shareTitle" :copy-label="shareCopyLabel" />
       </div>
       <div class="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-700">
         <div class="flex items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">
@@ -133,6 +132,9 @@ useHead(() => ({
                 </blockquote>
               </template>
             </div>
+          </div>
+          <div class="pt-6">
+            <SharePanel :title="shareTitle" :copy-label="shareCopyLabel" />
           </div>
         </article>
 

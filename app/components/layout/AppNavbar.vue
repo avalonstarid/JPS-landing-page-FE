@@ -329,15 +329,15 @@ onUnmounted(() => {
         <div
           v-if="isMobileMenuOpen"
           id="mobile-menu"
-          class="lg:hidden mt-1 rounded-3xl bg-gradient-to-r from-white/15 via-white/10 to-white/15 border border-white/20 backdrop-blur-xl shadow-2xl overflow-hidden pointer-events-auto"
+          class="lg:hidden mt-1 rounded-3xl bg-white/65 border border-white/60 backdrop-blur-2xl shadow-2xl overflow-hidden pointer-events-auto"
         >
           <div class="divide-y divide-white/10">
             <div class="py-3 space-y-1">
               <div v-for="item in navItems" :key="item.key" class="px-2">
                 <button
                   :href="item.href"
-                  class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-white/90 hover:bg-white/10 transition rounded-xl"
-                  :class="activeNavKey === item.key ? 'text-white' : ''"
+                  class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-[#1f2937] hover:bg-[#f6993c]/10 transition rounded-xl"
+                  :class="activeNavKey === item.key ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
                   :aria-current="activeNavKey === item.key ? 'page' : undefined"
                   @click.prevent="item.children ? (openMobileDropdown = openMobileDropdown === item.key ? null : item.key) : navigateToNavItem(item)"
                 >
@@ -352,7 +352,7 @@ onUnmounted(() => {
                     v-for="child in item.children"
                     :key="child.key"
                     :to="child.route"
-                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/85 rounded-lg hover:bg-white/10 transition"
+                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
                     @click="closeMobileMenu"
                   >
                     <span>{{ t(child.labelKey) }}</span>
@@ -363,14 +363,14 @@ onUnmounted(() => {
             </div>
             <div class="p-5 space-y-4">
               <div class="flex items-center justify-between">
-                <span class="text-sm font-semibold text-white/80">{{ t('language.label') }}</span>
+                <span class="text-sm font-semibold text-[#1f2937]">{{ t('language.label') }}</span>
                 <div class="flex items-center gap-2">
                   <button
                     v-for="lang in availableLanguages"
                     :key="lang.code"
                     type="button"
                     class="flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold transition"
-                    :class="currentLanguage === lang.label ? 'bg-[#f6993c] text-white' : 'bg-white/10 text-white/85'"
+                    :class="currentLanguage === lang.label ? 'bg-[#f6993c] text-white' : 'bg-gray-100 text-[#1f2937]'"
                     @click="setLanguage(lang.code)"
                   >
                     <img :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
