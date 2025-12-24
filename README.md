@@ -41,8 +41,7 @@ bun run preview
 Build and run the container:
 
 ```bash
-docker build -t jps-landingpage .
-docker run --rm -p 3000:3000 jps-landingpage
+docker compose up -d --build
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
