@@ -10,6 +10,11 @@ const rotatingWords = computed(() => {
   return words.map((word) => rt(word))
 })
 
+const rotatingMaxChars = computed(() => {
+  if (!rotatingWords.value.length) return 0
+  return Math.max(...rotatingWords.value.map((word) => word.length))
+})
+
 let rotateTimer: ReturnType<typeof setInterval> | null = null
 
 onMounted(() => {
@@ -53,7 +58,10 @@ onBeforeUnmount(() => {
         <!-- Subtitle -->
         <div class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6 flex flex-nowrap gap-2 whitespace-nowrap">
           <span>{{ t('hero.subtitlePrefix') }}</span>
-          <span class="relative inline-flex h-[1.3em] overflow-hidden">
+          <span
+            class="relative inline-flex h-[1.3em] overflow-hidden"
+            :style="{ minWidth: `${rotatingMaxChars}ch` }"
+          >
             <Transition name="hero-rotate" mode="out-in">
               <span
                 :key="activeWordIndex"

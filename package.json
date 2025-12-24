@@ -8,6 +8,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "postbuild": "node scripts/link-public.mjs",
+    "prestart": "node scripts/link-public.mjs",
+    "start": "node .output/server/index.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
