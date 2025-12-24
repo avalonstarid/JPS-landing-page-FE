@@ -1,19 +1,30 @@
-FROM oven/bun:1.1.38 AS build
+FROM oven/bun:1-alpine AS base
+
+ENV NODE_ENV=production
 
 WORKDIR /app
 
+FROM base AS build
+
 COPY package.json bun.lock ./
+
 RUN bun install --frozen-lockfile
 
 COPY . .
+
 RUN bun run build
 
-FROM oven/bun:1.1.38 AS runner
+FROM base AS run
 
 WORKDIR /app
-ENV NODE_ENV=production
 
-COPY --from=build /app/.output ./.output
+USER bun
+
+COPY --from=build --chown=bun:bun /app/.output ./.output
 
 EXPOSE 3000
-CMD ["bun", ".output/server/index.mjs"]
+
+ENV NUXT_HOST=0.0.0.0
+ENV NUXT_PORT=3000
+
+CMD ["bun", "run", ".output/server/index.mjs"]
