@@ -99,9 +99,9 @@ watch(() => props.isOpen, (isOpen) => {
         />
 
         <!-- Modal Content -->
-        <div class="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl">
+        <div class="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden">
           <!-- Header -->
-          <div class="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+          <div class="z-10 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
             <span class="text-sm text-gray-500">{{ t('karirPage.form.modalTitle') }}</span>
             <button
               type="button"
@@ -114,8 +114,8 @@ watch(() => props.isOpen, (isOpen) => {
           </div>
 
           <!-- Body -->
-          <div class="p-6 lg:p-8">
-            <form @submit.prevent="handleSubmit" class="space-y-6">
+          <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <form id="apply-form" @submit.prevent="handleSubmit" class="space-y-6">
               <!-- Title with Logo -->
               <div class="flex items-start justify-between gap-4">
                 <div class="space-y-2">
@@ -124,7 +124,6 @@ watch(() => props.isOpen, (isOpen) => {
                   </h2>
                   <p class="text-sm text-[#4b4b4b]">{{ t('karirPage.form.subtitle') }}</p>
                 </div>
-                <img :src="logoJps" alt="Logo JPS" class="w-12 h-12 rounded-full object-cover" />
               </div>
 
               <!-- Form Grid -->
@@ -316,19 +315,22 @@ watch(() => props.isOpen, (isOpen) => {
                 />
               </div>
 
-              <!-- Submit Button -->
-              <button
-                type="submit"
-                class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#e68a2e] hover:shadow-xl"
-              >
-                <span>{{ t('karirPage.form.submit') }}</span>
-                <i class="mdi mdi-arrow-right" aria-hidden="true" />
-              </button>
             </form>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="border-t border-gray-100 bg-white px-6 py-4">
+            <button
+              type="submit"
+              form="apply-form"
+              class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#e68a2e] hover:shadow-xl"
+            >
+              <span>{{ t('karirPage.form.submit') }}</span>
+              <i class="mdi mdi-arrow-right" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>
     </Transition>
   </Teleport>
 </template>
-

@@ -120,16 +120,7 @@
       :aria-label="ariaLabel"
       @click="$emit('click')"
     >
-      <svg
-        class="w-7 h-7"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
-      </svg>
+      <i class="mdi text-[26px] mdi-arrow-top-right" aria-hidden="true" />
     </button>
   </div>
 </template>

@@ -85,7 +85,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="location" 
                   value=""
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locationAll') }}</span>
               </label>
@@ -95,7 +95,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="location" 
                   value="yogyakarta"
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locations.yogyakarta') }}</span>
               </label>
@@ -105,7 +105,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="location" 
                   value="purbalingga"
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locations.purbalingga') }}</span>
               </label>
@@ -115,7 +115,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="location" 
                   value="kebumen"
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locations.kebumen') }}</span>
               </label>
@@ -132,7 +132,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="jobType" 
                   value=""
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypeAll') }}</span>
               </label>
@@ -142,7 +142,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="jobType" 
                   value="marketing"
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypes.marketing') }} ({{ marketingCount }})</span>
               </label>
@@ -152,7 +152,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="jobType" 
                   value="sales"
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypes.sales') }} ({{ salesCount }})</span>
               </label>
@@ -162,7 +162,7 @@ const handleOpenDetail = (job: KarirJob) => {
                   type="radio" 
                   name="jobType" 
                   value="legal"
-                  class="w-4 h-4 text-[#f6993c] border-gray-300 focus:ring-[#f6993c]"
+                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypes.legal') }} ({{ legalCount }})</span>
               </label>
@@ -201,11 +201,11 @@ const handleOpenDetail = (job: KarirJob) => {
                 <span class="text-xs text-gray-500">{{ job.postedAt }}</span>
                 <button
                   type="button"
-                  class="inline-flex items-center gap-2 rounded-full border-2 border-[#3d4f92] px-5 py-2 text-sm font-semibold text-[#3d4f92] transition hover:bg-[#3d4f92] hover:text-white"
+                  class="inline-flex items-center gap-2 rounded-full border-2 border-[#3d4f92] px-5 py-2 text-sm font-semibold  transition bg-[#3d4f92] text-white"
                   @click="handleOpenDetail(job)"
                 >
                   <span>{{ t('karirPage.list.apply') }}</span>
-                  <i class="mdi mdi-arrow-right" aria-hidden="true" />
+                  <div class="bg-white rounded-full min-w-[20px]"><i class="text-primary-600 mdi mdi-arrow-top-right" aria-hidden="true" /></div>
                 </button>
               </div>
             </article>
@@ -219,4 +219,3 @@ const handleOpenDetail = (job: KarirJob) => {
     </div>
   </section>
 </template>
-
