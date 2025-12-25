@@ -7,6 +7,7 @@
     "news": "Berita",
     "career": "Karir",
     "investor": "Relasi Investor",
+    "sustainability": "Keberlanjutan",
     "contact": "Hubungi Kami",
     "menuToggle": "Toggle menu navigasi",
     "newsItems": {
@@ -20,6 +21,17 @@
       "rups": "RUPS",
       "laporanTahunan": "Laporan Tahunan",
       "keterbukaanInformasi": "Keterbukaan Informasi"
+    },
+    "sustainabilityItems": {
+      "tinjauan": "Tinjauan",
+      "pendekatanKinerja": "Pendekatan dan Kinerja Manajemen",
+      "laporanKeberlanjutan": "Laporan Keberlanjutan"
+    },
+    "sustainabilitySubItems": {
+      "tataKelola": "Tata Kelola Keberlanjutan",
+      "kebijakan": "Kebijakan",
+      "sistemProduksiEfisien": "Sistem Produksi Efisien",
+      "pengembanganSdm": "Pengembangan SDM"
     }
   },
   "language": {

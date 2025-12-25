@@ -7,6 +7,7 @@
     "news": "News",
     "career": "Careers",
     "investor": "Investor Relations",
+    "sustainability": "Sustainability",
     "contact": "Contact Us",
     "menuToggle": "Toggle navigation menu",
     "newsItems": {
@@ -20,6 +21,17 @@
       "rups": "AGM",
       "laporanTahunan": "Annual Reports",
       "keterbukaanInformasi": "Information Disclosure"
+    },
+    "sustainabilityItems": {
+      "tinjauan": "Overview",
+      "pendekatanKinerja": "Approach and Management Performance",
+      "laporanKeberlanjutan": "Sustainability Report"
+    },
+    "sustainabilitySubItems": {
+      "tataKelola": "Sustainability Governance",
+      "kebijakan": "Policy",
+      "sistemProduksiEfisien": "Efficient Production System",
+      "pengembanganSdm": "People Development"
     }
   },
   "language": {

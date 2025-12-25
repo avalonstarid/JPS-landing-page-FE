@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import coverImage from '~/assets/images/laporan.png'
+import coverImage from '~/assets/images/book-laporan.jpg'
 
 const items = [
   { id: 'r-2019-1', title: 'Laporan RUPS 2019 PT JPS Tbk', href: '#' },

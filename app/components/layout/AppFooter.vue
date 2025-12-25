@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logoJps from '~/assets/images/logo-jps.png'
+import logoJps from '~/components/logo/logo-putih.png'
 
 const { t } = useI18n()
 const currentYear = new Date().getFullYear()
@@ -52,8 +52,8 @@ const footerColumnsSecond = [
     titleKey: 'footer.columns.berita.title',
     links: [
       { labelKey: 'footer.columns.berita.links.berita', route: '/berita' },
-      { labelKey: 'footer.columns.berita.links.blog', route: '/berita#blog' },
-      { labelKey: 'footer.columns.berita.links.pengumuman', route: '/berita#pengumuman' },
+      { labelKey: 'footer.columns.berita.links.blog', route: '/blog' },
+      { labelKey: 'footer.columns.berita.links.pengumuman', route: '/pengumuman' },
     ],
   },
   {
@@ -65,19 +65,19 @@ const footerColumnsSecond = [
   {
     titleKey: 'footer.columns.relasiInvestor.title',
     links: [
-      { labelKey: 'footer.columns.relasiInvestor.links.prospektus', route: '/relasi-investor#prospektus' },
-      { labelKey: 'footer.columns.relasiInvestor.links.laporanKeuangan', route: '/relasi-investor#laporan-keuangan' },
-      { labelKey: 'footer.columns.relasiInvestor.links.rups', route: '/relasi-investor#rups' },
-      { labelKey: 'footer.columns.relasiInvestor.links.laporanTahunan', route: '/relasi-investor#laporan-tahunan' },
-      { labelKey: 'footer.columns.relasiInvestor.links.keterbukaanInformasi', route: '/relasi-investor#keterbukaan-informasi' },
+      { labelKey: 'footer.columns.relasiInvestor.links.prospektus', route: '/relasi-investor/prospektus' },
+      { labelKey: 'footer.columns.relasiInvestor.links.laporanKeuangan', route: '/relasi-investor/laporan-keuangan' },
+      { labelKey: 'footer.columns.relasiInvestor.links.rups', route: '/relasi-investor/rups' },
+      { labelKey: 'footer.columns.relasiInvestor.links.laporanTahunan', route: '/relasi-investor/laporan-tahunan' },
+      { labelKey: 'footer.columns.relasiInvestor.links.keterbukaanInformasi', route: '/relasi-investor/keterbukaan-informasi' },
     ],
   },
   {
     titleKey: 'footer.columns.keberlanjutan.title',
     links: [
-      { labelKey: 'footer.columns.keberlanjutan.links.tinjauan', route: '/keberlanjutan#tinjauan' },
-      { labelKey: 'footer.columns.keberlanjutan.links.pendekatanKinerja', route: '/keberlanjutan#pendekatan-kinerja' },
-      { labelKey: 'footer.columns.keberlanjutan.links.laporanKeberlanjutan', route: '/keberlanjutan#laporan' },
+      { labelKey: 'footer.columns.keberlanjutan.links.tinjauan', route: '/keberlanjutan/tinjauan' },
+      { labelKey: 'footer.columns.keberlanjutan.links.pendekatanKinerja', route: '/keberlanjutan/pendekatan-dan-kinerja-manajemen' },
+      { labelKey: 'footer.columns.keberlanjutan.links.laporanKeberlanjutan', route: '/keberlanjutan/laporan-keberlanjutan' },
     ],
   },
 ]
@@ -89,14 +89,24 @@ const footerColumnsSecond = [
       <!-- Top Section: Logo, Description and Columns -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6">
         <!-- Logo and Description -->
-        <div class="lg:col-span-3 space-y-4">
+        <div class="lg:col-span-3 space-y-5">
           <div class="flex items-center gap-3">
-            <img :src="logoJps" :alt="t('footer.companyName')" class="h-10 w-10 bg-white p-1 rounded" />
+            <img :src="logoJps" :alt="t('footer.companyName')" class="h-10 w-auto" />
             <span class="font-semibold text-base">{{ t('footer.companyName') }}</span>
           </div>
-          <p class="text-sm text-white/80 leading-relaxed">
+          <p class="text-sm text-white/85 leading-relaxed">
             {{ t('footer.description') }}
           </p>
+          <div class="space-y-2 text-sm">
+            <a href="mailto:corsec@jpsejahtera.co.id" class="flex items-center gap-3 text-white/90 hover:text-white transition-colors">
+              <i class="mdi mdi-email-outline text-lg" aria-hidden="true" />
+              <span class="underline underline-offset-4">corsec@jpsejahtera.co.id</span>
+            </a>
+            <a href="mailto:hrd@jpsejahtera.co.id" class="flex items-center gap-3 text-white/90 hover:text-white transition-colors">
+              <i class="mdi mdi-email-outline text-lg" aria-hidden="true" />
+              <span class="underline underline-offset-4">hrd@jpsejahtera.co.id</span>
+            </a>
+          </div>
         </div>
 
         <!-- First Row Columns -->
@@ -119,7 +129,7 @@ const footerColumnsSecond = [
         <!-- Statistics -->
         <div class="lg:col-span-3 space-y-4">
           <h3 class="font-semibold text-sm">{{ t('footer.statistics.title') }}</h3>
-          <div class="space-y-2 text-sm text-white/80">
+          <div class="space-y-2 text-sm text-white/85">
             <div class="flex justify-between">
               <span>{{ t('footer.statistics.totalVisitors') }}</span>
               <span>: {{ t('footer.statistics.totalVisitorsValue') }}</span>

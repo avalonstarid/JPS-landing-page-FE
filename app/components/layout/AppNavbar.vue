@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logoJps from '~/assets/images/logo-jps.png'
+import logoJps from '~/components/logo/main-logo.png'
 import flagId from '~/assets/images/flag/emojione_flag-for-indonesia.png'
 import flagEn from '~/assets/images/flag/circle-flags_uk.png'
 
@@ -70,6 +70,27 @@ const navItems = [
       { key: 'investor-keterbukaan-informasi', labelKey: 'nav.investorItems.keterbukaanInformasi', route: '/relasi-investor/keterbukaan-informasi' },
     ],
   },
+  {
+    key: 'sustainability',
+    route: '/keberlanjutan/tinjauan',
+    labelKey: 'nav.sustainability',
+    hasDropdown: true,
+    children: [
+      { key: 'sustainability-overview', labelKey: 'nav.sustainabilityItems.tinjauan', route: '/keberlanjutan/tinjauan' },
+      {
+        key: 'sustainability-management',
+        labelKey: 'nav.sustainabilityItems.pendekatanKinerja',
+        route: '/keberlanjutan/pendekatan-dan-kinerja-manajemen',
+        children: [
+          { key: 'sustainability-governance', labelKey: 'nav.sustainabilitySubItems.tataKelola', route: '/keberlanjutan/tata-kelola-keberlanjutan' },
+          { key: 'sustainability-policy', labelKey: 'nav.sustainabilitySubItems.kebijakan', route: '/keberlanjutan/kebijakan' },
+          { key: 'sustainability-production', labelKey: 'nav.sustainabilitySubItems.sistemProduksiEfisien', route: '/keberlanjutan/sistem-produksi-efisien' },
+          { key: 'sustainability-hr', labelKey: 'nav.sustainabilitySubItems.pengembanganSdm', route: '/keberlanjutan/pengembangan-sdm' },
+        ],
+      },
+      { key: 'sustainability-report', labelKey: 'nav.sustainabilityItems.laporanKeberlanjutan', route: '/keberlanjutan/laporan-keberlanjutan' },
+    ],
+  },
 ]
 
 const currentLanguage = computed(() => (locale.value === 'en' ? 'EN' : 'ID'))
@@ -93,10 +114,14 @@ const activeNavKey = computed(() => {
   if (route.path.startsWith('/relasi-investor')) {
     return 'investor'
   }
+  if (route.path.startsWith('/keberlanjutan')) {
+    return 'sustainability'
+  }
   return 'home'
 })
 const openDropdown = ref<string | null>(null)
 const openMobileDropdown = ref<string | null>(null)
+const openMobileSubDropdown = ref<string | null>(null)
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
@@ -115,6 +140,7 @@ const navigateToContact = async () => {
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
   openMobileDropdown.value = null
+  openMobileSubDropdown.value = null
 }
 
 const setLanguage = async (lang: 'id' | 'en') => {
@@ -165,18 +191,19 @@ onUnmounted(() => {
 
 <template>
   <header class="fixed top-0 left-0 right-0 z-50 pointer-events-none">
-    <div class="container-main">
-      <div class="flex items-center justify-between gap-4 pt-4 pb-2">
+    <div class="px-6 lg:px-10">
+      <div class="flex items-center justify-between min-[1316px]:justify-center gap-5 pt-4 pb-2">
         <!-- Logo -->
         <a
           aria-label="PT Janu Putra Sejahtera - Halaman Utama"
           @click.prevent="scrollToSection('#beranda')"
+          class="pointer-events-auto"
         >
-          <img :src="logoJps" alt="Logo JPS" class="h-10 w-auto" />
+          <img :src="logoJps" alt="Logo JPS" class="h-10 w-auto max-w-[140px] object-contain" />
         </a>
 
         <!-- Desktop Navigation -->
-        <div class="hidden lg:flex flex-1 justify-center pointer-events-auto">
+        <div class="hidden min-[1316px]:flex items-center pointer-events-auto">
           <div
             :class="[
               'flex items-center gap-1 rounded-full px-4 py-2 transition-all duration-300 backdrop-blur-2xl border shadow-2xl',
@@ -202,7 +229,7 @@ onUnmounted(() => {
                 :aria-current="activeNavKey === item.key ? 'page' : undefined"
                 @click.prevent="handleDesktopNav(item)"
               >
-                <span>{{ t(item.labelKey) }}</span>
+                <span class="whitespace-nowrap">{{ t(item.labelKey) }}</span>
                 <i
                   v-if="item.hasDropdown"
                   class="mdi mdi-chevron-down text-base opacity-80 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
@@ -213,25 +240,50 @@ onUnmounted(() => {
                 v-if="item.children && openDropdown === item.key"
                 class="absolute left-1/2 top-full mt-2 -translate-x-1/2 min-w-[200px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2"
               >
-                <NuxtLink
-                  v-for="child in item.children"
-                  :key="child.key"
-                  :to="child.route"
-                  class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
-                  @click="openDropdown = null"
-                >
-                  <span>{{ t(child.labelKey) }}</span>
-                  <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
-                </NuxtLink>
+                <div v-for="child in item.children" :key="child.key" class="group relative">
+                  <NuxtLink
+                    v-if="!child.children"
+                    :to="child.route"
+                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
+                    @click="openDropdown = null"
+                  >
+                    <span>{{ t(child.labelKey) }}</span>
+                    <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                  </NuxtLink>
+                  <button
+                    v-else
+                    type="button"
+                    class="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
+                  >
+                    <span>{{ t(child.labelKey) }}</span>
+                    <i class="mdi mdi-chevron-right text-base text-[#f6993c]" aria-hidden="true" />
+                  </button>
+
+                  <div
+                    v-if="child.children"
+                    class="absolute left-full top-0 hidden min-w-[240px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2 group-hover:block group-focus-within:block translate-x-2"
+                  >
+                    <NuxtLink
+                      v-for="grandchild in child.children"
+                      :key="grandchild.key"
+                      :to="grandchild.route"
+                      class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
+                      @click="openDropdown = null"
+                    >
+                      <span>{{ t(grandchild.labelKey) }}</span>
+                      <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                    </NuxtLink>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="mx-3 h-6 w-px" :class="isScrolled ? 'bg-white/15' : 'bg-white/0'" aria-hidden="true" />
+            <!-- <div class="mx-3 h-6 w-px" :class="isScrolled ? 'bg-white/15' : 'bg-white/0'" aria-hidden="true" /> -->
           </div>
         </div>
 
         <!-- Actions outside glass -->
-        <div class="hidden lg:flex items-center gap-3 pointer-events-auto">
+        <div class="hidden min-[1316px]:flex items-center gap-3 pointer-events-auto">
           <div class="flex items-center text-sm font-semibold" :class="isScrolled ? 'text-white/90' : 'text-white/85'">
             <template v-for="(lang, idx) in availableLanguages" :key="lang.code">
               <button
@@ -255,7 +307,7 @@ onUnmounted(() => {
               </button>
               <div
                 v-if="idx === 0"
-                class="h-5 w-px mx-2"
+                class="h-5 w-px mx-2 self-center"
                 :class="isScrolled ? 'bg-white/25' : 'bg-white/40'"
                 aria-hidden="true"
               />
@@ -263,7 +315,7 @@ onUnmounted(() => {
           </div>
 
           <button
-            class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-5 py-2 text-sm font-semibold text-white shadow-[0_15px_40px_-18px_rgba(0,0,0,0.7)] transition hover:shadow-[0_20px_45px_-18px_rgba(0,0,0,0.75)]"
+            class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-5 py-2 text-sm font-semibold text-white shadow-[0_15px_40px_-18px_rgba(0,0,0,0.7)] transition hover:shadow-[0_20px_45px_-18px_rgba(0,0,0,0.75)] whitespace-nowrap"
             :aria-label="ctaLabel"
             @click="navigateToContact"
           >
@@ -273,7 +325,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Mobile actions -->
-        <div class="flex lg:hidden items-center gap-2 pointer-events-auto">
+        <div class="flex min-[1316px]:hidden items-center gap-2 pointer-events-auto">
           <button
             class="flex items-center gap-1 rounded-full px-3 py-2 text-xs font-semibold backdrop-blur-lg border shadow-lg transition"
             :class="isScrolled ? 'bg-black/30 text-white/90 border-white/20 hover:bg-black/35' : 'bg-white/10 text-white/85 border-white/20 hover:bg-white/15'"
@@ -329,7 +381,7 @@ onUnmounted(() => {
         <div
           v-if="isMobileMenuOpen"
           id="mobile-menu"
-          class="lg:hidden mt-1 rounded-3xl bg-white/65 border border-white/60 backdrop-blur-2xl shadow-2xl overflow-hidden pointer-events-auto"
+          class="min-[1316px]:hidden mt-1 rounded-3xl bg-white/65 border border-white/60 backdrop-blur-2xl shadow-2xl overflow-hidden pointer-events-auto"
         >
           <div class="divide-y divide-white/10">
             <div class="py-3 space-y-1">
@@ -339,7 +391,7 @@ onUnmounted(() => {
                   class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-[#1f2937] hover:bg-[#f6993c]/10 transition rounded-xl"
                   :class="activeNavKey === item.key ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
                   :aria-current="activeNavKey === item.key ? 'page' : undefined"
-                  @click.prevent="item.children ? (openMobileDropdown = openMobileDropdown === item.key ? null : item.key) : navigateToNavItem(item)"
+                  @click.prevent="item.children ? (openMobileDropdown = openMobileDropdown === item.key ? null : item.key, openMobileSubDropdown = null) : navigateToNavItem(item)"
                 >
                   <span>{{ t(item.labelKey) }}</span>
                   <i v-if="item.hasDropdown" class="mdi" :class="openMobileDropdown === item.key ? 'mdi-chevron-up' : 'mdi-chevron-down'" aria-hidden="true" />
@@ -348,16 +400,41 @@ onUnmounted(() => {
                   v-if="item.children && openMobileDropdown === item.key"
                   class="ml-3 mt-1 space-y-1"
                 >
-                  <NuxtLink
-                    v-for="child in item.children"
-                    :key="child.key"
-                    :to="child.route"
-                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
-                    @click="closeMobileMenu"
-                  >
-                    <span>{{ t(child.labelKey) }}</span>
-                    <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
-                  </NuxtLink>
+                  <div v-for="child in item.children" :key="child.key">
+                    <NuxtLink
+                      v-if="!child.children"
+                      :to="child.route"
+                      class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
+                      @click="closeMobileMenu"
+                    >
+                      <span>{{ t(child.labelKey) }}</span>
+                      <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                    </NuxtLink>
+                    <button
+                      v-else
+                      type="button"
+                      class="flex w-full items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
+                      @click="openMobileSubDropdown = openMobileSubDropdown === child.key ? null : child.key"
+                    >
+                      <span>{{ t(child.labelKey) }}</span>
+                      <i class="mdi" :class="openMobileSubDropdown === child.key ? 'mdi-chevron-up' : 'mdi-chevron-down'" aria-hidden="true" />
+                    </button>
+                    <div
+                      v-if="child.children && openMobileSubDropdown === child.key"
+                      class="ml-3 mt-1 space-y-1"
+                    >
+                      <NuxtLink
+                        v-for="grandchild in child.children"
+                        :key="grandchild.key"
+                        :to="grandchild.route"
+                        class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
+                        @click="closeMobileMenu"
+                      >
+                        <span>{{ t(grandchild.labelKey) }}</span>
+                        <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                      </NuxtLink>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
