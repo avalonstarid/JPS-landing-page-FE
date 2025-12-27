@@ -129,24 +129,30 @@ const footerColumnsSecond = [
         <!-- Statistics -->
         <div class="lg:col-span-3 space-y-4">
           <h3 class="font-semibold text-sm">{{ t('footer.statistics.title') }}</h3>
-          <div class="space-y-2 text-sm text-white/85">
-            <div class="flex justify-between">
-              <span>{{ t('footer.statistics.totalVisitors') }}</span>
-              <span>: {{ t('footer.statistics.totalVisitorsValue') }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span>{{ t('footer.statistics.dailyVisitors') }}</span>
-              <span>: {{ t('footer.statistics.dailyVisitorsValue') }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span>{{ t('footer.statistics.monthlyVisitors') }}</span>
-              <span>: {{ t('footer.statistics.monthlyVisitorsValue') }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span>{{ t('footer.statistics.yearlyVisitors') }}</span>
-              <span>: {{ t('footer.statistics.yearlyVisitorsValue') }}</span>
-            </div>
-          </div>
+          <table class="text-sm text-white/85 border-separate border-spacing-y-2">
+            <tbody>
+              <tr>
+                <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.totalVisitors') }}</td>
+                <td class="px-2">:</td>
+                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.totalVisitorsValue') }}</td>
+              </tr>
+              <tr>
+                <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.dailyVisitors') }}</td>
+                <td class="px-2">:</td>
+                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.dailyVisitorsValue') }}</td>
+              </tr>
+              <tr>
+                <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.monthlyVisitors') }}</td>
+                <td class="px-2">:</td>
+                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.monthlyVisitorsValue') }}</td>
+              </tr>
+              <tr>
+                <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.yearlyVisitors') }}</td>
+                <td class="px-2">:</td>
+                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.yearlyVisitorsValue') }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <!-- Second Row Columns -->
@@ -169,19 +175,19 @@ const footerColumnsSecond = [
         <p class="text-sm text-white/80">{{ t('footer.rights', { year: currentYear }) }}</p>
         <div class="flex items-center gap-4">
           <!-- Email -->
-          <a href="mailto:info@januputra.com" aria-label="Email" class="text-white hover:text-white/80 transition-colors">
+          <a href="mailto:marketing@jpsejahtera.co.id" aria-label="Email" class="text-white hover:text-white/80 transition-colors">
             <i class="mdi mdi-email-outline text-xl" aria-hidden="true" />
           </a>
           <!-- LinkedIn -->
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-white hover:text-white/80 transition-colors">
+          <a href="https://www.linkedin.com/company/janu-putra-group/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-white hover:text-white/80 transition-colors">
             <i class="mdi mdi-linkedin text-xl" aria-hidden="true" />
           </a>
           <!-- WhatsApp -->
-          <a href="https://wa.me/628123456789" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="text-white hover:text-white/80 transition-colors">
+          <a href="https://wa.me/6287809412474" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="text-white hover:text-white/80 transition-colors">
             <i class="mdi mdi-whatsapp text-xl" aria-hidden="true" />
           </a>
           <!-- Instagram -->
-          <a href="https://instagram.com/januputrasejahtera" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-white hover:text-white/80 transition-colors">
+          <a href="https://www.instagram.com/januputrasejahtera/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-white hover:text-white/80 transition-colors">
             <i class="mdi mdi-instagram text-xl" aria-hidden="true" />
           </a>
         </div>

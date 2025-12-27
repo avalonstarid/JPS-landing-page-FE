@@ -99,6 +99,34 @@ const setMetric = (option: typeof chartOptions[number]) => {
   selectedMetric.value = option
   isDropdownOpen.value = false
 }
+
+const tooltip = ref({
+  visible: false,
+  x: 0,
+  y: 0,
+  value: '',
+  year: 0,
+  maxX: 0,
+})
+
+const onBarMove = (event: MouseEvent, value: number, year: number) => {
+  const target = event.currentTarget as HTMLElement | null
+  if (!target) return
+  const rect = target.getBoundingClientRect()
+  const tooltipWidth = 110
+  tooltip.value = {
+    visible: true,
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top,
+    value: formatCurrency(value),
+    year,
+    maxX: Math.max(8, rect.width - tooltipWidth),
+  }
+}
+
+const onBarLeave = () => {
+  tooltip.value = { ...tooltip.value, visible: false, year: 0 }
+}
 </script>
 
 <template>
@@ -152,14 +180,29 @@ const setMetric = (option: typeof chartOptions[number]) => {
               class="grid grid-cols-[48px_1fr] items-center gap-4"
             >
               <span class="text-sm text-gray-600">{{ item.year }}</span>
-              <div class="relative h-10 rounded-lg bg-[#2c3e80]/15">
+              <div
+                class="relative h-10 rounded-lg bg-[#2c3e80]/15 group"
+                @mousemove="onBarMove($event, item.value, item.year)"
+                @mouseleave="onBarLeave"
+              >
                 <div
-                  class="h-10 rounded-lg bg-[#2c3e80] chart-bar"
+                  class="relative h-10 rounded-lg bg-[#2c3e80] chart-bar"
                   :style="{
                     width: `${(item.value / chartMax) * 100}%`,
                     animationDelay: `${index * 120}ms`,
                   }"
-                />
+                >
+                </div>
+                <div
+                  class="pointer-events-none absolute rounded-lg bg-[#f6993c] px-3 py-1.5 text-[14px] font-semibold text-white shadow-lg transition-opacity duration-150"
+                  :class="tooltip.visible && tooltip.year === item.year ? 'opacity-100' : 'opacity-0'"
+                  :style="{
+                    left: `${Math.max(8, Math.min(tooltip.x + 10, tooltip.maxX))}px`,
+                    top: `${Math.max(6, tooltip.y - 38)}px`,
+                  }"
+                >
+                  {{ tooltip.value }}
+                </div>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import strukturImage from '~/assets/images/tentang/struktur-oraganisasi.png'
+import strukturImage from '~/assets/images/tentang/struktur-oraganisasi-1.png'
 
 const { t } = useI18n()
 
@@ -93,7 +93,7 @@ onBeforeUnmount(() => {
       <!-- Image Container with Zoom -->
       <div
         ref="imageContainerRef"
-        class="relative overflow-auto rounded-2xl bg-white/5 p-4 md:p-6"
+        class="relative overflow-auto rounded-2xl p-4 md:p-6 struktur-scroll"
         style="max-height: 70vh; cursor: grab;"
         @mousedown="handleMouseDown"
         @wheel="handleWheel"
@@ -154,3 +154,37 @@ onBeforeUnmount(() => {
   </section>
 </template>
 
+<style scoped>
+.struktur-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scrollbar-gutter: stable;
+}
+
+.struktur-scroll:hover {
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+
+:deep(.struktur-scroll::-webkit-scrollbar) {
+  width: 8px;
+  height: 8px;
+}
+
+:deep(.struktur-scroll:hover::-webkit-scrollbar) {
+  width: 8px;
+  height: 8px;
+}
+
+:deep(.struktur-scroll:hover::-webkit-scrollbar-thumb) {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 9999px;
+}
+
+:deep(.struktur-scroll:hover::-webkit-scrollbar-track) {
+  background: transparent;
+}
+
+:deep(.struktur-scroll::-webkit-scrollbar-thumb) {
+  background: transparent;
+}
+</style>

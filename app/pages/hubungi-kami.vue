@@ -2,6 +2,10 @@
 import heroImage from '~/assets/images/most-top.png'
 import whiteCardImage from '~/assets/images/white.png'
 import UiCard from '~/components/ui/Card.vue'
+import instagramIcon from '~/components/hubungi-kami/instagram.png'
+import linkedinIcon from '~/components/hubungi-kami/linkedin.png'
+import gmailIcon from '~/components/hubungi-kami/gmail.png'
+import whatsappIcon from '~/components/hubungi-kami/whatsapp.png'
 
 const { t } = useI18n()
 
@@ -36,37 +40,41 @@ const contactCards = computed(() => [
     key: 'whatsapp',
     title: t('contactPage.contactMore.cards.whatsapp.title'),
     description: '0878 0941 2474',
-    iconClass: 'mdi mdi-whatsapp',
+    iconUrl: whatsappIcon,
     iconBgClass: 'bg-[#EAF7EF]',
-    iconColorClass: 'text-[#25D366]',
     href: 'https://wa.me/6287809412474',
+    target: '_blank',
+    rel: 'noopener noreferrer',
   },
   {
     key: 'email',
     title: t('contactPage.contactMore.cards.email.title'),
     description: 'marketing@jpsejah\ntera.co.id',
-    iconClass: 'mdi mdi-gmail',
+    iconUrl: gmailIcon,
     iconBgClass: 'bg-[#FFF0F0]',
-    iconColorClass: 'text-[#EA4335]',
     href: emailHref,
+    target: '_self',
+    rel: null,
   },
   {
     key: 'instagram',
     title: t('contactPage.contactMore.cards.instagram.title'),
     description: t('contactPage.contactMore.cards.instagram.value'),
-    iconClass: 'mdi mdi-instagram',
+    iconUrl: instagramIcon,
     iconBgClass: 'bg-[#FFF2F9]',
-    iconColorClass: 'text-[#E1306C]',
-    href: t('contactPage.contactMore.cards.instagram.href'),
+    href: 'https://www.instagram.com/januputrasejahtera/',
+    target: '_blank',
+    rel: 'noopener noreferrer',
   },
   {
     key: 'linkedin',
     title: t('contactPage.contactMore.cards.linkedin.title'),
     description: t('contactPage.contactMore.cards.linkedin.value'),
-    iconClass: 'mdi mdi-linkedin',
+    iconUrl: linkedinIcon,
     iconBgClass: 'bg-[#EAF3FF]',
-    iconColorClass: 'text-[#0A66C2]',
-    href: t('contactPage.contactMore.cards.linkedin.href'),
+    href: 'https://www.linkedin.com/company/janu-putra-group/',
+    target: '_blank',
+    rel: 'noopener noreferrer',
   },
 ])
 </script>
@@ -200,8 +208,8 @@ const contactCards = computed(() => [
             v-for="card in contactCards"
             :key="card.key"
             :href="card.href"
-            target="_blank"
-            rel="noopener noreferrer"
+            :target="card.target ?? null"
+            :rel="card.rel ?? null"
             class="block"
             :aria-label="card.title"
           >
@@ -212,11 +220,12 @@ const contactCards = computed(() => [
               :title="''"
               :description="card.description"
               :icon-class="card.iconClass"
+              :icon-url="card.iconUrl"
               :icon-bg-class="card.iconBgClass"
               :icon-color-class="card.iconColorClass"
               :is-white="true"
               variant="simple"
-              :height="190"
+              :height="269"
               :fill-parent="true"
               :aria-label="card.title"
               :class="['contact-more-card', { 'contact-more-card-email': card.key === 'email' }]"

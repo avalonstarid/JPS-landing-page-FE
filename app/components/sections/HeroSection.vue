@@ -49,23 +49,23 @@ onBeforeUnmount(() => {
 
     <!-- Content -->
     <div class="relative z-10 container-main py-20 lg:py-32">
-      <div class="text-left xl:ml-[-14rem]">
+      <div class="text-center md:text-left xl:ml-[-14rem]">
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
           {{ t('hero.title') }}
         </h1>
 
         <!-- Subtitle -->
-        <div class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6 flex flex-wrap md:flex-nowrap gap-2 whitespace-normal md:whitespace-nowrap">
+        <div class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6 flex flex-wrap md:flex-nowrap gap-2 whitespace-normal md:whitespace-nowrap justify-center md:justify-start">
           <span>{{ t('hero.subtitlePrefix') }}</span>
           <span
-            class="relative inline-flex h-[1.3em] overflow-hidden"
+            class="relative inline-flex h-[1.3em] overflow-hidden justify-center md:justify-start"
             :style="{ minWidth: `${rotatingMaxChars}ch` }"
           >
             <Transition name="hero-rotate" mode="out-in">
               <span
                 :key="activeWordIndex"
-                class="text-primary-500 inline-flex items-center"
+                class="text-primary-500 inline-flex items-center justify-center md:justify-start w-full"
               >
                 {{ rotatingWords[activeWordIndex] }}
               </span>
@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
         <!-- Description -->
         <p
           v-if="t('hero.description')"
-          class="text-base md:text-lg text-white/90 mb-8 max-w-2xl leading-relaxed"
+          class="text-base md:text-lg text-white/90 mb-8 max-w-2xl leading-relaxed mx-auto md:mx-0"
         >
           {{ t('hero.description') }}
         </p>

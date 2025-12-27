@@ -24,18 +24,24 @@
       <div class="relative z-10 flex h-full flex-col justify-between p-5">
         <div class="flex items-center gap-3">
           <div
-            v-if="iconClass"
+            v-if="iconClass || iconUrl"
             class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-100"
-            :class="iconBgClass ?? 'bg-[#fdeee0]'"
+            :class="iconUrl ? 'bg-transparent border-transparent h-[76px] w-[76px] min-w-[76px]' : (iconBgClass ?? 'bg-[#fdeee0]')"
             aria-hidden="true"
           >
-            <i class="text-2xl leading-none" :class="[iconClass, iconColorClass ?? 'text-[#1f2937]']" />
+            <img
+              v-if="iconUrl"
+              :src="iconUrl"
+              :alt="companyText"
+              class="h-[76px] w-[76px] min-w-[76px]"
+            />
+            <i v-else class="text-2xl leading-none" :class="[iconClass, iconColorClass ?? 'text-[#1f2937]']" />
           </div>
           <div class="text-base font-semibold text-[#1f2937]">{{ companyText }}</div>
         </div>
 
         <div class="space-y-2">
-          <p class="text-sm text-[#1f2937] leading-snug">
+          <p class="text-[#1f2937] leading-snug" :class="{'text-[24px] mt-4': iconUrl, 'text-sm': !iconUrl}">
             <span class="notch-spacer" aria-hidden="true"></span>
             {{ descriptionText }}
           </p>
@@ -83,7 +89,13 @@
       <!-- Text content positioned over the SVG -->
       <div class="relative z-10 flex h-full flex-col justify-end p-5 pb-6 text-white">
         <div v-if="showMeta" class="flex items-center gap-2 text-[11px] opacity-90 mb-2">
-          <i v-if="iconClass" class="text-xl leading-none" :class="iconClass" aria-hidden="true" />
+          <img
+            v-if="iconUrl"
+            :src="iconUrl"
+            :alt="companyText"
+            class="w-6 h-6"
+          />
+          <i v-else-if="iconClass" class="text-xl leading-none" :class="iconClass" aria-hidden="true" />
           <img
             v-else-if="avatarUrl"
             :src="avatarUrl"
@@ -120,7 +132,7 @@
       :aria-label="ariaLabel"
       @click="$emit('click')"
     >
-      <i class="mdi text-[26px] mdi-arrow-top-right" aria-hidden="true" />
+      <i class="mdi text-[46px] mdi-arrow-top-right" aria-hidden="true" />
     </button>
   </div>
 </template>
@@ -136,6 +148,7 @@ interface Props {
   description?: string
   avatarUrl?: string
   iconClass?: string
+  iconUrl?: string
   iconBgClass?: string
   iconColorClass?: string
   width?: number
@@ -220,7 +233,7 @@ const hasCompany = computed(() => companyText.value.trim().length > 0)
 const hasTime = computed(() => timeText.value.trim().length > 0)
 const hasTitle = computed(() => titleText.value.trim().length > 0)
 const hasDescription = computed(() => descriptionText.value.trim().length > 0)
-const showMeta = computed(() => hasCompany.value || hasTime.value || !!props.avatarUrl || !!props.iconClass)
+const showMeta = computed(() => hasCompany.value || hasTime.value || !!props.avatarUrl || !!props.iconClass || !!props.iconUrl)
 
 /**
  * Generate SVG path for card with rounded corners and a rounded square notch

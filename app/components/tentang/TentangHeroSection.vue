@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import heroImage from '~/assets/images/tentang/tentang-section.png'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const stats = [
   { key: 'facilities', icon: 'building' },
@@ -23,6 +23,48 @@ const statStyle = (index: number) => {
     backgroundImage: `linear-gradient(180deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
   }
 }
+
+const statDisplay = ref<string[]>(stats.map(() => '0'))
+
+const parseStatValue = (value: string) => {
+  const numeric = Number(value.replace(/[^\d]/g, ''))
+  const suffixMatch = value.match(/[^\d.,]+$/)
+  return {
+    numeric,
+    suffix: suffixMatch ? suffixMatch[0] : '',
+  }
+}
+
+const formatNumber = (value: number) => new Intl.NumberFormat(locale.value).format(value)
+
+const animateStats = () => {
+  const targets = stats.map((stat) => parseStatValue(t(`tentangPage.hero.stats.${stat.key}.value`)))
+  const start = performance.now()
+  const duration = 1200
+
+  const step = (now: number) => {
+    const progress = Math.min((now - start) / duration, 1)
+    statDisplay.value = targets.map((target) => {
+      const current = Math.round(target.numeric * progress)
+      return `${formatNumber(current)}${target.suffix}`
+    })
+
+    if (progress < 1) {
+      requestAnimationFrame(step)
+    }
+  }
+
+  requestAnimationFrame(step)
+}
+
+onMounted(() => {
+  animateStats()
+})
+
+watch(locale, () => {
+  statDisplay.value = stats.map(() => '0')
+  animateStats()
+})
 </script>
 
 <template>
@@ -81,8 +123,8 @@ const statStyle = (index: number) => {
           </div>
           <!-- Value & Label -->
           <div class="">
-            <p class="text-lg md:text-xl font-bold leading-tight">
-              {{ t(`tentangPage.hero.stats.${stat.key}.value`) }}
+            <p class="text-lg md:text-xl font-bold leading-tight tabular-nums">
+              {{ statDisplay[index] ?? t(`tentangPage.hero.stats.${stat.key}.value`) }}
             </p>
             <p class="text-xs md:text-sm opacity-90">
               {{ t(`tentangPage.hero.stats.${stat.key}.label`) }}
