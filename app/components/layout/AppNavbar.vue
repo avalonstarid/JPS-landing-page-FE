@@ -81,12 +81,6 @@ const navItems = [
         key: 'sustainability-management',
         labelKey: 'nav.sustainabilityItems.pendekatanKinerja',
         route: '/keberlanjutan/pendekatan-dan-kinerja-manajemen',
-        children: [
-          { key: 'sustainability-governance', labelKey: 'nav.sustainabilitySubItems.tataKelola', route: '/keberlanjutan/tata-kelola-keberlanjutan' },
-          { key: 'sustainability-policy', labelKey: 'nav.sustainabilitySubItems.kebijakan', route: '/keberlanjutan/kebijakan' },
-          { key: 'sustainability-production', labelKey: 'nav.sustainabilitySubItems.sistemProduksiEfisien', route: '/keberlanjutan/sistem-produksi-efisien' },
-          { key: 'sustainability-hr', labelKey: 'nav.sustainabilitySubItems.pengembanganSdm', route: '/keberlanjutan/pengembangan-sdm' },
-        ],
       },
       { key: 'sustainability-report', labelKey: 'nav.sustainabilityItems.laporanKeberlanjutan', route: '/keberlanjutan/laporan-keberlanjutan' },
     ],
