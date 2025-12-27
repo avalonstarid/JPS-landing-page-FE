@@ -1,34 +1,36 @@
 <script setup lang="ts">
 type Props = {
   title: string
-  locations: string[]
-  to: string
+  description: string
+  to?: string
   imageSrc: string
   imageAlt?: string
   buttonText?: string
+  reverse?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   imageAlt: '',
   buttonText: 'Selengkapnya',
+  reverse: false,
 })
 
-const svgWidth = 1000
-const svgHeight = 420
+const svgWidth = 1200
+const svgHeight = 520
 
-const cornerRadius = 28
-const notchSize = 150
-const notchRadius = 22
+const cornerRadius = 38
+const notchWidth = 370
+const notchHeight = 160
+const notchRadius = 50
 
 const cardPath = computed(() => {
   const w = svgWidth
   const h = svgHeight
   const r = cornerRadius
-  const ns = notchSize
   const nr = notchRadius
 
-  const notchLeft = w - ns
-  const notchTop = h - ns
+  const notchLeft = w - notchWidth
+  const notchTop = h - notchHeight
 
   return `
     M ${r} 0
@@ -47,61 +49,77 @@ const cardPath = computed(() => {
     Z
   `
 })
+
+const clipPathId = computed(() => {
+  const slug = props.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+
+  return `keberlanjutan-card-${slug || 'item'}`
+})
 </script>
 
 <template>
-  <div class="lokasi-card relative">
-    <svg
-      class="absolute inset-0 h-full w-full"
-      :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path :d="cardPath" fill="#FFF4EA" />
-    </svg>
-
-    <div class="relative z-10 flex flex-col sm:flex-row gap-4 p-5 md:p-6">
-      <div class="w-full sm:w-[40%]">
-        <img
-          :src="props.imageSrc"
-          :alt="props.imageAlt || props.title"
-          class="h-[170px] sm:h-full w-full rounded-2xl object-cover"
-          loading="lazy"
-        />
-      </div>
-
-      <div class="flex-1 min-w-0">
-        <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-          {{ props.title }}
-        </h3>
-        <ul class="text-sm text-gray-600 space-y-1">
-          <li v-for="(loc, idx) in props.locations" :key="idx" class="flex items-start">
-            <span v-if="props.locations.length > 1" class="mr-2">{{ idx + 1 }}.</span>
-            <span class="min-w-0">{{ loc }}</span>
-          </li>
-        </ul>
-      </div>
+  <div
+    class="keberlanjutan-wrapper flex flex-col gap-8 lg:gap-10 items-center"
+    :class="props.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'"
+  >
+    <div class="keberlanjutan-text w-full lg:w-1/2 text-left">
+      <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+        {{ props.title }}
+      </h3>
+      <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+        {{ props.description }}
+      </p>
     </div>
 
-    <NuxtLink :to="props.to" class="lokasi-btn">
-      <span>{{ props.buttonText }}</span>
-      <span class="lokasi-btn-icon" aria-hidden="true">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
-        </svg>
-      </span>
-    </NuxtLink>
+    <div class="keberlanjutan-card relative w-full lg:w-1/2 aspect-[1000/420]">
+      <svg
+        class="absolute inset-0 h-full w-full"
+        :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+        preserveAspectRatio="xMidYMid meet"
+        shape-rendering="geometricPrecision"
+        role="img"
+        :aria-label="props.imageAlt || props.title"
+      >
+        <defs>
+          <clipPath :id="clipPathId" clipPathUnits="userSpaceOnUse">
+            <path :d="cardPath" />
+          </clipPath>
+        </defs>
+        <path :d="cardPath" fill="#FFF4EA" />
+        <image
+          :href="props.imageSrc"
+          :clip-path="`url(#${clipPathId})`"
+          x="0"
+          y="0"
+          :width="svgWidth"
+          :height="svgHeight"
+          preserveAspectRatio="xMidYMid slice"
+        />
+      </svg>
+
+      <NuxtLink :to="props.to || '#'" class="lokasi-selengkapnya">
+        <span>{{ props.buttonText }}</span>
+        <span class="lokasi-selengkapnya-icon" aria-hidden="true">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
+        </span>
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.lokasi-card {
+.keberlanjutan-card {
   border-radius: 28px;
   filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.14));
   overflow: visible;
 }
 
-.lokasi-btn {
+.lokasi-selengkapnya {
   position: absolute;
   right: 16px;
   bottom: 16px;
@@ -112,29 +130,29 @@ const cardPath = computed(() => {
   padding: 10px 14px 10px 16px;
   background: #f6993c;
   color: #ffffff;
-  border-radius: 9999px;
+  border-radius: 10px;
   font-size: 13px;
   font-weight: 600;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 
-.lokasi-btn:hover {
+.lokasi-selengkapnya:hover {
   background: #e8872e;
   transform: translateY(-1px);
   box-shadow: 0 16px 28px rgba(0, 0, 0, 0.18);
 }
 
-.lokasi-btn:active {
+.lokasi-selengkapnya:active {
   transform: translateY(0);
 }
 
-.lokasi-btn:focus-visible {
+.lokasi-selengkapnya:focus-visible {
   outline: 2px solid rgba(246, 153, 60, 0.75);
   outline-offset: 3px;
 }
 
-.lokasi-btn-icon {
+.lokasi-selengkapnya-icon {
   width: 28px;
   height: 28px;
   border-radius: 9999px;
