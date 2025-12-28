@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { karirJobs, type KarirJob } from '~/utils/karirData'
 import emptyImage from '~/assets/images/karir/karir-tidak-tersedia.png'
-import karirImage from '~/assets/images/karir/karir.png'
+import karirImage from '~/assets/images/karir/karir.jpg'
 
 const { t } = useI18n()
 
@@ -50,7 +50,7 @@ const hasJobs = computed(() => karirJobs.length > 0)
     <div class="container-main">
       <div v-if="hasJobs" class="grid gap-8 lg:grid-cols-[280px_1fr]">
         <!-- Filter Sidebar -->
-        <aside class="space-y-6">
+        <aside class="space-y-6 bg-white rounded-2xl p-6 shadow-lg shadow-black/5">
           <div class="flex items-center justify-between">
             <h3 class="text-xl font-bold text-[#1f2937]">{{ t('karirPage.filter.title') }}</h3>
             <button 

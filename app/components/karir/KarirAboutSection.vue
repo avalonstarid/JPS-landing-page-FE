@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import aboutImage from '~/assets/images/karir/karir.png'
+import aboutImage from '~/assets/images/karir/karir.jpg'
 
 const { t } = useI18n()
 </script>
