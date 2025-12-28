@@ -1,8 +1,20 @@
 <script setup lang="ts">
 import type { LiniBisnis } from '~/utils/liniBisnisData'
-import imageMostTop from '~/assets/images/bisnis/bisnis-1.png'
-import imageBehindTop from '~/assets/images/bisnis/bisnis-2.jpg'
-import imageBehindBottom from '~/assets/images/bisnis/bisnis-3.jpg'
+import pembibitanTop from '~/assets/images/bisnis/peternakan-pembibitan-1.jpg'
+import pembibitanBackTop from '~/assets/images/bisnis/peternakan-pembibitan-2.jpg'
+import pembibitanBackBottom from '~/assets/images/bisnis/peternakan-pembibitan-3.jpg'
+import broilerTop from '~/assets/images/bisnis/peternakan-broiler-1.jpg'
+import broilerBackTop from '~/assets/images/bisnis/peternakan-broiler-2.jpg'
+import broilerBackBottom from '~/assets/images/bisnis/peternakan-broiler-3.jpg'
+import petelurTop from '~/assets/images/bisnis/peternakan-telur-1.jpg'
+import petelurBackTop from '~/assets/images/bisnis/peternakan-telur-2.jpg'
+import petelurBackBottom from '~/assets/images/bisnis/peternakan-telur-3.jpg'
+import penetasanTop from '~/assets/images/bisnis/penetasan-telur-1.jpg'
+import penetasanBackTop from '~/assets/images/bisnis/penetasan-telur-2.jpg'
+import penetasanBackBottom from '~/assets/images/bisnis/penetasan-telur-3.jpg'
+import rpaTop from '~/assets/images/bisnis/rumah-potong-ayam-1.jpg'
+import rpaBackTop from '~/assets/images/bisnis/rumah-potong-ayam-2.jpg'
+import rpaBackBottom from '~/assets/images/bisnis/rumah-potong-ayam-3.jpg'
 
 const { t } = useI18n()
 
@@ -19,6 +31,38 @@ const emit = defineEmits<{
 const handleOpenModal = () => {
   emit('openModal')
 }
+
+const imageSet = computed(() => {
+  const key = props.business.slug ?? props.business.id
+  const map: Record<string, { top: string; backTop: string; backBottom: string }> = {
+    pembibitan: {
+      top: pembibitanTop,
+      backTop: pembibitanBackTop,
+      backBottom: pembibitanBackBottom,
+    },
+    broiler: {
+      top: broilerTop,
+      backTop: broilerBackTop,
+      backBottom: broilerBackBottom,
+    },
+    petelur: {
+      top: petelurTop,
+      backTop: petelurBackTop,
+      backBottom: petelurBackBottom,
+    },
+    penetasan: {
+      top: penetasanTop,
+      backTop: penetasanBackTop,
+      backBottom: penetasanBackBottom,
+    },
+    rpa: {
+      top: rpaTop,
+      backTop: rpaBackTop,
+      backBottom: rpaBackBottom,
+    },
+  }
+  return map[key] ?? map.pembibitan
+})
 </script>
 
 <template>
@@ -68,9 +112,9 @@ const handleOpenModal = () => {
 
         <!-- Image Stack Column -->
         <UiStackedImagePreview
-          :top-src="imageMostTop"
-          :back-top-src="imageBehindTop"
-          :back-bottom-src="imageBehindBottom"
+          :top-src="imageSet.top"
+          :back-top-src="imageSet.backTop"
+          :back-bottom-src="imageSet.backBottom"
           top-alt="Interior kandang ayam"
           back-top-alt="Kandang ayam modern"
           back-bottom-alt="Fasilitas peternakan"

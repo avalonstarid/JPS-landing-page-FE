@@ -60,7 +60,7 @@ watch(
 </script>
 
 <template>
-  <div class="group relative w-full max-w-[360px] mx-auto aspect-[4/3] lg:aspect-square my-10 lg:my-0">
+  <div class="group relative w-full max-w-[260px] mx-auto aspect-[3/4] lg:my-0">
     <div
       v-for="(src, index) in images"
       :key="`${src}-${index}`"
@@ -89,6 +89,7 @@ watch(
   left: 50%;
   top: 50%;
   width: var(--w);
+  height: var(--h);
   opacity: var(--opacity);
   transform: translate3d(calc(-50% + var(--x)), calc(-50% + var(--y)), 0)
     rotate(var(--rotate))
@@ -105,53 +106,61 @@ watch(
 
 .card-top {
   z-index: 3;
-  --w: 68%;
+  --w: 100%;
+  --h: 100%;
   --x: 0%;
   --y: 0%;
   --rotate: 0deg;
   --scale: 1;
   --opacity: 1;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  outline: 4px solid #fff;
+  box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.25);
+  border-radius: 28px;
 }
 
 .card-back-top {
   z-index: 2;
-  --w: 64%;
-  --x: 12%;
-  --y: -8%;
-  --rotate: 4deg;
+  --w: 92%;
+  --h: 92%;
+  --x: 22%;
+  --y: -18%;
+  --rotate: 0deg;
   --scale: 0.985;
-  --opacity: 0.78;
+  --opacity: 0.55;
   outline: 0 solid transparent;
+  border-radius: 26px;
 }
 
 .card-back-bottom {
   z-index: 1;
-  --w: 62%;
-  --x: -12%;
-  --y: 8%;
-  --rotate: -4deg;
+  --w: 92%;
+  --h: 92%;
+  --x: -22%;
+  --y: 18%;
+  --rotate: 0deg;
   --scale: 0.975;
-  --opacity: 0.7;
+  --opacity: 0.55;
   outline: 0 solid transparent;
+  border-radius: 26px;
 }
 
 @media (max-width: 640px) {
   .card-top {
-    --w: 76%;
+    --w: 100%;
+    --h: 100%;
   }
 
   .card-back-top {
-    --w: 72%;
-    --x: 6%;
-    --y: -4%;
+    --w: 90%;
+    --h: 90%;
+    --x: 18%;
+    --y: -14%;
   }
 
   .card-back-bottom {
-    --w: 70%;
-    --x: -6%;
-    --y: 4%;
+    --w: 90%;
+    --h: 90%;
+    --x: -18%;
+    --y: 14%;
   }
 }
 </style>
