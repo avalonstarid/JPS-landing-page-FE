@@ -10,12 +10,17 @@ type Item = {
   title: string
   description: string
   image: string
+  actionKey?: string
 }
 
 defineProps<{
   title: string
   breadcrumbs: Breadcrumb[]
   items: Item[]
+}>()
+
+const emit = defineEmits<{
+  open: [string]
 }>()
 </script>
 
@@ -31,7 +36,7 @@ defineProps<{
       </nav>
 
       <div class="text-center">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-900">{{ title }}</h1>
+        <h1 class="text-3xl md:text-4xl font-bold text-[#3d4f92]">{{ title }}</h1>
       </div>
 
       <div class="space-y-12">
@@ -42,6 +47,7 @@ defineProps<{
           :description="item.description"
           :image-src="item.image"
           :reverse="index % 2 === 1"
+          @action="item.actionKey ? emit('open', item.actionKey) : null"
         />
       </div>
     </div>

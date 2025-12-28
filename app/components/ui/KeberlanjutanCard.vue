@@ -15,6 +15,10 @@ const props = withDefaults(defineProps<Props>(), {
   reverse: false,
 })
 
+const emit = defineEmits<{
+  action: []
+}>()
+
 const svgWidth = 1200
 const svgHeight = 520
 
@@ -63,7 +67,7 @@ const clipPathId = computed(() => {
 <template>
   <div
     class="keberlanjutan-wrapper flex flex-col gap-8 lg:gap-10 items-center"
-    :class="props.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'"
+    :class="!props.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'"
   >
     <div class="keberlanjutan-text w-full lg:w-1/2 text-left">
       <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
@@ -100,14 +104,20 @@ const clipPathId = computed(() => {
         />
       </svg>
 
-      <NuxtLink :to="props.to || '#'" class="lokasi-selengkapnya">
+      <component
+        :is="props.to ? 'NuxtLink' : 'button'"
+        :to="props.to"
+        class="lokasi-selengkapnya"
+        type="button"
+        @click="props.to ? null : emit('action')"
+      >
         <span>{{ props.buttonText }}</span>
         <span class="lokasi-selengkapnya-icon" aria-hidden="true">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
           </svg>
         </span>
-      </NuxtLink>
+      </component>
     </div>
   </div>
 </template>

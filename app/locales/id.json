@@ -42,7 +42,8 @@
   "common": {
     "contact": "Hubungi Kami",
     "viewAll": "Lihat Semua",
-    "loading": "Memuat..."
+    "loading": "Memuat...",
+    "close": "Tutup"
   },
   "share": {
     "title": "Bagikan {label}",
@@ -285,6 +286,15 @@
       "reasonLabel": "Alasan Melamar Posisi Tersebut",
       "reasonPlaceholder": "Tulis Alasan Anda",
       "submit": "Kirim Lamaran"
+    },
+    "empty": {
+      "sectionTitle": "Mengapa Bergabung Bersama Kami?",
+      "sectionDescription1": "Di PT Janu Putra Sejahtera Tbk, kami percaya bahwa keberhasilan perusahaan dibangun oleh individu-individu profesional yang menjunjung tinggi integritas, bekerja dengan tanggung jawab, serta memiliki komitmen untuk terus berkembang bersama perusahaan.",
+      "sectionDescription2": "Bergabung bersama kami berarti menjadi bagian dari perusahaan yang terus bertumbuh, berorientasi jangka panjang, dan berkontribusi nyata dalam mendukung ketahanan pangan nasional melalui industri perunggasan yang berkelanjutan.",
+      "cardTitle": "Belum Ada Lowongan Tersedia Saat Ini",
+      "cardDescription": "Kami belum membuka posisi baru untuk saat ini. Silakan cek kembali halaman ini secara berkala.",
+      "imageAlt": "Aktivitas karyawan di peternakan",
+      "emptyImageAlt": "Ilustrasi lowongan belum tersedia"
     }
   },
   "liniBisnisPage": {
@@ -361,6 +371,54 @@
       "rpa": "Rumah Potong Ayam"
     }
   },
+  "keberlanjutanPage": {
+    "modal": {
+      "tataKelola": {
+        "title": "Tata Kelola Keberlanjutan",
+        "intro1": "PT Janu Putra Sejahtera Tbk meyakini bahwa keberlanjutan merupakan bagian integral dari tata kelola perusahaan yang baik. Oleh karena itu, Perseroan mengintegrasikan prinsip keberlanjutan ke dalam proses pengambilan keputusan strategis, pengelolaan risiko, serta pelaksanaan kegiatan operasional di seluruh lini usaha.",
+        "intro2": "Tata kelola keberlanjutan Perseroan dirancang untuk memastikan bahwa aspek ekonomi, lingkungan, dan sosial dikelola secara bertanggung jawab, transparan, dan berkelanjutan guna menciptakan nilai jangka panjang bagi seluruh pemangku kepentingan.",
+        "intro3": "Dalam kerangka tata kelola keberlanjutan, Perseroan menjalankan peran dan tanggung jawab utama sebagai berikut:",
+        "list": [
+          "Merumuskan kebijakan dan strategi keberlanjutan yang terintegrasi dengan strategi bisnis.",
+          "Mengawasi pelaksanaan inisiatif keberlanjutan di seluruh unit operasional agar berjalan efektif dan konsisten.",
+          "Mengelola risiko dan peluang keberlanjutan, termasuk risiko lingkungan, sosial, dan tata kelola yang dapat memengaruhi kinerja dan kelangsungan usaha.",
+          "Menetapkan indikator kinerja keberlanjutan (KPI) serta melakukan evaluasi kinerja secara berkala.",
+          "Memastikan transparansi dan akuntabilitas melalui penyusunan dan publikasi Laporan Keberlanjutan sesuai dengan ketentuan yang berlaku."
+        ],
+        "imageAlt": "Struktur organisasi PT Janu Putra Sejahtera"
+      },
+      "strategi": {
+        "title": "Strategi dan Kebijakan",
+        "heading": "Strategi Keberlanjutan",
+        "intro": "Keberlanjutan menjadi bagian dari arah pertumbuhan Perseroan untuk membangun ketahanan bisnis jangka panjang. Strategi ini dijalankan dengan mengintegrasikan aspek ekonomi, lingkungan, dan sosial ke dalam operasional, pengelolaan risiko, serta pengambilan keputusan.",
+        "focusLabel": "Fokus strategi:",
+        "list": [
+          "Ekonomi: menjaga kinerja berkelanjutan melalui efisiensi, produktivitas, dan penguatan daya saing.",
+          "Lingkungan: mengurangi dampak operasional melalui pengelolaan limbah dan peningkatan efisiensi proses.",
+          "Sosial: menciptakan kontribusi positif bagi karyawan, mitra, dan masyarakat melalui praktik kerja yang bertanggung jawab dan program sosial."
+        ],
+        "imageAltOne": "Penerapan keberlanjutan di peternakan",
+        "imageAltTwo": "Praktik keberlanjutan di operasional"
+      },
+      "kebijakan": {
+        "heading": "Kebijakan Perusahaan",
+        "intro": "Perseroan menerapkan kebijakan perusahaan yang terintegrasi dengan prinsip Good Corporate Governance (GCG) sebagai landasan pelaksanaan strategi keberlanjutan. Kebijakan ini memastikan kegiatan usaha berjalan secara patuh, transparan, dan akuntabel serta mendukung penciptaan nilai jangka panjang bagi pemangku kepentingan.",
+        "focusLabel": "Kebijakan utama yang mendukung keberlanjutan:",
+        "list": [
+          "Kepatuhan & etika bisnis dalam seluruh aktivitas usaha.",
+          "Pengendalian internal untuk menjaga efektivitas operasional dan perlindungan aset.",
+          "Manajemen risiko yang terukur dan berkesinambungan.",
+          "Tanggung jawab lingkungan & sosial sebagai bagian dari praktik usaha yang bertanggung jawab."
+        ]
+      },
+      "inisiatif": {
+        "title": "Inisiatif dan Pencapaian",
+        "intro1": "Keberlanjutan telah menjadi bagian yang tidak terpisahkan dari perjalanan bisnis Perseroan sejak awal berdiri. Prinsip ini menjadi landasan dalam upaya kami menyediakan sumber protein hewani yang berkualitas, aman, dan terjangkau guna mendukung pemenuhan kebutuhan gizi masyarakat Indonesia secara berkelanjutan.",
+        "intro2": "Fokus keberlanjutan tersebut menjadi pedoman utama dalam perjalanan Perseroan untuk menyediakan protein pokok yang terjangkau bagi masyarakat Indonesia, sekaligus memastikan keberlangsungan usaha yang bertanggung jawab bagi generasi saat ini dan mendatang.",
+        "imageAlt": "Inisiatif dan Pencapaian PT Janu Putra Sejahtera"
+      }
+    }
+  },
   "beritaPage": {
     "meta": {
       "title": "Berita | PT Janu Putra Sejahtera",
@@ -434,7 +492,7 @@
       },
       "business": {
         "question": "Apa saja bisnis di PT Janu Putra Sejahtera Tbk?",
-        "answer": "Belum Tahu\nBelum Tahu"
+        "answer": "PT Janu Putra Sejahtera Tbk bergerak di bidang peternakan pembibitan, peternakan broiler, peternakan petelur, penetasan telur, dan rumah potong ayam"
       },
       "why": {
         "question": "Mengapa memilih PT Janu Putra Sejahtera Tbk?",
@@ -620,7 +678,7 @@
       }
     },
     "video": {
-      "sectionTitle": "PT Janu Putra Sejahtera Tbk dalam Xx Menit",
+      "sectionTitle": "PT Janu Putra Sejahtera Tbk dalam 3 Menit",
       "imageAlt": "Video Profil PT Janu Putra Sejahtera"
     },
     "visiMisi": {

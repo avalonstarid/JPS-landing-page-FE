@@ -42,7 +42,8 @@
   "common": {
     "contact": "Contact Us",
     "viewAll": "View All",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "close": "Close"
   },
   "share": {
     "title": "Share {label}",
@@ -285,6 +286,15 @@
       "reasonLabel": "Reason for Applying to This Position",
       "reasonPlaceholder": "Write Your Reason",
       "submit": "Submit Application"
+    },
+    "empty": {
+      "sectionTitle": "Why Join Us?",
+      "sectionDescription1": "At PT Janu Putra Sejahtera Tbk, we believe that the company's success is built by professional individuals who uphold integrity, work responsibly, and are committed to growing together with the company.",
+      "sectionDescription2": "Joining us means being part of a company that continues to grow, is long-term oriented, and contributes meaningfully to supporting national food security through a sustainable poultry industry.",
+      "cardTitle": "No Open Positions Available Right Now",
+      "cardDescription": "We are not opening new positions at the moment. Please check this page again periodically.",
+      "imageAlt": "Employee activity at the farm",
+      "emptyImageAlt": "Illustration of no vacancies available"
     }
   },
   "liniBisnisPage": {
@@ -361,6 +371,54 @@
       "rpa": "Slaughterhouse"
     }
   },
+  "keberlanjutanPage": {
+    "modal": {
+      "tataKelola": {
+        "title": "Tata Kelola Keberlanjutan",
+        "intro1": "PT Janu Putra Sejahtera Tbk meyakini bahwa keberlanjutan merupakan bagian integral dari tata kelola perusahaan yang baik. Oleh karena itu, Perseroan mengintegrasikan prinsip keberlanjutan ke dalam proses pengambilan keputusan strategis, pengelolaan risiko, serta pelaksanaan kegiatan operasional di seluruh lini usaha.",
+        "intro2": "Tata kelola keberlanjutan Perseroan dirancang untuk memastikan bahwa aspek ekonomi, lingkungan, dan sosial dikelola secara bertanggung jawab, transparan, dan berkelanjutan guna menciptakan nilai jangka panjang bagi seluruh pemangku kepentingan.",
+        "intro3": "Dalam kerangka tata kelola keberlanjutan, Perseroan menjalankan peran dan tanggung jawab utama sebagai berikut:",
+        "list": [
+          "Merumuskan kebijakan dan strategi keberlanjutan yang terintegrasi dengan strategi bisnis.",
+          "Mengawasi pelaksanaan inisiatif keberlanjutan di seluruh unit operasional agar berjalan efektif dan konsisten.",
+          "Mengelola risiko dan peluang keberlanjutan, termasuk risiko lingkungan, sosial, dan tata kelola yang dapat memengaruhi kinerja dan kelangsungan usaha.",
+          "Menetapkan indikator kinerja keberlanjutan (KPI) serta melakukan evaluasi kinerja secara berkala.",
+          "Memastikan transparansi dan akuntabilitas melalui penyusunan dan publikasi Laporan Keberlanjutan sesuai dengan ketentuan yang berlaku."
+        ],
+        "imageAlt": "Struktur organisasi PT Janu Putra Sejahtera"
+      },
+      "strategi": {
+        "title": "Strategi dan Kebijakan",
+        "heading": "Strategi Keberlanjutan",
+        "intro": "Keberlanjutan menjadi bagian dari arah pertumbuhan Perseroan untuk membangun ketahanan bisnis jangka panjang. Strategi ini dijalankan dengan mengintegrasikan aspek ekonomi, lingkungan, dan sosial ke dalam operasional, pengelolaan risiko, serta pengambilan keputusan.",
+        "focusLabel": "Fokus strategi:",
+        "list": [
+          "Ekonomi: menjaga kinerja berkelanjutan melalui efisiensi, produktivitas, dan penguatan daya saing.",
+          "Lingkungan: mengurangi dampak operasional melalui pengelolaan limbah dan peningkatan efisiensi proses.",
+          "Sosial: menciptakan kontribusi positif bagi karyawan, mitra, dan masyarakat melalui praktik kerja yang bertanggung jawab dan program sosial."
+        ],
+        "imageAltOne": "Penerapan keberlanjutan di peternakan",
+        "imageAltTwo": "Praktik keberlanjutan di operasional"
+      },
+      "kebijakan": {
+        "heading": "Kebijakan Perusahaan",
+        "intro": "Perseroan menerapkan kebijakan perusahaan yang terintegrasi dengan prinsip Good Corporate Governance (GCG) sebagai landasan pelaksanaan strategi keberlanjutan. Kebijakan ini memastikan kegiatan usaha berjalan secara patuh, transparan, dan akuntabel serta mendukung penciptaan nilai jangka panjang bagi pemangku kepentingan.",
+        "focusLabel": "Kebijakan utama yang mendukung keberlanjutan:",
+        "list": [
+          "Kepatuhan & etika bisnis dalam seluruh aktivitas usaha.",
+          "Pengendalian internal untuk menjaga efektivitas operasional dan perlindungan aset.",
+          "Manajemen risiko yang terukur dan berkesinambungan.",
+          "Tanggung jawab lingkungan & sosial sebagai bagian dari praktik usaha yang bertanggung jawab."
+        ]
+      },
+      "inisiatif": {
+        "title": "Inisiatif dan Pencapaian",
+        "intro1": "Keberlanjutan telah menjadi bagian yang tidak terpisahkan dari perjalanan bisnis Perseroan sejak awal berdiri. Prinsip ini menjadi landasan dalam upaya kami menyediakan sumber protein hewani yang berkualitas, aman, dan terjangkau guna mendukung pemenuhan kebutuhan gizi masyarakat Indonesia secara berkelanjutan.",
+        "intro2": "Fokus keberlanjutan tersebut menjadi pedoman utama dalam perjalanan Perseroan untuk menyediakan protein pokok yang terjangkau bagi masyarakat Indonesia, sekaligus memastikan keberlangsungan usaha yang bertanggung jawab bagi generasi saat ini dan mendatang.",
+        "imageAlt": "Inisiatif dan Pencapaian PT Janu Putra Sejahtera"
+      }
+    }
+  },
   "beritaPage": {
     "meta": {
       "title": "News | PT Janu Putra Sejahtera",
@@ -434,7 +492,7 @@
       },
       "business": {
         "question": "What business lines does PT Janu Putra Sejahtera Tbk have?",
-        "answer": "Not sure\nNot sure"
+        "answer": "PT Janu Putra Sejahtera Tbk operates in poultry breeding, broiler farming, layer farming, egg hatchery, and poultry slaughterhouse."
       },
       "why": {
         "question": "Why choose PT Janu Putra Sejahtera Tbk?",

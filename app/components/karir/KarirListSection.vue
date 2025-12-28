@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { karirJobs, type KarirJob } from '~/utils/karirData'
+import emptyImage from '~/assets/images/karir/karir-tidak-tersedia.png'
+import karirImage from '~/assets/images/karir/karir.png'
 
 const { t } = useI18n()
 
@@ -39,12 +41,14 @@ const resetFilters = () => {
 const handleOpenDetail = (job: KarirJob) => {
   emit('openDetail', job)
 }
+
+const hasJobs = computed(() => karirJobs.length > 0)
 </script>
 
 <template>
   <section class="py-16 lg:py-24 bg-[#fdeee0]" aria-labelledby="karir-list">
     <div class="container-main">
-      <div class="grid gap-8 lg:grid-cols-[280px_1fr]">
+      <div v-if="hasJobs" class="grid gap-8 lg:grid-cols-[280px_1fr]">
         <!-- Filter Sidebar -->
         <aside class="space-y-6">
           <div class="flex items-center justify-between">
@@ -214,6 +218,40 @@ const handleOpenDetail = (job: KarirJob) => {
             <i class="mdi mdi-briefcase-search text-6xl text-gray-300 mb-4" aria-hidden="true" />
             <p class="text-lg text-gray-500">{{ t('karirPage.list.noResults') }}</p>
           </div>
+        </div>
+      </div>
+      <div v-else class="space-y-10">
+        <div class="grid gap-8 lg:grid-cols-[280px_1fr] items-start">
+          <img
+            :src="karirImage"
+            :alt="t('karirPage.empty.imageAlt')"
+            class="w-full rounded-2xl object-cover shadow-md"
+          />
+          <div class="space-y-4 text-[#1f2937]">
+            <h3 class="text-xl md:text-2xl font-semibold text-[#3d4f92]">
+              {{ t('karirPage.empty.sectionTitle') }}
+            </h3>
+            <p class="text-sm md:text-base text-[#4b5563] leading-relaxed">
+              {{ t('karirPage.empty.sectionDescription1') }}
+            </p>
+            <p class="text-sm md:text-base text-[#4b5563] leading-relaxed">
+              {{ t('karirPage.empty.sectionDescription2') }}
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-10 md:p-12 text-center shadow-lg">
+          <img
+            :src="emptyImage"
+            :alt="t('karirPage.empty.emptyImageAlt')"
+            class="mx-auto w-40 md:w-52"
+          />
+          <h4 class="mt-6 text-base md:text-lg font-semibold text-[#3d4f92]">
+            {{ t('karirPage.empty.cardTitle') }}
+          </h4>
+          <p class="mt-2 text-sm md:text-base text-[#6b7280]">
+            {{ t('karirPage.empty.cardDescription') }}
+          </p>
         </div>
       </div>
     </div>
