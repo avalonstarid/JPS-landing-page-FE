@@ -40,7 +40,7 @@ onMounted(async () => {
         <div class="order-2 lg:order-1 h-full">
           <div class="duration-300 hover:-translate-y-2 rounded-[28px] overflow-hidden shadow-lg h-full">
             <img
-              src="~/assets/images/standar-main.png"
+              src="~/assets/images/beranda/standar.jpg"
               :alt="t('values.imageAlt')"
               class="h-full w-full object-cover"
               loading="lazy"

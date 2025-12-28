@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useTestimonialStore } from '~/stores/testimonial'
-import bgMitra from '~/assets/images/mitra.png'
+import bgMitra from '~/assets/images/beranda/testimoni.jpg'
 const { t } = useI18n()
 
 const testimonialStore = useTestimonialStore()

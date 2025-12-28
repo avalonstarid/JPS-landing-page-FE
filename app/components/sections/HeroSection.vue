@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/most-top.png'
+import heroImage from '~/assets/images/beranda/hero-section.jpg'
 
 const { t, tm, rt } = useI18n()
 const activeWordIndex = ref(0)

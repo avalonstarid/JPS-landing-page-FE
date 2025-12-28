@@ -65,7 +65,7 @@ onMounted(async () => {
         <!-- Right: Image -->
         <div class="duration-300 hover:-translate-y-2 relative rounded-2xl overflow-hidden shadow-lg hidden lg:block">
           <img
-            src="~/assets/images/pertanyaan.png"
+            src="~/assets/images/beranda/faq.jpg"
             :alt="t('faq.imageAlt')"
             class="w-full h-full object-cover aspect-[4/3]"
             loading="lazy"
