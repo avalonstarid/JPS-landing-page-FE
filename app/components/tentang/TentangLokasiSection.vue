@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import backgroundImage from '~/assets/images/tentang/background-lokasi-usaha.jpg'
-import bisnisImage from '~/assets/images/bisnis/bisnis-1.png'
-import bisnisImageAlt1 from '~/assets/images/bisnis/bisnis-behind-top.png'
-import bisnisImageAlt2 from '~/assets/images/bisnis/bisnis-behind-bottom.png'
+import backgroundImage from '~/assets/images/tentang/hero.jpg'
+import pembibitanImage from '~/assets/images/tentang/peternakan-pembibitan.jpg'
+import broilerImage from '~/assets/images/tentang/peternakan-broiler.jpg'
+import petelurImage from '~/assets/images/tentang/peternakan-petelur.jpg'
+import penetasanImage from '~/assets/images/tentang/penetasan-telur.jpg'
+import rpaImage from '~/assets/images/tentang/rumah-ayam-potong.jpg'
+import modalMain from '~/assets/images/tentang/modal-lokasi-main.jpg'
+import modalThumb1 from '~/assets/images/tentang/modal-lokasi-thumbnail-1.jpg'
+import modalThumb2 from '~/assets/images/tentang/modal-lokasi-thumbnail-2.jpg'
+import modalThumb3 from '~/assets/images/tentang/modal-lokasi-thumbnail-3.jpg'
 
 const { t } = useI18n()
 
@@ -19,8 +25,8 @@ interface LocationItem {
 const locationItems = computed<LocationItem[]>(() => [
   {
     key: 'pembibitan',
-    image: bisnisImage,
-    gallery: [bisnisImage, bisnisImageAlt1, bisnisImageAlt2],
+    image: pembibitanImage,
+    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
     title: t('tentangPage.lokasi.items.pembibitan.title'),
     locations: [
       t('tentangPage.lokasi.items.pembibitan.loc1'),
@@ -31,8 +37,8 @@ const locationItems = computed<LocationItem[]>(() => [
   },
   {
     key: 'broiler',
-    image: bisnisImage,
-    gallery: [bisnisImageAlt1, bisnisImage, bisnisImageAlt2],
+    image: broilerImage,
+    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
     title: t('tentangPage.lokasi.items.broiler.title'),
     locations: [
       t('tentangPage.lokasi.items.broiler.loc1'),
@@ -43,8 +49,8 @@ const locationItems = computed<LocationItem[]>(() => [
   },
   {
     key: 'petelur',
-    image: bisnisImage,
-    gallery: [bisnisImageAlt2, bisnisImage, bisnisImageAlt1],
+    image: petelurImage,
+    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
     title: t('tentangPage.lokasi.items.petelur.title'),
     locations: [
       t('tentangPage.lokasi.items.petelur.loc1'),
@@ -56,8 +62,8 @@ const locationItems = computed<LocationItem[]>(() => [
   },
   {
     key: 'penetasan',
-    image: bisnisImage,
-    gallery: [bisnisImage, bisnisImageAlt2, bisnisImageAlt1],
+    image: penetasanImage,
+    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
     title: t('tentangPage.lokasi.items.penetasan.title'),
     locations: [
       t('tentangPage.lokasi.items.penetasan.loc1'),
@@ -67,8 +73,8 @@ const locationItems = computed<LocationItem[]>(() => [
   },
   {
     key: 'rpa',
-    image: bisnisImage,
-    gallery: [bisnisImageAlt1, bisnisImageAlt2, bisnisImage],
+    image: rpaImage,
+    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
     title: t('tentangPage.lokasi.items.rpa.title'),
     locations: [
       t('tentangPage.lokasi.items.rpa.loc1'),

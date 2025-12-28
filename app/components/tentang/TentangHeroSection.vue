@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/tentang/tentang-section.png'
+import heroImage from '~/assets/images/tentang/hero.jpg'
 
 const { t, locale } = useI18n()
 

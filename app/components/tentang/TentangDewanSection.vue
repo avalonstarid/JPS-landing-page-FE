@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import dewanPhoto from '~/assets/images/tentang/dewan-komisaris.png'
+import komisarisUtamaPhoto from '~/assets/images/tentang/komisaris-utama.png'
+import komisarisPhoto from '~/assets/images/tentang/komisaris.png'
+import direkturUtamaPhoto from '~/assets/images/tentang/direktur-utama.png'
 
 const { t } = useI18n()
 
@@ -25,12 +27,12 @@ const tabs = computed<TabData[]>(() => [
       {
         name: 'Singgih Januatmoko',
         position: t('tentangPage.dewan.positions.komisarisUtama'),
-        photo: dewanPhoto,
+        photo: komisarisUtamaPhoto,
       },
       {
         name: 'Arsad Idrus',
         position: t('tentangPage.dewan.positions.komisarisIndependen'),
-        photo: dewanPhoto,
+        photo: komisarisPhoto,
       },
     ],
   },
@@ -39,62 +41,30 @@ const tabs = computed<TabData[]>(() => [
     label: t('tentangPage.dewan.tabs.direksi'),
     people: [
       {
-        name: 'Ahmad Suryanto',
+        name: 'Sri Mulyani',
         position: t('tentangPage.dewan.positions.direkturUtama'),
-        photo: dewanPhoto,
+        photo: direkturUtamaPhoto,
       },
       {
         name: 'Budi Santoso',
         position: t('tentangPage.dewan.positions.direktur'),
-        photo: dewanPhoto,
+        photo: '',
       },
     ],
   },
   {
-    key: 'manager',
-    label: t('tentangPage.dewan.tabs.manager'),
+    key: 'manajerial',
+    label: t('tentangPage.dewan.tabs.manajerial'),
     people: [
       {
         name: 'Andi Wijaya',
         position: t('tentangPage.dewan.positions.managerOperasional'),
-        photo: dewanPhoto,
+        photo: '',
       },
       {
         name: 'Dewi Susanti',
         position: t('tentangPage.dewan.positions.managerKeuangan'),
-        photo: dewanPhoto,
-      },
-    ],
-  },
-  {
-    key: 'staff',
-    label: t('tentangPage.dewan.tabs.staff'),
-    people: [
-      {
-        name: 'Rizki Pratama',
-        position: t('tentangPage.dewan.positions.staffAdministrasi'),
-        photo: dewanPhoto,
-      },
-      {
-        name: 'Sari Indah',
-        position: t('tentangPage.dewan.positions.staffKeuangan'),
-        photo: dewanPhoto,
-      },
-    ],
-  },
-  {
-    key: 'lorem',
-    label: 'Lorem Ipsum',
-    people: [
-      {
-        name: 'Lorem Ipsum',
-        position: 'Lorem Ipsum Dolor',
-        photo: dewanPhoto,
-      },
-      {
-        name: 'Sit Amet',
-        position: 'Consectetur Adipiscing',
-        photo: dewanPhoto,
+        photo: '',
       },
     ],
   },
@@ -121,35 +91,32 @@ const setActiveTab = (key: string) => {
             <div
               v-for="person in currentTab.people"
               :key="person.name"
-              class="person-card flex flex-col items-center"
+              class="person-card flex flex-col items-center bg-white rounded-3xl shadow-lg overflow-hidden w-[240px]"
             >
-              <!-- Photo with gradient border -->
-              <div class="relative w-40 h-48 md:w-48 md:h-56 rounded-2xl overflow-hidden shadow-lg mb-4">
-                <!-- Gradient background -->
-                <div class="absolute inset-0 bg-gradient-to-b from-[#3d4f92] via-[#3d4f92]/80 to-[#D4A84B]" />
-
-                <!-- Photo -->
+              <div class="relative w-full h-[260px] bg-gradient-to-b from-[#2f428f] via-[#4056a6] to-[#d9a873]">
                 <img
                   :src="person.photo"
                   :alt="person.name"
-                  class="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] object-cover object-top rounded-xl"
+                  class="absolute inset-x-0 bottom-0 w-full h-full object-cover object-top"
                 />
               </div>
 
               <!-- Name and Position -->
-              <h3 class="text-base md:text-lg font-semibold text-[#3d4f92] text-center">
-                {{ person.name }}
-              </h3>
-              <p class="text-sm text-[#D4A84B] italic text-center">
-                {{ person.position }}
-              </p>
+              <div class="px-4 py-4 text-center">
+                <h3 class="text-base md:text-lg font-semibold text-[#1f2937]">
+                  {{ person.name }}
+                </h3>
+                <p class="text-sm text-[#3d4f92] italic">
+                  {{ person.position }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Tab Navigation -->
         <div class="lg:w-64 flex justify-center">
-          <div class="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-xs">
+          <div class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs">
             <button
               v-for="tab in tabs"
               :key="tab.key"
@@ -158,7 +125,7 @@ const setActiveTab = (key: string) => {
               :class="[
                 activeTab === tab.key
                   ? 'bg-[#3d4f92] text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-50'
+                  : 'bg-white text-gray-800 hover:bg-gray-50'
               ]"
               @click="setActiveTab(tab.key)"
             >

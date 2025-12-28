@@ -835,7 +835,8 @@
         "komisaris": "Board of Commissioners",
         "direksi": "Board of Directors",
         "manager": "Manager",
-        "staff": "Staff"
+        "staff": "Staff",
+        "manajerial": "Managerial"
       },
       "positions": {
         "komisarisUtama": "President Commissioner",

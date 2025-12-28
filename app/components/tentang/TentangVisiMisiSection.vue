@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import visiMisiImage from '~/assets/images/tentang/visi-misi.png'
+import visiMisiImage from '~/assets/images/tentang/visi-misi.jpg'
 
 const { t } = useI18n()
 
@@ -25,7 +25,7 @@ const missions = [
           {{ t('tentangPage.visiMisi.vision') }}
         </p>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
         <!-- Left Side: Title, Vision and Mission Cards - 8 columns -->
         <div class="lg:col-span-9 space-y-8">
           <!-- Mission Cards Grid -->
@@ -89,11 +89,10 @@ const missions = [
           <img
             :src="visiMisiImage"
             :alt="t('tentangPage.visiMisi.imageAlt')"
-            class="rounded-2xl shadow-lg w-full max-w-[280px] h-auto object-cover"
+            class="rounded-2xl shadow-lg w-full max-w-[320px] h-full object-cover aspect-[3/4]"
           />
         </div>
       </div>
     </div>
   </section>
 </template>
-

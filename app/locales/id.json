@@ -835,7 +835,8 @@
         "komisaris": "Dewan Komisaris",
         "direksi": "Dewan Direksi",
         "manager": "Manager",
-        "staff": "Staff"
+        "staff": "Staff",
+        "manajerial": "Manajerial"
       },
       "positions": {
         "komisarisUtama": "Komisaris Utama",
