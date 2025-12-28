@@ -10,69 +10,63 @@ const tabs = [
   { label: 'Laporan Keuangan Bulanan', to: '/relasi-investor/laporan-keuangan/bulanan', active: false },
 ]
 
-const annualReports = [
-  { year: 2025, title: 'Laporan Keuangan 2025', href: '#' },
-  { year: 2024, title: 'Laporan Keuangan 2024', href: '#' },
-  { year: 2023, title: 'Laporan Keuangan 2023', href: '#' },
-  { year: 2022, title: 'Laporan Keuangan 2022', href: '#' },
-  { year: 2021, title: 'Laporan Keuangan 2021', href: '#' },
-  { year: 2020, title: 'Laporan Keuangan 2020', href: '#' },
+const monthlyReports = [
+  { period: '31 Maret 2024', title: 'Laporan Keuangan AYAM 31 Maret 2024', href: '#' },
+  { period: '30 Juni 2024', title: 'Laporan Keuangan AYAM 30 Juni 2024', href: '#' },
+  { period: '31 Desember 2024', title: 'Laporan Keuangan AYAM 31 Desember 2024', href: '#' },
+  { period: '31 Maret 2025', title: 'Laporan Keuangan AYAM 31 Maret 2025', href: '#' },
+  { period: '30 Juni 2025', title: 'Laporan Keuangan AYAM 30 Juni 2025', href: '#' },
 ]
 
 const chartOptions = [
   {
     label: 'Penjualan',
     values: [
-      { year: 2025, value: 26500000 },
-      { year: 2024, value: 29500000 },
-      { year: 2023, value: 38500000 },
-      { year: 2022, value: 12000000 },
-      { year: 2021, value: 21000000 },
-      { year: 2020, value: 8000000 },
+      { period: '31 Mar 2024', value: 26500000 },
+      { period: '30 Jun 2024', value: 29500000 },
+      { period: '31 Des 2024', value: 38500000 },
+      { period: '31 Mar 2025', value: 12000000 },
+      { period: '30 Jun 2025', value: 21000000 },
     ],
   },
   {
     label: 'Laba Bersih',
     values: [
-      { year: 2025, value: 8200000 },
-      { year: 2024, value: 9300000 },
-      { year: 2023, value: 15500000 },
-      { year: 2022, value: 4200000 },
-      { year: 2021, value: 7100000 },
-      { year: 2020, value: 2900000 },
+      { period: '31 Mar 2024', value: 8200000 },
+      { period: '30 Jun 2024', value: 9300000 },
+      { period: '31 Des 2024', value: 15500000 },
+      { period: '31 Mar 2025', value: 4200000 },
+      { period: '30 Jun 2025', value: 7100000 },
     ],
   },
   {
     label: 'Liabilitas',
     values: [
-      { year: 2025, value: 17800000 },
-      { year: 2024, value: 19200000 },
-      { year: 2023, value: 24300000 },
-      { year: 2022, value: 9800000 },
-      { year: 2021, value: 13600000 },
-      { year: 2020, value: 5200000 },
+      { period: '31 Mar 2024', value: 17800000 },
+      { period: '30 Jun 2024', value: 19200000 },
+      { period: '31 Des 2024', value: 24300000 },
+      { period: '31 Mar 2025', value: 9800000 },
+      { period: '30 Jun 2025', value: 13600000 },
     ],
   },
   {
     label: 'Ekuitas',
     values: [
-      { year: 2025, value: 12200000 },
-      { year: 2024, value: 14100000 },
-      { year: 2023, value: 17600000 },
-      { year: 2022, value: 6400000 },
-      { year: 2021, value: 9800000 },
-      { year: 2020, value: 4300000 },
+      { period: '31 Mar 2024', value: 12200000 },
+      { period: '30 Jun 2024', value: 14100000 },
+      { period: '31 Des 2024', value: 17600000 },
+      { period: '31 Mar 2025', value: 6400000 },
+      { period: '30 Jun 2025', value: 9800000 },
     ],
   },
   {
     label: 'Arus Kas Bersih',
     values: [
-      { year: 2025, value: 6800000 },
-      { year: 2024, value: 7600000 },
-      { year: 2023, value: 13200000 },
-      { year: 2022, value: 3900000 },
-      { year: 2021, value: 5900000 },
-      { year: 2020, value: 2500000 },
+      { period: '31 Mar 2024', value: 6800000 },
+      { period: '30 Jun 2024', value: 7600000 },
+      { period: '31 Des 2024', value: 13200000 },
+      { period: '31 Mar 2025', value: 3900000 },
+      { period: '30 Jun 2025', value: 5900000 },
     ],
   },
 ]
@@ -105,11 +99,11 @@ const tooltip = ref({
   x: 0,
   y: 0,
   value: '',
-  year: 0,
+  period: '',
   maxX: 0,
 })
 
-const onBarMove = (event: MouseEvent, value: number, year: number) => {
+const onBarMove = (event: MouseEvent, value: number, period: string) => {
   const target = event.currentTarget as HTMLElement | null
   if (!target) return
   const rect = target.getBoundingClientRect()
@@ -119,13 +113,13 @@ const onBarMove = (event: MouseEvent, value: number, year: number) => {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top,
     value: formatCurrency(value),
-    year,
+    period,
     maxX: Math.max(8, rect.width - tooltipWidth),
   }
 }
 
 const onBarLeave = () => {
-  tooltip.value = { ...tooltip.value, visible: false, year: 0 }
+  tooltip.value = { ...tooltip.value, visible: false, period: '' }
 }
 </script>
 
@@ -176,13 +170,13 @@ const onBarLeave = () => {
           <div class="mt-6 grid gap-4">
             <div
               v-for="(item, index) in selectedMetric.values"
-              :key="item.year"
-              class="grid grid-cols-[48px_1fr] items-center gap-4"
+              :key="item.period"
+              class="grid grid-cols-[90px_1fr] items-center gap-4"
             >
-              <span class="text-sm text-gray-600">{{ item.year }}</span>
+              <span class="text-sm text-gray-600">{{ item.period }}</span>
               <div
                 class="relative h-10 rounded-lg bg-[#2c3e80]/15 group"
-                @mousemove="onBarMove($event, item.value, item.year)"
+                @mousemove="onBarMove($event, item.value, item.period)"
                 @mouseleave="onBarLeave"
               >
                 <div
@@ -195,7 +189,7 @@ const onBarLeave = () => {
                 </div>
                 <div
                   class="pointer-events-none absolute rounded-lg bg-[#f6993c] px-3 py-1.5 text-[14px] font-semibold text-white shadow-lg transition-opacity duration-150"
-                  :class="tooltip.visible && tooltip.year === item.year ? 'opacity-100' : 'opacity-0'"
+                  :class="tooltip.visible && tooltip.period === item.period ? 'opacity-100' : 'opacity-0'"
                   :style="{
                     left: `${Math.max(8, Math.min(tooltip.x + 10, tooltip.maxX))}px`,
                     top: `${Math.max(6, tooltip.y - 38)}px`,
@@ -208,8 +202,11 @@ const onBarLeave = () => {
           </div>
 
           <div class="mt-5 overflow-x-auto">
-            <div class="flex min-w-max items-center gap-3 text-[11px] text-gray-500">
-              <span v-for="tick in chartTicks" :key="tick" class="shrink-0 text-center whitespace-nowrap">{{ formatCurrency(tick) }}</span>
+            <div class="grid min-w-max grid-cols-[90px_1fr] items-center text-[11px] text-gray-500">
+              <span></span>
+              <div class="flex items-center justify-between gap-3">
+                <span v-for="tick in chartTicks" :key="tick" class="text-center whitespace-nowrap">{{ formatCurrency(tick) }}</span>
+              </div>
             </div>
           </div>
         </section>
@@ -229,8 +226,8 @@ const onBarLeave = () => {
         <div class="space-y-5 max-w-5xl mx-auto">
           <div
             v-reveal
-            v-for="item in annualReports"
-            :key="item.year"
+            v-for="item in monthlyReports"
+            :key="item.period"
             class="reveal flex items-center justify-between gap-4 rounded-2xl bg-white px-6 py-5 shadow-[0_12px_40px_-26px_rgba(0,0,0,0.35)]"
           >
             <p class="text-xl font-semibold text-[#1f2937]">{{ item.title }}</p>

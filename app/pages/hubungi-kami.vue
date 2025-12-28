@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/most-top.png'
+import heroImage from '~/assets/images/hubungi-kami/hubungi-kami.jpg'
 import whiteCardImage from '~/assets/images/white.png'
 import UiCard from '~/components/ui/Card.vue'
 import instagramIcon from '~/components/hubungi-kami/instagram.png'
