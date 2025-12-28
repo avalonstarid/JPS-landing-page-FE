@@ -372,6 +372,18 @@
     }
   },
   "keberlanjutanPage": {
+    "tinjauan": {
+      "title": "Tinjauan",
+      "pillEconomy": "Ekonomi",
+      "pillSocial": "Sosial",
+      "pillEnvironment": "Lingkungan",
+      "sdgAlt": "Sustainable Development Goals",
+      "paragraph1": "PT Janu Putra Sejahtera Tbk percaya dan berkomitmen penuh pada prinsip keberlanjutan. Perusahaan berkontribusi aktif dalam mendorong pengembangan produk serta layanan yang tidak hanya berorientasi pada peningkatan efisiensi, tetapi juga mampu meminimalkan dampak negatif terhadap lingkungan.",
+      "heading": "Ekonomi, Lingkungan, dan Sosial",
+      "paragraph2Prefix": "PT Janu Putra Sejahtera Tbk secara konsisten berupaya memperkuat kinerja di tiga pilar utama keberlanjutan, yaitu aspek ekonomi, lingkungan, dan sosial. Upaya ini juga sejalan dengan komitmen nasional dan global dalam mendukung implementasi Tujuan Pembangunan Berkelanjutan (",
+      "sdgPhrase": "Sustainable Development Goals",
+      "paragraph2Suffix": ") serta penanggulangan perubahan iklim."
+    },
     "modal": {
       "tataKelola": {
         "title": "Tata Kelola Keberlanjutan",
