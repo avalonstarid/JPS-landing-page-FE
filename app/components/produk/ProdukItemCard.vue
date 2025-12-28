@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import behindRight from '~/assets/images/produk/produk-behind-right.png'
-import behindLeft from '~/assets/images/produk/produk-behind-left.jpg'
-import topRight from '~/assets/images/produk/produk-top-right.jpg'
-import topLeft from '~/assets/images/produk/produk-top-left.jpg'
+// import behindRight from '~/assets/images/produk/produk-behind-right.png'
+// import behindLeft from '~/assets/images/produk/produk-behind-left.jpg'
+// import topRight from '~/assets/images/produk/behind-1.jpg'
+// import topLeft from '~/assets/images/produk/front-1.jpg'
 
 interface Props {
   title: string
@@ -35,8 +35,8 @@ const isTopRight = computed(() => {
   return !props.reverse
 })
 
-const baseImage = computed(() => props.stackBaseImage || props.image || (isTopRight.value ? behindRight : behindLeft))
-const topImage = computed(() => props.stackTopImage || (isTopRight.value ? topRight : topLeft))
+const baseImage = computed(() => props.stackBaseImage || props.image)
+const topImage = computed(() => props.stackTopImage)
 </script>
 
 <template>

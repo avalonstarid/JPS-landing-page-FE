@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import ZoomableImagePanel from '~/components/ui/ZoomableImagePanel.vue'
 import strukturImage from '~/assets/images/tentang/struktur-oraganisasi-1.png'
-import strategiImageOne from '~/assets/images/produk/produk-top-left.jpg'
-import strategiImageTwo from '~/assets/images/produk/produk-top-right.jpg'
+import strategiImageOne from '~/assets/images/produk/front-1.jpg'
+import strategiImageTwo from '~/assets/images/produk/behind-1.jpg'
 import inisiatifImage from '~/assets/images/pendekatan/inisiatif-dan-pencapaian.png'
 
 type Variant = 'tataKelola' | 'strategiKebijakan' | 'inisiatif'

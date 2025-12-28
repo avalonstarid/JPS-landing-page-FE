@@ -2,8 +2,8 @@
 import KeberlanjutanHeroSection from '~/components/keberlanjutan/KeberlanjutanHeroSection.vue'
 import KeberlanjutanDetailSection from '~/components/keberlanjutan/KeberlanjutanDetailSection.vue'
 import KeberlanjutanInfoModal from '~/components/keberlanjutan/KeberlanjutanInfoModal.vue'
-import imageOne from '~/assets/images/produk/produk-top-left.jpg'
-import imageTwo from '~/assets/images/produk/produk-top-right.jpg'
+import imageOne from '~/assets/images/produk/front-1.jpg'
+import imageTwo from '~/assets/images/produk/behind-1.jpg'
 import imageThree from '~/assets/images/bisnis/bisnis-1.png'
 
 const activeModal = ref<null | 'tataKelola' | 'strategiKebijakan' | 'inisiatif'>(null)

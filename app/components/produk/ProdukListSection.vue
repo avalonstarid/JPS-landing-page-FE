@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import ProdukItemCard from '~/components/produk/ProdukItemCard.vue'
-import photoDocParent from '~/assets/images/produk/produk1.png'
-import photoDocFinal from '~/assets/images/produk/produk2.png'
-import imgLiveChicken from '~/assets/images/jsp-produk/ayam-hidup.png'
-import imgCommercialEgg from '~/assets/images/jsp-produk/telur.png'
-import imgCarcass from '~/assets/images/jsp-produk/karkas-ayam.png'
-import behindRight from '~/assets/images/produk/produk-behind-right.png'
-import behindLeft from '~/assets/images/produk/produk-behind-left.jpg'
-import topRight from '~/assets/images/produk/produk-top-right.jpg'
-import topLeft from '~/assets/images/produk/produk-top-left.jpg'
+import front1 from '~/assets/images/produk/front-1.jpg'
+import front2 from '~/assets/images/produk/front-2.jpg'
+import front3 from '~/assets/images/produk/front-3.jpg'
+import front4 from '~/assets/images/produk/front-4.jpg'
+import front5 from '~/assets/images/produk/front-5.jpg'
+import behind1 from '~/assets/images/produk/behind-1.jpg'
+import behind2 from '~/assets/images/produk/behind-2.jpg'
+import behind3 from '~/assets/images/produk/behind-3.jpg'
+import behind4 from '~/assets/images/produk/behind-4.jpg'
+import behind5 from '~/assets/images/produk/behind-5.jpg'
 
 const { t } = useI18n()
 
@@ -40,61 +41,61 @@ const productItems = computed(() => [
     key: 'docParent',
     title: t('produkPage.items.docParent.title'),
     description: t('produkPage.items.docParent.description'),
-    image: photoDocParent,
+    image: front1,
     alt: t('produkPage.items.docParent.alt'),
     accent: '#3d4f92',
     reverse: true,
     stackSide: 'right',
-    stackBaseImage: behindRight,
-    stackTopImage: topRight,
+    stackBaseImage: behind1,
+    stackTopImage: front1,
   },
   {
     key: 'docFinal',
     title: t('produkPage.items.docFinal.title'),
     description: t('produkPage.items.docFinal.description'),
-    image: photoDocFinal,
+    image: front2,
     alt: t('produkPage.items.docFinal.alt'),
     accent: '#f6993c',
     reverse: false,
     stackSide: 'left',
-    stackBaseImage: behindLeft,
-    stackTopImage: topLeft,
+    stackBaseImage: behind2,
+    stackTopImage: front2,
   },
   {
     key: 'liveChicken',
     title: t('produkPage.items.liveChicken.title'),
     description: t('produkPage.items.liveChicken.description'),
-    image: photoDocParent,
+    image: front3,
     alt: t('produkPage.items.liveChicken.alt'),
     accent: '#2d70c0',
     reverse: true,
     stackSide: 'right',
-    stackBaseImage: behindRight,
-    stackTopImage: topRight,
+    stackBaseImage: behind3,
+    stackTopImage: front3,
   },
   {
     key: 'commercialEgg',
     title: t('produkPage.items.commercialEgg.title'),
     description: t('produkPage.items.commercialEgg.description'),
-    image: photoDocFinal,
+    image: front4,
     alt: t('produkPage.items.commercialEgg.alt'),
     accent: '#c47c2e',
     reverse: false,
     stackSide: 'left',
-    stackBaseImage: behindLeft,
-    stackTopImage: topLeft,
+    stackBaseImage: behind4,
+    stackTopImage: front4,
   },
   {
     key: 'chickenCarcass',
     title: t('produkPage.items.chickenCarcass.title'),
     description: t('produkPage.items.chickenCarcass.description'),
-    image: photoDocParent,
+    image: front5,
     alt: t('produkPage.items.chickenCarcass.alt'),
     accent: '#5b3f8c',
     reverse: true,
     stackSide: 'right',
-    stackBaseImage: behindRight,
-    stackTopImage: topRight,
+    stackBaseImage: behind5,
+    stackTopImage: front5,
   },
 ])
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/produk/imageHero.png'
+import heroImage from '~/assets/images/produk/hero.jpg'
 
 const { t } = useI18n()
 </script>
