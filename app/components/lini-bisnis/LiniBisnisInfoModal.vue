@@ -20,12 +20,26 @@ const form = reactive({
   message: ''
 })
 
+const isSubmitting = ref(false)
+
+const resetForm = () => {
+  form.name = ''
+  form.email = ''
+  form.phone = ''
+  form.location = ''
+  form.message = ''
+}
+
 const handleClose = () => {
   emit('close')
 }
 
-const handleSubmit = () => {
-  // Form submission logic here (UI only for now)
+const handleSubmit = async () => {
+  if (isSubmitting.value) return
+  isSubmitting.value = true
+  await new Promise((resolve) => setTimeout(resolve, 600))
+  resetForm()
+  isSubmitting.value = false
   handleClose()
 }
 
@@ -190,20 +204,23 @@ watch(() => props.isOpen, (isOpen) => {
               <div class="pt-4">
                 <button
                   type="submit"
-                  class="inline-flex items-center gap-2 px-8 py-3 bg-[#f6993c] text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-[#e88a2d] transition-all duration-300"
+                  class="inline-flex items-center gap-2 px-8 py-3 bg-[#f6993c] text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-[#e88a2d] transition-all duration-300 disabled:opacity-70"
+                  :disabled="isSubmitting"
                 >
                   <span>{{ t('liniBisnisPage.modal.submit') }}</span>
-                  <svg 
-                    class="w-5 h-5" 
-                    fill="none" 
-                    stroke="currentColor" 
+                  <span v-if="isSubmitting" class="h-4 w-4 rounded-full border-2 border-white/60 border-t-white animate-spin" aria-hidden="true" />
+                  <svg
+                    v-else
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
                   >
-                    <path 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
                       d="M13 7l5 5m0 0l-5 5m5-5H6"
                     />
                   </svg>
@@ -216,4 +233,3 @@ watch(() => props.isOpen, (isOpen) => {
     </Transition>
   </Teleport>
 </template>
-

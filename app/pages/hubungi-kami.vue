@@ -27,8 +27,22 @@ const form = reactive({
   message: '',
 })
 
-const onSubmit = () => {
-  // Intentionally no-op (UI only)
+const isSubmitting = ref(false)
+
+const resetForm = () => {
+  form.name = ''
+  form.email = ''
+  form.phone = ''
+  form.location = ''
+  form.message = ''
+}
+
+const onSubmit = async () => {
+  if (isSubmitting.value) return
+  isSubmitting.value = true
+  await new Promise((resolve) => setTimeout(resolve, 600))
+  resetForm()
+  isSubmitting.value = false
 }
 
 const mapSrc = 'https://www.google.com/maps?q=-7.763563,110.421265&z=17&output=embed'
@@ -166,11 +180,13 @@ const contactCards = computed(() => [
 
             <button
               type="submit"
-              class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl"
+              class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl disabled:opacity-70"
               :aria-label="t('contactPage.message.form.submit')"
+              :disabled="isSubmitting"
             >
-              {{ t('contactPage.message.form.submit') }}
-              <i class="mdi mdi-arrow-right-circle-outline text-lg" aria-hidden="true" />
+              <span>{{ t('contactPage.message.form.submit') }}</span>
+              <span v-if="isSubmitting" class="h-4 w-4 rounded-full border-2 border-white/60 border-t-white animate-spin" aria-hidden="true" />
+              <i v-else class="mdi mdi-arrow-right-circle-outline text-lg" aria-hidden="true" />
             </button>
           </form>
 

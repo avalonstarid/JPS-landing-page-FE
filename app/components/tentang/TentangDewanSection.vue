@@ -52,22 +52,22 @@ const tabs = computed<TabData[]>(() => [
       },
     ],
   },
-  {
-    key: 'manajerial',
-    label: t('tentangPage.dewan.tabs.manajerial'),
-    people: [
-      {
-        name: 'Andi Wijaya',
-        position: t('tentangPage.dewan.positions.managerOperasional'),
-        photo: '',
-      },
-      {
-        name: 'Dewi Susanti',
-        position: t('tentangPage.dewan.positions.managerKeuangan'),
-        photo: '',
-      },
-    ],
-  },
+  // {
+  //   key: 'manajerial',
+  //   label: t('tentangPage.dewan.tabs.manajerial'),
+  //   people: [
+  //     {
+  //       name: 'Andi Wijaya',
+  //       position: t('tentangPage.dewan.positions.managerOperasional'),
+  //       photo: '',
+  //     },
+  //     {
+  //       name: 'Dewi Susanti',
+  //       position: t('tentangPage.dewan.positions.managerKeuangan'),
+  //       photo: '',
+  //     },
+  //   ],
+  // },
 ])
 
 const currentTab = computed(() => tabs.value.find((tab) => tab.key === activeTab.value) || tabs.value[0])

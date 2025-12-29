@@ -575,7 +575,7 @@
         "links": {
           "produk": "Produk",
           "standar": "Standar",
-          "kataMitra": "Kata Mitra",
+          "kataMitra": "Kata Konsumen",
           "faq": "FAQ"
         }
       },
@@ -606,7 +606,7 @@
           "docFinalStock": "DOC Final Stock",
           "ayamHidup": "Ayam Hidup",
           "telurKomersial": "Telur Komersial",
-          "karkasAyam": "Karkas Ayam"
+          "karkasAyam": "Produk RPA"
         }
       },
       "berita": {

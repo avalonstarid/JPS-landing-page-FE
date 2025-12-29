@@ -10,8 +10,8 @@ const footerColumns = [
     titleKey: 'footer.columns.beranda.title',
     links: [
       { labelKey: 'footer.columns.beranda.links.produk', route: '/#produk' },
-      { labelKey: 'footer.columns.beranda.links.standar', route: '/#standar' },
-      { labelKey: 'footer.columns.beranda.links.kataMitra', route: '/#kata-mitra' },
+      { labelKey: 'footer.columns.beranda.links.standar', route: '/#nilai-kami' },
+      { labelKey: 'footer.columns.beranda.links.kataMitra', route: '/#testimoni' },
       { labelKey: 'footer.columns.beranda.links.faq', route: '/#faq' },
     ],
   },

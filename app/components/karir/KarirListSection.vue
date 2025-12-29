@@ -240,13 +240,13 @@ const hasJobs = computed(() => karirJobs.length > 0)
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-10 md:p-12 text-center shadow-lg">
+        <div class="relative bg-white rounded-2xl p-10 md:p-12 text-center shadow-lg min-h-[50vh]">
           <img
             :src="emptyImage"
             :alt="t('karirPage.empty.emptyImageAlt')"
-            class="mx-auto w-40 md:w-52"
+            class="mx-auto w-full lg:w-[900px] auto lg:absolute lg:mx-auto lg:right-0 lg:left-0 lg:top-[-140px]"
           />
-          <h4 class="mt-6 text-base md:text-lg font-semibold text-[#3d4f92]">
+          <h4 class="mt-6 text-base md:text-lg font-semibold text-[#3d4f92] lg:mt-[20rem]">
             {{ t('karirPage.empty.cardTitle') }}
           </h4>
           <p class="mt-2 text-sm md:text-base text-[#6b7280]">

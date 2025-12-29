@@ -39,6 +39,7 @@ const stockItems = computed(() => [
 const productItems = computed(() => [
   {
     key: 'docParent',
+    anchorId: 'doc-parent-stock',
     title: t('produkPage.items.docParent.title'),
     description: t('produkPage.items.docParent.description'),
     image: front1,
@@ -51,6 +52,7 @@ const productItems = computed(() => [
   },
   {
     key: 'docFinal',
+    anchorId: 'doc-final-stock',
     title: t('produkPage.items.docFinal.title'),
     description: t('produkPage.items.docFinal.description'),
     image: front2,
@@ -63,6 +65,7 @@ const productItems = computed(() => [
   },
   {
     key: 'liveChicken',
+    anchorId: 'ayam-hidup',
     title: t('produkPage.items.liveChicken.title'),
     description: t('produkPage.items.liveChicken.description'),
     image: front3,
@@ -75,6 +78,7 @@ const productItems = computed(() => [
   },
   {
     key: 'commercialEgg',
+    anchorId: 'telur-komersial',
     title: t('produkPage.items.commercialEgg.title'),
     description: t('produkPage.items.commercialEgg.description'),
     image: front4,
@@ -87,6 +91,7 @@ const productItems = computed(() => [
   },
   {
     key: 'chickenCarcass',
+    anchorId: 'karkas-ayam',
     title: t('produkPage.items.chickenCarcass.title'),
     description: t('produkPage.items.chickenCarcass.description'),
     image: front5,
@@ -149,6 +154,7 @@ const productItems = computed(() => [
         <ProdukItemCard
           v-for="(item, index) in productItems"
           :key="item.key"
+          :id="item.anchorId"
           :title="item.title"
           :description="item.description"
           :image="item.image"

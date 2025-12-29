@@ -320,18 +320,27 @@ onUnmounted(() => {
 
         <!-- Mobile actions -->
         <div class="flex min-[1316px]:hidden items-center gap-2 pointer-events-auto">
-          <button
-            class="flex items-center gap-1 rounded-full px-3 py-2 text-xs font-semibold backdrop-blur-lg border shadow-lg transition"
-            :class="isScrolled ? 'bg-black/30 text-white/90 border-white/20 hover:bg-black/35' : 'bg-white/10 text-white/85 border-white/20 hover:bg-white/15'"
-            @click="setLanguage(locale.value === 'id' ? 'en' : 'id')"
-            :aria-label="t('language.label')"
+          <div
+            class="flex items-center gap-1 rounded-full px-2 py-1 backdrop-blur-lg border shadow-lg transition"
+            :class="isScrolled ? 'bg-black/30 text-white/90 border-white/20' : 'bg-white/10 text-white/85 border-white/20'"
           >
-            <img :src="locale.value === 'id' ? flagId : flagEn" :alt="currentLanguage" class="h-4 w-4 rounded-full object-cover" />
-            <span>{{ currentLanguage }}</span>
-          </button>
+            <button
+              v-for="lang in availableLanguages"
+              :key="lang.code"
+              type="button"
+              class="flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold transition"
+              :class="currentLanguage === lang.label ? 'bg-white/20 text-white' : 'text-white/80 hover:text-white'"
+              @click="setLanguage(lang.code)"
+              :aria-pressed="currentLanguage === lang.label"
+              :aria-label="lang.label"
+            >
+              <img :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
+              <span>{{ lang.label }}</span>
+            </button>
+          </div>
 
           <button
-            class="rounded-full bg-[#f6993c] px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl"
+            class="rounded-full bg-[#f6993c] px-2 py-2 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl"
             :aria-label="ctaLabel"
             @click="navigateToContact"
           >
