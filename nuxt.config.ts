@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   srcDir: 'app/',
+  dir: {
+    public: '../public',
+  },
 
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n'],
 
