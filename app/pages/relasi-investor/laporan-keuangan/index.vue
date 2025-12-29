@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import logoJps from '~/assets/images/logo-jps.png'
+import reportMar2024 from '~/assets/laporan/Laporan Keuangan/2. LK 31 Maret 2024 unaudited.c1b0ad5cf7e129a678e5.pdf'
+import reportJun2024 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 30 Juni 2024.62585cfe0536cedecb10.pdf'
+import reportDec2024 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 31 Desember 2024.8b6b72cfdbe5b4454896.pdf'
+import reportMar2025 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 31 Maret 2025.21e1d0a7e853313df147.pdf'
+import reportJun2025 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 30 Juni 2025pdf.25dd4b93c818e493e695.pdf'
+
 useHead(() => ({
   title: 'Laporan Keuangan | Relasi Investor',
 }))
@@ -11,11 +17,11 @@ const tabs = [
 ]
 
 const monthlyReports = [
-  { period: '31 Maret 2024', title: 'Laporan Keuangan AYAM 31 Maret 2024', href: '#' },
-  { period: '30 Juni 2024', title: 'Laporan Keuangan AYAM 30 Juni 2024', href: '#' },
-  { period: '31 Desember 2024', title: 'Laporan Keuangan AYAM 31 Desember 2024', href: '#' },
-  { period: '31 Maret 2025', title: 'Laporan Keuangan AYAM 31 Maret 2025', href: '#' },
-  { period: '30 Juni 2025', title: 'Laporan Keuangan AYAM 30 Juni 2025', href: '#' },
+  { period: '31 Maret 2024', title: 'Laporan Keuangan AYAM 31 Maret 2024', href: reportMar2024 },
+  { period: '30 Juni 2024', title: 'Laporan Keuangan AYAM 30 Juni 2024', href: reportJun2024 },
+  { period: '31 Desember 2024', title: 'Laporan Keuangan AYAM 31 Desember 2024', href: reportDec2024 },
+  { period: '31 Maret 2025', title: 'Laporan Keuangan AYAM 31 Maret 2025', href: reportMar2025 },
+  { period: '30 Juni 2025', title: 'Laporan Keuangan AYAM 30 Juni 2025', href: reportJun2025 },
 ]
 
 const chartOptions = [
@@ -231,7 +237,7 @@ const onBarLeave = () => {
             class="reveal flex items-center justify-between gap-4 rounded-2xl bg-white px-6 py-5 shadow-[0_12px_40px_-26px_rgba(0,0,0,0.35)]"
           >
             <p class="text-xl font-semibold text-[#1f2937]">{{ item.title }}</p>
-            <InvestorDownloadPill :href="item.href" />
+            <InvestorDownloadPill :href="item.href" new-tab download />
           </div>
         </div>
       </div>

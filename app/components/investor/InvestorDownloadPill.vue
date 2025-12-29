@@ -3,10 +3,14 @@ withDefaults(
   defineProps<{
     label?: string
     href?: string
+    newTab?: boolean
+    download?: boolean
   }>(),
   {
     label: 'Unduh Laporan',
     href: '#',
+    newTab: false,
+    download: false,
   }
 )
 </script>
@@ -14,6 +18,9 @@ withDefaults(
 <template>
   <a
     :href="href"
+    :target="newTab ? '_blank' : undefined"
+    :rel="newTab ? 'noopener' : undefined"
+    :download="download ? '' : undefined"
     class="inline-flex items-center gap-2 rounded-full bg-[#3A52A3] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:shadow"
   >
     <span>{{ label }}</span>
@@ -25,4 +32,3 @@ withDefaults(
     </span>
   </a>
 </template>
-

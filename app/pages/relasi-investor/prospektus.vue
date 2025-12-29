@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import coverImage from '~/assets/images/book-laporan.jpg'
+import prospektus2023 from '~/assets/laporan/prospektus/prospektus-2023.pdf'
 
 const items = [
-  { id: 'p-2019-1', title: 'Laporan Prospektus 2019 PT JPS Tbk', href: '#' },
-  { id: 'p-2019-2', title: 'Laporan Prospektus 2019 PT JPS Tbk', href: '#' },
-  { id: 'p-2019-3', title: 'Laporan Prospektus 2019 PT JPS Tbk', href: '#' },
-  { id: 'p-2019-4', title: 'Laporan Prospektus 2019 PT JPS Tbk', href: '#' },
-  { id: 'p-2019-5', title: 'Laporan Prospektus 2019 PT JPS Tbk', href: '#' },
-  { id: 'p-2019-6', title: 'Laporan Prospektus 2019 PT JPS Tbk', href: '#' },
+  { id: 'p-2023-1', title: 'Prospektus 2023', href: prospektus2023 },
 ]
 
 useHead(() => ({

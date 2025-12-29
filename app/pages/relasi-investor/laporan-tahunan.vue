@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import coverImage from '~/assets/images/book-laporan.jpg'
+import annualReport2023 from '~/assets/laporan/Annual Report/AnnualReport2023-AYAM-att1.6c1341ede808f00950ca.pdf'
+import annualReport2024 from '~/assets/laporan/Annual Report/Annual Report AYAM 2024.4e6c1736ea6fba7e28d9.pdf'
 
 const items = [
-  { id: 't-2019-1', title: 'Laporan Tahunan 2019 PT JPS Tbk', href: '#' },
-  { id: 't-2019-2', title: 'Laporan Tahunan 2019 PT JPS Tbk', href: '#' },
-  { id: 't-2019-3', title: 'Laporan Tahunan 2019 PT JPS Tbk', href: '#' },
-  { id: 't-2019-4', title: 'Laporan Tahunan 2019 PT JPS Tbk', href: '#' },
-  { id: 't-2019-5', title: 'Laporan Tahunan 2019 PT JPS Tbk', href: '#' },
-  { id: 't-2019-6', title: 'Laporan Tahunan 2019 PT JPS Tbk', href: '#' },
+  { id: 't-2023-1', title: 'Annual Report AYAM 2023', href: annualReport2023 },
+  { id: 't-2024-1', title: 'Annual Report AYAM 2024', href: annualReport2024 },
 ]
 
 useHead(() => ({
