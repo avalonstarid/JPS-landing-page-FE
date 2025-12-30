@@ -1,7 +1,10 @@
 <script setup lang="ts">
 type Props = {
   title: string
-  locations: string[]
+  locations: Array<{
+    label: string
+    href: string
+  }>
   to?: string
   imageSrc: string
   imageAlt?: string
@@ -87,9 +90,16 @@ const clipPathId = computed(() => `lokasi-img-clip-${stableId}`)
         {{ props.title }}
       </h3>
       <ul class="text-sm md:text-base text-gray-700 space-y-1.5">
-        <li v-for="(loc, idx) in props.locations" :key="idx" class="flex items-start">
-          <span v-if="props.locations.length > 1" class="mr-2">{{ idx + 1 }}.</span>
-          <span class="min-w-0">{{ loc }}</span>
+        <li v-for="(loc, idx) in props.locations" :key="idx" class="flex items-start gap-2">
+          <span class="w-5 shrink-0 text-left">{{ idx + 1 }}.</span>
+          <a
+            class="min-w-0 text-gray-700 hover:underline"
+            :href="loc.href"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ loc.label }}
+          </a>
         </li>
       </ul>
 

@@ -17,20 +17,26 @@ interface LocationItem {
   image: string
   gallery: string[]
   title: string
-  locations: string[]
+  locations: Array<{
+    label: string
+    href: string
+  }>
   infoText: string
   route: string
 }
+
+const baseGallery = [modalMain, modalThumb1, modalThumb2, modalThumb3]
+const sliceGallery = (count: number) => baseGallery.slice(0, Math.max(count, 1))
 
 const locationItems = computed<LocationItem[]>(() => [
   {
     key: 'pembibitan',
     image: pembibitanImage,
-    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
+    gallery: sliceGallery(2),
     title: t('tentangPage.lokasi.items.pembibitan.title'),
     locations: [
-      t('tentangPage.lokasi.items.pembibitan.loc1'),
-      t('tentangPage.lokasi.items.pembibitan.loc2'),
+      { label: t('tentangPage.lokasi.items.pembibitan.loc2'), href: 'https://share.google/cOmpKEDkzAuqzI9Ux' },
+      { label: t('tentangPage.lokasi.items.pembibitan.loc1'), href: 'https://share.google/VVAeVxrVfv8WCRG2i' },
     ],
     infoText: t('tentangPage.lokasi.items.pembibitan.info'),
     route: '/lini-bisnis/pembibitan',
@@ -38,11 +44,11 @@ const locationItems = computed<LocationItem[]>(() => [
   {
     key: 'broiler',
     image: broilerImage,
-    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
+    gallery: sliceGallery(2),
     title: t('tentangPage.lokasi.items.broiler.title'),
     locations: [
-      t('tentangPage.lokasi.items.broiler.loc1'),
-      t('tentangPage.lokasi.items.broiler.loc2'),
+      { label: t('tentangPage.lokasi.items.broiler.loc2'), href: 'https://maps.app.goo.gl/QY6K1Bw3vBUZKwgQ8?g_st=aw' },
+      { label: t('tentangPage.lokasi.items.broiler.loc1'), href: 'https://maps.app.goo.gl/yBgb2HbGtMvK6b3d6' },
     ],
     infoText: t('tentangPage.lokasi.items.broiler.info'),
     route: '/lini-bisnis/broiler',
@@ -50,12 +56,12 @@ const locationItems = computed<LocationItem[]>(() => [
   {
     key: 'petelur',
     image: petelurImage,
-    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
+    gallery: sliceGallery(3),
     title: t('tentangPage.lokasi.items.petelur.title'),
     locations: [
-      t('tentangPage.lokasi.items.petelur.loc1'),
-      t('tentangPage.lokasi.items.petelur.loc2'),
-      t('tentangPage.lokasi.items.petelur.loc3'),
+      { label: t('tentangPage.lokasi.items.petelur.loc1'), href: 'https://share.google/5YzIn3wIDYOi4qiMu' },
+      { label: t('tentangPage.lokasi.items.petelur.loc2'), href: 'https://share.google/hbRvkkC9iA6Jas4Pk' },
+      { label: t('tentangPage.lokasi.items.petelur.loc3'), href: 'https://maps.app.goo.gl/vkHuRwxokvJ1bTpb7?g_st=aw' },
     ],
     infoText: t('tentangPage.lokasi.items.petelur.info'),
     route: '/lini-bisnis/petelur',
@@ -63,10 +69,10 @@ const locationItems = computed<LocationItem[]>(() => [
   {
     key: 'penetasan',
     image: penetasanImage,
-    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
+    gallery: sliceGallery(1),
     title: t('tentangPage.lokasi.items.penetasan.title'),
     locations: [
-      t('tentangPage.lokasi.items.penetasan.loc1'),
+      { label: t('tentangPage.lokasi.items.penetasan.loc1'), href: 'https://share.google/UkQ3lnVXxJdRhKCrj' },
     ],
     infoText: t('tentangPage.lokasi.items.penetasan.info'),
     route: '/lini-bisnis/penetasan',
@@ -74,10 +80,10 @@ const locationItems = computed<LocationItem[]>(() => [
   {
     key: 'rpa',
     image: rpaImage,
-    gallery: [modalMain, modalThumb1, modalThumb2, modalThumb3],
+    gallery: sliceGallery(1),
     title: t('tentangPage.lokasi.items.rpa.title'),
     locations: [
-      t('tentangPage.lokasi.items.rpa.loc1'),
+      { label: t('tentangPage.lokasi.items.rpa.loc1'), href: 'https://share.google/8AsYSZPcpkRYkyJzi' },
     ],
     infoText: t('tentangPage.lokasi.items.rpa.info'),
     route: '/lini-bisnis/rpa',
@@ -129,9 +135,11 @@ const closeModal = () => {
         v-if="modalItem"
         :show="modalOpen"
         :title="modalItem.title"
-        :subtitle="modalItem.locations.join(', ')"
+        :subtitle="modalItem.locations[0]?.label ?? ''"
+        :subtitles="modalItem.locations.map((location) => location.label)"
         :info-text="modalItem.infoText"
-        :maps-href="`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(modalItem.locations[0] ?? modalItem.title)}`"
+        :maps-href="modalItem.locations[0]?.href ?? ''"
+        :maps-hrefs="modalItem.locations.map((location) => location.href)"
         whatsapp-href="https://wa.me/628123456789"
         :images="modalItem.gallery"
         @close="closeModal"

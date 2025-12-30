@@ -3,8 +3,10 @@ type Props = {
   show: boolean
   title: string
   subtitle?: string
+  subtitles?: string[]
   infoText?: string
   mapsHref?: string
+  mapsHrefs?: string[]
   whatsappHref?: string
   images: string[]
   startIndex?: number
@@ -12,8 +14,10 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
   subtitle: '',
+  subtitles: () => [],
   infoText: '',
   mapsHref: '',
+  mapsHrefs: () => [],
   whatsappHref: '',
   startIndex: 0,
 })
@@ -36,6 +40,8 @@ watch(
 
 const hasMany = computed(() => props.images.length > 1)
 const activeSrc = computed(() => props.images[activeIndex.value] ?? '')
+const activeMapsHref = computed(() => props.mapsHrefs[activeIndex.value] ?? props.mapsHref ?? '')
+const activeSubtitle = computed(() => props.subtitles[activeIndex.value] ?? props.subtitle ?? '')
 
 const close = () => emit('close')
 
@@ -91,11 +97,11 @@ onBeforeUnmount(() => {
             <div class="flex items-start justify-between gap-4">
               <div>
                 <h3 class="text-2xl md:text-4xl font-extrabold text-gray-900">{{ title }}</h3>
-                <p v-if="subtitle" class="mt-3 flex items-start gap-3 text-gray-700">
+                <p v-if="activeSubtitle" class="mt-3 flex items-start gap-3 text-gray-700">
                   <span class="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#fdeee0] text-[#f6993c]">
                     <i class="mdi mdi-map-marker text-lg leading-none" aria-hidden="true" />
                   </span>
-                  <span class="text-base md:text-lg">{{ subtitle }}</span>
+                  <span class="text-base md:text-lg">{{ activeSubtitle }}</span>
                 </p>
               </div>
               <button
@@ -152,11 +158,11 @@ onBeforeUnmount(() => {
                   {{ infoText }}
                 </p>
 
-                <div v-if="mapsHref || whatsappHref" class="mt-8 flex flex-wrap justify-center gap-4">
+                <div v-if="activeMapsHref || whatsappHref" class="mt-8 flex flex-wrap justify-center gap-4">
                   <a
-                    v-if="mapsHref"
+                    v-if="activeMapsHref"
                     class="inline-flex items-center gap-3 rounded-full bg-[#2f4aa3] px-7 py-3 text-white font-semibold shadow-lg hover:brightness-110 transition"
-                    :href="mapsHref"
+                    :href="activeMapsHref"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
