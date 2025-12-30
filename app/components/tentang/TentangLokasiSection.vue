@@ -123,6 +123,7 @@ const closeModal = () => {
         <UiLokasiCard
           v-for="item in locationItems"
           :key="item.key"
+          class="cursor-pointer"
           :title="item.title"
           :locations="item.locations"
           :image-src="item.image"

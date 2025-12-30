@@ -131,6 +131,15 @@ const navigateToContact = async () => {
   await router.push('/hubungi-kami')
 }
 
+const navigateToHome = async () => {
+  openDropdown.value = null
+  if (route.path !== '/') {
+    await router.push('/')
+    return
+  }
+  scrollToSection('#beranda')
+}
+
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
   openMobileDropdown.value = null
@@ -190,8 +199,8 @@ onUnmounted(() => {
         <!-- Logo -->
         <a
           aria-label="PT Janu Putra Sejahtera - Halaman Utama"
-          @click.prevent="scrollToSection('#beranda')"
-          class="pointer-events-auto"
+          @click.prevent="navigateToHome"
+          class="pointer-events-auto cursor-pointer"
         >
           <img :src="logoJps" alt="Logo JPS" class="h-10 w-auto max-w-[140px] object-contain" />
         </a>
