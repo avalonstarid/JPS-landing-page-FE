@@ -13,7 +13,17 @@ interface TimelineItem {
 
 const timelineRef = ref<HTMLElement | null>(null)
 const hoveredItem = ref<string | null>(null)
-const tooltipPosition = ref({ x: 0, y: 0 })
+const tooltipRef = ref<HTMLElement | null>(null)
+const tooltipStyles = ref<Record<string, string>>({
+  left: '0px',
+  top: '0px',
+  transform: 'translate(-50%, -100%)',
+})
+const tooltipArrowStyles = ref<Record<string, string>>({
+  left: '50%',
+})
+const tooltipArrowClass = ref('absolute -bottom-2')
+const lastTargetRect = ref<DOMRect | null>(null)
 
 const timelineItems = computed<TimelineItem[]>(() => [
   {
@@ -117,16 +127,84 @@ const scrollRight = () => {
 const handleMouseEnter = (year: string, event: MouseEvent) => {
   hoveredItem.value = year
   const target = event.currentTarget as HTMLElement
-  const rect = target.getBoundingClientRect()
-  tooltipPosition.value = {
-    x: rect.left + rect.width / 2,
-    y: rect.top,
-  }
+  const anchor = target.querySelector('[data-tooltip-anchor]') as HTMLElement | null
+  lastTargetRect.value = (anchor ?? target).getBoundingClientRect()
+  nextTick(() => {
+    requestAnimationFrame(updateTooltipPosition)
+  })
 }
 
 const handleMouseLeave = () => {
   hoveredItem.value = null
 }
+
+const updateTooltipPosition = () => {
+  if (!lastTargetRect.value || !tooltipRef.value) return
+  const rect = lastTargetRect.value
+  const tooltipRect = tooltipRef.value.getBoundingClientRect()
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+  const padding = 12
+  const gap = 12
+
+  const centerX = rect.left + rect.width / 2
+  let placement: 'top' | 'bottom' = 'top'
+
+  const spaceTop = rect.top
+  const spaceBottom = viewportHeight - rect.bottom
+  if (spaceTop < tooltipRect.height + gap && spaceBottom > spaceTop) {
+    placement = 'bottom'
+  }
+
+  const minLeft = padding + tooltipRect.width / 2
+  const maxLeft = viewportWidth - padding - tooltipRect.width / 2
+  const left = Math.min(Math.max(centerX, minLeft), maxLeft)
+
+  let top: number
+  let transform: string
+  if (placement === 'bottom') {
+    top = rect.bottom + gap
+    transform = 'translate(-50%, 0)'
+    tooltipArrowClass.value = 'absolute -top-2'
+  } else {
+    top = rect.top - gap
+    transform = 'translate(-50%, -100%)'
+    tooltipArrowClass.value = 'absolute -bottom-2'
+  }
+
+  if (top < padding) {
+    top = padding
+    transform = 'translate(-50%, 0)'
+    tooltipArrowClass.value = 'absolute -top-2'
+  }
+
+  if (top + tooltipRect.height > viewportHeight - padding) {
+    top = viewportHeight - padding - tooltipRect.height
+  }
+
+  const tooltipLeft = left - tooltipRect.width / 2
+  const arrowMin = 12
+  const arrowMax = tooltipRect.width - 12
+  const arrowLeft = Math.min(Math.max(centerX - tooltipLeft, arrowMin), arrowMax)
+
+  tooltipStyles.value = {
+    left: `${left}px`,
+    top: `${top}px`,
+    transform,
+  }
+  tooltipArrowStyles.value = {
+    left: `${arrowLeft}px`,
+    transform: 'translateX(-50%)',
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('resize', updateTooltipPosition)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateTooltipPosition)
+})
 
 const getIconClass = (icon: string): string => {
   const icons: Record<string, string> = {
@@ -194,6 +272,7 @@ const getIconClass = (icon: string): string => {
 
                 <!-- Icon Circle with white ring -->
                 <div
+                  data-tooltip-anchor
                   class="relative z-10 w-[56px] h-[56px] md:w-[64px] md:h-[64px] rounded-full bg-white p-[3px] cursor-pointer transition-transform hover:scale-110"
                 >
                   <div class="w-full h-full rounded-full bg-[#f6993c] flex items-center justify-center">
@@ -223,17 +302,18 @@ const getIconClass = (icon: string): string => {
                 <Transition name="tooltip">
                   <div
                     v-if="hoveredItem === item.year"
+                    ref="tooltipRef"
                     class="fixed z-[9999] bg-[#1a1a1a] text-white rounded-xl p-4 md:p-5 shadow-2xl max-w-[320px] md:max-w-[380px]"
-                    :style="{
-                      left: `${tooltipPosition.x}px`,
-                      top: `${tooltipPosition.y - 20}px`,
-                      transform: 'translate(-50%, -100%)',
-                    }"
+                    :style="tooltipStyles"
                   >
                     <div class="text-sm text-gray-400 mb-2">{{ item.detailTitle }}</div>
                     <p class="text-sm leading-relaxed">{{ item.detailDesc }}</p>
                     <!-- Arrow -->
-                    <div class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-4 bg-[#1a1a1a] rotate-45" />
+                    <div
+                      class="w-4 h-4 bg-[#1a1a1a] rotate-45"
+                      :class="tooltipArrowClass"
+                      :style="tooltipArrowStyles"
+                    />
                   </div>
                 </Transition>
               </Teleport>

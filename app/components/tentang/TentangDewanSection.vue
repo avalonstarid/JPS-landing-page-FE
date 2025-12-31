@@ -30,8 +30,8 @@ const tabs = computed<TabData[]>(() => [
         photo: komisarisUtamaPhoto,
       },
       {
-        name: 'Arsad Idrus',
-        position: t('tentangPage.dewan.positions.komisarisIndependen'),
+        name: 'Fadhl Muhammad Firdaus',
+        position: t('tentangPage.dewan.positions.komisaris'),
         photo: komisarisPhoto,
       },
     ],
@@ -44,11 +44,6 @@ const tabs = computed<TabData[]>(() => [
         name: 'Sri Mulyani',
         position: t('tentangPage.dewan.positions.direkturUtama'),
         photo: direkturUtamaPhoto,
-      },
-      {
-        name: 'Budi Santoso',
-        position: t('tentangPage.dewan.positions.direktur'),
-        photo: '',
       },
     ],
   },
@@ -91,7 +86,7 @@ const setActiveTab = (key: string) => {
             <div
               v-for="person in currentTab.people"
               :key="person.name"
-              class="person-card flex flex-col items-center bg-white rounded-3xl shadow-lg overflow-hidden w-[240px]"
+              class="person-card flex flex-col items-center bg-white rounded-3xl shadow-lg overflow-hidden w-[270px]"
             >
               <div class="relative w-full h-[260px] bg-gradient-to-b from-[#2f428f] via-[#4056a6] to-[#d9a873]">
                 <img
