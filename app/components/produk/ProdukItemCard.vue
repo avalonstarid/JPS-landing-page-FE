@@ -23,12 +23,6 @@ const props = withDefaults(defineProps<Props>(), {
   index: undefined,
 })
 
-const router = useRouter()
-
-const goToProduk = () => {
-  router.push('/produk')
-}
-
 const isTopRight = computed(() => {
   if (props.stackSide) return props.stackSide === 'right'
   if (typeof props.index === 'number') return props.index % 2 === 1

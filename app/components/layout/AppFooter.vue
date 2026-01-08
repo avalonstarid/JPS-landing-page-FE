@@ -183,7 +183,7 @@ const footerColumnsSecond = [
             <i class="mdi mdi-linkedin text-xl" aria-hidden="true" />
           </a>
           <!-- WhatsApp -->
-          <a href="https://wa.me/6287809412474" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="text-white hover:text-white/80 transition-colors">
+          <a href="https://wa.me/6287885483781" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="text-white hover:text-white/80 transition-colors">
             <i class="mdi mdi-whatsapp text-xl" aria-hidden="true" />
           </a>
           <!-- Instagram -->

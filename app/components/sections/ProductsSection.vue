@@ -3,7 +3,6 @@ import { storeToRefs } from 'pinia'
 import { useProductStore } from '~/stores/product'
 import bgCta from '~/assets/images/Background-2-card.png'
 const { t } = useI18n()
-const router = useRouter()
 
 const productStore = useProductStore()
 const { products, isLoading } = storeToRefs(productStore)
@@ -11,10 +10,6 @@ const { products, isLoading } = storeToRefs(productStore)
 onMounted(async () => {
   await productStore.fetchProducts()
 })
-
-const goToProduk = () => {
-  router.push('/hubungi-kami')
-}
 </script>
 
 <template>
@@ -63,13 +58,13 @@ const goToProduk = () => {
             </p>
           </div>
           <div class="flex justify-center">
-            <button
+            <NuxtLink
+              to="/hubungi-kami"
               class="w-14 h-14 rounded-full bg-[#f6993c] text-white flex items-center justify-center shadow-lg transition-transform hover:translate-x-1"
               :aria-label="t('products.cta')"
-              @click="goToProduk"
             >
               <i class="mdi mdi-arrow-right text-xl" aria-hidden="true" />
-            </button>
+            </NuxtLink>
           </div>
         </div>
       </div>

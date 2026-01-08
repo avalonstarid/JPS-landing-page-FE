@@ -53,10 +53,10 @@ const contactCards = computed(() => [
   {
     key: 'whatsapp',
     title: t('contactPage.contactMore.cards.whatsapp.title'),
-    description: '0878 0941 2474',
+    description: '0878 8548 3781',
     iconUrl: whatsappIcon,
     iconBgClass: 'bg-[#EAF7EF]',
-    href: 'https://wa.me/6287809412474',
+    href: 'https://wa.me/6287885483781',
     target: '_blank',
     rel: 'noopener noreferrer',
   },

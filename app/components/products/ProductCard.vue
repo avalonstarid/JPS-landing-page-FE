@@ -2,17 +2,12 @@
 import type { Product } from '~/stores/product'
 import bgCard from '~/assets/images/Background-card.png'
 const { t } = useI18n()
-const router = useRouter()
 
 interface Props {
   product: Product
 }
 
 defineProps<Props>()
-
-const goToProduk = () => {
-  router.push('/produk')
-}
 </script>
 
 <template>

@@ -5,7 +5,6 @@ import SharePanel from '~/components/ui/SharePanel.vue'
 import { blogLatest, findBlogById } from '~/utils/blogData'
 
 const route = useRoute()
-const router = useRouter()
 const { t, locale } = useI18n()
 
 definePageMeta({
@@ -15,10 +14,6 @@ definePageMeta({
 
 const article = computed(() => findBlogById(route.params.id as string))
 const latestArticles = computed(() => blogLatest.filter((item) => item.id !== article.value.id).slice(0, 4))
-
-const goBack = () => {
-  router.push('/blog')
-}
 
 const shareTitle = computed(() => t('share.title', { label: t('nav.newsItems.blog') }))
 const shareCopyLabel = computed(() => t('share.copy', { label: t('nav.newsItems.blog') }))
@@ -70,14 +65,13 @@ useHead(() => ({
 
     <div class="relative container-main py-12 lg:py-16 space-y-6">
       <div class="flex flex-wrap items-start justify-between gap-4">
-        <button
+        <NuxtLink
+          to="/blog"
           class="inline-flex items-center gap-2 rounded-full bg-white px-3 text-[#3d4f92] shadow hover:shadow-md transition"
-          type="button"
-          @click="goBack"
         >
           <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
           <span>{{ t('blogPage.detail.back') }}</span>
-        </button>
+        </NuxtLink>
       </div>
 
       <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">

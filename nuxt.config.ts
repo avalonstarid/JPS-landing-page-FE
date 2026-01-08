@@ -8,11 +8,14 @@ export default defineNuxtConfig({
     public: '../public',
   },
 
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n', '@nuxtjs/robots', '@nuxtjs/sitemap'],
 
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://januputrasejahtera.com',
+      siteName: process.env.NUXT_PUBLIC_SITE_NAME || 'PT Janu Putra Sejahtera',
+      gtagId: process.env.NUXT_PUBLIC_GTAG_ID || '',
     },
   },
 
@@ -65,6 +68,7 @@ export default defineNuxtConfig({
     defaultLocale: 'id',
     lazy: true,
     langDir: 'locales',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://januputrasejahtera.com',
     locales: [
       { code: 'id', language: 'id-ID', file: 'id.json', name: 'Bahasa Indonesia' },
       { code: 'en', language: 'en-US', file: 'en.json', name: 'English' },
@@ -89,5 +93,21 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/berita/**': { ssr: true },
+  },
+
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://januputrasejahtera.com',
+    name: process.env.NUXT_PUBLIC_SITE_NAME || 'PT Janu Putra Sejahtera',
+  },
+
+  robots: {
+    rules: [
+      { userAgent: '*', allow: '/' },
+    ],
+    sitemap: (process.env.NUXT_PUBLIC_SITE_URL || 'https://januputrasejahtera.com') + '/sitemap.xml',
+  },
+
+  sitemap: {
+    gzip: true,
   },
 })

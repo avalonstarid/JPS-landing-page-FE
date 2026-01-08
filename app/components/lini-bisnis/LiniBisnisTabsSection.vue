@@ -2,7 +2,6 @@
 import { tabConfig } from '~/utils/liniBisnisData'
 
 const { t } = useI18n()
-const router = useRouter()
 
 interface Props {
   activeSlug: string
@@ -11,10 +10,6 @@ interface Props {
 const props = defineProps<Props>()
 
 const tabsRef = ref<HTMLElement | null>(null)
-
-const handleTabClick = (slug: string) => {
-  router.push(`/lini-bisnis/${slug}`)
-}
 
 const scrollTabs = (direction: 'left' | 'right') => {
   if (!tabsRef.value) return
@@ -45,21 +40,20 @@ const scrollTabs = (direction: 'left' | 'right') => {
           ref="tabsRef"
           class="flex flex-nowrap gap-2 md:gap-4 overflow-x-auto md:overflow-visible whitespace-nowrap scroll-smooth no-scrollbar"
         >
-        <button
+        <NuxtLink
           v-for="tab in tabConfig"
           :key="tab.slug"
-          type="button"
-          class="px-3.5 py-2 md:px-6 md:py-3 rounded-full text-[13px] md:text-base font-semibold transition-all duration-300 border-2 flex-shrink-0"
+          :to="`/lini-bisnis/${tab.slug}`"
+          class="px-3.5 py-2 md:px-6 md:py-3 rounded-full text-[13px] md:text-base font-semibold transition-all duration-300 border-2 flex-shrink-0 text-center"
           :class="[
             props.activeSlug === tab.slug
               ? 'bg-primary text-white border-primary shadow-lg'
               : 'bg-white text-[#1f2937] border-gray-300 hover:border-primary hover:text-primary'
           ]"
           :aria-current="props.activeSlug === tab.slug ? 'true' : undefined"
-          @click="handleTabClick(tab.slug)"
         >
           {{ t(tab.labelKey) }}
-        </button>
+        </NuxtLink>
         </div>
         <button
           type="button"

@@ -7,7 +7,6 @@ const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 const { t, locale, setLocale } = useI18n()
 const route = useRoute()
-const router = useRouter()
 
 const availableLanguages: Array<{ code: 'id' | 'en'; label: string; icon: string; alt: string }> = [
   { code: 'id', label: 'ID', icon: flagId, alt: 'Indonesia Flag' },
@@ -24,7 +23,7 @@ useHead({
 })
 
 const navItems = [
-  { key: 'home', href: '#beranda', labelKey: 'nav.home', hasDropdown: false },
+  { key: 'home', href: '/', labelKey: 'nav.home', hasDropdown: false },
   {
     key: 'about',
     route: '/tentang-perusahaan',
@@ -117,27 +116,22 @@ const openDropdown = ref<string | null>(null)
 const openMobileDropdown = ref<string | null>(null)
 const openMobileSubDropdown = ref<string | null>(null)
 
+const resolveNavTo = (item: typeof navItems[number]) => {
+  if ('route' in item && item.route) {
+    return item.route
+  }
+  if ('href' in item && item.href) {
+    return item.href.startsWith('#') ? `/${item.href}` : item.href
+  }
+  return '/'
+}
+
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
 }
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
-}
-
-const navigateToContact = async () => {
-  closeMobileMenu()
-  openDropdown.value = null
-  await router.push('/hubungi-kami')
-}
-
-const navigateToHome = async () => {
-  openDropdown.value = null
-  if (route.path !== '/') {
-    await router.push('/')
-    return
-  }
-  scrollToSection('#beranda')
 }
 
 const closeMobileMenu = () => {
@@ -148,38 +142,6 @@ const closeMobileMenu = () => {
 
 const setLanguage = async (lang: 'id' | 'en') => {
   await setLocale(lang)
-}
-
-const scrollToSection = (href: string) => {
-  const element = document.querySelector(href)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' })
-  }
-}
-
-const navigateToNavItem = async (item: typeof navItems[number]) => {
-  closeMobileMenu()
-
-  if ('route' in item && item.route) {
-    await router.push(item.route)
-    return
-  }
-
-  if (route.path !== '/') {
-    await router.push({ path: '/', hash: item.href })
-    return
-  }
-
-  scrollToSection(item.href)
-}
-
-const handleDesktopNav = async (item: typeof navItems[number]) => {
-  if (item.children) {
-    openDropdown.value = openDropdown.value === item.key ? null : item.key
-    return
-  }
-  openDropdown.value = null
-  await navigateToNavItem(item)
 }
 
 onMounted(() => {
@@ -197,13 +159,14 @@ onUnmounted(() => {
     <div class="px-6 lg:px-10">
       <div class="flex items-center justify-between min-[1316px]:justify-center gap-5 pt-4 pb-2">
         <!-- Logo -->
-        <a
+        <NuxtLink
           aria-label="PT Janu Putra Sejahtera - Halaman Utama"
-          @click.prevent="navigateToHome"
+          to="/"
           class="pointer-events-auto cursor-pointer"
+          @click="openDropdown = null"
         >
           <img :src="logoJps" alt="Logo JPS" class="h-10 w-auto max-w-[140px] object-contain" />
-        </a>
+        </NuxtLink>
 
         <!-- Desktop Navigation -->
         <div class="hidden min-[1316px]:flex items-center pointer-events-auto">
@@ -222,7 +185,8 @@ onUnmounted(() => {
               class="relative"
             >
               <button
-                :href="item.href"
+                v-if="item.hasDropdown"
+                type="button"
                 class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
                 :class="[
                   activeNavKey === item.key
@@ -230,14 +194,27 @@ onUnmounted(() => {
                     : 'text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]',
                 ]"
                 :aria-current="activeNavKey === item.key ? 'page' : undefined"
-                @click.prevent="handleDesktopNav(item)"
+                @click="openDropdown = openDropdown === item.key ? null : item.key"
               >
                 <span class="whitespace-nowrap">{{ t(item.labelKey) }}</span>
                 <i
-                  v-if="item.hasDropdown"
                   class="mdi mdi-chevron-down text-base opacity-80 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
                 />
               </button>
+              <NuxtLink
+                v-else
+                :to="resolveNavTo(item)"
+                class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
+                :class="[
+                  activeNavKey === item.key
+                    ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
+                    : 'text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]',
+                ]"
+                :aria-current="activeNavKey === item.key ? 'page' : undefined"
+                @click="openDropdown = null"
+              >
+                <span class="whitespace-nowrap">{{ t(item.labelKey) }}</span>
+              </NuxtLink>
 
               <div
                 v-if="item.children && openDropdown === item.key"
@@ -317,14 +294,14 @@ onUnmounted(() => {
             </template>
           </div>
 
-          <button
+          <NuxtLink
+            to="/hubungi-kami"
             class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-5 py-2 text-sm font-semibold text-white shadow-[0_15px_40px_-18px_rgba(0,0,0,0.7)] transition hover:shadow-[0_20px_45px_-18px_rgba(0,0,0,0.75)] whitespace-nowrap"
             :aria-label="ctaLabel"
-            @click="navigateToContact"
           >
             <span>{{ ctaLabel }}</span>
             <i class="mdi mdi-arrow-right text-lg" aria-hidden="true" />
-          </button>
+          </NuxtLink>
         </div>
 
         <!-- Mobile actions -->
@@ -348,13 +325,13 @@ onUnmounted(() => {
             </button>
           </div>
 
-          <button
+          <NuxtLink
+            to="/hubungi-kami"
             class="rounded-full bg-[#f6993c] px-2 py-2 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl"
             :aria-label="ctaLabel"
-            @click="navigateToContact"
           >
             {{ ctaLabel }}
-          </button>
+          </NuxtLink>
 
           <button
             class="inline-flex items-center justify-center rounded-full p-2 backdrop-blur-lg border shadow-lg transition"
@@ -399,15 +376,26 @@ onUnmounted(() => {
             <div class="py-3 space-y-1">
               <div v-for="item in navItems" :key="item.key" class="px-2">
                 <button
-                  :href="item.href"
+                  v-if="item.hasDropdown"
+                  type="button"
                   class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-[#1f2937] hover:bg-[#f6993c]/10 transition rounded-xl"
                   :class="activeNavKey === item.key ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
                   :aria-current="activeNavKey === item.key ? 'page' : undefined"
-                  @click.prevent="item.children ? (openMobileDropdown = openMobileDropdown === item.key ? null : item.key, openMobileSubDropdown = null) : navigateToNavItem(item)"
+                  @click="openMobileDropdown = openMobileDropdown === item.key ? null : item.key, openMobileSubDropdown = null"
                 >
                   <span>{{ t(item.labelKey) }}</span>
                   <i v-if="item.hasDropdown" class="mdi" :class="openMobileDropdown === item.key ? 'mdi-chevron-up' : 'mdi-chevron-down'" aria-hidden="true" />
                 </button>
+                <NuxtLink
+                  v-else
+                  :to="resolveNavTo(item)"
+                  class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-[#1f2937] hover:bg-[#f6993c]/10 transition rounded-xl"
+                  :class="activeNavKey === item.key ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
+                  :aria-current="activeNavKey === item.key ? 'page' : undefined"
+                  @click="closeMobileMenu"
+                >
+                  <span>{{ t(item.labelKey) }}</span>
+                </NuxtLink>
                 <div
                   v-if="item.children && openMobileDropdown === item.key"
                   class="ml-3 mt-1 space-y-1"
@@ -467,13 +455,14 @@ onUnmounted(() => {
                   </button>
                 </div>
               </div>
-              <button
+              <NuxtLink
+                to="/hubungi-kami"
                 class="w-full rounded-full bg-[#f6993c] px-5 py-3 text-center text-base font-semibold text-white shadow-lg transition hover:shadow-xl"
                 :aria-label="ctaLabel"
-                @click="navigateToContact"
+                @click="closeMobileMenu"
               >
                 {{ ctaLabel }}
-              </button>
+              </NuxtLink>
             </div>
           </div>
         </div>

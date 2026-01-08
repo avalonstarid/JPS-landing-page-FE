@@ -1,5 +1,49 @@
 <script setup lang="ts">
 const isNavigating = ref(false)
+const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
+const localeHead = useLocaleHead({ addDirAttribute: true, addSeoAttributes: true })
+
+const siteUrl = computed(() => runtimeConfig.public.siteUrl || 'https://example.com')
+const siteName = computed(() => runtimeConfig.public.siteName || 'PT Janu Putra Sejahtera')
+const gtagId = computed(() => runtimeConfig.public.gtagId || '')
+const canonicalUrl = computed(() => new URL(route.fullPath, siteUrl.value).toString())
+const localeLinks = computed(
+  () => (localeHead.value.link || []).filter((link) => link.rel !== 'canonical'),
+)
+const localeMeta = computed(() => localeHead.value.meta || [])
+const localeHtmlAttrs = computed(() => localeHead.value.htmlAttrs || {})
+
+useHead(() => ({
+  htmlAttrs: localeHtmlAttrs.value,
+  link: [
+    ...localeLinks.value,
+    { rel: 'canonical', href: canonicalUrl.value },
+  ],
+  meta: [
+    ...localeMeta.value,
+    { name: 'robots', content: 'index, follow' },
+    { property: 'og:url', content: canonicalUrl.value },
+    { property: 'og:site_name', content: siteName.value },
+    { name: 'twitter:card', content: 'summary_large_image' },
+  ],
+  script: gtagId.value
+    ? [
+        {
+          key: 'gtag-lib',
+          async: true,
+          src: `https://www.googletagmanager.com/gtag/js?id=${gtagId.value}`,
+        },
+        {
+          key: 'gtag-init',
+          children:
+            "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '" +
+            gtagId.value +
+            "');",
+        },
+      ]
+    : [],
+}))
 
 if (import.meta.client) {
   const nuxtApp = useNuxtApp()
