@@ -2,19 +2,16 @@
 import coverImage from '~/assets/images/book-laporan.jpg'
 import heroImage from '~/components/tinjauan/tinjauan-section.png'
 import InvestorDownloadPill from '~/components/investor/InvestorDownloadPill.vue'
+import sustainability2024 from '~/assets/laporan/sustainability/Laporan Keberlanjutan 2024.pdf'
+import sustainability2023 from '~/assets/laporan/sustainability/Laporan Keberlanjutan 2023.pdf'
 
 const featuredReport = {
-  title: 'Laporan Keberlanjutan 2025 PT JPS Tbk',
-  href: '#',
+  title: 'Laporan Keberlanjutan 2024 PT JPS Tbk',
+  href: sustainability2024,
 }
 
 const items = [
-  { id: 's-2024', title: 'Laporan Keberlanjutan 2024 PT JPS Tbk', href: '#' },
-  { id: 's-2023', title: 'Laporan Keberlanjutan 2023 PT JPS Tbk', href: '#' },
-  { id: 's-2022', title: 'Laporan Keberlanjutan 2022 PT JPS Tbk', href: '#' },
-  { id: 's-2021', title: 'Laporan Keberlanjutan 2021 PT JPS Tbk', href: '#' },
-  { id: 's-2020', title: 'Laporan Keberlanjutan 2020 PT JPS Tbk', href: '#' },
-  { id: 's-2019', title: 'Laporan Keberlanjutan 2019 PT JPS Tbk', href: '#' },
+  { id: 's-2023', title: 'Laporan Keberlanjutan 2023 PT JPS Tbk', href: sustainability2023 },
 ]
 
 useHead(() => ({
@@ -60,7 +57,7 @@ useHead(() => ({
                   {{ featuredReport.title }}
                 </h3>
                 <div class="featured-download flex justify-center md:justify-start">
-                  <InvestorDownloadPill :href="featuredReport.href" />
+                  <InvestorDownloadPill :href="featuredReport.href" download />
                 </div>
               </div>
             </div>
@@ -74,6 +71,7 @@ useHead(() => ({
             :image-url="coverImage"
             :title="item.title"
             :href="item.href"
+            download
           />
         </div>
       </div>

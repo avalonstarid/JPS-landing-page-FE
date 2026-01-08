@@ -51,12 +51,12 @@ onMounted(async () => {
           <div class="mt-4">
             <p class="text-gray-600">
               {{ t('faq.contactLead') }}
-              <a
-                href="#kontak"
+              <NuxtLink
+                to="/hubungi-kami"
                 class="text-primary-500 font-medium hover:text-primary-600 underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded"
               >
                 {{ t('faq.contactLink') }}
-              </a>
+              </NuxtLink>
             </p>
           </div>
         </div>
@@ -78,4 +78,3 @@ onMounted(async () => {
     </div>
   </section>
 </template>
-

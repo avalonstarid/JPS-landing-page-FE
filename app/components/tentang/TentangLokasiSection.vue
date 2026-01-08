@@ -141,7 +141,7 @@ const closeModal = () => {
         :info-text="modalItem.infoText"
         :maps-href="modalItem.locations[0]?.href ?? ''"
         :maps-hrefs="modalItem.locations.map((location) => location.href)"
-        whatsapp-href="https://wa.me/628123456789"
+        whatsapp-href="https://wa.me/6287809412474"
         :images="modalItem.gallery"
         @close="closeModal"
       />

@@ -42,6 +42,16 @@ const hasMany = computed(() => props.images.length > 1)
 const activeSrc = computed(() => props.images[activeIndex.value] ?? '')
 const activeMapsHref = computed(() => props.mapsHrefs[activeIndex.value] ?? props.mapsHref ?? '')
 const activeSubtitle = computed(() => props.subtitles[activeIndex.value] ?? props.subtitle ?? '')
+const activeWhatsappHref = computed(() => {
+  const raw = (props.whatsappHref ?? '').trim()
+  if (!raw) return ''
+  if (/^https?:\/\//i.test(raw)) return raw
+  if (/^wa\.me\//i.test(raw)) return `https://${raw}`
+  const digits = raw.replace(/\D/g, '')
+  if (!digits) return ''
+  const normalized = digits.startsWith('0') ? `62${digits.slice(1)}` : digits
+  return `https://wa.me/${normalized}`
+})
 
 const close = () => emit('close')
 
@@ -158,7 +168,7 @@ onBeforeUnmount(() => {
                   {{ infoText }}
                 </p>
 
-                <div v-if="activeMapsHref || whatsappHref" class="mt-8 flex flex-wrap justify-center gap-4">
+                <div v-if="activeMapsHref || activeWhatsappHref" class="mt-8 flex flex-wrap justify-center gap-4">
                   <a
                     v-if="activeMapsHref"
                     class="inline-flex items-center gap-3 rounded-full bg-[#2f4aa3] px-7 py-3 text-white font-semibold shadow-lg hover:brightness-110 transition"
@@ -170,9 +180,9 @@ onBeforeUnmount(() => {
                     <span>Google Maps</span>
                   </a>
                   <a
-                    v-if="whatsappHref"
+                    v-if="activeWhatsappHref"
                     class="inline-flex items-center gap-3 rounded-full bg-[#2f4aa3] px-7 py-3 text-white font-semibold shadow-lg hover:brightness-110 transition"
-                    :href="whatsappHref"
+                    :href="activeWhatsappHref"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

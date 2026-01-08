@@ -13,7 +13,18 @@ interface TimelineItem {
 
 const timelineRef = ref<HTMLElement | null>(null)
 const hoveredItem = ref<string | null>(null)
-const tooltipPosition = ref({ x: 0, y: 0 })
+const tooltipRef = ref<HTMLElement | null>(null)
+const tooltipVisible = ref(false)
+const tooltipStyles = ref<Record<string, string>>({
+  left: '0px',
+  top: '0px',
+  maxWidth: 'min(320px, calc(100vw - 24px))',
+})
+const tooltipArrowStyles = ref<Record<string, string>>({
+  left: '50%',
+})
+const tooltipArrowClass = ref('tooltip-arrow tooltip-arrow--bottom')
+const lastTargetEl = ref<HTMLElement | null>(null)
 
 const timelineItems = computed<TimelineItem[]>(() => [
   {
@@ -116,17 +127,96 @@ const scrollRight = () => {
 
 const handleMouseEnter = (year: string, event: MouseEvent) => {
   hoveredItem.value = year
+  tooltipVisible.value = false
   const target = event.currentTarget as HTMLElement
-  const rect = target.getBoundingClientRect()
-  tooltipPosition.value = {
-    x: rect.left + rect.width / 2,
-    y: rect.top,
-  }
+  const anchor = target.querySelector('[data-tooltip-anchor]') as HTMLElement | null
+  lastTargetEl.value = anchor ?? target
+  nextTick(() => {
+    requestAnimationFrame(updateTooltipPosition)
+  })
 }
 
 const handleMouseLeave = () => {
   hoveredItem.value = null
+  tooltipVisible.value = false
 }
+
+const setTooltipRef = (el: HTMLElement | null) => {
+  tooltipRef.value = el
+  if (!el) return
+  requestAnimationFrame(updateTooltipPosition)
+}
+
+const updateTooltipPosition = () => {
+  if (!lastTargetEl.value || !tooltipRef.value) return
+  const rect = lastTargetEl.value.getBoundingClientRect()
+  const tooltipRect = tooltipRef.value.getBoundingClientRect()
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+  const padding = 12
+  const gap = 12
+
+  const centerX = rect.left + rect.width / 2
+  let placement: 'top' | 'bottom' = 'top'
+
+  const spaceTop = rect.top - padding
+  const spaceBottom = viewportHeight - rect.bottom - padding
+  if (spaceTop < tooltipRect.height + gap && spaceBottom > spaceTop) {
+    placement = 'bottom'
+  }
+
+  let top = placement === 'bottom'
+    ? rect.bottom + gap
+    : rect.top - gap - tooltipRect.height
+
+  const minTop = padding
+  const maxTop = viewportHeight - padding - tooltipRect.height
+  if (maxTop < minTop) {
+    top = minTop
+  } else {
+    top = Math.min(Math.max(top, minTop), maxTop)
+  }
+
+  tooltipArrowClass.value = placement === 'bottom'
+    ? 'tooltip-arrow tooltip-arrow--top'
+    : 'tooltip-arrow tooltip-arrow--bottom'
+
+  let left = centerX - tooltipRect.width / 2
+  const minLeft = padding
+  const maxLeft = viewportWidth - padding - tooltipRect.width
+  if (maxLeft < minLeft) {
+    left = minLeft
+  } else {
+    left = Math.min(Math.max(left, minLeft), maxLeft)
+  }
+
+  const arrowMin = 12
+  const arrowMax = Math.max(tooltipRect.width - 12, arrowMin)
+  const arrowLeft = Math.min(Math.max(centerX - left, arrowMin), arrowMax)
+
+  tooltipStyles.value = {
+    left: `${left}px`,
+    top: `${top}px`,
+    maxWidth: 'min(320px, calc(100vw - 24px))',
+  }
+  tooltipArrowStyles.value = {
+    left: `${arrowLeft}px`,
+    transform: 'translateX(-50%)',
+  }
+  tooltipVisible.value = true
+}
+
+onMounted(() => {
+  window.addEventListener('resize', updateTooltipPosition)
+  window.addEventListener('scroll', updateTooltipPosition, true)
+  timelineRef.value?.addEventListener('scroll', updateTooltipPosition, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateTooltipPosition)
+  window.removeEventListener('scroll', updateTooltipPosition, true)
+  timelineRef.value?.removeEventListener('scroll', updateTooltipPosition)
+})
 
 const getIconClass = (icon: string): string => {
   const icons: Record<string, string> = {
@@ -173,6 +263,7 @@ const getIconClass = (icon: string): string => {
               :key="item.year"
               class="relative flex flex-col items-center group"
               @mouseenter="handleMouseEnter(item.year, $event)"
+              @mousemove="updateTooltipPosition"
               @mouseleave="handleMouseLeave"
             >
               <!-- Year Label -->
@@ -194,6 +285,7 @@ const getIconClass = (icon: string): string => {
 
                 <!-- Icon Circle with white ring -->
                 <div
+                  data-tooltip-anchor
                   class="relative z-10 w-[56px] h-[56px] md:w-[64px] md:h-[64px] rounded-full bg-white p-[3px] cursor-pointer transition-transform hover:scale-110"
                 >
                   <div class="w-full h-full rounded-full bg-[#f6993c] flex items-center justify-center">
@@ -223,17 +315,18 @@ const getIconClass = (icon: string): string => {
                 <Transition name="tooltip">
                   <div
                     v-if="hoveredItem === item.year"
+                    :ref="setTooltipRef"
                     class="fixed z-[9999] bg-[#1a1a1a] text-white rounded-xl p-4 md:p-5 shadow-2xl max-w-[320px] md:max-w-[380px]"
-                    :style="{
-                      left: `${tooltipPosition.x}px`,
-                      top: `${tooltipPosition.y - 20}px`,
-                      transform: 'translate(-50%, -100%)',
-                    }"
+                    :style="{ ...tooltipStyles, visibility: tooltipVisible ? 'visible' : 'hidden' }"
                   >
                     <div class="text-sm text-gray-400 mb-2">{{ item.detailTitle }}</div>
                     <p class="text-sm leading-relaxed">{{ item.detailDesc }}</p>
                     <!-- Arrow -->
-                    <div class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-4 bg-[#1a1a1a] rotate-45" />
+                    <span
+                      :class="tooltipArrowClass"
+                      :style="tooltipArrowStyles"
+                      aria-hidden="true"
+                    />
                   </div>
                 </Transition>
               </Teleport>
@@ -275,6 +368,24 @@ const getIconClass = (icon: string): string => {
 .tooltip-enter-from,
 .tooltip-leave-to {
   opacity: 0;
-  transform: translate(-50%, -90%);
+  transform: translateY(8px);
+}
+
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.tooltip-arrow--top {
+  top: -10px;
+  border-bottom: 10px solid #1a1a1a;
+}
+
+.tooltip-arrow--bottom {
+  bottom: -10px;
+  border-top: 10px solid #1a1a1a;
 }
 </style>
