@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// import behindRight from '~/assets/images/produk/produk-behind-right.png'
-// import behindLeft from '~/assets/images/produk/produk-behind-left.jpg'
-// import topRight from '~/assets/images/produk/behind-1.jpg'
-// import topLeft from '~/assets/images/produk/front-1.jpg'
+// import behindRight from '/images/produk/produk-behind-right.png'
+// import behindLeft from '/images/produk/produk-behind-left.jpg'
+// import topRight from '/images/produk/behind-1.jpg'
+// import topLeft from '/images/produk/front-1.jpg'
 
 interface Props {
   title: string
@@ -61,7 +61,7 @@ const topImage = computed(() => props.stackTopImage)
         <div class="relative aspect-[4/3] w-full">
           <!-- Base image -->
           <div class="absolute inset-0 overflow-hidden rounded-[20px] bg-white shadow-xl">
-            <img :src="baseImage" :alt="imageAlt" class="h-full w-full object-cover" loading="lazy" />
+            <NuxtImg :src="baseImage" :alt="imageAlt" class="h-full w-full object-cover" loading="lazy" />
           </div>
 
           <!-- Top image (offset left/right depending on index) -->
@@ -70,7 +70,7 @@ const topImage = computed(() => props.stackTopImage)
               group-hover:-translate-y-[52%] group-hover:scale-[1.03]"
             :class="isTopRight ? 'right-0 translate-x-[10px]' : 'left-0 -translate-x-[10px]'"
           >
-            <img :src="topImage" alt="" class="h-full w-full object-cover" loading="lazy" />
+            <NuxtImg :src="topImage" alt="" class="h-full w-full object-cover" loading="lazy" />
           </div>
         </div>
       </div>

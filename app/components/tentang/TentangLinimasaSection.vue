@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import lineConnector from '~/assets/images/Line.png'
-
+const lineConnector = '/images/Line.png'
 const { t } = useI18n()
 
 interface TimelineItem {
@@ -274,7 +273,7 @@ const getIconClass = (icon: string): string => {
               <!-- Timeline Node with Line Connector -->
               <div class="relative flex items-center">
                 <!-- Line Connector Before (except first) -->
-                <img
+                <NuxtImg
                   :src="lineConnector"
                   alt=""
                   :class="[
@@ -294,7 +293,7 @@ const getIconClass = (icon: string): string => {
                 </div>
 
                 <!-- Line Connector After (except last) -->
-                <img
+                <NuxtImg
                   :src="lineConnector"
                   alt=""
                   :class="[

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { KarirJob } from '~/utils/karirData'
-import logoJps from '~/assets/images/logo-jps.png'
-
+const logoJps = '/images/logo-jps.png'
 const { t } = useI18n()
 
 interface Props {

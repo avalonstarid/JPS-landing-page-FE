@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useTestimonialStore } from '~/stores/testimonial'
-import bgMitra from '~/assets/images/beranda/testimoni.jpg'
+const bgMitra = '/images/beranda/testimoni.jpg'
+const gradientImage = '/images/gradient.png'
 const { t } = useI18n()
 
 const testimonialStore = useTestimonialStore()
@@ -23,7 +24,7 @@ const goToNext = () => {
 <template>
   <!-- Gradient Separator -->
   <div class="w-full absolute z-10">
-    <img src="~/assets/images/gradient.png" alt="" class="w-full h-[20rem]" loading="lazy" />
+    <NuxtImg :src="gradientImage" alt="" class="w-full h-[20rem]" loading="lazy" />
   </div>
   <section
     id="testimoni"
@@ -32,7 +33,7 @@ const goToNext = () => {
   >
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
-      <img
+      <NuxtImg
         :src="bgMitra"
         alt="Latar belakang peternakan"
         class="w-full h-full object-cover"

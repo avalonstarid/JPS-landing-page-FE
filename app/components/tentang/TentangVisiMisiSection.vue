@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import visiMisiImage from '~/assets/images/tentang/visi-misi.jpg'
-
+const visiMisiImage = '/images/tentang/visi-misi.jpg'
 const { t } = useI18n()
 
 const missions = [
@@ -86,7 +85,7 @@ const missions = [
 
         <!-- Right Side: Image - 4 columns -->
         <div class="lg:col-span-3 flex justify-center lg:justify-end duration-300 hover:-translate-y-2">
-          <img
+          <NuxtImg
             :src="visiMisiImage"
             :alt="t('tentangPage.visiMisi.imageAlt')"
             class="rounded-2xl shadow-lg w-full max-w-[320px] h-full object-cover aspect-[3/4]"

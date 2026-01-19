@@ -120,7 +120,7 @@ onBeforeUnmount(() => {
     @mousedown="handleMouseDown"
     @wheel="handleWheel"
   >
-    <img
+    <NuxtImg
       :src="props.src"
       :alt="props.alt"
       class="w-full h-auto transition-transform duration-200 origin-center"

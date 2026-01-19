@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/beranda/hero-section.jpg'
-
+const heroImage = '/images/beranda/hero-section.jpg'
 const { t, tm, rt } = useI18n()
 const activeWordIndex = ref(0)
 
@@ -37,7 +36,7 @@ onBeforeUnmount(() => {
   >
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
-      <img
+      <NuxtImg
         :src="heroImage"
         :alt="t('hero.imageAlt')"
         class="w-full h-full object-cover"

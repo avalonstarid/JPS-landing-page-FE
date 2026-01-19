@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import komisarisUtamaPhoto from '~/assets/images/tentang/komisaris-utama.png'
-import komisarisPhoto from '~/assets/images/tentang/komisaris.png'
-import direkturUtamaPhoto from '~/assets/images/tentang/direktur-utama.png'
-
+const komisarisUtamaPhoto = '/images/tentang/komisaris-utama.png'
+const komisarisPhoto = '/images/tentang/komisaris.png'
+const direkturUtamaPhoto = '/images/tentang/direktur-utama.png'
 const { t } = useI18n()
 
 interface Person {
@@ -89,7 +88,7 @@ const setActiveTab = (key: string) => {
               class="person-card flex flex-col items-center bg-white rounded-3xl shadow-lg overflow-hidden w-[270px]"
             >
               <div class="relative w-full h-[260px] bg-gradient-to-b from-[#2f428f] via-[#4056a6] to-[#d9a873]">
-                <img
+                <NuxtImg
                   :src="person.photo"
                   :alt="person.name"
                   class="absolute inset-x-0 bottom-0 w-full h-full object-cover object-top"

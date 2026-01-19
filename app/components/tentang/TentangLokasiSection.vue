@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import backgroundImage from '~/assets/images/tentang/hero.jpg'
-import pembibitanImage from '~/assets/images/tentang/peternakan-pembibitan.jpg'
-import broilerImage from '~/assets/images/tentang/peternakan-broiler.jpg'
-import petelurImage from '~/assets/images/tentang/peternakan-petelur.jpg'
-import penetasanImage from '~/assets/images/tentang/penetasan-telur.jpg'
-import rpaImage from '~/assets/images/tentang/rumah-ayam-potong.jpg'
-import modalMain from '~/assets/images/tentang/modal-lokasi-main.jpg'
-import modalThumb1 from '~/assets/images/tentang/modal-lokasi-thumbnail-1.jpg'
-import modalThumb2 from '~/assets/images/tentang/modal-lokasi-thumbnail-2.jpg'
-import modalThumb3 from '~/assets/images/tentang/modal-lokasi-thumbnail-3.jpg'
-
+const backgroundImage = '/images/tentang/hero.jpg'
+const pembibitanImage = '/images/tentang/peternakan-pembibitan.jpg'
+const broilerImage = '/images/tentang/peternakan-broiler.jpg'
+const petelurImage = '/images/tentang/peternakan-petelur.jpg'
+const penetasanImage = '/images/tentang/penetasan-telur.jpg'
+const rpaImage = '/images/tentang/rumah-ayam-potong.jpg'
+const modalMain = '/images/tentang/modal-lokasi-main.jpg'
+const modalThumb1 = '/images/tentang/modal-lokasi-thumbnail-1.jpg'
+const modalThumb2 = '/images/tentang/modal-lokasi-thumbnail-2.jpg'
+const modalThumb3 = '/images/tentang/modal-lokasi-thumbnail-3.jpg'
 const { t } = useI18n()
 
 interface LocationItem {

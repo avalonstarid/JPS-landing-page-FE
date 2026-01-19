@@ -1,8 +1,8 @@
-﻿import hero from '~/assets/images/berita/9872d0a0d2ef28751fd00c086e88b73755d4965f.jpg'
-import announce1 from '~/assets/images/berita/55959f0ca16246400a14b5d0cca9cc4307d77972.jpg'
-import announce2 from '~/assets/images/berita/60faff34dda2aa3e5d32fbf3577e7ff171007a1e.jpg'
-import announce3 from '~/assets/images/berita/5185210dd6882a42d78b993139d925e1ca8738f3.jpg'
-import announcer from '~/assets/images/logo-jps.png'
+﻿import hero from '/images/berita/9872d0a0d2ef28751fd00c086e88b73755d4965f.jpg'
+const announce1 = '/images/berita/55959f0ca16246400a14b5d0cca9cc4307d77972.jpg'
+const announce2 = '/images/berita/60faff34dda2aa3e5d32fbf3577e7ff171007a1e.jpg'
+const announce3 = '/images/berita/5185210dd6882a42d78b993139d925e1ca8738f3.jpg'
+const announcer = '/images/logo-jps.png'
 import type { ContentBlock } from '~/utils/contentTypes'
 
 export interface PengumumanItem {

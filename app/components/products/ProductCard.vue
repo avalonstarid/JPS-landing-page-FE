@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Product } from '~/stores/product'
-import bgCard from '~/assets/images/Background-card.png'
+const bgCard = '/images/Background-card.png'
 const { t } = useI18n()
 
 interface Props {
@@ -17,7 +17,7 @@ defineProps<Props>()
   >
     <!-- Image Container -->
     <div class="flex justify-center">
-      <img
+      <NuxtImg
         :src="product.imageUrl"
         :alt="t(product.nameKey)"
         class="h-32 md:h-40 object-contain drop-shadow-xl -mt-24"

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/tentang/hero.jpg'
-
+const heroImage = '/images/tentang/hero.jpg'
 const { t, locale } = useI18n()
 
 const stats = [
@@ -70,7 +69,7 @@ watch(locale, () => {
 <template>
   <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center">
     <!-- Background Image -->
-    <img
+    <NuxtImg
       :src="heroImage"
       :alt="t('tentangPage.hero.imageAlt')"
       class="absolute inset-0 w-full h-full object-cover"

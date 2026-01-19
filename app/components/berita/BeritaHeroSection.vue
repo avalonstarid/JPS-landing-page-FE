@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logoJps from '~/assets/images/logo-jps.png'
+const logoJps = '/images/logo-jps.png'
 import { popularLayout } from '~/utils/beritaData'
 
 const { t } = useI18n()
@@ -26,7 +26,7 @@ const goNext = () => {
 <template>
   <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end" aria-label="Berita hero section">
     <div class="absolute inset-0">
-      <img
+      <NuxtImg
         :src="activeItem.image"
         :alt="t('beritaPage.hero.imageAlt')"
         class="w-full h-full object-cover"
@@ -53,7 +53,7 @@ const goNext = () => {
             </h1>
             <div class="h-px bg-white/60 w-full max-w-3xl" />
             <div class="flex flex-wrap items-center gap-3 text-white/90">
-              <img :src="logoJps" alt="PT Janu Putra Sejahtera" class="w-9 h-9 rounded-full object-cover" />
+              <NuxtImg :src="logoJps" alt="PT Janu Putra Sejahtera" class="w-9 h-9 rounded-full object-cover" />
               <span class="font-semibold text-white">{{ activeItem.company }}</span>
               <span class="text-white/70">•</span>
               <span class="text-white/80">{{ activeItem.timeAgo }}</span>

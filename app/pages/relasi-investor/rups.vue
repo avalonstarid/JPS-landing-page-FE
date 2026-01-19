@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import coverImage from '~/assets/images/book-laporan.jpg'
+const coverImage = '/images/book-laporan.jpg'
 import announcement2023 from '~/assets/laporan/RUPS/PENGUMUMAN RUPST AYAM.f481fac048c678b66647.pdf'
 import announcement2024 from '~/assets/laporan/RUPS/PENGUMUMAN RUPST AYAM_Bahasa.d40ff18e76641c42a188.pdf'
 import minutesPubex from '~/assets/laporan/RUPS/Risalah Pubex PT Janu Putra Sejahtera Tbk_corsec.b4aafa0e8303c8bea3d5.pdf'

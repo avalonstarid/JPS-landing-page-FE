@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import UiCard from '~/components/ui/Card.vue'
-import logoJps from '~/assets/images/logo-jps.png'
+const logoJps = '/images/logo-jps.png'
 import { latestLayout } from '~/utils/beritaData'
 
 const { t } = useI18n()
@@ -41,7 +41,7 @@ const detailPath = (id: string) => `/berita/detail/${id}`
 
           <NuxtLink :to="detailPath(item.id)" class="space-y-1 px-1 block">
             <div class="flex items-center gap-3 text-sm text-[#3d4f92]">
-              <img :src="logoJps" alt="Logo JPS" class="w-7 h-7 rounded-full object-cover" />
+              <NuxtImg :src="logoJps" alt="Logo JPS" class="w-7 h-7 rounded-full object-cover" />
               <div>
                 <div class="font-semibold text-[#3d4f92]">{{ item.company }}</div>
                 <div class="text-xs text-gray-600">{{ item.timeAgo }}</div>

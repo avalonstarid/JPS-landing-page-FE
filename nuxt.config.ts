@@ -8,14 +8,21 @@ export default defineNuxtConfig({
     public: '../public',
   },
 
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n', '@nuxtjs/robots', '@nuxtjs/sitemap'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+    '@nuxtjs/i18n',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap',
+    '@nuxt/image',
+  ],
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api-panel-dev.januputrasejahtera.com',
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://januputrasejahtera.com',
       siteName: process.env.NUXT_PUBLIC_SITE_NAME || 'PT Janu Putra Sejahtera',
-      gtagId: process.env.NUXT_PUBLIC_GTAG_ID || '',
+      gtagId: process.env.NUXT_PUBLIC_GTAG_ID || 'G-Z093JDLSFF',
     },
   },
 
@@ -109,5 +116,9 @@ export default defineNuxtConfig({
 
   sitemap: {
     gzip: true,
+  },
+
+  image: {
+    provider: 'ipx',
   },
 })

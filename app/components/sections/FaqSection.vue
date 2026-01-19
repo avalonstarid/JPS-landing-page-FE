@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useFaqStore } from '~/stores/faq'
+const faqImage = '/images/beranda/faq.jpg'
 const { t } = useI18n()
 
 const faqStore = useFaqStore()
@@ -64,8 +65,8 @@ onMounted(async () => {
 
         <!-- Right: Image -->
         <div class="duration-300 hover:-translate-y-2 relative rounded-2xl overflow-hidden shadow-lg hidden lg:block">
-          <img
-            src="~/assets/images/beranda/faq.jpg"
+          <NuxtImg
+            :src="faqImage"
             :alt="t('faq.imageAlt')"
             class="w-full h-full object-cover aspect-[4/3]"
             loading="lazy"

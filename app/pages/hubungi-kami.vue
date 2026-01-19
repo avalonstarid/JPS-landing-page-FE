@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/hubungi-kami/hubungi-kami.jpg'
-import whiteCardImage from '~/assets/images/white.png'
+const heroImage = '/images/hubungi-kami/hubungi-kami.jpg'
+const whiteCardImage = '/images/white.png'
 import UiCard from '~/components/ui/Card.vue'
-import instagramIcon from '~/components/hubungi-kami/instagram.png'
-import linkedinIcon from '~/components/hubungi-kami/linkedin.png'
-import gmailIcon from '~/components/hubungi-kami/gmail.png'
-import whatsappIcon from '~/components/hubungi-kami/whatsapp.png'
-
+const instagramIcon = '/images/hubungi-kami/instagram.png'
+const linkedinIcon = '/images/hubungi-kami/linkedin.png'
+const gmailIcon = '/images/hubungi-kami/gmail.png'
+const whatsappIcon = '/images/hubungi-kami/whatsapp.png'
 const { t } = useI18n()
 
 useHead(() => ({
@@ -101,7 +100,7 @@ const contactCards = computed(() => [
       :aria-label="t('contactPage.hero.title')"
     >
       <div class="absolute inset-0">
-        <img :src="heroImage" :alt="t('contactPage.hero.title')" class="w-full h-full object-cover" loading="eager" />
+        <NuxtImg :src="heroImage" :alt="t('contactPage.hero.title')" class="w-full h-full object-cover" loading="eager" />
         <div class="absolute inset-0 bg-black/45" />
       </div>
 

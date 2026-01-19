@@ -67,7 +67,7 @@ watch(
       class="absolute rounded-3xl overflow-hidden shadow-xl stacked-card"
       :class="getPositionClass(getRoleIndex(index))"
     >
-      <img
+      <NuxtImg
         :src="src"
         :alt="alts[index] || ''"
         class="h-full w-full object-cover"

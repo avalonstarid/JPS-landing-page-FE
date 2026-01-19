@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import heroImage from '~/assets/images/bisnis/bisnis-section.png'
-
+const heroImage = '/images/bisnis/bisnis-section.png'
 const { t } = useI18n()
 </script>
 
@@ -10,7 +9,7 @@ const { t } = useI18n()
     aria-label="Lini Bisnis hero section"
   >
     <div class="absolute inset-0">
-      <img
+      <NuxtImg
         :src="heroImage"
         :alt="t('liniBisnisPage.hero.imageAlt')"
         class="w-full h-full object-cover"

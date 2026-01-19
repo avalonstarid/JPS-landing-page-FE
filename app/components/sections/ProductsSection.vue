@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useProductStore } from '~/stores/product'
-import bgCta from '~/assets/images/Background-2-card.png'
+const bgCta = '/images/Background-2-card.png'
 const { t } = useI18n()
 
 const productStore = useProductStore()

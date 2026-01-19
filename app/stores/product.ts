@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
-import imgParentStock from '~/assets/images/jsp-produk/parent-stock.png'
-import imgFinalStock from '~/assets/images/jsp-produk/final-stock.png'
-import imgLiveChicken from '~/assets/images/jsp-produk/ayam-hidup.png'
-import imgEgg from '~/assets/images/jsp-produk/telur.png'
-import imgCarcass from '~/assets/images/jsp-produk/karkas-ayam.png'
-
+const imgParentStock = '/images/jsp-produk/parent-stock.png'
+const imgFinalStock = '/images/jsp-produk/final-stock.png'
+const imgLiveChicken = '/images/jsp-produk/ayam-hidup.png'
+const imgEgg = '/images/jsp-produk/telur.png'
+const imgCarcass = '/images/jsp-produk/karkas-ayam.png'
 /**
  * Product interface representing a product item
  */

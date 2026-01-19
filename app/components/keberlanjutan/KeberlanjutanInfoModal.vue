@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import ZoomableImagePanel from '~/components/ui/ZoomableImagePanel.vue'
-import strukturImage from '~/assets/images/tentang/struktur-oraganisasi-1.png'
-import strategiImageOne from '~/assets/images/pendekatan/strategi-kebijkan-1.jpg'
-import strategiImageTwo from '~/assets/images/pendekatan/strategi-kebijkan-2.jpg'
-import inisiatifImage from '~/assets/images/pendekatan/inisiatif-dan-pencapaian.png'
-
+const strukturImage = '/images/tentang/struktur-oraganisasi-1.png'
+const strategiImageOne = '/images/pendekatan/strategi-kebijkan-1.jpg'
+const strategiImageTwo = '/images/pendekatan/strategi-kebijkan-2.jpg'
+const inisiatifImage = '/images/pendekatan/inisiatif-dan-pencapaian.png'
 type Variant = 'tataKelola' | 'strategiKebijakan' | 'inisiatif'
 
 const { t, tm, rt } = useI18n()
@@ -111,11 +110,11 @@ const kebijakanList = computed(() => tm('keberlanjutanPage.modal.kebijakan.list'
             <div v-else-if="props.variant === 'inisiatif'" class="space-y-5 text-sm md:text-base text-[#4b5563] leading-relaxed">
               <p>{{ t('keberlanjutanPage.modal.inisiatif.intro1') }}</p>
               <p>{{ t('keberlanjutanPage.modal.inisiatif.intro2') }}</p>
-              <img
+              <NuxtImg
                 :src="inisiatifImage"
                 :alt="t('keberlanjutanPage.modal.inisiatif.imageAlt')"
                 class="rounded-2xl w-full object-cover"
-              >
+              />
             </div>
 
             <div v-else class="space-y-8">
@@ -129,19 +128,19 @@ const kebijakanList = computed(() => tm('keberlanjutanPage.modal.kebijakan.list'
                   <ul class="list-disc pl-5 space-y-1">
                     <li v-for="(item, index) in strategiList" :key="`strategi-${index}`">{{ rt(item) }}</li>
                   </ul>
-                  <img
+                  <NuxtImg
                     :src="strategiImageTwo"
                     :alt="t('keberlanjutanPage.modal.strategi.imageAltTwo')"
                     class="rounded-2xl w-full object-cover"
-                  >
+                  />
                 </div>
 
                 <div class="space-y-4 text-sm md:text-base text-[#4b5563] leading-relaxed">
-                  <img
+                  <NuxtImg
                     :src="strategiImageOne"
                     :alt="t('keberlanjutanPage.modal.strategi.imageAltOne')"
                     class="rounded-2xl w-full object-cover"
-                  >
+                  />
                   <h3 class="text-base md:text-lg font-semibold text-[#3d4f92]">
                     {{ t('keberlanjutanPage.modal.kebijakan.heading') }}
                   </h3>

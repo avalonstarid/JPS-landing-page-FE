@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import aboutImage from '~/assets/images/karir/karir.jpg'
-
+const aboutImage = '/images/karir/karir.jpg'
 const { t } = useI18n()
 </script>
 
@@ -11,7 +10,7 @@ const { t } = useI18n()
         <!-- Image -->
         <div class="order-2 lg:order-1">
           <div class="rounded-3xl overflow-hidden shadow-2xl shadow-black/10">
-            <img
+            <NuxtImg
               :src="aboutImage"
               alt="Tim PT Janu Putra Sejahtera"
               class="w-full h-auto object-cover"

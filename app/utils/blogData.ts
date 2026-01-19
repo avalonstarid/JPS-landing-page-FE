@@ -1,7 +1,7 @@
-﻿import beritaImage1 from '~/assets/images/berita/2fa79353f2c6d11db6ebf3c735e26c6463ee7010.jpg'
-import beritaImage2 from '~/assets/images/berita/5185210dd6882a42d78b993139d925e1ca8738f3.jpg'
-import beritaImage3 from '~/assets/images/berita/55959f0ca16246400a14b5d0cca9cc4307d77972.jpg'
-import beritaImage4 from '~/assets/images/berita/60faff34dda2aa3e5d32fbf3577e7ff171007a1e.jpg'
+﻿import beritaImage1 from '/images/berita/2fa79353f2c6d11db6ebf3c735e26c6463ee7010.jpg'
+const beritaImage2 = '/images/berita/5185210dd6882a42d78b993139d925e1ca8738f3.jpg'
+const beritaImage3 = '/images/berita/55959f0ca16246400a14b5d0cca9cc4307d77972.jpg'
+const beritaImage4 = '/images/berita/60faff34dda2aa3e5d32fbf3577e7ff171007a1e.jpg'
 import type { ContentBlock } from '~/utils/contentTypes'
 
 export interface BlogArticle {

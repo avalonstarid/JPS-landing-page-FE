@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useValueStore } from '~/stores/value'
+const valuesImage = '/images/beranda/standar.jpg'
 const { t } = useI18n()
 
 const valueStore = useValueStore()
@@ -39,8 +40,8 @@ onMounted(async () => {
         <!-- Left: Image -->
         <div class="order-2 lg:order-1 h-full">
           <div class="duration-300 hover:-translate-y-2 rounded-[28px] overflow-hidden shadow-lg h-full">
-            <img
-              src="~/assets/images/beranda/standar.jpg"
+            <NuxtImg
+              :src="valuesImage"
               :alt="t('values.imageAlt')"
               class="h-full w-full object-cover"
               loading="lazy"

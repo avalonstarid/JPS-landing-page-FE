@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { karirJobs, type KarirJob } from '~/utils/karirData'
-import emptyImage from '~/assets/images/karir/karir-tidak-tersedia.png'
-import karirImage from '~/assets/images/karir/karir.jpg'
-
+const emptyImage = '/images/karir/karir-tidak-tersedia.png'
+const karirImage = '/images/karir/karir.jpg'
 const { t } = useI18n()
 
 const emit = defineEmits<{
@@ -222,7 +221,7 @@ const hasJobs = computed(() => karirJobs.length > 0)
       </div>
       <div v-else class="space-y-10">
         <div class="grid gap-8 lg:grid-cols-[280px_1fr] items-start">
-          <img
+          <NuxtImg
             :src="karirImage"
             :alt="t('karirPage.empty.imageAlt')"
             class="w-full rounded-2xl object-cover shadow-md"
@@ -241,7 +240,7 @@ const hasJobs = computed(() => karirJobs.length > 0)
         </div>
 
         <div class="relative bg-white rounded-2xl p-10 md:p-12 text-center shadow-lg min-h-[50vh]">
-          <img
+          <NuxtImg
             :src="emptyImage"
             :alt="t('karirPage.empty.emptyImageAlt')"
             class="mx-auto w-full lg:w-[900px] auto lg:absolute lg:mx-auto lg:right-0 lg:left-0 lg:top-[-140px]"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import coverImage from '~/assets/images/book-laporan.jpg'
+const coverImage = '/images/book-laporan.jpg'
 import annualReport2023 from '~/assets/laporan/Annual Report/AnnualReport2023-AYAM-att1.6c1341ede808f00950ca.pdf'
 import annualReport2024 from '~/assets/laporan/Annual Report/Annual Report AYAM 2024.4e6c1736ea6fba7e28d9.pdf'
 

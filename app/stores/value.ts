@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia'
-import iconKualitas from '~/assets/images/jps-standar-section/kualitas.png'
-import iconProfesionalisme from '~/assets/images/jps-standar-section/profesionalisme.png'
-import iconInovasi from '~/assets/images/jps-standar-section/inovasi.png'
-import iconLingkungan from '~/assets/images/jps-standar-section/lingkungan.png'
-import iconKesejahteraan from '~/assets/images/jps-standar-section/kesejahteraan.png'
-import iconSosial from '~/assets/images/jps-standar-section/sosial.png'
-
+const iconKualitas = '/images/jps-standar-section/kualitas.png'
+const iconProfesionalisme = '/images/jps-standar-section/profesionalisme.png'
+const iconInovasi = '/images/jps-standar-section/inovasi.png'
+const iconLingkungan = '/images/jps-standar-section/lingkungan.png'
+const iconKesejahteraan = '/images/jps-standar-section/kesejahteraan.png'
+const iconSosial = '/images/jps-standar-section/sosial.png'
 /**
  * CompanyValue interface representing company values/features
  */

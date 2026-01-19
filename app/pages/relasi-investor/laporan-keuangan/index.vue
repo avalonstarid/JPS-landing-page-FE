@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logoJps from '~/assets/images/logo-jps.png'
+const logoJps = '/images/logo-jps.png'
 import reportMar2024 from '~/assets/laporan/Laporan Keuangan/2. LK 31 Maret 2024 unaudited.c1b0ad5cf7e129a678e5.pdf'
 import reportJun2024 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 30 Juni 2024.62585cfe0536cedecb10.pdf'
 import reportDec2024 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 31 Desember 2024.8b6b72cfdbe5b4454896.pdf'
@@ -142,7 +142,7 @@ const onBarLeave = () => {
             <div class="space-y-1">
               <p class="text-lg font-semibold text-[#1f2937]">Grafik Keuangan</p>
               <div class="flex items-center gap-2 text-xs text-gray-500">
-                <img :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
                 <span>PT Janu Putra Sejahtera</span>
               </div>
             </div>

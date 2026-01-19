@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { blogLatest } from '~/utils/blogData'
 import UiCard from '~/components/ui/Card.vue'
-import logoJps from '~/assets/images/logo-jps.png'
-
+const logoJps = '/images/logo-jps.png'
 const { t } = useI18n()
 
 const featured = computed(() => blogLatest[0])
@@ -25,7 +24,7 @@ useHead(() => ({
     <!-- Hero -->
     <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
-        <img :src="featured?.image" :alt="featured?.title" class="w-full h-full object-cover" />
+        <NuxtImg :src="featured?.image" :alt="featured?.title" class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
       <div class="relative z-10 container-main pb-16 md:pb-20 lg:pb-24 space-y-4 w-full">
@@ -69,11 +68,11 @@ useHead(() => ({
               :to="`/blog/detail/${item.id}`"
               class="flex items-start gap-3 rounded-2xl p-3 transition"
             >
-              <img :src="item.image" :alt="item.title" class="w-20 h-20 rounded-2xl object-cover flex-shrink-0 shadow" />
+              <NuxtImg :src="item.image" :alt="item.title" class="w-20 h-20 rounded-2xl object-cover flex-shrink-0 shadow" />
               <div class="space-y-2 flex-1">
                 <p class="text-base font-semibold text-[#1f2937] leading-snug">{{ item.title }}</p>
                 <div class="flex items-center gap-2 text-xs text-gray-600">
-                  <img :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                  <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
                   <span class="font-medium text-[#3d4f92]">{{ item.company }}</span>
                 </div>
               </div>
@@ -112,7 +111,7 @@ useHead(() => ({
 
             <NuxtLink :to="`/blog/detail/${item.id}`" class="space-y-2 block">
               <p class="text-xs text-gray-600 flex items-center gap-2">
-                <img :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
                 <span class="font-semibold text-[#3d4f92]">{{ item.company }}</span>
                 <span class="text-gray-400">•</span>
                 <span>{{ item.timeAgo }}</span>

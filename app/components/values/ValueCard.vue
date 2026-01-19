@@ -15,7 +15,7 @@ defineProps<Props>()
   >
     <!-- Icon -->
     <div class="mb-4">
-      <img :src="value.icon" :alt="t(value.titleKey)" class="h-12 w-12 object-contain" />
+      <NuxtImg :src="value.icon" :alt="t(value.titleKey)" class="h-12 w-12 object-contain" />
     </div>
 
     <!-- Title -->

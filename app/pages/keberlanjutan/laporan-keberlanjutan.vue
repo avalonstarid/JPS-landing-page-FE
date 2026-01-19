@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import coverImage from '~/assets/images/book-laporan.jpg'
-import heroImage from '~/components/tinjauan/tinjauan-section.png'
+const coverImage = '/images/book-laporan.jpg'
+const heroImage = '/images/tinjauan/tinjauan-section.png'
 import InvestorDownloadPill from '~/components/investor/InvestorDownloadPill.vue'
 import sustainability2024 from '~/assets/laporan/sustainability/Laporan Keberlanjutan 2024.pdf'
 import sustainability2023 from '~/assets/laporan/sustainability/Laporan Keberlanjutan 2023.pdf'
@@ -23,7 +23,7 @@ useHead(() => ({
   <div class="bg-[#fdeee0]">
     <section class="relative min-h-[55vh] flex items-center justify-center overflow-hidden" aria-label="Keberlanjutan">
       <div class="absolute inset-0">
-        <img :src="heroImage" alt="Keberlanjutan" class="h-full w-full object-cover" loading="eager" />
+        <NuxtImg :src="heroImage" alt="Keberlanjutan" class="h-full w-full object-cover" loading="eager" />
         <div class="absolute inset-0 bg-black/45" />
       </div>
       <div class="relative z-10 container-main py-16 text-center">
@@ -50,7 +50,7 @@ useHead(() => ({
           <div class="relative flex flex-col md:flex-row items-center justify-center gap-6 text-left lg:px-[8rem]">
             <div class="flex flex-col md:flex-row items-center gap-6">
               <div class="h-44 w-32 md:h-56 md:w-40 lg:min-h-[300px] lg:min-w-[300px] overflow-hidden rounded-2xl bg-white/12 shadow-[0_20px_45px_-25px_rgba(0,0,0,0.55)]">
-                <img :src="coverImage" :alt="featuredReport.title" class="h-full w-full object-cover" />
+                <NuxtImg :src="coverImage" :alt="featuredReport.title" class="h-full w-full object-cover" />
               </div>
               <div class="space-y-4">
                 <h3 class="text-3xl sm:text-4xl lg:text-[48px] font-bold leading-tight">

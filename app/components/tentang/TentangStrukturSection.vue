@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import strukturImage from '~/assets/images/tentang/struktur-oraganisasi-1.png'
+const strukturImage = '/images/tentang/struktur-oraganisasi-1.png'
 import ZoomableImagePanel from '~/components/ui/ZoomableImagePanel.vue'
 
 const { t } = useI18n()

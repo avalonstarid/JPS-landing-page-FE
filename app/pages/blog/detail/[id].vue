@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logoJps from '~/assets/images/logo-jps.png'
+const logoJps = '/images/logo-jps.png'
 import UiCard from '~/components/ui/Card.vue'
 import SharePanel from '~/components/ui/SharePanel.vue'
 import { blogLatest, findBlogById } from '~/utils/blogData'
@@ -58,7 +58,7 @@ useHead(() => ({
   <div class="bg-[#fdeee0] min-h-screen">
     <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
-        <img :src="article.image" :alt="article.title" class="w-full h-full object-cover" />
+        <NuxtImg :src="article.image" :alt="article.title" class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
     </section>
@@ -91,7 +91,7 @@ useHead(() => ({
       <div class="grid gap-10 lg:grid-cols-[1fr_290px]">
         <article class="space-y-6">
           <div class="flex flex-wrap items-center gap-3 text-sm text-gray-700">
-            <img :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+            <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
             <span class="font-semibold">{{ article.company }}</span>
             <span class="text-gray-400">•</span>
             <span>{{ article.timeAgo }}</span>
@@ -101,7 +101,7 @@ useHead(() => ({
             <template v-for="(block, idx) in article.content" :key="idx">
               <p v-if="block.type === 'paragraph'">{{ resolveText(block.text) }}</p>
               <figure v-else-if="block.type === 'image'" class="space-y-2">
-                <img
+                <NuxtImg
                   :src="block.src"
                   :alt="resolveText(block.alt)"
                   class="w-full aspect-video rounded-2xl object-cover"
@@ -148,7 +148,7 @@ useHead(() => ({
               />
               <div class="px-1 space-y-1">
                 <p class="text-xs text-gray-600 flex items-center gap-2">
-                  <img :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                  <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
                   <span class="font-medium text-[#3d4f92]">{{ item.company }}</span>
                   <span class="text-gray-400">•</span>
                   <span>{{ item.timeAgo }}</span>

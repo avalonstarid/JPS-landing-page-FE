@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import logoJps from '~/components/logo/main-logo.png'
-import flagId from '~/assets/images/flag/emojione_flag-for-indonesia.png'
-import flagEn from '~/assets/images/flag/circle-flags_uk.png'
-
+const logoJps = '/images/logo/main-logo.png'
+const flagId = '/images/flag/emojione_flag-for-indonesia.png'
+const flagEn = '/images/flag/circle-flags_uk.png'
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 const { t, locale, setLocale } = useI18n()
@@ -165,7 +164,7 @@ onUnmounted(() => {
           class="pointer-events-auto cursor-pointer"
           @click="openDropdown = null"
         >
-          <img :src="logoJps" alt="Logo JPS" class="h-10 w-auto max-w-[140px] object-contain" />
+          <NuxtImg :src="logoJps" alt="Logo JPS" class="h-10 w-auto max-w-[140px] object-contain" />
         </NuxtLink>
 
         <!-- Desktop Navigation -->
@@ -278,7 +277,7 @@ onUnmounted(() => {
                 :aria-pressed="currentLanguage === lang.label"
               >
                 <span>{{ lang.label }}</span>
-                <img
+                <NuxtImg
                   :src="lang.icon"
                   :alt="lang.alt"
                   class="h-5 w-5 rounded-full object-cover"
@@ -320,7 +319,7 @@ onUnmounted(() => {
               :aria-pressed="currentLanguage === lang.label"
               :aria-label="lang.label"
             >
-              <img :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
+              <NuxtImg :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
               <span>{{ lang.label }}</span>
             </button>
           </div>
@@ -450,7 +449,7 @@ onUnmounted(() => {
                     :class="currentLanguage === lang.label ? 'bg-[#f6993c] text-white' : 'bg-gray-100 text-[#1f2937]'"
                     @click="setLanguage(lang.code)"
                   >
-                    <img :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
+                    <NuxtImg :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
                     <span>{{ lang.label }}</span>
                   </button>
                 </div>

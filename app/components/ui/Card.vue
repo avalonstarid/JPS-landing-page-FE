@@ -29,7 +29,7 @@
             :class="iconUrl ? 'bg-transparent border-transparent h-[76px] w-[76px] min-w-[76px]' : (iconBgClass ?? 'bg-[#fdeee0]')"
             aria-hidden="true"
           >
-            <img
+            <NuxtImg
               v-if="iconUrl"
               :src="iconUrl"
               :alt="companyText"
@@ -89,14 +89,14 @@
       <!-- Text content positioned over the SVG -->
       <div class="relative z-10 flex h-full flex-col justify-end p-5 pb-6 text-white">
         <div v-if="showMeta" class="flex items-center gap-2 text-[11px] opacity-90 mb-2">
-          <img
+          <NuxtImg
             v-if="iconUrl"
             :src="iconUrl"
             :alt="companyText"
             class="w-6 h-6"
           />
           <i v-else-if="iconClass" class="text-xl leading-none" :class="iconClass" aria-hidden="true" />
-          <img
+          <NuxtImg
             v-else-if="avatarUrl"
             :src="avatarUrl"
             :alt="companyText"

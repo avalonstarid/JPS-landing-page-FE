@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import coverImage from '~/assets/images/book-laporan.jpg'
+const coverImage = '/images/book-laporan.jpg'
 import disclosureShort from '~/assets/laporan/Keterbukaan Informasi/[AYAM] Keterbukaan Informasi_short_041223.a061f70f4fc396b170dd.pdf'
 import disclosureFull from '~/assets/laporan/Keterbukaan Informasi/[AYAM] Keterbukaan Informasi_041223.e06bcfcdc321591563e0.pdf'
 import appraisalNgawis from '~/assets/laporan/Keterbukaan Informasi/[AYAM] Laporan Hasil Penilaian Aset Ngawis.895d6ad8daac5e09b08f.pdf'

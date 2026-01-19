@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import logoJps from '~/components/logo/logo-putih.png'
-
+const logoJps = '/images/logo/logo-putih.png'
 const { t } = useI18n()
 const currentYear = new Date().getFullYear()
 
@@ -91,7 +90,7 @@ const footerColumnsSecond = [
         <!-- Logo and Description -->
         <div class="lg:col-span-3 space-y-5">
           <div class="flex items-center gap-3">
-            <img :src="logoJps" :alt="t('footer.companyName')" class="h-10 w-auto" />
+            <NuxtImg :src="logoJps" :alt="t('footer.companyName')" class="h-10 w-auto" />
             <span class="font-semibold text-base">{{ t('footer.companyName') }}</span>
           </div>
           <p class="text-sm text-white/85 leading-relaxed">

@@ -135,13 +135,13 @@ onBeforeUnmount(() => {
                   @click="activeIndex = idx"
                   :aria-label="`Preview ${idx + 1}`"
                 >
-                  <img :src="src" alt="" class="h-full w-full object-cover" loading="lazy" />
+                  <NuxtImg :src="src" alt="" class="h-full w-full object-cover" loading="lazy" />
                 </button>
               </div>
 
               <div>
                 <div class="relative overflow-hidden rounded-[42px] bg-gray-100 aspect-[16/9]">
-                  <img v-if="activeSrc" :src="activeSrc" alt="" class="h-full w-full object-cover" />
+                  <NuxtImg v-if="activeSrc" :src="activeSrc" alt="" class="h-full w-full object-cover" />
                   <div v-else class="h-full w-full" />
 
                   <button

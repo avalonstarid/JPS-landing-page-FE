@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import ProdukItemCard from '~/components/produk/ProdukItemCard.vue'
-import front1 from '~/assets/images/produk/front-1.jpg'
-import front2 from '~/assets/images/produk/front-2.jpg'
-import front3 from '~/assets/images/produk/front-3.jpg'
-import front4 from '~/assets/images/produk/front-4.jpg'
-import front5 from '~/assets/images/produk/front-5.jpg'
-import behind1 from '~/assets/images/produk/behind-1.jpg'
-import behind2 from '~/assets/images/produk/behind-2.jpg'
-import behind3 from '~/assets/images/produk/behind-3.jpg'
-import behind4 from '~/assets/images/produk/behind-4.jpg'
-import behind5 from '~/assets/images/produk/behind-5.jpg'
-
+const front1 = '/images/produk/front-1.jpg'
+const front2 = '/images/produk/front-2.jpg'
+const front3 = '/images/produk/front-3.jpg'
+const front4 = '/images/produk/front-4.jpg'
+const front5 = '/images/produk/front-5.jpg'
+const behind1 = '/images/produk/behind-1.jpg'
+const behind2 = '/images/produk/behind-2.jpg'
+const behind3 = '/images/produk/behind-3.jpg'
+const behind4 = '/images/produk/behind-4.jpg'
+const behind5 = '/images/produk/behind-5.jpg'
 const { t } = useI18n()
 
 const stockItems = computed(() => [

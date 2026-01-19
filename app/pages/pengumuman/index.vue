@@ -8,7 +8,7 @@ const { t } = useI18n()
   <div class="bg-[#fdeee0] min-h-screen">
     <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
-        <img :src="pengumumanHero" alt="Pengumuman" class="w-full h-full object-cover" />
+        <NuxtImg :src="pengumumanHero" alt="Pengumuman" class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
       <div class="relative z-10 container-main pb-16 md:pb-20 lg:pb-24 space-y-3 w-full">
@@ -27,14 +27,14 @@ const { t } = useI18n()
           :to="`/pengumuman/detail/${item.id}`"
           class="flex flex-col sm:flex-row items-center gap-5 rounded-[28px] bg-white shadow-xl shadow-black/10 p-4 sm:p-6 hover:shadow-2xl transition"
         >
-          <img :src="item.image" :alt="item.title" class="w-full sm:w-40 h-40 rounded-2xl object-cover shadow-md" />
+          <NuxtImg :src="item.image" :alt="item.title" class="w-full sm:w-40 h-40 rounded-2xl object-cover shadow-md" />
 
           <div class="flex-1 space-y-3">
             <h2 class="text-xl md:text-2xl font-semibold text-[#1f2937] leading-tight">
               {{ item.title }}
             </h2>
             <div class="flex items-center gap-2 text-sm text-[#3d4f92]">
-              <img :src="pengumumanAvatar" alt="Logo JPS" class="w-8 h-8 rounded-full object-cover" />
+              <NuxtImg :src="pengumumanAvatar" alt="Logo JPS" class="w-8 h-8 rounded-full object-cover" />
               <span class="font-semibold">{{ item.company }}</span>
             </div>
             <p class="text-sm text-gray-600">Diterbitkan pada {{ item.publishedAt }}</p>

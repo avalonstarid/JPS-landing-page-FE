@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import coverImage from '~/assets/images/book-laporan.jpg'
+const coverImage = '/images/book-laporan.jpg'
 import prospektus2023 from '~/assets/laporan/prospektus/prospektus-2023.pdf'
 
 const items = [
