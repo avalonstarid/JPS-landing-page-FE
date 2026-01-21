@@ -18,6 +18,10 @@ FROM base AS run
 
 WORKDIR /app
 
+COPY package.json bun.lock ./
+
+RUN bun install --frozen-lockfile --production
+
 USER bun
 
 COPY --from=build --chown=bun:bun /app/.output ./.output

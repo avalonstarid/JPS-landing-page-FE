@@ -18,6 +18,7 @@
     "@nuxtjs/i18n": "^9.0.0",
     "autoprefixer": "^10.4.20",
     "nuxt": "^3.17.7",
+    "ofetch": "^1.4.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "vue": "^3.4.21",
