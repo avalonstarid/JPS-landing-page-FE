@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
 const siteConfigStackPath = resolve(rootDir, 'utils', 'site-config-stack.ts')
+const siteConfigStackUrlsPath = resolve(rootDir, 'utils', 'site-config-stack-urls.ts')
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -99,6 +100,7 @@ export default defineNuxtConfig({
   nitro: {
     alias: {
       'site-config-stack': siteConfigStackPath,
+      'site-config-stack/urls': siteConfigStackUrlsPath,
     },
     prerender: {
       routes: [
@@ -129,6 +131,7 @@ export default defineNuxtConfig({
 
   alias: {
     'site-config-stack': siteConfigStackPath,
+    'site-config-stack/urls': siteConfigStackUrlsPath,
   },
 
 })
