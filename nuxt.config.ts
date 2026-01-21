@@ -1,4 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const rootDir = dirname(fileURLToPath(import.meta.url))
+const siteConfigStackPath = resolve(rootDir, 'utils', 'site-config-stack')
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -91,6 +97,9 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   nitro: {
+    alias: {
+      'site-config-stack': siteConfigStackPath,
+    },
     prerender: {
       routes: [
         '/berita',
@@ -116,6 +125,10 @@ export default defineNuxtConfig({
 
   sitemap: {
     gzip: true,
+  },
+
+  alias: {
+    'site-config-stack': siteConfigStackPath,
   },
 
 })
