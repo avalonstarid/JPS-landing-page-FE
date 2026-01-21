@@ -22,9 +22,11 @@ COPY package.json bun.lock ./
 
 RUN bun install --frozen-lockfile --production
 
+COPY --from=build --chown=bun:bun /app/.output ./.output
+
 USER bun
 
-COPY --from=build --chown=bun:bun /app/.output ./.output
+RUN bun install --production --cwd /app/.output/server
 
 EXPOSE 3000
 
