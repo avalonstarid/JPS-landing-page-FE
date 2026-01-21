@@ -1,9 +1,26 @@
 <script setup lang="ts">
-const heroImage = '/images/beranda/hero-section.jpg'
+const fallbackHeroImage = '/images/beranda/hero.jpg'
 const { t, tm, rt } = useI18n()
 const activeWordIndex = ref(0)
+const { applyFallback } = useImageFallback()
+
+interface HeroData {
+  background?: string
+  title?: string
+  subtitle?: string
+  rotationWords?: string[]
+  ctaText?: string
+  ctaLink?: string
+}
+
+const props = defineProps<{
+  data?: HeroData | null
+}>()
+
+const heroImage = computed(() => props.data?.background || fallbackHeroImage)
 
 const rotatingWords = computed(() => {
+  if (props.data?.rotationWords?.length) return props.data.rotationWords
   const words = tm('hero.rotatingWords')
   if (!Array.isArray(words)) return []
   return words.map((word) => rt(word))
@@ -41,6 +58,7 @@ onBeforeUnmount(() => {
         :alt="t('hero.imageAlt')"
         class="w-full h-full object-cover"
         loading="eager"
+        @error="(event) => applyFallback(event, fallbackHeroImage)"
       />
       <!-- Gradient Overlay -->
       <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
@@ -51,12 +69,12 @@ onBeforeUnmount(() => {
       <div class="text-center md:text-left xl:ml-[-14rem]">
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-          {{ t('hero.title') }}
+          {{ props.data?.title || t('hero.title') }}
         </h1>
 
         <!-- Subtitle -->
         <div class="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6 flex flex-wrap md:flex-nowrap gap-2 whitespace-normal md:whitespace-nowrap justify-center md:justify-start">
-          <span>{{ t('hero.subtitlePrefix') }}</span>
+          <span>{{ props.data?.subtitle || t('hero.subtitlePrefix') }}</span>
           <span
             class="relative inline-flex h-[1.3em] overflow-hidden justify-center md:justify-start"
             :style="{ minWidth: `${rotatingMaxChars}ch` }"
@@ -85,10 +103,10 @@ onBeforeUnmount(() => {
           variant="primary"
           size="lg"
           class="group bg-[#f6993c] hover:bg-[#f28a26] text-white border-none"
-          :aria-label="t('hero.cta')"
-          href="/tentang-perusahaan"
+          :aria-label="props.data?.ctaText || t('hero.cta')"
+          :href="props.data?.ctaLink || '/tentang-perusahaan'"
         >
-          <span>{{ t('hero.cta') }}</span>
+          <span>{{ props.data?.ctaText || t('hero.cta') }}</span>
           <span
             class="ml-2 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-[#f6993c] transition-transform group-hover:translate-x-1 shadow-sm"
             aria-hidden="true"

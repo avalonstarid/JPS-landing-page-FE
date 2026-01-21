@@ -5,6 +5,8 @@ const { t } = useI18n()
 interface Props {
   faq: FaqItem
   isOpen?: boolean
+  question?: string
+  answer?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,6 +20,14 @@ const emit = defineEmits<{
 const toggle = () => {
   emit('toggle', props.faq.id)
 }
+
+const questionText = computed(() => {
+  return props.question || t(props.faq.questionKey)
+})
+
+const answerText = computed(() => {
+  return props.answer || t(props.faq.answerKey)
+})
 </script>
 
 <template>
@@ -30,7 +40,7 @@ const toggle = () => {
       @click="toggle"
     >
       <span class="pl-4 text-base md:text-lg font-medium text-gray-900 group-hover:text-primary-500 transition-colors pr-4">
-        {{ t(faq.questionKey) }}
+        {{ questionText }}
       </span>
       <span 
         class="mr-4"
@@ -60,7 +70,7 @@ const toggle = () => {
         class="overflow-hidden bg-white px-4 mt-[-10px]"
       >
         <div class="pb-5 text-base text-gray-600 leading-relaxed mt-6">
-          {{ t(faq.answerKey) }}
+          {{ answerText }}
         </div>
       </div>
     </Transition>

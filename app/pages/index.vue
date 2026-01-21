@@ -1,25 +1,64 @@
 <script setup lang="ts">
 // Home page composing all section components
 const { t } = useI18n()
+const config = useRuntimeConfig()
+const { fetcher } = useApiFetch()
+const { mapHomeData } = useHomeMapper()
+
+const { data: homeResponse } = await useAsyncData('home-page', async () => {
+  try {
+    return await fetcher('/', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const homeData = computed(() => {
+  return (homeResponse.value as { data?: unknown })?.data ?? null
+})
+
+const mappedHome = computed(() => mapHomeData(homeData.value as any))
 
 useHead(() => ({
-  title: t('meta.title'),
+  title: mappedHome.value.seo.title || t('meta.title'),
   meta: [
     {
       name: 'description',
-      content: t('meta.description'),
+      content: mappedHome.value.seo.description || t('meta.description'),
     },
     {
       property: 'og:title',
-      content: t('meta.ogTitle'),
+      content: mappedHome.value.seo.title || t('meta.ogTitle'),
     },
     {
       property: 'og:description',
-      content: t('meta.ogDescription'),
+      content: mappedHome.value.seo.description || t('meta.ogDescription'),
     },
     {
       property: 'og:type',
-      content: 'website',
+      content: mappedHome.value.seo.type || 'website',
+    },
+    {
+      property: 'og:url',
+      content: mappedHome.value.seo.url || config.public.siteUrl,
+    },
+    {
+      property: 'og:site_name',
+      content: mappedHome.value.seo.siteName || config.public.siteName,
+    },
+    {
+      property: 'og:locale',
+      content: mappedHome.value.seo.locale || 'id_ID',
+    },
+    {
+      name: 'robots',
+      content: mappedHome.value.seo.robots || 'index, follow',
+    },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: mappedHome.value.seo.canonicalUrl || config.public.siteUrl,
     },
   ],
 }))
@@ -28,18 +67,18 @@ useHead(() => ({
 <template>
   <div>
     <!-- Hero Section -->
-    <SectionsHeroSection />
+    <SectionsHeroSection :data="mappedHome.hero" />
 
     <!-- Products Section -->
-    <SectionsProductsSection />
+    <SectionsProductsSection :data="mappedHome.product" />
 
     <!-- Values Section -->
-    <SectionsValuesSection />
+    <SectionsValuesSection :data="mappedHome.standard" />
 
     <!-- Testimonials Section -->
-    <SectionsTestimonialsSection />
+    <SectionsTestimonialsSection :data="mappedHome.testimonial" />
 
     <!-- FAQ Section -->
-    <SectionsFaqSection />
+    <SectionsFaqSection :data="mappedHome.faq" />
   </div>
 </template>
