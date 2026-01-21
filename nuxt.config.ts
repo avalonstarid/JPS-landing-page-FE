@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
-const siteConfigStackPath = resolve(rootDir, 'utils', 'site-config-stack')
+const siteConfigStackPath = resolve(rootDir, 'utils', 'site-config-stack.ts')
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',

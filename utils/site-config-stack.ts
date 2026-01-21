@@ -3,7 +3,7 @@ import {
   envSiteConfig as baseEnvSiteConfig,
   normalizeSiteConfig,
   validateSiteConfigStack,
-} from 'site-config-stack/dist/index.mjs'
+} from '../node_modules/site-config-stack/dist/index.mjs'
 
 export { createSiteConfigStack, normalizeSiteConfig, validateSiteConfigStack }
 
