@@ -118,7 +118,4 @@ export default defineNuxtConfig({
     gzip: true,
   },
 
-  image: {
-    provider: 'ipx',
-  },
 })
