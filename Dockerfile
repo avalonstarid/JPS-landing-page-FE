@@ -28,9 +28,11 @@ USER bun
 
 RUN bun install --production --cwd /app/.output/server
 
+WORKDIR /app/.output/server
+
 EXPOSE 3000
 
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
 
-CMD ["bun", "run", ".output/server/index.mjs"]
+CMD ["bun", "index.mjs"]
