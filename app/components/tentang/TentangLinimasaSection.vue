@@ -10,22 +10,19 @@ interface TimelineItem {
   detailDesc: string
 }
 
-const timelineRef = ref<HTMLElement | null>(null)
-const hoveredItem = ref<string | null>(null)
-const tooltipRef = ref<HTMLElement | null>(null)
-const tooltipVisible = ref(false)
-const tooltipStyles = ref<Record<string, string>>({
-  left: '0px',
-  top: '0px',
-  maxWidth: 'min(320px, calc(100vw - 24px))',
-})
-const tooltipArrowStyles = ref<Record<string, string>>({
-  left: '50%',
-})
-const tooltipArrowClass = ref('tooltip-arrow tooltip-arrow--bottom')
-const lastTargetEl = ref<HTMLElement | null>(null)
+type TimelineData = {
+  title: string
+  items: TimelineItem[]
+}
 
-const timelineItems = computed<TimelineItem[]>(() => [
+const props = withDefaults(defineProps<{ data: TimelineData }>(), {
+  data: () => ({
+    title: '',
+    items: [],
+  }),
+})
+
+const fallbackTimeline = computed<TimelineItem[]>(() => [
   {
     year: '2007',
     icon: 'building',
@@ -111,6 +108,23 @@ const timelineItems = computed<TimelineItem[]>(() => [
     detailDesc: t('tentangPage.linimasa.items.y2022b.detail'),
   },
 ])
+
+const timelineItems = computed(() => (props.data.items.length ? props.data.items : fallbackTimeline.value))
+
+const timelineRef = ref<HTMLElement | null>(null)
+const hoveredItem = ref<string | null>(null)
+const tooltipRef = ref<HTMLElement | null>(null)
+const tooltipVisible = ref(false)
+const tooltipStyles = ref<Record<string, string>>({
+  left: '0px',
+  top: '0px',
+  maxWidth: 'min(320px, calc(100vw - 24px))',
+})
+const tooltipArrowStyles = ref<Record<string, string>>({
+  left: '50%',
+})
+const tooltipArrowClass = ref('tooltip-arrow tooltip-arrow--bottom')
+const lastTargetEl = ref<HTMLElement | null>(null)
 
 const scrollLeft = () => {
   if (timelineRef.value) {
@@ -218,6 +232,7 @@ onUnmounted(() => {
 })
 
 const getIconClass = (icon: string): string => {
+  if (icon.startsWith('mdi-')) return icon
   const icons: Record<string, string> = {
     building: 'mdi-domain',
     partnership: 'mdi-account-group-outline',
@@ -234,7 +249,7 @@ const getIconClass = (icon: string): string => {
   <section id="linimasa-sejarah" v-reveal  class="reveal py-12 md:py-20 bg-[#3A52A3] overflow-hidden">
     <div class="container-main">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-center mb-10 md:mb-14">
-        {{ t('tentangPage.linimasa.sectionTitle') }}
+        {{ props.data.title || t('tentangPage.linimasa.sectionTitle') }}
       </h2>
 
       <div class="relative flex items-center">

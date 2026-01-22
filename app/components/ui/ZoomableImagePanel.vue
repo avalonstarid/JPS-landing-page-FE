@@ -2,6 +2,7 @@
 type Props = {
   src: string
   alt: string
+  fallbackSrc?: string
   zoomInLabel: string
   zoomOutLabel: string
   resetLabel: string
@@ -16,6 +17,7 @@ type Props = {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  fallbackSrc: '',
   zoomHint: '',
   maxHeight: '70vh',
   containerClass: '',
@@ -95,6 +97,8 @@ const handleWheel = (event: WheelEvent) => {
   }
 }
 
+const { applyFallback } = useImageFallback()
+
 onMounted(() => {
   window.addEventListener('mouseup', handleMouseUp)
   window.addEventListener('mousemove', handleMouseMove)
@@ -126,6 +130,7 @@ onBeforeUnmount(() => {
       class="w-full h-auto transition-transform duration-200 origin-center"
       :style="{ transform: `scale(${zoomLevel})` }"
       draggable="false"
+      @error="(event) => applyFallback(event, props.fallbackSrc || props.src)"
     />
   </div>
 

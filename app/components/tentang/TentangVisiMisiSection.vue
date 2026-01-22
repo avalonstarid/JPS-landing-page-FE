@@ -1,15 +1,64 @@
 <script setup lang="ts">
-const visiMisiImage = '/images/tentang/visi-misi.jpg'
+const fallbackVisiMisiImage = '/images/tentang/visi-misi.jpg'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 
-const missions = [
-  { key: 'mission1', icon: 'product' },
-  { key: 'mission2', icon: 'welfare' },
-  { key: 'mission3', icon: 'efficiency' },
-  { key: 'mission4', icon: 'environment' },
-  { key: 'mission5', icon: 'social' },
-  { key: 'mission6', icon: 'profit' },
-]
+type VisiMisiItem = {
+  id: number
+  description: string
+  icon: string
+}
+
+type VisiMisiData = {
+  title: string
+  subtitle: string
+  featured: string
+  items: VisiMisiItem[]
+}
+
+const props = withDefaults(defineProps<{ data: VisiMisiData }>(), {
+  data: () => ({
+    title: '',
+    subtitle: '',
+    featured: '',
+    items: [],
+  }),
+})
+
+const fallbackMissions = computed<VisiMisiItem[]>(() => [
+  {
+    id: 0,
+    icon: 'product',
+    description: t('tentangPage.visiMisi.missions.mission1.text'),
+  },
+  {
+    id: 1,
+    icon: 'welfare',
+    description: t('tentangPage.visiMisi.missions.mission2.text'),
+  },
+  {
+    id: 2,
+    icon: 'efficiency',
+    description: t('tentangPage.visiMisi.missions.mission3.text'),
+  },
+  {
+    id: 3,
+    icon: 'environment',
+    description: t('tentangPage.visiMisi.missions.mission4.text'),
+  },
+  {
+    id: 4,
+    icon: 'social',
+    description: t('tentangPage.visiMisi.missions.mission5.text'),
+  },
+  {
+    id: 5,
+    icon: 'profit',
+    description: t('tentangPage.visiMisi.missions.mission6.text'),
+  },
+])
+
+const missions = computed(() => (props.data.items.length ? props.data.items : fallbackMissions.value))
 </script>
 
 <template>
@@ -18,10 +67,10 @@ const missions = [
       <!-- Section Title & Vision Statement - Side by Side -->
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8 items-center">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3d4f92] md:w-1/3 flex-shrink-0">
-          {{ t('tentangPage.visiMisi.sectionTitle') }}
+          {{ props.data.title || t('tentangPage.visiMisi.sectionTitle') }}
         </h2>
         <p class="text-base md:text-lg leading-relaxed md:w-2/3 md:text-right">
-          {{ t('tentangPage.visiMisi.vision') }}
+          {{ props.data.subtitle || t('tentangPage.visiMisi.vision') }}
         </p>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
@@ -31,7 +80,7 @@ const missions = [
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 mt-8">
             <div
               v-for="mission in missions"
-              :key="mission.key"
+              :key="mission.id"
               class="relative bg-white rounded-2xl px-4 pt-8 pb-5 shadow-sm hover:shadow-md min-h-[180px] duration-300 hover:-translate-y-2"
             >
               <!-- Icon - Offset to top -->
@@ -77,7 +126,7 @@ const missions = [
               </div>
               <!-- Mission Text -->
               <p class="text-sm text-gray-700 text-center leading-relaxed mt-10">
-                {{ t(`tentangPage.visiMisi.missions.${mission.key}.text`) }}
+                {{ mission.description || '-' }}
               </p>
             </div>
           </div>
@@ -86,9 +135,10 @@ const missions = [
         <!-- Right Side: Image - 4 columns -->
         <div class="lg:col-span-3 flex justify-center lg:justify-end duration-300 hover:-translate-y-2">
           <NuxtImg
-            :src="visiMisiImage"
-            :alt="t('tentangPage.visiMisi.imageAlt')"
+            :src="props.data.featured || fallbackVisiMisiImage"
+            :alt="props.data.title || t('tentangPage.visiMisi.imageAlt')"
             class="rounded-2xl shadow-lg w-full max-w-[320px] h-full object-cover aspect-[3/4]"
+            @error="(event) => applyFallback(event, fallbackVisiMisiImage)"
           />
         </div>
       </div>

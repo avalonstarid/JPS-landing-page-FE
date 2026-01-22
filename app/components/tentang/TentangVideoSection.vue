@@ -1,7 +1,18 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const fallbackVideoLink = 'https://www.youtube.com/embed/qNaC8V1wBDo'
 
-const youtubeEmbedUrl = 'https://www.youtube.com/embed/qNaC8V1wBDo'
+type VideoData = {
+  title: string
+  link: string
+}
+
+const props = withDefaults(defineProps<{ data: VideoData }>(), {
+  data: () => ({
+    title: '',
+    link: '',
+  }),
+})
 </script>
 
 <template>
@@ -9,15 +20,15 @@ const youtubeEmbedUrl = 'https://www.youtube.com/embed/qNaC8V1wBDo'
     <div class="container-main">
       <!-- Section Title -->
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3d4f92] text-center mb-8 md:mb-12">
-        {{ t('tentangPage.video.sectionTitle') }}
+        {{ props.data.title || t('tentangPage.video.sectionTitle') }}
       </h2>
 
       <!-- Video Thumbnail -->
       <div class="relative w-full rounded-2xl overflow-hidden shadow-lg">
         <div class="relative aspect-video w-full overflow-hidden">
           <iframe
-            :src="youtubeEmbedUrl"
-            :title="t('tentangPage.video.imageAlt')"
+            :src="props.data.link || fallbackVideoLink"
+            :title="props.data.title || t('tentangPage.video.imageAlt')"
             class="absolute left-0 top-0 h-[calc(100%+14px)] w-full -translate-y-[8px]"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

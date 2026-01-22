@@ -70,6 +70,83 @@ type HomeApiData = {
   }
 }
 
+type TentangApiData = {
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+    stat?: Array<{
+      icon?: string
+      icon_custom?: string | boolean
+      label?: LocaleText
+      value?: string
+    }>
+  }
+  video?: {
+    link?: string
+    title?: LocaleText
+  }
+  visi_misi?: {
+    title?: LocaleText
+    subtitle?: LocaleText
+    featured?: string
+    data?: Array<{
+      desc?: LocaleText
+      icon?: string
+      icon_custom?: boolean
+    }>
+  }
+  history_timeline?: {
+    title?: LocaleText
+    data?: Array<{
+      year?: number
+      icon?: string
+      icon_custom?: boolean
+      title?: LocaleText
+      desc?: LocaleText
+    }>
+  }
+  location?: {
+    title?: LocaleText
+    data?: Array<{
+      featured_thumb?: string
+      title?: LocaleText
+      phone?: string
+      whatsapp?: string
+      locations?: Array<{
+        address?: string
+        lat?: string
+        lng?: string
+      }>
+    }>
+  }
+  organization?: {
+    featured?: string
+    title?: LocaleText
+  }
+  dewan?: {
+    title?: LocaleText
+    data?: Array<{
+      name?: LocaleText
+      people?: Array<{
+        avatar?: string
+        name?: string
+        jabatan?: LocaleText
+      }>
+    }>
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -164,7 +241,114 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapTentangData = (raw?: TentangApiData | null) => {
+    const hero = raw?.hero
+    const video = raw?.video
+    const visiMisi = raw?.visi_misi
+    const history = raw?.history_timeline
+    const location = raw?.location
+    const organization = raw?.organization
+    const dewan = raw?.dewan
+
+    const mapsHref = (lat?: string, lng?: string, address?: string) => {
+      const hasCoords = Boolean(lat && lng)
+      if (hasCoords) {
+        return `https://www.google.com/maps?q=${lat},${lng}`
+      }
+      const safeAddress = (address || '').trim()
+      if (!safeAddress) return ''
+      return `https://www.google.com/maps?q=${encodeURIComponent(safeAddress)}`
+    }
+
+    const visiMisiIconKeys = ['product', 'welfare', 'efficiency', 'environment', 'social', 'profit']
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+        stats: (hero?.stat || []).map((item, index) => ({
+          id: index,
+          icon: item.icon || '',
+          label: resolveLocaleText(item.label),
+          value: item.value || '',
+        })),
+      },
+      video: {
+        title: resolveLocaleText(video?.title),
+        link: video?.link || '',
+      },
+      visiMisi: {
+        title: resolveLocaleText(visiMisi?.title),
+        subtitle: resolveLocaleText(visiMisi?.subtitle),
+        featured: visiMisi?.featured || '',
+        items: (visiMisi?.data || []).map((item, index) => ({
+          id: index,
+          description: resolveLocaleText(item.desc),
+          icon: visiMisiIconKeys[index] || 'product',
+        })),
+      },
+      history: {
+        title: resolveLocaleText(history?.title),
+        items: (history?.data || []).map((item, index) => ({
+          id: index,
+          year: item.year ? String(item.year) : '',
+          icon: item.icon || '',
+          shortDesc: resolveLocaleText(item.title),
+          detailTitle: resolveLocaleText(item.title),
+          detailDesc: resolveLocaleText(item.desc),
+        })),
+      },
+      location: {
+        title: resolveLocaleText(location?.title),
+        items: (location?.data || []).map((item, index) => ({
+          id: index,
+          key: `location-${index}`,
+          image: item.featured_thumb || '',
+          title: resolveLocaleText(item.title),
+          infoText: '',
+          phone: item.phone || item.whatsapp || '',
+          locations: (item.locations || [])
+            .map((loc) => ({
+              label: loc.address || '',
+              href: mapsHref(loc.lat, loc.lng, loc.address),
+            }))
+            .filter((loc) => Boolean(loc.label)),
+        })),
+      },
+      organization: {
+        title: resolveLocaleText(organization?.title),
+        featured: organization?.featured || '',
+      },
+      dewan: {
+        title: resolveLocaleText(dewan?.title),
+        tabs: (dewan?.data || []).map((tab, tabIndex) => ({
+          id: tabIndex,
+          key: `dewan-${tabIndex}`,
+          label: resolveLocaleText(tab.name),
+          people: (tab.people || []).map((person, personIndex) => ({
+            id: personIndex,
+            name: person.name || '',
+            position: resolveLocaleText(person.jabatan),
+            photo: person.avatar || '',
+          })),
+        })),
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
   return {
     mapHomeData,
+    mapTentangData,
   }
 }

@@ -1,13 +1,59 @@
 <script setup lang="ts">
-const heroImage = '/images/tentang/hero.jpg'
+const fallbackHeroImage = '/images/tentang/hero.jpg'
 const { t, locale } = useI18n()
+const { applyFallback } = useImageFallback()
 
-const stats = [
-  { key: 'facilities', icon: 'building' },
-  { key: 'businessLines', icon: 'business' },
-  { key: 'products', icon: 'product' },
-  { key: 'employees', icon: 'people' },
-]
+type HeroStat = {
+  id: number
+  icon: string
+  label: string
+  value: string
+}
+
+type HeroData = {
+  background: string
+  title: string
+  subtitle: string
+  stats: HeroStat[]
+}
+
+const props = withDefaults(defineProps<{ data: HeroData }>(), {
+  data: () => ({
+    background: '',
+    title: '',
+    subtitle: '',
+    stats: [],
+  }),
+})
+
+const fallbackStats = computed<HeroStat[]>(() => [
+  {
+    id: 0,
+    icon: 'building',
+    label: t('tentangPage.hero.stats.facilities.label'),
+    value: t('tentangPage.hero.stats.facilities.value'),
+  },
+  {
+    id: 1,
+    icon: 'business',
+    label: t('tentangPage.hero.stats.businessLines.label'),
+    value: t('tentangPage.hero.stats.businessLines.value'),
+  },
+  {
+    id: 2,
+    icon: 'product',
+    label: t('tentangPage.hero.stats.products.label'),
+    value: t('tentangPage.hero.stats.products.value'),
+  },
+  {
+    id: 3,
+    icon: 'people',
+    label: t('tentangPage.hero.stats.employees.label'),
+    value: t('tentangPage.hero.stats.employees.value'),
+  },
+])
+
+const stats = computed(() => (props.data.stats.length ? props.data.stats : fallbackStats.value))
 
 const statGradients = [
   { from: '#F6993C', to: '#F4B678' },
@@ -23,7 +69,7 @@ const statStyle = (index: number) => {
   }
 }
 
-const statDisplay = ref<string[]>(stats.map(() => '0'))
+const statDisplay = ref<string[]>(stats.value.map(() => '0'))
 
 const parseStatValue = (value: string) => {
   const numeric = Number(value.replace(/[^\d]/g, ''))
@@ -37,7 +83,7 @@ const parseStatValue = (value: string) => {
 const formatNumber = (value: number) => new Intl.NumberFormat(locale.value).format(value)
 
 const animateStats = () => {
-  const targets = stats.map((stat) => parseStatValue(t(`tentangPage.hero.stats.${stat.key}.value`)))
+  const targets = stats.value.map((stat) => parseStatValue(stat.value))
   const start = performance.now()
   const duration = 1200
 
@@ -60,19 +106,23 @@ onMounted(() => {
   animateStats()
 })
 
-watch(locale, () => {
-  statDisplay.value = stats.map(() => '0')
-  animateStats()
-})
+watch(
+  () => [locale.value, stats.value],
+  () => {
+    statDisplay.value = stats.value.map(() => '0')
+    animateStats()
+  }
+)
 </script>
 
 <template>
   <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center">
     <!-- Background Image -->
     <NuxtImg
-      :src="heroImage"
-      :alt="t('tentangPage.hero.imageAlt')"
+      :src="props.data.background || fallbackHeroImage"
+      :alt="props.data.title || 'Hero image'"
       class="absolute inset-0 w-full h-full object-cover"
+      @error="(event) => applyFallback(event, fallbackHeroImage)"
     />
     <!-- Gradient Overlay - matching design with brownish tint -->
     <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
@@ -82,10 +132,10 @@ watch(locale, () => {
       <!-- Title & Subtitle - Left Aligned -->
       <div class="text-left mb-8 md:mb-10 max-w-2xl">
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-          {{ t('tentangPage.hero.title') }}
+          {{ props.data.title || t('tentangPage.hero.title') }}
         </h1>
         <p class="text-base md:text-xl text-white/90">
-          {{ t('tentangPage.hero.subtitle') }}
+          {{ props.data.subtitle || t('tentangPage.hero.subtitle') }}
         </p>
       </div>
 
@@ -93,7 +143,7 @@ watch(locale, () => {
       <div class="flex flex-wrap justify-start gap-3 md:gap-4">
         <div
           v-for="(stat, index) in stats"
-          :key="stat.key"
+          :key="stat.id"
           class="rounded-2xl px-4 py-3 md:px-6 md:py-4 flex items-center gap-3 min-w-[120px] md:min-w-[140px] duration-300 hover:-translate-y-2"
           :style="statStyle(index)"
         >
@@ -123,10 +173,10 @@ watch(locale, () => {
           <!-- Value & Label -->
           <div class="">
             <p class="text-lg md:text-xl font-bold leading-tight tabular-nums">
-              {{ statDisplay[index] ?? t(`tentangPage.hero.stats.${stat.key}.value`) }}
+              {{ (statDisplay[index] ?? stat.value) || fallbackStats[index]?.value || '0' }}
             </p>
             <p class="text-xs md:text-sm opacity-90">
-              {{ t(`tentangPage.hero.stats.${stat.key}.label`) }}
+              {{ stat.label || fallbackStats[index]?.label || '' }}
             </p>
           </div>
         </div>

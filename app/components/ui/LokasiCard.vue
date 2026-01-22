@@ -9,17 +9,18 @@ type Props = {
   imageSrc: string
   imageAlt?: string
   buttonText?: string
+  fallbackImage?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   imageAlt: '',
   buttonText: 'Selengkapnya',
+  fallbackImage: '',
 })
 
 const emit = defineEmits<{
   more: []
 }>()
-
 const svgWidth = 520
 const svgHeight = 620
 
@@ -57,6 +58,8 @@ const imagePath = computed(() => {
 
 const stableId = useId()
 const clipPathId = computed(() => `lokasi-img-clip-${stableId}`)
+
+const resolvedImageSrc = computed(() => props.imageSrc || props.fallbackImage)
 </script>
 
 <template>
@@ -74,7 +77,7 @@ const clipPathId = computed(() => `lokasi-img-clip-${stableId}`)
           </clipPath>
         </defs>
         <image
-          :href="props.imageSrc"
+          :href="resolvedImageSrc"
           x="0"
           y="0"
           :width="svgWidth"
@@ -86,7 +89,7 @@ const clipPathId = computed(() => `lokasi-img-clip-${stableId}`)
     </div>
 
     <div class="lokasi-content flex-1 min-w-0 flex flex-col">
-      <h3 class="text-2xl md:text-3xl font-extrabold leading-tight text-gray-900 mb-3">
+      <h3 class="text-2xl md:text-2xl font-extrabold leading-tight text-gray-900 mb-3">
         {{ props.title }}
       </h3>
       <ul class="text-sm md:text-base text-gray-700 space-y-1.5">

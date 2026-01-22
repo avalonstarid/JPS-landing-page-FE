@@ -1,70 +1,90 @@
 <script setup lang="ts">
-const komisarisUtamaPhoto = '/images/tentang/komisaris-utama.png'
-const komisarisPhoto = '/images/tentang/komisaris.png'
-const direkturUtamaPhoto = '/images/tentang/direktur-utama.png'
+const fallbackPersonPhoto = '/images/tentang/komisaris.png'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 
 interface Person {
+  id: number
   name: string
   position: string
   photo: string
 }
 
 interface TabData {
+  id: number
   key: string
   label: string
   people: Person[]
 }
 
-const activeTab = ref('komisaris')
+type DewanData = {
+  title: string
+  tabs: TabData[]
+}
 
-const tabs = computed<TabData[]>(() => [
+const props = withDefaults(defineProps<{ data: DewanData }>(), {
+  data: () => ({
+    title: '',
+    tabs: [],
+  }),
+})
+
+const activeTab = ref('')
+
+const fallbackTabs = computed<TabData[]>(() => [
   {
+    id: 0,
     key: 'komisaris',
     label: t('tentangPage.dewan.tabs.komisaris'),
     people: [
       {
+        id: 0,
         name: 'Singgih Januatmoko',
         position: t('tentangPage.dewan.positions.komisarisUtama'),
-        photo: komisarisUtamaPhoto,
+        photo: fallbackPersonPhoto,
       },
       {
+        id: 1,
         name: 'Fadhl Muhammad Firdaus',
         position: t('tentangPage.dewan.positions.komisaris'),
-        photo: komisarisPhoto,
+        photo: fallbackPersonPhoto,
       },
     ],
   },
   {
+    id: 1,
     key: 'direksi',
     label: t('tentangPage.dewan.tabs.direksi'),
     people: [
       {
+        id: 0,
         name: 'Sri Mulyani',
         position: t('tentangPage.dewan.positions.direkturUtama'),
-        photo: direkturUtamaPhoto,
+        photo: fallbackPersonPhoto,
       },
     ],
   },
-  // {
-  //   key: 'manajerial',
-  //   label: t('tentangPage.dewan.tabs.manajerial'),
-  //   people: [
-  //     {
-  //       name: 'Andi Wijaya',
-  //       position: t('tentangPage.dewan.positions.managerOperasional'),
-  //       photo: '',
-  //     },
-  //     {
-  //       name: 'Dewi Susanti',
-  //       position: t('tentangPage.dewan.positions.managerKeuangan'),
-  //       photo: '',
-  //     },
-  //   ],
-  // },
 ])
 
-const currentTab = computed(() => tabs.value.find((tab) => tab.key === activeTab.value) || tabs.value[0])
+const tabs = computed<TabData[]>(() => (props.data.tabs.length ? props.data.tabs : fallbackTabs.value))
+
+const currentTab = computed(() => {
+  return tabs.value.find((tab) => tab.key === activeTab.value) || tabs.value[0] || {
+    id: 0,
+    key: 'empty',
+    label: '',
+    people: [],
+  }
+})
+
+watch(
+  () => tabs.value,
+  (value) => {
+    if (!value.length) return
+    activeTab.value = value[0].key
+  },
+  { immediate: true }
+)
 
 const setActiveTab = (key: string) => {
   activeTab.value = key
@@ -75,7 +95,7 @@ const setActiveTab = (key: string) => {
   <section id="dewan-komisaris" v-reveal  class="reveal py-12 md:py-20 bg-[#FDEEE0]">
     <div class="container-main">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3d4f92] mb-10 md:mb-14">
-        {{ t('tentangPage.dewan.sectionTitle') }}
+        {{ props.data.title || t('tentangPage.dewan.sectionTitle') }}
       </h2>
 
       <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-5xl mx-auto">
@@ -89,9 +109,10 @@ const setActiveTab = (key: string) => {
             >
               <div class="relative w-full h-[260px] bg-gradient-to-b from-[#2f428f] via-[#4056a6] to-[#d9a873]">
                 <NuxtImg
-                  :src="person.photo"
+                  :src="person.photo || fallbackPersonPhoto"
                   :alt="person.name"
                   class="absolute inset-x-0 bottom-0 w-full h-full object-cover object-top"
+                  @error="(event) => applyFallback(event, fallbackPersonPhoto)"
                 />
               </div>
 
