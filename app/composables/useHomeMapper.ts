@@ -218,6 +218,39 @@ type ProdukApiData = {
   }
 }
 
+type HubungiKamiApiData = {
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+  }
+  title?: LocaleText
+  map?: {
+    address?: string
+    link?: string
+  }
+  contact?: {
+    title?: LocaleText
+    data?: Array<{
+      key?: string
+      icon?: string
+      icon_custom?: boolean
+      link?: string
+      value?: string
+    }>
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -496,10 +529,50 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapHubungiKamiData = (raw?: HubungiKamiApiData | null) => {
+    const hero = raw?.hero
+    const contact = raw?.contact
+    const map = raw?.map
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+      },
+      message: {
+        title: resolveLocaleText(raw?.title),
+        mapLink: map?.link || '',
+        address: map?.address || '',
+      },
+      contact: {
+        title: resolveLocaleText(contact?.title),
+        items: (contact?.data || []).map((item, index) => ({
+          id: index,
+          key: item.key || `contact-${index}`,
+          icon: item.icon || '',
+          link: item.link || '',
+          value: item.value || '',
+        })),
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
   return {
     mapHomeData,
     mapTentangData,
     mapLiniBisnisData,
     mapProdukData,
+    mapHubungiKamiData,
   }
 }
