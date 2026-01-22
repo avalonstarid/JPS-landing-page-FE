@@ -179,6 +179,45 @@ type LiniBisnisApiData = {
   }
 }
 
+type ProdukApiData = {
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+  }
+  product?: {
+    data?: Array<{
+      title?: LocaleText
+      full_desc?: LocaleText
+      images?: Array<{
+        original_url?: string
+        thumb_url?: string
+      }>
+    }>
+  }
+  commercial?: {
+    title?: LocaleText
+    stock?: {
+      title?: LocaleText
+      last_update?: LocaleText
+      products?: Array<{
+        title?: LocaleText
+        stat?: string
+      }>
+    }
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -410,9 +449,57 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapProdukData = (raw?: ProdukApiData | null) => {
+    const hero = raw?.hero
+    const product = raw?.product
+    const commercial = raw?.commercial
+    const stock = commercial?.stock
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+      },
+      list: {
+        title: resolveLocaleText(commercial?.title),
+      },
+      stock: {
+        title: resolveLocaleText(stock?.title),
+        lastUpdate: resolveLocaleText(stock?.last_update),
+        items: (stock?.products || []).map((item, index) => ({
+          id: index,
+          title: resolveLocaleText(item.title),
+          value: item.stat || '',
+        })),
+      },
+      products: {
+        items: (product?.data || []).map((item, index) => ({
+          id: index,
+          title: resolveLocaleText(item.title),
+          description: resolveLocaleText(item.full_desc),
+          images: (item.images || [])
+            .map((image) => image.original_url || image.thumb_url || '')
+            .filter(Boolean),
+        })),
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
   return {
     mapHomeData,
     mapTentangData,
     mapLiniBisnisData,
+    mapProdukData,
   }
 }

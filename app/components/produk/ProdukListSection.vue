@@ -12,7 +12,42 @@ const behind4 = '/images/produk/behind-4.jpg'
 const behind5 = '/images/produk/behind-5.jpg'
 const { t } = useI18n()
 
-const stockItems = computed(() => [
+type StockItem = {
+  id: number
+  title: string
+  value: string
+}
+
+type ProdukItem = {
+  id: number
+  title: string
+  description: string
+  images: string[]
+}
+
+type ProdukListData = {
+  title: string
+  stock: {
+    title: string
+    lastUpdate: string
+    items: StockItem[]
+  }
+  items: ProdukItem[]
+}
+
+const props = withDefaults(defineProps<{ data: ProdukListData }>(), {
+  data: () => ({
+    title: '',
+    stock: {
+      title: '',
+      lastUpdate: '',
+      items: [],
+    },
+    items: [],
+  }),
+})
+
+const fallbackStockItems = computed(() => [
   {
     value: t('produkPage.stockUpdate.items.docParent.value'),
     label: t('produkPage.stockUpdate.items.docParent.label'),
@@ -35,7 +70,18 @@ const stockItems = computed(() => [
   },
 ])
 
-const productItems = computed(() => [
+const stockItems = computed(() => {
+  if (!props.data.stock.items.length) return fallbackStockItems.value
+  return props.data.stock.items.map((item, index) => {
+    const fallback = fallbackStockItems.value[index] ?? fallbackStockItems.value[0]
+    return {
+      value: item.value || fallback?.value || '-',
+      label: item.title || fallback?.label || '-',
+    }
+  })
+})
+
+const fallbackProducts = computed(() => [
   {
     key: 'docParent',
     anchorId: 'doc-parent-stock',
@@ -102,6 +148,29 @@ const productItems = computed(() => [
     stackTopImage: front5,
   },
 ])
+
+const productItems = computed(() => {
+  if (!props.data.items.length) return fallbackProducts.value
+  return props.data.items.map((item, index) => {
+    const fallback = fallbackProducts.value[index] ?? fallbackProducts.value[0]
+    const images = item.images.filter(Boolean)
+    const baseImage = images[0] || fallback?.stackBaseImage || fallback?.image || ''
+    const topImage = images[1] || images[0] || fallback?.stackTopImage || fallback?.image || ''
+    return {
+      key: fallback?.key || `product-${item.id}`,
+      anchorId: fallback?.anchorId || `produk-${item.id}`,
+      title: item.title || fallback?.title || '-',
+      description: item.description || fallback?.description || '-',
+      image: images[0] || fallback?.image || '',
+      alt: fallback?.alt || '',
+      accent: fallback?.accent || '#f6993c',
+      reverse: typeof fallback?.reverse === 'boolean' ? fallback.reverse : index % 2 === 1,
+      stackSide: fallback?.stackSide || (index % 2 === 0 ? 'right' : 'left'),
+      stackBaseImage: baseImage,
+      stackTopImage: topImage,
+    }
+  })
+})
 </script>
 
 <template>
@@ -109,7 +178,7 @@ const productItems = computed(() => [
     <div class="container-main space-y-10">
       <div class="text-center space-y-3">
         <h2 class="text-3xl md:text-4xl font-bold text-[#3d4f92]">
-          {{ t('produkPage.list.title') }}
+          {{ props.data.title || t('produkPage.list.title') }}
         </h2>
         <!-- <p class="text-lg text-[#4b4b4b] max-w-3xl mx-auto leading-relaxed">
           {{ t('produkPage.list.subtitle') }}
@@ -130,10 +199,10 @@ const productItems = computed(() => [
 
         <div class="relative text-center space-y-1">
           <h3 class="text-lg md:text-2xl font-semibold">
-            {{ t('produkPage.stockUpdate.title') }}
+            {{ props.data.stock.title || t('produkPage.stockUpdate.title') }}
           </h3>
           <p class="text-xs md:text-sm text-white/90">
-            {{ t('produkPage.stockUpdate.updatedAt') }}
+            {{ props.data.stock.lastUpdate || t('produkPage.stockUpdate.updatedAt') }}
           </p>
         </div>
 
