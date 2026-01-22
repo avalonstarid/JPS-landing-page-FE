@@ -147,6 +147,38 @@ type TentangApiData = {
   }
 }
 
+type LiniBisnisApiData = {
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+  }
+  business_line?: {
+    title?: LocaleText
+    data?: {
+      title?: LocaleText
+      desc?: LocaleText
+      images?: Array<{
+        original_url?: string
+        thumb_url?: string
+      }>
+    }
+  }
+  cta?: {
+    text?: LocaleText
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -347,8 +379,40 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapLiniBisnisData = (raw?: LiniBisnisApiData | null) => {
+    const hero = raw?.hero
+    const line = raw?.business_line
+    const lineData = line?.data
+    const images = lineData?.images || []
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+      },
+      detail: {
+        title: resolveLocaleText(lineData?.title),
+        description: resolveLocaleText(lineData?.desc),
+        ctaText: resolveLocaleText(raw?.cta?.text),
+        images: images.map((image) => image.original_url || image.thumb_url || '').filter(Boolean),
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
   return {
     mapHomeData,
     mapTentangData,
+    mapLiniBisnisData,
   }
 }

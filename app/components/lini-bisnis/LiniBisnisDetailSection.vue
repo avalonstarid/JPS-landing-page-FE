@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LiniBisnis } from '~/utils/liniBisnisData'
+import { findLiniBisnisBySlug } from '~/utils/liniBisnisData'
 const pembibitanTop = '/images/bisnis/peternakan-pembibitan-1.jpg'
 const pembibitanBackTop = '/images/bisnis/peternakan-pembibitan-2.jpg'
 const pembibitanBackBottom = '/images/bisnis/peternakan-pembibitan-3.jpg'
@@ -17,8 +17,16 @@ const rpaBackTop = '/images/bisnis/rumah-potong-ayam-2.jpg'
 const rpaBackBottom = '/images/bisnis/rumah-potong-ayam-3.jpg'
 const { t } = useI18n()
 
+type BusinessDetail = {
+  slug: string
+  title: string
+  description: string
+  ctaText: string
+  images: string[]
+}
+
 interface Props {
-  business: LiniBisnis
+  business: BusinessDetail
 }
 
 const props = defineProps<Props>()
@@ -31,8 +39,10 @@ const handleOpenModal = () => {
   emit('openModal')
 }
 
-const imageSet = computed(() => {
-  const key = props.business.slug ?? props.business.id
+const fallbackBusiness = computed(() => findLiniBisnisBySlug(props.business.slug))
+
+const fallbackImageSet = computed(() => {
+  const key = props.business.slug
   const map: Record<string, { top: string; backTop: string; backBottom: string }> = {
     pembibitan: {
       top: pembibitanTop,
@@ -62,6 +72,44 @@ const imageSet = computed(() => {
   }
   return map[key] ?? map.pembibitan
 })
+
+const imageSet = computed(() => {
+  const images = props.business.images.filter(Boolean)
+  if (images.length >= 3) {
+    return { top: images[0], backTop: images[1], backBottom: images[2] }
+  }
+  if (images.length === 2) {
+    return { top: images[0], backTop: images[1], backBottom: images[1] }
+  }
+  if (images.length === 1) {
+    return { top: images[0], backTop: images[0], backBottom: images[0] }
+  }
+  return fallbackImageSet.value
+})
+
+const fallbackDescriptions = computed(() => {
+  const business = fallbackBusiness.value
+  if (!business) return []
+  return [t(business.description1Key), t(business.description2Key)]
+})
+
+const descriptionParts = computed(() => {
+  const raw = (props.business.description || '').trim()
+  const parts = raw ? raw.split(/\n+/).map((part) => part.trim()).filter(Boolean) : []
+  if (parts.length) return parts
+  if (fallbackDescriptions.value.length) return fallbackDescriptions.value
+  return ['-']
+})
+
+const displayTitle = computed(() => {
+  const business = fallbackBusiness.value
+  return props.business.title || (business ? t(business.titleKey) : '-') || '-'
+})
+
+const displayCta = computed(() => {
+  const business = fallbackBusiness.value
+  return props.business.ctaText || (business ? t(business.buttonKey) : '') || 'Selengkapnya'
+})
 </script>
 
 <template>
@@ -72,16 +120,17 @@ const imageSet = computed(() => {
         <div class="space-y-6">
           <!-- Title -->
           <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3d4f92]">
-            {{ t(props.business.titleKey) }}
+            {{ displayTitle }}
           </h3>
 
           <!-- Description Paragraphs -->
           <div class="space-y-4">
-            <p class="text-sm md:text-base text-[#4b5563] leading-relaxed text-justify">
-              {{ t(props.business.description1Key) }}
-            </p>
-            <p class="text-sm md:text-base text-[#4b5563] leading-relaxed text-justify">
-              {{ t(props.business.description2Key) }}
+            <p
+              v-for="(paragraph, index) in descriptionParts"
+              :key="`${props.business.slug}-desc-${index}`"
+              class="text-sm md:text-base text-[#4b5563] leading-relaxed text-justify"
+            >
+              {{ paragraph }}
             </p>
           </div>
 
@@ -91,7 +140,7 @@ const imageSet = computed(() => {
             class="inline-flex items-center gap-2 px-6 py-3 bg-[#f6993c] text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-[#e88a2d]"
             @click="handleOpenModal"
           >
-            <span>{{ t(props.business.buttonKey) }}</span>
+            <span>{{ displayCta }}</span>
             <svg 
               class="w-5 h-5" 
               fill="none" 
