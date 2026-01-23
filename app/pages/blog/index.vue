@@ -1,19 +1,87 @@
 <script setup lang="ts">
-import { blogLatest } from '~/utils/blogData'
 import UiCard from '~/components/ui/Card.vue'
-const logoJps = '/images/logo-jps.png'
-const { t } = useI18n()
 
-const featured = computed(() => blogLatest[0])
-const popularList = computed(() => blogLatest.slice(1, 5))
-const latestList = computed(() => blogLatest)
+const logoJps = '/images/logo-jps.png'
+const fallbackImage = '/images/most-top.png'
+const { t } = useI18n()
+const config = useRuntimeConfig()
+const { fetcher } = useApiFetch()
+const { mapBlogPageData, mapBlogListData } = useHomeMapper()
+
+const { data: blogResponse } = await useAsyncData('blog-page', async () => {
+  try {
+    return await fetcher('/blog', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const { data: blogListResponse } = await useAsyncData('blog-list', async () => {
+  try {
+    return await fetcher('/blog-list', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const blogPageData = computed(() => {
+  return (blogResponse.value as { data?: unknown })?.data ?? null
+})
+
+const blogListData = computed(() => {
+  return (blogListResponse.value as { data?: unknown })?.data ?? null
+})
+
+const mappedBlog = computed(() => mapBlogPageData(blogPageData.value as any))
+const mappedBlogList = computed(() => mapBlogListData(blogListData.value as any))
+
+const featured = computed(() => mappedBlog.value.featuredItems[0] || mappedBlogList.value.items[0])
+const popularList = computed(() => {
+  if (mappedBlog.value.popularItems.length > 0) return mappedBlog.value.popularItems
+  return mappedBlogList.value.items.slice(1, 5)
+})
+const latestList = computed(() => mappedBlogList.value.items)
 
 useHead(() => ({
-  title: `Blog | ${t('beritaPage.meta.shortTitle')}`,
+  title: mappedBlog.value.seo.title || `${t('nav.newsItems.blog')} | ${config.public.siteName}`,
   meta: [
     {
       name: 'description',
-      content: 'Artikel blog terbaru dari PT Janu Putra Sejahtera.',
+      content: mappedBlog.value.seo.description || mappedBlog.value.latest.subtitle || t('nav.newsItems.blog'),
+    },
+    {
+      property: 'og:title',
+      content: mappedBlog.value.seo.title || t('nav.newsItems.blog'),
+    },
+    {
+      property: 'og:description',
+      content: mappedBlog.value.seo.description || mappedBlog.value.latest.subtitle || t('nav.newsItems.blog'),
+    },
+    {
+      property: 'og:type',
+      content: mappedBlog.value.seo.type || 'website',
+    },
+    {
+      property: 'og:url',
+      content: mappedBlog.value.seo.url || `${config.public.siteUrl}/blog`,
+    },
+    {
+      property: 'og:site_name',
+      content: mappedBlog.value.seo.siteName || config.public.siteName,
+    },
+    {
+      property: 'og:locale',
+      content: mappedBlog.value.seo.locale || 'id_ID',
+    },
+    {
+      name: 'robots',
+      content: mappedBlog.value.seo.robots || 'index, follow',
+    },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: mappedBlog.value.seo.canonicalUrl || `${config.public.siteUrl}/blog`,
     },
   ],
 }))
@@ -24,7 +92,7 @@ useHead(() => ({
     <!-- Hero -->
     <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
-        <NuxtImg :src="featured?.image" :alt="featured?.title" class="w-full h-full object-cover" />
+        <NuxtImg :src="featured?.image || fallbackImage" :alt="featured?.title || t('nav.newsItems.blog')" class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
       <div class="relative z-10 container-main pb-16 md:pb-20 lg:pb-24 space-y-4 w-full">
@@ -41,7 +109,9 @@ useHead(() => ({
     <!-- Blog Terpopuler -->
     <section class="section-padding space-y-6">
       <div class="container-main space-y-8">
-        <h2 class="text-center text-3xl md:text-4xl font-bold text-[#3d4f92]">Blog Terpopuler</h2>
+        <h2 class="text-center text-3xl md:text-4xl font-bold text-[#3d4f92]">
+          {{ mappedBlog.popular.title || 'Blog Terpopuler' }}
+        </h2>
 
         <div class="grid gap-8 lg:grid-cols-[2fr_1fr] items-center">
           <NuxtLink
@@ -60,7 +130,6 @@ useHead(() => ({
             />
           </NuxtLink>
 
-          <!-- sise list populer -->
           <div class="space-y-4">
             <NuxtLink
               v-for="item in popularList"
@@ -85,7 +154,9 @@ useHead(() => ({
     <!-- Blog Terbaru -->
     <section class="section-padding pt-0">
       <div class="container-main space-y-8">
-        <h2 class="text-center text-3xl md:text-4xl font-bold text-[#3d4f92]">Blog Terbaru</h2>
+        <h2 class="text-center text-3xl md:text-4xl font-bold text-[#3d4f92]">
+          {{ mappedBlog.latest.title || 'Blog Terbaru' }}
+        </h2>
 
         <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
           <div
@@ -113,8 +184,8 @@ useHead(() => ({
               <p class="text-xs text-gray-600 flex items-center gap-2">
                 <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
                 <span class="font-semibold text-[#3d4f92]">{{ item.company }}</span>
-                <span class="text-gray-400">•</span>
-                <span>{{ item.timeAgo }}</span>
+                <span v-if="item.timeAgo" class="text-gray-400">&bull;</span>
+                <span v-if="item.timeAgo">{{ item.timeAgo }}</span>
               </p>
               <h3 class="text-lg font-semibold text-[#1f2937] leading-tight">{{ item.title }}</h3>
               <p class="text-sm text-[#555] leading-snug line-clamp-3">{{ item.excerpt }}</p>

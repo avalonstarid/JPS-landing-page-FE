@@ -1,54 +1,104 @@
 <script setup lang="ts">
 const logoJps = '/images/logo-jps.png'
+const fallbackImage = '/images/berita/headline-image.png'
 import UiCard from '~/components/ui/Card.vue'
 import SharePanel from '~/components/ui/SharePanel.vue'
-import { blogLatest, findBlogById } from '~/utils/blogData'
 
 const route = useRoute()
-const { t, locale } = useI18n()
+const { t } = useI18n()
+const config = useRuntimeConfig()
+const { fetcher } = useApiFetch()
+const { mapBlogDetailData, mapBlogListData } = useHomeMapper()
+const { applyFallback } = useImageFallback()
 
 definePageMeta({
   key: (currentRoute) => currentRoute.fullPath,
   prerender: true,
 })
 
-const article = computed(() => findBlogById(route.params.id as string))
-const latestArticles = computed(() => blogLatest.filter((item) => item.id !== article.value.id).slice(0, 4))
+const slug = computed(() => String(route.params.id || ''))
+
+const { data: blogDetailResponse } = await useAsyncData('blog-detail', async () => {
+  if (!slug.value) return null
+  try {
+    return await fetcher(`/blog/detail/${slug.value}`, {})
+  } catch (error) {
+    return { error: true }
+  }
+}, {
+  watch: [slug],
+})
+
+const { data: blogListResponse } = await useAsyncData('blog-list', async () => {
+  try {
+    return await fetcher('/blog-list', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const blogDetailData = computed(() => {
+  return (blogDetailResponse.value as { data?: unknown })?.data ?? null
+})
+
+const blogListData = computed(() => {
+  return (blogListResponse.value as { data?: unknown })?.data ?? null
+})
+
+const mappedDetail = computed(() => mapBlogDetailData(blogDetailData.value as any))
+const mappedList = computed(() => mapBlogListData(blogListData.value as any))
+
+const latestArticles = computed(() => {
+  return mappedList.value.items.filter((item) => item.id !== mappedDetail.value.id).slice(0, 4)
+})
 
 const shareTitle = computed(() => t('share.title', { label: t('nav.newsItems.blog') }))
 const shareCopyLabel = computed(() => t('share.copy', { label: t('nav.newsItems.blog') }))
 
-const resolveText = (value?: { id: string; en: string } | string) => {
-  if (!value) {
-    return ''
-  }
-
-  if (typeof value === 'string') {
-    return value
-  }
-
-  const currentLocale = locale.value === 'en' ? 'en' : 'id'
-  return value[currentLocale] ?? value.id
-}
-
 useHead(() => ({
-  title: `${article.value.title} | Blog`,
+  title: mappedDetail.value.seo.title || `${mappedDetail.value.title} | ${t('nav.newsItems.blog')}`,
   meta: [
     {
       name: 'description',
-      content: article.value.description,
+      content: mappedDetail.value.seo.description || mappedDetail.value.description,
     },
     {
       property: 'og:title',
-      content: article.value.title,
+      content: mappedDetail.value.seo.title || mappedDetail.value.title,
     },
     {
       property: 'og:description',
-      content: article.value.description,
+      content: mappedDetail.value.seo.description || mappedDetail.value.description,
     },
     {
       property: 'og:image',
-      content: article.value.image,
+      content: mappedDetail.value.seo.image || mappedDetail.value.image,
+    },
+    {
+      property: 'og:type',
+      content: mappedDetail.value.seo.type || 'website',
+    },
+    {
+      property: 'og:url',
+      content: mappedDetail.value.seo.url || `${config.public.siteUrl}/blog/detail/${slug.value}`,
+    },
+    {
+      property: 'og:site_name',
+      content: mappedDetail.value.seo.siteName || config.public.siteName,
+    },
+    {
+      property: 'og:locale',
+      content: mappedDetail.value.seo.locale || 'id_ID',
+    },
+    {
+      name: 'robots',
+      content: mappedDetail.value.seo.robots || 'index, follow',
+    },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: mappedDetail.value.seo.canonicalUrl || `${config.public.siteUrl}/blog/detail/${slug.value}`,
     },
   ],
 }))
@@ -58,7 +108,12 @@ useHead(() => ({
   <div class="bg-[#fdeee0] min-h-screen">
     <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
-        <NuxtImg :src="article.image" :alt="article.title" class="w-full h-full object-cover" />
+        <NuxtImg
+          :src="mappedDetail.image || fallbackImage"
+          :alt="mappedDetail.title"
+          class="w-full h-full object-cover"
+          @error="(event) => applyFallback(event, fallbackImage)"
+        />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
     </section>
@@ -77,14 +132,14 @@ useHead(() => ({
       <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-[#3d4f92]">
         <NuxtLink to="/" class="hover:underline">{{ t('nav.home') }}</NuxtLink>
         <span>/</span>
-        <NuxtLink to="/blog" class="hover:underline">Blog</NuxtLink>
+        <NuxtLink to="/blog" class="hover:underline">{{ t('nav.newsItems.blog') }}</NuxtLink>
         <span>/</span>
-        <span class="text-gray-600 line-clamp-1">{{ article.title }}</span>
+        <span class="text-gray-600 line-clamp-1">{{ mappedDetail.title }}</span>
       </div>
 
       <div class="flex flex-wrap items-start justify-between gap-4">
         <h1 class="text-3xl md:text-4xl font-bold text-[#3d4f92] leading-tight max-w-3xl">
-          {{ article.title }}
+          {{ mappedDetail.title }}
         </h1>
       </div>
 
@@ -92,35 +147,12 @@ useHead(() => ({
         <article class="space-y-6">
           <div class="flex flex-wrap items-center gap-3 text-sm text-gray-700">
             <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
-            <span class="font-semibold">{{ article.company }}</span>
-            <span class="text-gray-400">•</span>
-            <span>{{ article.timeAgo }}</span>
+            <span class="font-semibold">{{ mappedDetail.author }}</span>
+            <span v-if="mappedDetail.timeAgo" class="text-gray-400">&bull;</span>
+            <span v-if="mappedDetail.timeAgo">{{ mappedDetail.timeAgo }}</span>
           </div>
 
-          <div class="mt-2 text-[#333] leading-relaxed text-lg space-y-4">
-            <template v-for="(block, idx) in article.content" :key="idx">
-              <p v-if="block.type === 'paragraph'">{{ resolveText(block.text) }}</p>
-              <figure v-else-if="block.type === 'image'" class="space-y-2">
-                <NuxtImg
-                  :src="block.src"
-                  :alt="resolveText(block.alt)"
-                  class="w-full aspect-video rounded-2xl object-cover"
-                />
-                <figcaption v-if="block.caption" class="text-xs text-gray-500">
-                  {{ resolveText(block.caption) }}
-                </figcaption>
-              </figure>
-              <blockquote
-                v-else-if="block.type === 'quote'"
-                class="border-l-4 border-[#3d4f92] pl-4 text-lg italic text-[#3d4f92]"
-              >
-                <p>{{ resolveText(block.text) }}</p>
-                <footer v-if="block.cite" class="mt-2 text-sm text-gray-500 not-italic">
-                  - {{ resolveText(block.cite) }}
-                </footer>
-              </blockquote>
-            </template>
-          </div>
+          <div class="mt-2 blog-content text-[#333] leading-relaxed text-lg" v-html="mappedDetail.contentHtml" />
           <div class="pt-6">
             <SharePanel :title="shareTitle" :copy-label="shareCopyLabel" />
           </div>
@@ -150,8 +182,8 @@ useHead(() => ({
                 <p class="text-xs text-gray-600 flex items-center gap-2">
                   <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
                   <span class="font-medium text-[#3d4f92]">{{ item.company }}</span>
-                  <span class="text-gray-400">•</span>
-                  <span>{{ item.timeAgo }}</span>
+                  <span v-if="item.timeAgo" class="text-gray-400">&bull;</span>
+                  <span v-if="item.timeAgo">{{ item.timeAgo }}</span>
                 </p>
                 <p class="text-sm font-semibold text-[#1f2937] leading-tight">{{ item.title }}</p>
                 <p class="text-xs text-[#555] leading-snug line-clamp-2">{{ item.excerpt }}</p>
@@ -163,3 +195,19 @@ useHead(() => ({
     </div>
   </div>
 </template>
+
+<style scoped>
+.blog-content :deep(p) {
+  margin-bottom: 1rem;
+}
+
+.blog-content :deep(ul),
+.blog-content :deep(ol) {
+  margin: 0 0 1rem 1.5rem;
+}
+
+.blog-content :deep(img) {
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+</style>
