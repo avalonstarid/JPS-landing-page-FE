@@ -153,12 +153,12 @@ useHead(() => ({
           </div>
 
           <div class="mt-2 pengumuman-content text-[#333] leading-relaxed text-lg" v-html="mappedDetail.contentHtml" />
+        </article>
+
+        <aside class="space-y-5 mt-4 relative">
           <div class="pt-6">
             <SharePanel :title="shareTitle" :copy-label="shareCopyLabel" />
           </div>
-        </article>
-
-        <aside class="space-y-5 mt-4">
           <h3 class="text-lg font-semibold">Pengumuman Lainnya</h3>
           <div class="space-y-4">
             <NuxtLink

@@ -36,7 +36,7 @@ const shareIcons = [
 </script>
 
 <template>
-  <div class="relative w-full sm:absolute sm:right-[16px] sm:w-auto rounded-3xl px-4 py-4">
+  <div class="relative lg:absolute lg:top-[-160px] w-full rounded-3xl">
     <p class="text-base font-semibold text-[#1b1f3b]">{{ title }}</p>
     <div class="mt-3 flex flex-wrap items-center gap-3">
       <button
