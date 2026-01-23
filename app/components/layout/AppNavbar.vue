@@ -304,36 +304,36 @@ onUnmounted(() => {
         </div>
 
         <!-- Mobile actions -->
-        <div class="flex min-[1316px]:hidden items-center gap-2 pointer-events-auto">
+        <div class="flex min-[1316px]:hidden items-center gap-1.5 pointer-events-auto">
           <div
-            class="flex items-center gap-1 rounded-full px-2 py-1 backdrop-blur-lg border shadow-lg transition"
+            class="flex items-center gap-1 rounded-full px-1.5 py-0.5 backdrop-blur-lg border shadow-lg transition"
             :class="isScrolled ? 'bg-black/30 text-white/90 border-white/20' : 'bg-white/10 text-white/85 border-white/20'"
           >
             <button
               v-for="lang in availableLanguages"
               :key="lang.code"
               type="button"
-              class="flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold transition"
+              class="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold transition"
               :class="currentLanguage === lang.label ? 'bg-white/20 text-white' : 'text-white/80 hover:text-white'"
               @click="setLanguage(lang.code)"
               :aria-pressed="currentLanguage === lang.label"
               :aria-label="lang.label"
             >
-              <NuxtImg :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
+              <NuxtImg :src="lang.icon" :alt="lang.alt" class="h-3.5 w-3.5 rounded-full object-cover" />
               <span>{{ lang.label }}</span>
             </button>
           </div>
 
           <NuxtLink
             to="/hubungi-kami"
-            class="rounded-full bg-[#f6993c] px-2 py-2 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl"
+            class="rounded-full bg-[#f6993c] px-3 py-1.5 text-[11px] font-semibold text-white shadow-lg transition hover:shadow-xl whitespace-nowrap leading-none"
             :aria-label="ctaLabel"
           >
             {{ ctaLabel }}
           </NuxtLink>
 
           <button
-            class="inline-flex items-center justify-center rounded-full p-2 backdrop-blur-lg border shadow-lg transition"
+            class="inline-flex items-center justify-center rounded-full p-1.5 backdrop-blur-lg border shadow-lg transition"
             :class="isScrolled ? 'bg-black/30 text-white border-white/20 hover:bg-black/35' : 'bg-white/10 text-white border-white/20 hover:bg-white/15'"
             @click="toggleMobileMenu"
             :aria-expanded="isMobileMenuOpen"
