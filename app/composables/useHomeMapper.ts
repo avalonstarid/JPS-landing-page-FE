@@ -382,6 +382,65 @@ type KeberlanjutanPendekatanApiData = {
   }
 }
 
+type BeritaPageApiData = {
+  featured?: {
+    data?: Array<Record<string, unknown>>
+  }
+  popular?: {
+    title?: LocaleText
+    subtitle?: LocaleText
+    data?: Array<Record<string, unknown>>
+  }
+  news?: {
+    title?: LocaleText
+    subtitle?: LocaleText
+    data?: Array<Record<string, unknown>>
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
+type BeritaListApiData = {
+  data?: Array<Record<string, unknown>>
+}
+
+type BeritaDetailApiData = {
+  post?: {
+    author?: {
+      name?: string
+    }
+    content?: LocaleText
+    featured?: {
+      original_url?: string
+      thumb_url?: string
+    }
+    published_at?: string
+    slug?: string
+    title?: LocaleText
+  }
+  seo?: {
+    title?: string
+    description?: string
+    author?: string
+    image?: string
+    url?: string
+    published_time?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -427,6 +486,18 @@ export const useHomeMapper = () => {
   const stripHtml = (value?: string) => {
     if (!value) return ''
     return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+  }
+
+  const formatDateLabel = (value?: string) => {
+    if (!value) return ''
+    const parsed = new Date(value)
+    if (Number.isNaN(parsed.getTime())) return ''
+    const localeCode = locale.value === 'en' ? 'en-US' : 'id-ID'
+    return parsed.toLocaleDateString(localeCode, {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    })
   }
 
   const normalizeLocationType = (value?: string) => {
@@ -974,6 +1045,93 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapBeritaPageData = (raw?: BeritaPageApiData | null) => {
+    const popular = raw?.popular
+    const news = raw?.news
+
+    return {
+      popular: {
+        title: resolveLocaleText(popular?.title),
+        subtitle: resolveLocaleText(popular?.subtitle),
+      },
+      latest: {
+        title: resolveLocaleText(news?.title),
+        subtitle: resolveLocaleText(news?.subtitle),
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
+  const mapBeritaListData = (raw?: BeritaListApiData | Array<Record<string, unknown>> | null) => {
+    const items = Array.isArray(raw) ? raw : raw?.data || []
+
+    return {
+      items: items.map((item, index) => {
+        const data = item || {}
+        const title = resolveLocaleText((data as any).title)
+        const featured = (data as any).featured || {}
+        const authorName = (data as any).author?.name || 'PT Janu Putra Sejahtera'
+        const publishedAt = (data as any).published_at || ''
+        const slug = String((data as any).slug || '')
+        const seo = (data as any).seo || {}
+        const excerpt = seo.description || title
+
+        return {
+          id: slug || String(index),
+          slug,
+          title,
+          excerpt,
+          description: seo.description || excerpt,
+          image: featured.original_url || featured.thumb_url || '',
+          timeAgo: formatDateLabel(publishedAt),
+          company: authorName,
+          publishedAt,
+        }
+      }),
+    }
+  }
+
+  const mapBeritaDetailData = (raw?: BeritaDetailApiData | null) => {
+    const post = raw?.post
+    const featured = post?.featured
+    const contentHtml = resolveLocaleText(post?.content)
+    const publishedAt = post?.published_at || ''
+    const title = resolveLocaleText(post?.title)
+
+    return {
+      id: String(post?.slug || ''),
+      slug: String(post?.slug || ''),
+      title,
+      author: post?.author?.name || 'PT Janu Putra Sejahtera',
+      image: featured?.original_url || featured?.thumb_url || '',
+      timeAgo: formatDateLabel(publishedAt),
+      description: raw?.seo?.description || '',
+      contentHtml,
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+        image: raw?.seo?.image || '',
+        publishedTime: raw?.seo?.published_time || '',
+        author: raw?.seo?.author || '',
+      },
+    }
+  }
+
   return {
     mapHomeData,
     mapTentangData,
@@ -987,5 +1145,8 @@ export const useHomeMapper = () => {
     mapInvestorListData,
     mapInvestorFinanceData,
     mapKeberlanjutanPendekatanData,
+    mapBeritaPageData,
+    mapBeritaListData,
+    mapBeritaDetailData,
   }
 }
