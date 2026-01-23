@@ -21,7 +21,7 @@ const aboutBackground = computed(() => props.data?.image || aboutImage)
 </script>
 
 <template>
-  <section class="py-16 lg:py-24 bg-[#fdeee0]" aria-labelledby="karir-about">
+  <section class="py-8 bg-[#fdeee0]" aria-labelledby="karir-about">
     <div class="container-main">
       <div class="grid gap-10 lg:grid-cols-2 items-center">
         <!-- Image -->

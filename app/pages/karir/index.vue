@@ -4,7 +4,12 @@ import type { KarirJob } from '~/utils/karirData'
 const { t } = useI18n()
 const config = useRuntimeConfig()
 const { fetcher } = useApiFetch()
-const { mapKarirData, mapKarirListData } = useHomeMapper()
+const { mapKarirData, mapKarirListData, mapKarirCategoryData, mapKarirDetailData } = useHomeMapper()
+
+const categoryParentId = '019b78c3-06ba-70f4-827c-61e614af65fd'
+const searchQuery = ref('')
+const selectedCategoryId = ref('')
+const selectedLocation = ref('')
 
 const { data: karirResponse } = await useAsyncData('karir-page', async () => {
   try {
@@ -14,12 +19,33 @@ const { data: karirResponse } = await useAsyncData('karir-page', async () => {
   }
 })
 
-const { data: karirListResponse } = await useAsyncData('karir-list', async () => {
+const { data: karirCategoryResponse } = await useAsyncData('karir-category-list', async () => {
   try {
-    return await fetcher('/karir-list', {})
+    return await fetcher('/v1/master/categories', {
+      query: {
+        'filter[parent_id]': categoryParentId,
+      },
+    })
   } catch (error) {
     return { error: true }
   }
+})
+
+const { data: karirListResponse, pending: karirListPending } = await useAsyncData('karir-list', async () => {
+  try {
+    const query: Record<string, string> = {}
+    if (searchQuery.value.trim()) {
+      query['filter[search]'] = searchQuery.value.trim()
+    }
+    if (selectedCategoryId.value) {
+      query['filter[category]'] = selectedCategoryId.value
+    }
+    return await fetcher('/karir-list', { query })
+  } catch (error) {
+    return { error: true }
+  }
+}, {
+  watch: [searchQuery, selectedCategoryId],
 })
 
 const karirData = computed(() => {
@@ -30,14 +56,39 @@ const karirListData = computed(() => {
   return (karirListResponse.value as { data?: unknown })?.data ?? null
 })
 
+const karirCategoryData = computed(() => {
+  return (karirCategoryResponse.value as { data?: unknown })?.data ?? null
+})
+
 const mappedKarir = computed(() => mapKarirData(karirData.value as any))
 const mappedKarirList = computed(() => mapKarirListData(karirListData.value as any))
+const mappedKarirCategories = computed(() => mapKarirCategoryData(karirCategoryData.value as any))
 
-const jobTypeLabelMap = computed(() => ({
-  marketing: t('karirPage.filter.jobTypes.marketing'),
-  sales: t('karirPage.filter.jobTypes.sales'),
-  legal: t('karirPage.filter.jobTypes.legal'),
-}))
+const categoryCountMap = computed(() => {
+  return mappedKarir.value.categories.reduce<Record<string, number>>((acc, category) => {
+    if (category.id) {
+      acc[category.id] = category.jobsCount
+    }
+    return acc
+  }, {})
+})
+
+const categoryOptions = computed(() => {
+  if (mappedKarirCategories.value.items.length) {
+    return mappedKarirCategories.value.items.map((item) => ({
+      ...item,
+      jobsCount: categoryCountMap.value[item.id],
+    }))
+  }
+  return mappedKarir.value.categories
+})
+
+const categoryLabelMap = computed(() => {
+  return categoryOptions.value.reduce<Record<string, string>>((acc, item) => {
+    acc[item.id] = item.name
+    return acc
+  }, {})
+})
 
 // SEO Meta
 useHead(() => ({
@@ -90,13 +141,58 @@ const isApplyModalOpen = ref(false)
 const selectedJob = ref<KarirJob | null>(null)
 
 const jobs = computed(() => {
-  return mappedKarirList.value.items.map((job) => {
-    const fallbackLabel = jobTypeLabelMap.value[job.jobType as keyof typeof jobTypeLabelMap.value]
+  const baseJobs = mappedKarirList.value.items
+  const filteredByLocation = selectedLocation.value
+    ? baseJobs.filter((job) => job.locationType === selectedLocation.value)
+    : baseJobs
+
+  return filteredByLocation.map((job) => {
+    const categoryLabel = job.categoryId ? categoryLabelMap.value[job.categoryId] : ''
     return {
       ...job,
-      jobTypeLabel: job.jobTypeLabel || fallbackLabel || job.jobType,
+      jobTypeLabel: job.jobTypeLabel || categoryLabel || job.jobType,
     }
   })
+})
+
+const selectedSlug = computed(() => selectedJob.value?.slug || '')
+
+const { data: karirDetailResponse, pending: karirDetailPending } = await useAsyncData('karir-detail', async () => {
+  if (!selectedSlug.value) return null
+  try {
+    return await fetcher(`/karir/${selectedSlug.value}`, {})
+  } catch (error) {
+    return { error: true }
+  }
+}, {
+  watch: [selectedSlug],
+})
+
+const karirDetailData = computed(() => {
+  return (karirDetailResponse.value as { data?: unknown })?.data ?? null
+})
+
+const mappedKarirDetail = computed(() => mapKarirDetailData(karirDetailData.value as any))
+
+const detailJob = computed(() => {
+  if (!selectedJob.value) return null
+  const detail = mappedKarirDetail.value
+  const hasDetail = Boolean(
+    detail.slug ||
+    detail.title ||
+    detail.description ||
+    detail.requirements.length ||
+    detail.responsibilities.length ||
+    detail.benefits.length
+  )
+
+  if (!hasDetail) return selectedJob.value
+
+  return {
+    ...selectedJob.value,
+    ...detail,
+    jobTypeLabel: selectedJob.value.jobTypeLabel || detail.categoryName || selectedJob.value.jobTypeLabel,
+  }
 })
 
 const handleOpenDetail = (job: KarirJob) => {
@@ -117,6 +213,12 @@ const handleApply = (job: KarirJob) => {
 const handleCloseApply = () => {
   isApplyModalOpen.value = false
 }
+
+const handleResetFilters = () => {
+  searchQuery.value = ''
+  selectedCategoryId.value = ''
+  selectedLocation.value = ''
+}
 </script>
 
 <template>
@@ -128,12 +230,25 @@ const handleCloseApply = () => {
     <KarirAboutSection :data="mappedKarir.about" />
 
     <!-- Job List Section -->
-    <KarirListSection :jobs="jobs" @open-detail="handleOpenDetail" />
+    <KarirListSection
+      :jobs="jobs"
+      :categories="categoryOptions"
+      :search-query="searchQuery"
+      :selected-category-id="selectedCategoryId"
+      :selected-location="selectedLocation"
+      :is-loading="karirListPending"
+      @update-search="searchQuery = $event"
+      @update-category="selectedCategoryId = $event"
+      @update-location="selectedLocation = $event"
+      @reset-filters="handleResetFilters"
+      @open-detail="handleOpenDetail"
+    />
 
     <!-- Detail Modal -->
     <KarirDetailModal
       :is-open="isDetailModalOpen"
-      :job="selectedJob"
+      :job="detailJob"
+      :is-loading="karirDetailPending"
       @close="handleCloseDetail"
       @apply="handleApply"
     />

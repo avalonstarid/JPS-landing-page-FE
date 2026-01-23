@@ -2,6 +2,7 @@
 import type { KarirJob } from '~/utils/karirData'
 const logoJps = '/images/logo-jps.png'
 const { t } = useI18n()
+const { fetcher } = useApiFetch()
 
 interface Props {
   isOpen: boolean
@@ -30,8 +31,11 @@ const form = reactive({
 })
 
 const resumeFileName = ref('')
+const isSubmitting = ref(false)
+const submitError = ref('')
 
 const handleClose = () => {
+  submitError.value = ''
   emit('close')
 }
 
@@ -43,9 +47,61 @@ const handleFileChange = (event: Event) => {
   }
 }
 
-const handleSubmit = () => {
-  // Form submission logic here (UI only for now)
-  handleClose()
+const resetForm = () => {
+  form.fullName = ''
+  form.email = ''
+  form.phone = ''
+  form.gender = ''
+  form.age = ''
+  form.maritalStatus = ''
+  form.educationLevel = ''
+  form.institution = ''
+  form.major = ''
+  form.resume = null
+  form.reason = ''
+  resumeFileName.value = ''
+}
+
+const handleSubmit = async () => {
+  if (isSubmitting.value) return
+  submitError.value = ''
+  isSubmitting.value = true
+
+  try {
+    const payload = new FormData()
+    payload.append('age', String(Number(form.age)))
+    payload.append('email', form.email.trim())
+    payload.append('jurusan', form.major.trim())
+    payload.append('name', form.fullName.trim())
+    payload.append('phone', form.phone.trim())
+    payload.append('school_name', form.institution.trim())
+    payload.append('reason', form.reason.trim())
+
+    if (form.resume) {
+      payload.append('resume', form.resume)
+    }
+
+    const genderId = form.gender === 'male' ? 'L' : form.gender === 'female' ? 'P' : ''
+    if (genderId) {
+      payload.append('gender_id', genderId)
+    }
+
+    if (form.maritalStatus) {
+      payload.append('status_kawin_id', form.maritalStatus)
+    }
+
+    await fetcher('/v1/job-applications', {
+      method: 'POST',
+      body: payload,
+    })
+
+    resetForm()
+    handleClose()
+  } catch (error) {
+    submitError.value = 'Gagal mengirim lamaran. Silakan coba lagi.'
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 // Close on escape key
@@ -292,6 +348,7 @@ watch(() => props.isOpen, (isOpen) => {
                       type="file"
                       accept=".pdf,.jpg,.jpeg,.png"
                       class="sr-only"
+                      required
                       @change="handleFileChange"
                     />
                   </div>
@@ -314,6 +371,10 @@ watch(() => props.isOpen, (isOpen) => {
                 />
               </div>
 
+              <p v-if="submitError" class="text-sm text-red-600">
+                {{ submitError }}
+              </p>
+
             </form>
           </div>
 
@@ -322,10 +383,12 @@ watch(() => props.isOpen, (isOpen) => {
             <button
               type="submit"
               form="apply-form"
-              class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#e68a2e] hover:shadow-xl"
+              class="inline-flex items-center gap-2 rounded-full bg-[#f6993c] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#e68a2e] hover:shadow-xl disabled:opacity-70"
+              :disabled="isSubmitting"
             >
               <span>{{ t('karirPage.form.submit') }}</span>
-              <i class="mdi mdi-arrow-right" aria-hidden="true" />
+              <span v-if="isSubmitting" class="h-4 w-4 rounded-full border-2 border-white/60 border-t-white animate-spin" aria-hidden="true" />
+              <i v-else class="mdi mdi-arrow-right" aria-hidden="true" />
             </button>
           </div>
         </div>

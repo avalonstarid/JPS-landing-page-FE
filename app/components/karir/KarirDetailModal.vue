@@ -6,9 +6,12 @@ const { t } = useI18n()
 interface Props {
   isOpen: boolean
   job: KarirJob | null
+  isLoading?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  isLoading: false,
+})
 
 const emit = defineEmits<{
   close: []
@@ -118,38 +121,41 @@ watch(() => props.isOpen, (isOpen) => {
             </div>
 
             <!-- Description -->
-            <div class="space-y-4">
-              <p class="font-semibold text-[#1f2937]">Lorem ipsum dolor</p>
-              <p class="text-[#4b4b4b] leading-relaxed">
-                {{ job.description }}
-              </p>
+            <div v-if="props.isLoading" class="text-sm text-gray-500">
+              {{ t('common.loading') }}
             </div>
+            <template v-else>
+              <div v-if="job.description" class="space-y-3">
+                <p class="font-semibold text-[#1f2937]">Deskripsi</p>
+                <p class="text-[#4b4b4b] leading-relaxed">
+                  {{ job.description }}
+                </p>
+              </div>
 
-            <!-- Responsibilities Section -->
-            <div class="space-y-3">
-              <p class="text-[#4b4b4b] leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-              </p>
-            </div>
+              <div v-if="job.responsibilities?.length" class="space-y-3">
+                <p class="text-[#1f2937] font-semibold">Tanggung Jawab</p>
+                <ul class="list-disc list-inside space-y-1 text-[#4b4b4b]">
+                  <li v-for="(item, idx) in job.responsibilities" :key="`resp-${idx}`">{{ item }}</li>
+                </ul>
+              </div>
 
-            <!-- Requirements List -->
-            <div class="space-y-3">
-              <p class="text-[#1f2937]">Lorem ipsum dolor sit</p>
-              <ul class="list-disc list-inside space-y-1 text-[#4b4b4b]">
-                <li v-for="(req, idx) in job.requirements" :key="idx">{{ req }}</li>
-              </ul>
-            </div>
+              <div v-if="job.requirements?.length" class="space-y-3">
+                <p class="text-[#1f2937] font-semibold">Persyaratan</p>
+                <ul class="list-disc list-inside space-y-1 text-[#4b4b4b]">
+                  <li v-for="(req, idx) in job.requirements" :key="`req-${idx}`">{{ req }}</li>
+                </ul>
+              </div>
 
-            <!-- Benefits Section -->
-            <div class="space-y-3">
-              <p class="text-[#4b4b4b] leading-relaxed">
-                Tempus leo eu aenean sed tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-              </p>
-            </div>
+              <div v-if="job.benefits?.length" class="space-y-3">
+                <p class="text-[#1f2937] font-semibold">Benefit</p>
+                <ul class="list-disc list-inside space-y-1 text-[#4b4b4b]">
+                  <li v-for="(benefit, idx) in job.benefits" :key="`benefit-${idx}`">{{ benefit }}</li>
+                </ul>
+              </div>
+            </template>
           </div>
         </div>
       </div>
     </Transition>
   </Teleport>
 </template>
-

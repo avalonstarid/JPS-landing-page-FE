@@ -252,6 +252,17 @@ type HubungiKamiApiData = {
 }
 
 type KarirApiData = {
+  categories?: {
+    data?: Array<{
+      id?: string
+      jobs_count?: number
+      name?: LocaleText
+    }>
+  }
+  header?: {
+    title?: LocaleText
+    desc?: LocaleText
+  }
   hero?: {
     background?: string
     title?: LocaleText
@@ -284,6 +295,38 @@ type KarirListApiData = {
     data?: Array<Record<string, unknown>>
   }
   jobs?: Array<Record<string, unknown>>
+}
+
+type KarirCategoryApiData = {
+  data?: Array<{
+    id?: string
+    name?: LocaleText
+  }>
+}
+
+type KarirDetailApiData = {
+  id?: string
+  slug?: string
+  title?: LocaleText
+  name?: LocaleText
+  desc?: LocaleText
+  desc_short?: LocaleText
+  description?: LocaleText
+  content?: LocaleText
+  location?: LocaleText
+  address?: LocaleText
+  category?: {
+    id?: string
+    name?: LocaleText
+  }
+  published_at?: string
+  created_at?: string
+  requirements?: LocaleArray | string
+  requirement?: LocaleArray | string
+  responsibilities?: LocaleArray | string
+  tasks?: LocaleArray | string
+  benefits?: LocaleArray | string
+  benefit?: LocaleArray | string
 }
 
 type InvestorListApiData = {
@@ -703,6 +746,8 @@ export const useHomeMapper = () => {
   const mapKarirData = (raw?: KarirApiData | null) => {
     const hero = raw?.hero
     const about = raw?.about
+    const header = raw?.header
+    const categories = raw?.categories?.data || []
 
     return {
       hero: {
@@ -711,11 +756,16 @@ export const useHomeMapper = () => {
         subtitle: resolveLocaleText(hero?.subtitle),
       },
       about: {
-        title: resolveLocaleText(about?.title),
-        description1: resolveLocaleText(about?.description_1 || about?.desc_1),
+        title: resolveLocaleText(header?.title || about?.title),
+        description1: resolveLocaleText(header?.desc || about?.description_1 || about?.desc_1),
         description2: resolveLocaleText(about?.description_2 || about?.desc_2),
         image: about?.image || about?.featured || '',
       },
+      categories: categories.map((item) => ({
+        id: String(item.id || ''),
+        name: resolveLocaleText(item.name),
+        jobsCount: item.jobs_count || 0,
+      })),
       seo: {
         title: raw?.seo?.title || '',
         description: raw?.seo?.description || '',
@@ -729,32 +779,71 @@ export const useHomeMapper = () => {
     }
   }
 
-  const mapKarirListData = (raw?: KarirListApiData | null) => {
-    const items = raw?.data || raw?.list?.data || raw?.jobs || []
+  const mapKarirListData = (raw?: KarirListApiData | Array<Record<string, unknown>> | null) => {
+    const items = Array.isArray(raw) ? raw : raw?.data || raw?.list?.data || raw?.jobs || []
 
     return {
       items: items.map((item, index) => {
         const data = item || {}
         const title = resolveLocaleText((data as any).title || (data as any).position || (data as any).name)
-        const locationText = resolveLocaleText((data as any).location || (data as any).city || (data as any).region)
+        const locationText = resolveLocaleText((data as any).location || (data as any).address || (data as any).city || (data as any).region)
         const locationTypeRaw = (data as any).location_type || (data as any).location_key || (data as any).location_slug || locationText
-        const jobTypeRaw = (data as any).job_type || (data as any).type || (data as any).category || (data as any).department
-        const jobTypeLabel = resolveLocaleText((data as any).job_type_label || (data as any).type_label || (data as any).category_label)
+        const category = (data as any).category || {}
+        const jobTypeRaw = (data as any).job_type || (data as any).type || (data as any).category || category?.name || (data as any).department
+        const jobTypeLabel = resolveLocaleText(
+          (data as any).job_type_label || (data as any).type_label || (data as any).category_label || category?.name
+        )
 
         return {
           id: String((data as any).id || (data as any).slug || index),
+          slug: String((data as any).slug || ''),
+          categoryId: String(category?.id || ''),
           title,
           location: locationText,
           locationType: normalizeLocationType(String(locationTypeRaw || '')),
           jobType: normalizeJobType(String(jobTypeRaw || '')),
           jobTypeLabel,
           postedAt: resolveLocaleText((data as any).posted_at || (data as any).created_at || (data as any).date || (data as any).published_at),
-          description: resolveLocaleText((data as any).description || (data as any).desc || (data as any).summary),
+          description: resolveLocaleText((data as any).description || (data as any).desc || (data as any).summary || (data as any).desc_short),
           requirements: normalizeStringList((data as any).requirements || (data as any).requirement),
           responsibilities: normalizeStringList((data as any).responsibilities || (data as any).tasks),
           benefits: normalizeStringList((data as any).benefits || (data as any).benefit),
         }
       }),
+    }
+  }
+
+  const mapKarirCategoryData = (raw?: KarirCategoryApiData | Array<Record<string, unknown>> | null) => {
+    const items = Array.isArray(raw) ? raw : raw?.data || []
+
+    return {
+      items: items.map((item, index) => {
+        const data = item || {}
+        return {
+          id: String((data as any).id || index),
+          name: resolveLocaleText((data as any).name),
+        }
+      }),
+    }
+  }
+
+  const mapKarirDetailData = (raw?: KarirDetailApiData | null) => {
+    const category = raw?.category
+    const title = resolveLocaleText(raw?.title || raw?.name)
+    const description = stripHtml(resolveLocaleText(raw?.description || raw?.desc || raw?.content || raw?.desc_short))
+
+    return {
+      id: String(raw?.id || raw?.slug || ''),
+      slug: String(raw?.slug || ''),
+      title,
+      categoryId: String(category?.id || ''),
+      categoryName: resolveLocaleText(category?.name),
+      location: resolveLocaleText(raw?.location || raw?.address),
+      postedAt: resolveLocaleText(raw?.published_at || raw?.created_at),
+      description,
+      requirements: normalizeStringList(raw?.requirements || raw?.requirement),
+      responsibilities: normalizeStringList(raw?.responsibilities || raw?.tasks),
+      benefits: normalizeStringList(raw?.benefits || raw?.benefit),
     }
   }
 
@@ -893,6 +982,8 @@ export const useHomeMapper = () => {
     mapHubungiKamiData,
     mapKarirData,
     mapKarirListData,
+    mapKarirCategoryData,
+    mapKarirDetailData,
     mapInvestorListData,
     mapInvestorFinanceData,
     mapKeberlanjutanPendekatanData,

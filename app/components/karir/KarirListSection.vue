@@ -4,54 +4,63 @@ const emptyImage = '/images/karir/karir-tidak-tersedia.png'
 const karirImage = '/images/karir/karir.jpg'
 const { t } = useI18n()
 
-const props = withDefaults(defineProps<{ jobs?: KarirJob[] }>(), {
+type CategoryOption = {
+  id: string
+  name: string
+  jobsCount?: number
+}
+
+const props = withDefaults(defineProps<{
+  jobs?: KarirJob[]
+  categories?: CategoryOption[]
+  searchQuery?: string
+  selectedCategoryId?: string
+  selectedLocation?: string
+  isLoading?: boolean
+}>(), {
   jobs: () => [],
+  categories: () => [],
+  searchQuery: '',
+  selectedCategoryId: '',
+  selectedLocation: '',
+  isLoading: false,
 })
 
 const emit = defineEmits<{
   openDetail: [job: KarirJob]
+  updateSearch: [value: string]
+  updateCategory: [value: string]
+  updateLocation: [value: string]
+  resetFilters: []
 }>()
-
-// Filter state
-const searchQuery = ref('')
-const selectedLocation = ref('')
-const selectedJobType = ref('')
-
-// Computed filtered jobs
-const filteredJobs = computed(() => {
-  return props.jobs.filter((job) => {
-    const matchesSearch = searchQuery.value === '' || 
-      job.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-    const matchesLocation = selectedLocation.value === '' || 
-      job.locationType === selectedLocation.value
-    const matchesJobType = selectedJobType.value === '' || 
-      job.jobType === selectedJobType.value
-    return matchesSearch && matchesLocation && matchesJobType
-  })
-})
-
-// Count by job type
-const marketingCount = computed(() => props.jobs.filter(j => j.jobType === 'marketing').length)
-const salesCount = computed(() => props.jobs.filter(j => j.jobType === 'sales').length)
-const legalCount = computed(() => props.jobs.filter(j => j.jobType === 'legal').length)
-
-const resetFilters = () => {
-  searchQuery.value = ''
-  selectedLocation.value = ''
-  selectedJobType.value = ''
-}
 
 const handleOpenDetail = (job: KarirJob) => {
   emit('openDetail', job)
 }
 
+const jobs = computed(() => props.jobs)
+const searchQuery = computed(() => props.searchQuery)
+const selectedCategoryId = computed(() => props.selectedCategoryId)
+const selectedLocation = computed(() => props.selectedLocation)
+const isLoading = computed(() => props.isLoading)
+
 const hasJobs = computed(() => props.jobs.length > 0)
+const hasActiveFilters = computed(() => Boolean(searchQuery.value || selectedCategoryId.value || selectedLocation.value))
+
+const hasCategories = computed(() => props.categories.length > 0)
+
+const formatCategoryLabel = (item: CategoryOption) => {
+  if (typeof item.jobsCount === 'number') {
+    return `${item.name} (${item.jobsCount})`
+  }
+  return item.name
+}
 </script>
 
 <template>
-  <section class="py-16 lg:py-24 bg-[#fdeee0]" aria-labelledby="karir-list">
-    <div class="container-main">
-      <div v-if="hasJobs" class="grid gap-8 lg:grid-cols-[280px_1fr]">
+  <section class="bg-[#fdeee0]" aria-labelledby="karir-list">
+    <div class="container-main py-8">
+      <div v-if="hasJobs || isLoading || hasActiveFilters" class="grid gap-8 lg:grid-cols-[280px_1fr]">
         <!-- Filter Sidebar -->
         <aside class="space-y-6 bg-white rounded-2xl p-6 shadow-lg shadow-black/5">
           <div class="flex items-center justify-between">
@@ -59,7 +68,7 @@ const hasJobs = computed(() => props.jobs.length > 0)
             <button 
               type="button"
               class="text-sm text-[#f6993c] hover:underline font-medium"
-              @click="resetFilters"
+              @click="emit('resetFilters')"
             >
               {{ t('karirPage.filter.reset') }}
             </button>
@@ -74,10 +83,11 @@ const hasJobs = computed(() => props.jobs.length > 0)
               <i class="mdi mdi-magnify absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true" />
               <input
                 id="search-job"
-                v-model="searchQuery"
+                :value="searchQuery"
                 type="text"
                 :placeholder="t('karirPage.filter.searchPlaceholder')"
                 class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#f6993c] focus:outline-none focus:ring-2 focus:ring-[#f6993c]/20"
+                @input="emit('updateSearch', ($event.target as HTMLInputElement).value)"
               />
             </div>
           </div>
@@ -88,41 +98,45 @@ const hasJobs = computed(() => props.jobs.length > 0)
             <div class="space-y-2">
               <label class="flex items-center gap-2 cursor-pointer">
                 <input 
-                  v-model="selectedLocation" 
+                  :checked="selectedLocation === ''"
                   type="radio" 
                   name="location" 
                   value=""
                   class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
+                  @change="emit('updateLocation', '')"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locationAll') }}</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input 
-                  v-model="selectedLocation" 
+                  :checked="selectedLocation === 'yogyakarta'"
                   type="radio" 
                   name="location" 
                   value="yogyakarta"
                   class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
+                  @change="emit('updateLocation', 'yogyakarta')"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locations.yogyakarta') }}</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input 
-                  v-model="selectedLocation" 
+                  :checked="selectedLocation === 'purbalingga'"
                   type="radio" 
                   name="location" 
                   value="purbalingga"
                   class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
+                  @change="emit('updateLocation', 'purbalingga')"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locations.purbalingga') }}</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input 
-                  v-model="selectedLocation" 
+                  :checked="selectedLocation === 'kebumen'"
                   type="radio" 
                   name="location" 
                   value="kebumen"
                   class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
+                  @change="emit('updateLocation', 'kebumen')"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.locations.kebumen') }}</span>
               </label>
@@ -132,46 +146,32 @@ const hasJobs = computed(() => props.jobs.length > 0)
           <!-- Job Type Filter -->
           <div class="space-y-3">
             <p class="text-sm font-medium text-[#1f2937]">{{ t('karirPage.filter.jobTypeLabel') }}</p>
-            <div class="space-y-2">
+            <div class="space-y-2" :class="hasCategories ? '' : 'opacity-60'">
               <label class="flex items-center gap-2 cursor-pointer">
                 <input 
-                  v-model="selectedJobType" 
+                  :checked="selectedCategoryId === ''"
                   type="radio" 
                   name="jobType" 
                   value=""
                   class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
+                  @change="emit('updateCategory', '')"
                 />
                 <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypeAll') }}</span>
               </label>
-              <label class="flex items-center gap-2 cursor-pointer">
+              <label
+                v-for="category in categories"
+                :key="category.id"
+                class="flex items-center gap-2 cursor-pointer"
+              >
                 <input 
-                  v-model="selectedJobType" 
+                  :checked="selectedCategoryId === category.id"
                   type="radio" 
                   name="jobType" 
-                  value="marketing"
+                  :value="category.id"
                   class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
+                  @change="emit('updateCategory', category.id)"
                 />
-                <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypes.marketing') }} ({{ marketingCount }})</span>
-              </label>
-              <label class="flex items-center gap-2 cursor-pointer">
-                <input 
-                  v-model="selectedJobType" 
-                  type="radio" 
-                  name="jobType" 
-                  value="sales"
-                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
-                />
-                <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypes.sales') }} ({{ salesCount }})</span>
-              </label>
-              <label class="flex items-center gap-2 cursor-pointer">
-                <input 
-                  v-model="selectedJobType" 
-                  type="radio" 
-                  name="jobType" 
-                  value="legal"
-                  class="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:border-[#f6993c] checked:bg-[#f6993c] focus:outline-none focus:ring-0"
-                />
-                <span class="text-sm text-[#4b4b4b]">{{ t('karirPage.filter.jobTypes.legal') }} ({{ legalCount }})</span>
+                <span class="text-sm text-[#4b4b4b]">{{ formatCategoryLabel(category) }}</span>
               </label>
             </div>
           </div>
@@ -179,9 +179,12 @@ const hasJobs = computed(() => props.jobs.length > 0)
 
         <!-- Job List -->
         <div class="space-y-6">
-          <template v-if="filteredJobs.length > 0">
+          <div v-if="isLoading" class="bg-white rounded-2xl p-8 text-center shadow-lg">
+            <span class="text-sm text-gray-500">{{ t('common.loading') }}</span>
+          </div>
+          <template v-else-if="jobs.length > 0">
             <article
-              v-for="job in filteredJobs"
+              v-for="job in jobs"
               :key="job.id"
               class="bg-white rounded-2xl p-6 shadow-lg shadow-black/5 space-y-4 hover:shadow-xl transition-shadow"
             >
@@ -242,8 +245,7 @@ const hasJobs = computed(() => props.jobs.length > 0)
             </p>
           </div>
         </div>
-
-        <div class="relative bg-white rounded-2xl p-10 md:p-12 text-center shadow-lg min-h-[50vh]">
+        <div class="relative bg-white rounded-2xl p-10 md:p-12 text-center shadow-lg">
           <NuxtImg
             :src="emptyImage"
             :alt="t('karirPage.empty.emptyImageAlt')"

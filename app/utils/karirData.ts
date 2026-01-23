@@ -1,5 +1,7 @@
 export interface KarirJob {
   id: string
+  slug?: string
+  categoryId?: string
   title: string
   location: string
   locationType: 'yogyakarta' | 'purbalingga' | 'kebumen' | string
