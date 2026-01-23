@@ -441,6 +441,57 @@ type BeritaDetailApiData = {
   }
 }
 
+type PengumumanPageApiData = {
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
+type PengumumanListApiData = {
+  data?: Array<Record<string, unknown>>
+}
+
+type PengumumanDetailApiData = {
+  post?: {
+    author?: {
+      name?: string
+    }
+    content?: LocaleText
+    featured?: {
+      original_url?: string
+      thumb_url?: string
+    }
+    published_at?: string
+    slug?: string
+    title?: LocaleText
+  }
+  seo?: {
+    title?: string
+    description?: string
+    author?: string
+    image?: string
+    url?: string
+    published_time?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -1132,6 +1183,89 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapPengumumanPageData = (raw?: PengumumanPageApiData | null) => {
+    const hero = raw?.hero
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
+  const mapPengumumanListData = (raw?: PengumumanListApiData | Array<Record<string, unknown>> | null) => {
+    const items = Array.isArray(raw) ? raw : raw?.data || []
+
+    return {
+      items: items.map((item, index) => {
+        const data = item || {}
+        const title = resolveLocaleText((data as any).title)
+        const featured = (data as any).featured || {}
+        const authorName = (data as any).author?.name || 'PT Janu Putra Sejahtera'
+        const publishedAt = (data as any).published_at || ''
+        const slug = String((data as any).slug || '')
+        const seo = (data as any).seo || {}
+        const excerpt = seo.description || title
+
+        return {
+          id: slug || String(index),
+          slug,
+          title,
+          excerpt,
+          description: seo.description || excerpt,
+          image: featured.original_url || featured.thumb_url || '',
+          timeAgo: formatDateLabel(publishedAt),
+          company: authorName,
+          publishedAt,
+        }
+      }),
+    }
+  }
+
+  const mapPengumumanDetailData = (raw?: PengumumanDetailApiData | null) => {
+    const post = raw?.post
+    const featured = post?.featured
+    const contentHtml = resolveLocaleText(post?.content)
+    const publishedAt = post?.published_at || ''
+    const title = resolveLocaleText(post?.title)
+
+    return {
+      id: String(post?.slug || ''),
+      slug: String(post?.slug || ''),
+      title,
+      author: post?.author?.name || 'PT Janu Putra Sejahtera',
+      image: featured?.original_url || featured?.thumb_url || '',
+      timeAgo: formatDateLabel(publishedAt),
+      description: raw?.seo?.description || '',
+      contentHtml,
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+        image: raw?.seo?.image || '',
+        publishedTime: raw?.seo?.published_time || '',
+        author: raw?.seo?.author || '',
+      },
+    }
+  }
+
   return {
     mapHomeData,
     mapTentangData,
@@ -1148,5 +1282,8 @@ export const useHomeMapper = () => {
     mapBeritaPageData,
     mapBeritaListData,
     mapBeritaDetailData,
+    mapPengumumanPageData,
+    mapPengumumanListData,
+    mapPengumumanDetailData,
   }
 }
