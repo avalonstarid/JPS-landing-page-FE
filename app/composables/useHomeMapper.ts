@@ -251,6 +251,41 @@ type HubungiKamiApiData = {
   }
 }
 
+type KarirApiData = {
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+  }
+  about?: {
+    title?: LocaleText
+    description_1?: LocaleText
+    description_2?: LocaleText
+    desc_1?: LocaleText
+    desc_2?: LocaleText
+    image?: string
+    featured?: string
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
+type KarirListApiData = {
+  data?: Array<Record<string, unknown>>
+  list?: {
+    data?: Array<Record<string, unknown>>
+  }
+  jobs?: Array<Record<string, unknown>>
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -268,6 +303,45 @@ export const useHomeMapper = () => {
     if (!value) return []
     if (Array.isArray(value)) return value
     return value[locale.value] || value.id || value.en || []
+  }
+
+  const normalizeStringList = (value?: unknown) => {
+    if (!value) return []
+    if (Array.isArray(value)) {
+      return value.map((item) => String(item)).filter((item) => item.trim().length > 0)
+    }
+    if (typeof value === 'string') {
+      return value
+        .split(/\r?\n/)
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
+    }
+    const localized = resolveLocaleArray(value as LocaleArray)
+    if (Array.isArray(localized)) {
+      return localized.map((item) => String(item)).filter((item) => item.trim().length > 0)
+    }
+    return []
+  }
+
+  const normalizeSlug = (value?: string) => {
+    if (!value) return ''
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+
+  const normalizeLocationType = (value?: string) => {
+    const raw = (value || '').toLowerCase()
+    if (raw.includes('yogya') || raw.includes('jogja')) return 'yogyakarta'
+    if (raw.includes('purbalingga')) return 'purbalingga'
+    if (raw.includes('kebumen')) return 'kebumen'
+    return normalizeSlug(raw)
+  }
+
+  const normalizeJobType = (value?: string) => {
+    const raw = (value || '').toLowerCase()
+    if (raw.includes('marketing')) return 'marketing'
+    if (raw.includes('sales') || raw.includes('penjualan')) return 'sales'
+    if (raw.includes('legal')) return 'legal'
+    return normalizeSlug(raw)
   }
 
   const mapHomeData = (raw?: HomeApiData | null) => {
@@ -568,11 +642,71 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapKarirData = (raw?: KarirApiData | null) => {
+    const hero = raw?.hero
+    const about = raw?.about
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+      },
+      about: {
+        title: resolveLocaleText(about?.title),
+        description1: resolveLocaleText(about?.description_1 || about?.desc_1),
+        description2: resolveLocaleText(about?.description_2 || about?.desc_2),
+        image: about?.image || about?.featured || '',
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
+  const mapKarirListData = (raw?: KarirListApiData | null) => {
+    const items = raw?.data || raw?.list?.data || raw?.jobs || []
+
+    return {
+      items: items.map((item, index) => {
+        const data = item || {}
+        const title = resolveLocaleText((data as any).title || (data as any).position || (data as any).name)
+        const locationText = resolveLocaleText((data as any).location || (data as any).city || (data as any).region)
+        const locationTypeRaw = (data as any).location_type || (data as any).location_key || (data as any).location_slug || locationText
+        const jobTypeRaw = (data as any).job_type || (data as any).type || (data as any).category || (data as any).department
+        const jobTypeLabel = resolveLocaleText((data as any).job_type_label || (data as any).type_label || (data as any).category_label)
+
+        return {
+          id: String((data as any).id || (data as any).slug || index),
+          title,
+          location: locationText,
+          locationType: normalizeLocationType(String(locationTypeRaw || '')),
+          jobType: normalizeJobType(String(jobTypeRaw || '')),
+          jobTypeLabel,
+          postedAt: resolveLocaleText((data as any).posted_at || (data as any).created_at || (data as any).date || (data as any).published_at),
+          description: resolveLocaleText((data as any).description || (data as any).desc || (data as any).summary),
+          requirements: normalizeStringList((data as any).requirements || (data as any).requirement),
+          responsibilities: normalizeStringList((data as any).responsibilities || (data as any).tasks),
+          benefits: normalizeStringList((data as any).benefits || (data as any).benefit),
+        }
+      }),
+    }
+  }
+
   return {
     mapHomeData,
     mapTentangData,
     mapLiniBisnisData,
     mapProdukData,
     mapHubungiKamiData,
+    mapKarirData,
+    mapKarirListData,
   }
 }

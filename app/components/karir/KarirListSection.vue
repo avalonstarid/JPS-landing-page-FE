@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { karirJobs, type KarirJob } from '~/utils/karirData'
+import type { KarirJob } from '~/utils/karirData'
 const emptyImage = '/images/karir/karir-tidak-tersedia.png'
 const karirImage = '/images/karir/karir.jpg'
 const { t } = useI18n()
+
+const props = withDefaults(defineProps<{ jobs?: KarirJob[] }>(), {
+  jobs: () => [],
+})
 
 const emit = defineEmits<{
   openDetail: [job: KarirJob]
@@ -15,7 +19,7 @@ const selectedJobType = ref('')
 
 // Computed filtered jobs
 const filteredJobs = computed(() => {
-  return karirJobs.filter((job) => {
+  return props.jobs.filter((job) => {
     const matchesSearch = searchQuery.value === '' || 
       job.title.toLowerCase().includes(searchQuery.value.toLowerCase())
     const matchesLocation = selectedLocation.value === '' || 
@@ -27,9 +31,9 @@ const filteredJobs = computed(() => {
 })
 
 // Count by job type
-const marketingCount = computed(() => karirJobs.filter(j => j.jobType === 'marketing').length)
-const salesCount = computed(() => karirJobs.filter(j => j.jobType === 'sales').length)
-const legalCount = computed(() => karirJobs.filter(j => j.jobType === 'legal').length)
+const marketingCount = computed(() => props.jobs.filter(j => j.jobType === 'marketing').length)
+const salesCount = computed(() => props.jobs.filter(j => j.jobType === 'sales').length)
+const legalCount = computed(() => props.jobs.filter(j => j.jobType === 'legal').length)
 
 const resetFilters = () => {
   searchQuery.value = ''
@@ -41,7 +45,7 @@ const handleOpenDetail = (job: KarirJob) => {
   emit('openDetail', job)
 }
 
-const hasJobs = computed(() => karirJobs.length > 0)
+const hasJobs = computed(() => props.jobs.length > 0)
 </script>
 
 <template>
