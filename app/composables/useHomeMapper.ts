@@ -286,6 +286,59 @@ type KarirListApiData = {
   jobs?: Array<Record<string, unknown>>
 }
 
+type InvestorListApiData = {
+  data?: Array<Record<string, unknown>>
+}
+
+type InvestorFinanceItem = {
+  penjualan?: number
+  laba_bersih?: number
+  liabilitas?: number
+  ekuitas?: number
+  arus_kas_bersih?: number
+  tahun?: number
+  document?: {
+    id?: number
+    original_url?: string
+  }
+  featured?: {
+    original_url?: string
+    thumb_url?: string
+  }
+  title?: LocaleText
+  name?: LocaleText
+}
+
+type KeberlanjutanPendekatanApiData = {
+  detail?: {
+    title?: LocaleText
+  }
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+  }
+  pendekatan_kinerja?: Array<{
+    title?: LocaleText
+    content?: LocaleText
+    featured?: {
+      original_url?: string
+      thumb_url?: string
+    }
+    slug?: string
+  }>
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
@@ -326,6 +379,11 @@ export const useHomeMapper = () => {
   const normalizeSlug = (value?: string) => {
     if (!value) return ''
     return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+
+  const stripHtml = (value?: string) => {
+    if (!value) return ''
+    return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
   }
 
   const normalizeLocationType = (value?: string) => {
@@ -700,6 +758,133 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapInvestorListData = (raw?: InvestorListApiData | Array<Record<string, unknown>> | null) => {
+    const items = Array.isArray(raw) ? raw : raw?.data || []
+
+    return {
+      items: items.map((item, index) => {
+        const data = item || {}
+        const title = resolveLocaleText((data as any).title || (data as any).name)
+        const document = (data as any).document || {}
+        const featured = (data as any).featured || {}
+
+        return {
+          id: String(document.id || (data as any).id || index),
+          title,
+          href: document.original_url || '',
+          image: featured.original_url || featured.thumb_url || '',
+        }
+      }),
+    }
+  }
+
+  const mapInvestorFinanceData = (raw?: InvestorListApiData | Array<Record<string, unknown>> | null) => {
+    const items = (Array.isArray(raw) ? raw : raw?.data || []) as InvestorFinanceItem[]
+
+    const mappedItems = items.map((item, index) => ({
+      id: String(item.document?.id || index),
+      title: resolveLocaleText(item.name || item.title),
+      href: item.document?.original_url || '',
+      image: item.featured?.original_url || item.featured?.thumb_url || '',
+      year: item.tahun ? String(item.tahun) : '',
+      sales: item.penjualan || 0,
+      profit: item.laba_bersih || 0,
+      liabilities: item.liabilitas || 0,
+      equity: item.ekuitas || 0,
+      cashflow: item.arus_kas_bersih || 0,
+    }))
+
+    const sorted = [...mappedItems].sort((a, b) => Number(a.year) - Number(b.year))
+
+    return {
+      items: mappedItems,
+      metrics: [
+        {
+          key: 'sales',
+          label: 'Penjualan',
+          values: sorted.map((item) => ({
+            period: item.year || '-',
+            value: item.sales,
+          })),
+        },
+        {
+          key: 'profit',
+          label: 'Laba Bersih',
+          values: sorted.map((item) => ({
+            period: item.year || '-',
+            value: item.profit,
+          })),
+        },
+        {
+          key: 'liabilities',
+          label: 'Liabilitas',
+          values: sorted.map((item) => ({
+            period: item.year || '-',
+            value: item.liabilities,
+          })),
+        },
+        {
+          key: 'equity',
+          label: 'Ekuitas',
+          values: sorted.map((item) => ({
+            period: item.year || '-',
+            value: item.equity,
+          })),
+        },
+        {
+          key: 'cashflow',
+          label: 'Arus Kas Bersih',
+          values: sorted.map((item) => ({
+            period: item.year || '-',
+            value: item.cashflow,
+          })),
+        },
+      ],
+    }
+  }
+
+  const mapKeberlanjutanPendekatanData = (raw?: KeberlanjutanPendekatanApiData | null) => {
+    const hero = raw?.hero
+    const detail = raw?.detail
+    const items = raw?.pendekatan_kinerja || []
+
+    const resolveActionKey = (slug?: string) => {
+      const normalized = normalizeSlug(slug || '')
+      if (normalized.includes('tata-kelola')) return 'tataKelola'
+      if (normalized.includes('inisiatif')) return 'inisiatif'
+      if (normalized.includes('strategi') || normalized.includes('kebijakan')) return 'strategiKebijakan'
+      return ''
+    }
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+      },
+      detail: {
+        title: resolveLocaleText(detail?.title),
+      },
+      items: items.map((item, index) => ({
+        id: String(index),
+        title: resolveLocaleText(item.title),
+        description: stripHtml(resolveLocaleText(item.content)),
+        image: item.featured?.original_url || item.featured?.thumb_url || '',
+        actionKey: resolveActionKey(item.slug),
+      })),
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
   return {
     mapHomeData,
     mapTentangData,
@@ -708,5 +893,8 @@ export const useHomeMapper = () => {
     mapHubungiKamiData,
     mapKarirData,
     mapKarirListData,
+    mapInvestorListData,
+    mapInvestorFinanceData,
+    mapKeberlanjutanPendekatanData,
   }
 }

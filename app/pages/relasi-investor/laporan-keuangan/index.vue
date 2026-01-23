@@ -1,13 +1,11 @@
 <script setup lang="ts">
 const logoJps = '/images/logo-jps.png'
-import reportMar2024 from '~/assets/laporan/Laporan Keuangan/2. LK 31 Maret 2024 unaudited.c1b0ad5cf7e129a678e5.pdf'
-import reportJun2024 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 30 Juni 2024.62585cfe0536cedecb10.pdf'
-import reportDec2024 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 31 Desember 2024.8b6b72cfdbe5b4454896.pdf'
-import reportMar2025 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 31 Maret 2025.21e1d0a7e853313df147.pdf'
-import reportJun2025 from '~/assets/laporan/Laporan Keuangan/Laporan Keuangan AYAM 30 Juni 2025pdf.25dd4b93c818e493e695.pdf'
+const { t } = useI18n()
+const { fetcher } = useApiFetch()
+const { mapInvestorFinanceData } = useHomeMapper()
 
 useHead(() => ({
-  title: 'Laporan Keuangan | Relasi Investor',
+  title: `${t('nav.investorItems.laporanKeuangan')} | ${t('nav.investor')}`,
 }))
 
 const tabs = [
@@ -16,72 +14,42 @@ const tabs = [
   { label: 'Laporan Keuangan Bulanan', to: '/relasi-investor/laporan-keuangan/bulanan', active: false },
 ]
 
-const monthlyReports = [
-  { period: '31 Maret 2024', title: 'Laporan Keuangan AYAM 31 Maret 2024', href: reportMar2024 },
-  { period: '30 Juni 2024', title: 'Laporan Keuangan AYAM 30 Juni 2024', href: reportJun2024 },
-  { period: '31 Desember 2024', title: 'Laporan Keuangan AYAM 31 Desember 2024', href: reportDec2024 },
-  { period: '31 Maret 2025', title: 'Laporan Keuangan AYAM 31 Maret 2025', href: reportMar2025 },
-  { period: '30 Juni 2025', title: 'Laporan Keuangan AYAM 30 Juni 2025', href: reportJun2025 },
-]
+const { data: laporanKeuanganResponse } = await useAsyncData('laporan-keuangan-list', async () => {
+  try {
+    return await fetcher('/relasi-investor/laporan-keuangan/list', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
 
-const chartOptions = [
-  {
-    label: 'Penjualan',
-    values: [
-      { period: '31 Mar 2024', value: 26500000 },
-      { period: '30 Jun 2024', value: 29500000 },
-      { period: '31 Des 2024', value: 38500000 },
-      { period: '31 Mar 2025', value: 12000000 },
-      { period: '30 Jun 2025', value: 21000000 },
-    ],
-  },
-  {
-    label: 'Laba Bersih',
-    values: [
-      { period: '31 Mar 2024', value: 8200000 },
-      { period: '30 Jun 2024', value: 9300000 },
-      { period: '31 Des 2024', value: 15500000 },
-      { period: '31 Mar 2025', value: 4200000 },
-      { period: '30 Jun 2025', value: 7100000 },
-    ],
-  },
-  {
-    label: 'Liabilitas',
-    values: [
-      { period: '31 Mar 2024', value: 17800000 },
-      { period: '30 Jun 2024', value: 19200000 },
-      { period: '31 Des 2024', value: 24300000 },
-      { period: '31 Mar 2025', value: 9800000 },
-      { period: '30 Jun 2025', value: 13600000 },
-    ],
-  },
-  {
-    label: 'Ekuitas',
-    values: [
-      { period: '31 Mar 2024', value: 12200000 },
-      { period: '30 Jun 2024', value: 14100000 },
-      { period: '31 Des 2024', value: 17600000 },
-      { period: '31 Mar 2025', value: 6400000 },
-      { period: '30 Jun 2025', value: 9800000 },
-    ],
-  },
-  {
-    label: 'Arus Kas Bersih',
-    values: [
-      { period: '31 Mar 2024', value: 6800000 },
-      { period: '30 Jun 2024', value: 7600000 },
-      { period: '31 Des 2024', value: 13200000 },
-      { period: '31 Mar 2025', value: 3900000 },
-      { period: '30 Jun 2025', value: 5900000 },
-    ],
-  },
-]
+const laporanKeuanganData = computed(() => {
+  return (laporanKeuanganResponse.value as { data?: unknown })?.data ?? null
+})
 
-const selectedMetric = ref(chartOptions[0])
+const mappedLaporanKeuangan = computed(() => mapInvestorFinanceData(laporanKeuanganData.value as any))
+
+type ChartOption = {
+  label: string
+  values: Array<{
+    period: string
+    value: number
+  }>
+}
+
+const chartOptions = computed<ChartOption[]>(() => mappedLaporanKeuangan.value.metrics)
+const selectedMetric = ref<ChartOption | null>(null)
+
+const selectedMetricValue = computed(() => selectedMetric.value || chartOptions.value[0] || { label: '', values: [] })
+
+watchEffect(() => {
+  if (!selectedMetric.value && chartOptions.value.length) {
+    selectedMetric.value = chartOptions.value[0]
+  }
+})
 const isDropdownOpen = ref(false)
 
 const chartMax = computed(() => {
-  const values = selectedMetric.value.values.map((item) => item.value)
+  const values = selectedMetricValue.value.values.map((item) => item.value)
   return Math.max(...values, 1)
 })
 
@@ -127,15 +95,23 @@ const onBarMove = (event: MouseEvent, value: number, period: string) => {
 const onBarLeave = () => {
   tooltip.value = { ...tooltip.value, visible: false, period: '' }
 }
+
+const monthlyReports = computed(() => {
+  return mappedLaporanKeuangan.value.items.map((item) => ({
+    period: item.year || '',
+    title: item.title || '',
+    href: item.href || '',
+  }))
+})
 </script>
 
 <template>
   <div class="bg-[#fdeee0]">
-    <InvestorHeroSection title="Relasi Investor" />
+    <InvestorHeroSection :title="t('nav.investor')" />
 
     <section class="section-padding">
       <div class="container-main space-y-10">
-        <InvestorPageTitle title="Laporan Keuangan" />
+        <InvestorPageTitle :title="t('nav.investorItems.laporanKeuangan')" />
 
         <section class="rounded-[28px] max-w-5xl mx-auto bg-white px-5 py-6 shadow-[0_18px_45px_-30px_rgba(0,0,0,0.45)] md:px-8">
           <div class="flex flex-wrap items-start justify-between gap-4">
@@ -152,7 +128,7 @@ const onBarLeave = () => {
                 class="flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm shadow-sm transition hover:shadow"
                 @click="isDropdownOpen = !isDropdownOpen"
               >
-                <span class="font-medium text-gray-800">{{ selectedMetric.label }}</span>
+                <span class="font-medium text-gray-800">{{ selectedMetricValue.label }}</span>
                 <i class="mdi" :class="isDropdownOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'" aria-hidden="true"></i>
               </button>
               <div
@@ -164,7 +140,7 @@ const onBarLeave = () => {
                   :key="option.label"
                   type="button"
                   class="flex w-full items-center justify-between px-4 py-3 text-left text-sm transition"
-                  :class="option.label === selectedMetric.label ? 'bg-[#f6993c] text-white' : 'hover:bg-gray-50 text-gray-800'"
+                  :class="option.label === selectedMetricValue.label ? 'bg-[#f6993c] text-white' : 'hover:bg-gray-50 text-gray-800'"
                   @click="setMetric(option)"
                 >
                   {{ option.label }}
@@ -175,7 +151,7 @@ const onBarLeave = () => {
 
           <div class="mt-6 grid gap-4">
             <div
-              v-for="(item, index) in selectedMetric.values"
+              v-for="(item, index) in selectedMetricValue.values"
               :key="item.period"
               class="grid grid-cols-[90px_1fr] items-center gap-4"
             >

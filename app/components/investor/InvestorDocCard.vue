@@ -5,6 +5,7 @@ defineProps<{
   imageUrl: string
   title: string
   href?: string
+  newTab?: boolean
   download?: boolean
 }>()
 </script>
@@ -18,7 +19,7 @@ defineProps<{
       <p class="text-lg font-semibold text-[#1f2937] leading-snug">
         {{ title }}
       </p>
-      <InvestorDownloadPill :href="href" :download="download" />
+      <InvestorDownloadPill :href="href" :new-tab="newTab" :download="download" />
     </div>
   </div>
 </template>

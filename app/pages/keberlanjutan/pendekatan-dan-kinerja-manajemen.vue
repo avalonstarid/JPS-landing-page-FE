@@ -5,9 +5,27 @@ import KeberlanjutanInfoModal from '~/components/keberlanjutan/KeberlanjutanInfo
 const imageOne = '/images/pendekatan/pendekatan-keberlanjutan-1.jpg'
 const imageTwo = '/images/pendekatan/pendekatan-keberlanjutan-2.jpg'
 const imageThree = '/images/pendekatan/pendekatan-keberlanjutan-3.jpg'
+const { t } = useI18n()
+const config = useRuntimeConfig()
+const { fetcher } = useApiFetch()
+const { mapKeberlanjutanPendekatanData } = useHomeMapper()
 const activeModal = ref<null | 'tataKelola' | 'strategiKebijakan' | 'inisiatif'>(null)
 
-const items = [
+const { data: pendekatanResponse } = await useAsyncData('keberlanjutan-pendekatan', async () => {
+  try {
+    return await fetcher('/keberlanjutan/pendekatan-dan-kinerja-manajemen', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const pendekatanData = computed(() => {
+  return (pendekatanResponse.value as { data?: unknown })?.data ?? null
+})
+
+const mappedPendekatan = computed(() => mapKeberlanjutanPendekatanData(pendekatanData.value as any))
+
+const fallbackItems = [
   {
     title: 'Tata Kelola Keberlanjutan',
     actionKey: 'tataKelola',
@@ -31,28 +49,70 @@ const items = [
   },
 ]
 
+const items = computed(() => (mappedPendekatan.value.items.length ? mappedPendekatan.value.items : fallbackItems))
+
 const handleOpen = (key: string) => {
   if (key === 'tataKelola' || key === 'strategiKebijakan' || key === 'inisiatif') {
     activeModal.value = key
   }
 }
 
-const breadcrumbs = [
-  { label: 'Beranda', to: '/' },
-  { label: 'Keberlanjutan', to: '/keberlanjutan/tinjauan' },
-  { label: 'Pendekatan dan Kinerja Manajemen' },
-]
+const breadcrumbs = computed(() => [
+  { label: t('nav.home'), to: '/' },
+  { label: t('nav.sustainability'), to: '/keberlanjutan/tinjauan' },
+  { label: mappedPendekatan.value.detail.title || 'Pendekatan dan Kinerja Manajemen' },
+])
 
 useHead(() => ({
-  title: 'Pendekatan dan Kinerja Manajemen | Keberlanjutan',
+  title: mappedPendekatan.value.seo.title || 'Pendekatan dan Kinerja Manajemen | Keberlanjutan',
+  meta: [
+    {
+      name: 'description',
+      content: mappedPendekatan.value.seo.description || '',
+    },
+    {
+      property: 'og:title',
+      content: mappedPendekatan.value.seo.title || 'Pendekatan dan Kinerja Manajemen | Keberlanjutan',
+    },
+    {
+      property: 'og:description',
+      content: mappedPendekatan.value.seo.description || '',
+    },
+    {
+      property: 'og:type',
+      content: mappedPendekatan.value.seo.type || 'website',
+    },
+    {
+      property: 'og:url',
+      content: mappedPendekatan.value.seo.url || `${config.public.siteUrl}/keberlanjutan/pendekatan-dan-kinerja-manajemen`,
+    },
+    {
+      property: 'og:site_name',
+      content: mappedPendekatan.value.seo.siteName || config.public.siteName,
+    },
+    {
+      property: 'og:locale',
+      content: mappedPendekatan.value.seo.locale || 'id_ID',
+    },
+    {
+      name: 'robots',
+      content: mappedPendekatan.value.seo.robots || 'index, follow',
+    },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: mappedPendekatan.value.seo.canonicalUrl || `${config.public.siteUrl}/keberlanjutan/pendekatan-dan-kinerja-manajemen`,
+    },
+  ],
 }))
 </script>
 
 <template>
   <div class="bg-[#fdeee0]">
-    <KeberlanjutanHeroSection />
+    <KeberlanjutanHeroSection :data="mappedPendekatan.hero" />
     <KeberlanjutanDetailSection
-      title="Pendekatan dan Kinerja Manajemen"
+      :title="mappedPendekatan.detail.title || 'Pendekatan dan Kinerja Manajemen'"
       :breadcrumbs="breadcrumbs"
       :items="items"
       @open="handleOpen"
