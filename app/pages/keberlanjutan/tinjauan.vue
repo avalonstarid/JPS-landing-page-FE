@@ -1,11 +1,69 @@
 <script setup lang="ts">
-const heroImage = '/images/tinjauan/tinjauan-section.png'
 const sdgImage = '/images/tinjauan/SDG.png'
 const { t } = useI18n()
+const config = useRuntimeConfig()
+const { fetcher } = useApiFetch()
+const { mapKeberlanjutanTinjauanData } = useHomeMapper()
 
-useHead({
-  title: 'Keberlanjutan - Tinjauan',
+const { data: tinjauanResponse } = await useAsyncData('keberlanjutan-tinjauan', async () => {
+  try {
+    return await fetcher('/keberlanjutan/tinjauan', {})
+  } catch (error) {
+    return { error: true }
+  }
 })
+
+const tinjauanData = computed(() => {
+  return (tinjauanResponse.value as { data?: unknown })?.data ?? null
+})
+
+const mappedTinjauan = computed(() => mapKeberlanjutanTinjauanData(tinjauanData.value as any))
+
+const heroImage = computed(() => mappedTinjauan.value.hero.background || '/images/tinjauan/tinjauan-section.png')
+
+useHead(() => ({
+  title: mappedTinjauan.value.seo.title || 'Keberlanjutan - Tinjauan',
+  meta: [
+    {
+      name: 'description',
+      content: mappedTinjauan.value.seo.description || '',
+    },
+    {
+      property: 'og:title',
+      content: mappedTinjauan.value.seo.title || 'Keberlanjutan - Tinjauan',
+    },
+    {
+      property: 'og:description',
+      content: mappedTinjauan.value.seo.description || '',
+    },
+    {
+      property: 'og:type',
+      content: mappedTinjauan.value.seo.type || 'website',
+    },
+    {
+      property: 'og:url',
+      content: mappedTinjauan.value.seo.url || `${config.public.siteUrl}/keberlanjutan/tinjauan`,
+    },
+    {
+      property: 'og:site_name',
+      content: mappedTinjauan.value.seo.siteName || config.public.siteName,
+    },
+    {
+      property: 'og:locale',
+      content: mappedTinjauan.value.seo.locale || 'id_ID',
+    },
+    {
+      name: 'robots',
+      content: mappedTinjauan.value.seo.robots || 'index, follow',
+    },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: mappedTinjauan.value.seo.canonicalUrl || `${config.public.siteUrl}/keberlanjutan/tinjauan`,
+    },
+  ],
+}))
 </script>
 
 <template>
@@ -16,13 +74,18 @@ useHead({
         <div class="absolute inset-0 bg-black/40" />
       </div>
       <div class="relative z-10 container-main py-16 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-white">Keberlanjutan</h1>
+        <p v-if="mappedTinjauan.hero.subtitle" class="text-sm md:text-base font-semibold uppercase tracking-[0.3em] text-white/80">
+          {{ mappedTinjauan.hero.subtitle }}
+        </p>
+        <h1 class="mt-3 text-4xl md:text-5xl font-bold text-white">
+          {{ mappedTinjauan.hero.title || t('nav.sustainability') }}
+        </h1>
       </div>
     </section>
 
     <section class="container-main py-12 md:py-16">
       <h2 class="text-3xl md:text-4xl font-bold text-[#3d4f92] text-center">
-        {{ t('keberlanjutanPage.tinjauan.title') }}
+        {{ mappedTinjauan.detail.title || mappedTinjauan.tinjauan.title || t('keberlanjutanPage.tinjauan.title') }}
       </h2>
 
       <div class="mt-10 relative flex flex-col items-center gap-6 max-w-4xl mx-auto">
@@ -52,19 +115,22 @@ useHead({
         </div>
       </div>
 
-      <div class="mt-10 space-y-6 text-sm md:text-base text-[#111827] max-w-4xl mx-auto leading-relaxed">
-        <p>
-          {{ t('keberlanjutanPage.tinjauan.paragraph1') }}
-        </p>
-        <div class="space-y-2">
-          <p class="font-semibold text-[#3d4f92]">
-            {{ t('keberlanjutanPage.tinjauan.heading') }}
-          </p>
+      <div class="mt-10 text-sm md:text-base text-[#111827] max-w-4xl mx-auto leading-relaxed">
+        <div v-if="mappedTinjauan.tinjauan.contentHtml" class="space-y-4" v-html="mappedTinjauan.tinjauan.contentHtml" />
+        <div v-else class="space-y-6">
           <p>
-            {{ t('keberlanjutanPage.tinjauan.paragraph2Prefix') }}
-            <span class="italic">{{ t('keberlanjutanPage.tinjauan.sdgPhrase') }}</span>
-            {{ t('keberlanjutanPage.tinjauan.paragraph2Suffix') }}
+            {{ t('keberlanjutanPage.tinjauan.paragraph1') }}
           </p>
+          <div class="space-y-2">
+            <p class="font-semibold text-[#3d4f92]">
+              {{ t('keberlanjutanPage.tinjauan.heading') }}
+            </p>
+            <p>
+              {{ t('keberlanjutanPage.tinjauan.paragraph2Prefix') }}
+              <span class="italic">{{ t('keberlanjutanPage.tinjauan.sdgPhrase') }}</span>
+              {{ t('keberlanjutanPage.tinjauan.paragraph2Suffix') }}
+            </p>
+          </div>
         </div>
       </div>
     </section>

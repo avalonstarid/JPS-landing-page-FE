@@ -382,6 +382,31 @@ type KeberlanjutanPendekatanApiData = {
   }
 }
 
+type KeberlanjutanTinjauanApiData = {
+  detail?: {
+    title?: LocaleText
+  }
+  hero?: {
+    background?: string
+    title?: LocaleText
+    subtitle?: LocaleText
+  }
+  tinjauan?: {
+    title?: LocaleText
+    content?: LocaleText
+  }
+  seo?: {
+    title?: string
+    description?: string
+    url?: string
+    type?: string
+    site_name?: string
+    locale?: string
+    robots?: string
+    canonical_url?: string
+  }
+}
+
 type BeritaPageApiData = {
   featured?: {
     data?: Array<Record<string, unknown>>
@@ -771,6 +796,7 @@ export const useHomeMapper = () => {
             .map((loc) => ({
               label: loc.address || '',
               href: mapsHref(loc.lat, loc.lng, loc.address),
+              phone: loc.phone || item.phone || item.whatsapp || '',
             }))
             .filter((loc) => Boolean(loc.label)),
         })),
@@ -1154,6 +1180,37 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapKeberlanjutanTinjauanData = (raw?: KeberlanjutanTinjauanApiData | null) => {
+    const hero = raw?.hero
+    const detail = raw?.detail
+    const tinjauan = raw?.tinjauan
+
+    return {
+      hero: {
+        background: hero?.background || '',
+        title: resolveLocaleText(hero?.title),
+        subtitle: resolveLocaleText(hero?.subtitle),
+      },
+      detail: {
+        title: resolveLocaleText(detail?.title),
+      },
+      tinjauan: {
+        title: resolveLocaleText(tinjauan?.title),
+        contentHtml: resolveLocaleText(tinjauan?.content),
+      },
+      seo: {
+        title: raw?.seo?.title || '',
+        description: raw?.seo?.description || '',
+        url: raw?.seo?.url || '',
+        type: raw?.seo?.type || '',
+        siteName: raw?.seo?.site_name || '',
+        locale: raw?.seo?.locale || '',
+        robots: raw?.seo?.robots || '',
+        canonicalUrl: raw?.seo?.canonical_url || '',
+      },
+    }
+  }
+
   const mapBeritaPageData = (raw?: BeritaPageApiData | null) => {
     const popular = raw?.popular
     const news = raw?.news
@@ -1426,6 +1483,7 @@ export const useHomeMapper = () => {
     mapInvestorListData,
     mapInvestorFinanceData,
     mapKeberlanjutanPendekatanData,
+    mapKeberlanjutanTinjauanData,
     mapBeritaPageData,
     mapBeritaListData,
     mapBeritaDetailData,

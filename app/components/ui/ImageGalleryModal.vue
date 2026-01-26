@@ -8,6 +8,7 @@ type Props = {
   mapsHref?: string
   mapsHrefs?: string[]
   whatsappHref?: string
+  whatsappHrefs?: string[]
   images: string[]
   startIndex?: number
 }
@@ -19,6 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   mapsHref: '',
   mapsHrefs: () => [],
   whatsappHref: '',
+  whatsappHrefs: () => [],
   startIndex: 0,
 })
 
@@ -42,8 +44,9 @@ const hasMany = computed(() => props.images.length > 1)
 const activeSrc = computed(() => props.images[activeIndex.value] ?? '')
 const activeMapsHref = computed(() => props.mapsHrefs[activeIndex.value] ?? props.mapsHref ?? '')
 const activeSubtitle = computed(() => props.subtitles[activeIndex.value] ?? props.subtitle ?? '')
+const activeWhatsappRaw = computed(() => props.whatsappHrefs[activeIndex.value] ?? props.whatsappHref ?? '')
 const activeWhatsappHref = computed(() => {
-  const raw = (props.whatsappHref ?? '').trim()
+  const raw = (activeWhatsappRaw.value ?? '').trim()
   if (!raw) return ''
   if (/^https?:\/\//i.test(raw)) return raw
   if (/^wa\.me\//i.test(raw)) return `https://${raw}`
@@ -51,6 +54,15 @@ const activeWhatsappHref = computed(() => {
   if (!digits) return ''
   const normalized = digits.startsWith('0') ? `62${digits.slice(1)}` : digits
   return `https://wa.me/${normalized}`
+})
+const activeWhatsappLabel = computed(() => {
+  const raw = (activeWhatsappRaw.value ?? '').trim()
+  if (!raw) return ''
+  if (/^https?:\/\//i.test(raw) || /^wa\.me\//i.test(raw)) return ''
+  const digits = raw.replace(/\D/g, '')
+  if (!digits) return ''
+  const normalized = digits.startsWith('0') ? `62${digits.slice(1)}` : digits
+  return `+${normalized}`
 })
 
 const close = () => emit('close')
@@ -188,6 +200,7 @@ onBeforeUnmount(() => {
                   >
                     <i class="mdi mdi-whatsapp text-2xl leading-none" aria-hidden="true" />
                     <span>Narahubung</span>
+                    <!-- <span v-if="activeWhatsappLabel" class="text-xs font-medium text-white/80">{{ activeWhatsappLabel }}</span> -->
                   </a>
                 </div>
               </div>

@@ -14,6 +14,7 @@ const { t } = useI18n()
 type LocationEntry = {
   label: string
   href: string
+  phone?: string
 }
 
 type LocationItem = {
@@ -160,6 +161,7 @@ const closeModal = () => {
         :info-text="modalItem.infoText"
         :maps-href="modalItem.locations[0]?.href ?? ''"
         :maps-hrefs="modalItem.locations.map((location) => location.href)"
+        :whatsapp-hrefs="modalItem.locations.map((location) => location.phone || '')"
         :whatsapp-href="modalItem.phone || ''"
         :images="modalGallery"
         @close="closeModal"

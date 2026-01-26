@@ -69,6 +69,9 @@ const handleSubmit = async () => {
 
   try {
     const payload = new FormData()
+    if (props.job?.id) {
+      payload.append('job_posting_id', String(props.job.id))
+    }
     payload.append('age', String(Number(form.age)))
     payload.append('email', form.email.trim())
     payload.append('jurusan', form.major.trim())
@@ -274,9 +277,9 @@ watch(() => props.isOpen, (isOpen) => {
                     class="w-full rounded-xl border border-gray-200 bg-white py-3 px-4 text-sm focus:border-[#f6993c] focus:outline-none focus:ring-2 focus:ring-[#f6993c]/20 appearance-none"
                   >
                     <option value="" disabled>{{ t('karirPage.form.maritalStatusPlaceholder') }}</option>
-                    <option value="single">{{ t('karirPage.form.maritalStatusOptions.single') }}</option>
-                    <option value="married">{{ t('karirPage.form.maritalStatusOptions.married') }}</option>
-                    <option value="divorced">{{ t('karirPage.form.maritalStatusOptions.divorced') }}</option>
+                    <option value="1">{{ t('karirPage.form.maritalStatusOptions.single') }}</option>
+                    <option value="2">{{ t('karirPage.form.maritalStatusOptions.married') }}</option>
+                    <option value="3">{{ t('karirPage.form.maritalStatusOptions.divorced') }}</option>
                   </select>
                 </div>
 
