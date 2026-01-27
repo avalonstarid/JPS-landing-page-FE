@@ -158,14 +158,20 @@ onUnmounted(() => {
     <div class="px-6 lg:px-10">
       <div class="flex items-center justify-between min-[1316px]:justify-center gap-5 pt-4 pb-2">
         <!-- Logo -->
-        <NuxtLink
-          aria-label="PT Janu Putra Sejahtera - Halaman Utama"
-          to="/"
-          class="pointer-events-auto cursor-pointer"
-          @click="openDropdown = null"
-        >
-          <NuxtImg :src="logoJps" alt="Logo JPS" class="h-10 w-auto max-w-[140px] object-contain" />
-        </NuxtLink>
+        <div class="relative sm:static">
+          <div
+            class="sm:hidden absolute inset-y-0 left-0 right-0 rounded-full backdrop-blur-md pointer-events-none -z-10"
+            :class="isScrolled ? 'bg-black/30' : 'bg-white/10'"
+          />
+          <NuxtLink
+            aria-label="PT Janu Putra Sejahtera - Halaman Utama"
+            to="/"
+            class="pointer-events-auto cursor-pointer px-3 py-1.5 inline-flex"
+            @click="openDropdown = null"
+          >
+            <NuxtImg :src="logoJps" alt="Logo JPS" class="h-7 w-auto max-w-[98px] object-contain sm:h-10 sm:max-w-[140px]" />
+          </NuxtLink>
+        </div>
 
         <!-- Desktop Navigation -->
         <div class="hidden min-[1316px]:flex items-center pointer-events-auto">
@@ -313,7 +319,7 @@ onUnmounted(() => {
               v-for="lang in availableLanguages"
               :key="lang.code"
               type="button"
-              class="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold transition"
+              class="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[12px] font-semibold transition"
               :class="currentLanguage === lang.label ? 'bg-white/20 text-white' : 'text-white/80 hover:text-white'"
               @click="setLanguage(lang.code)"
               :aria-pressed="currentLanguage === lang.label"
@@ -326,14 +332,14 @@ onUnmounted(() => {
 
           <NuxtLink
             to="/hubungi-kami"
-            class="rounded-full bg-[#f6993c] px-3 py-1.5 text-[11px] font-semibold text-white shadow-lg transition hover:shadow-xl whitespace-nowrap leading-none"
+            class="rounded-full bg-[#f6993c] px-3 py-2 text-[12px] font-semibold text-white shadow-lg transition hover:shadow-xl whitespace-nowrap leading-none"
             :aria-label="ctaLabel"
           >
             {{ ctaLabel }}
           </NuxtLink>
 
           <button
-            class="inline-flex items-center justify-center rounded-full p-1.5 backdrop-blur-lg border shadow-lg transition"
+            class="inline-flex items-center justify-center rounded-full p-1 backdrop-blur-lg border shadow-lg transition"
             :class="isScrolled ? 'bg-black/30 text-white border-white/20 hover:bg-black/35' : 'bg-white/10 text-white border-white/20 hover:bg-white/15'"
             @click="toggleMobileMenu"
             :aria-expanded="isMobileMenuOpen"
@@ -342,7 +348,7 @@ onUnmounted(() => {
           >
             <svg
               v-if="!isMobileMenuOpen"
-              class="w-6 h-6"
+              class="w-[17px] h-[17px]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -350,7 +356,7 @@ onUnmounted(() => {
             >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-            <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg v-else class="w-[17px] h-[17px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -456,11 +462,12 @@ onUnmounted(() => {
               </div>
               <NuxtLink
                 to="/hubungi-kami"
-                class="w-full rounded-full bg-[#f6993c] px-5 py-3 text-center text-base font-semibold text-white shadow-lg transition hover:shadow-xl"
+                class="flex w-full items-center justify-between text-sm font-semibold text-[#1f2937] hover:bg-[#f6993c]/10 transition rounded-xl"
+                :class="route.path === '/hubungi-kami' ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
                 :aria-label="ctaLabel"
                 @click="closeMobileMenu"
               >
-                {{ ctaLabel }}
+                <span>{{ ctaLabel }}</span>
               </NuxtLink>
             </div>
           </div>

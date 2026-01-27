@@ -147,6 +147,7 @@ const resolvedImageSrc = computed(() => props.imageSrc || props.fallbackImage)
   margin-top: auto;
   padding-top: 14px;
   margin-left: -66px;
+  align-self: flex-start;
 }
 
 .lokasi-btn {
@@ -202,10 +203,8 @@ const resolvedImageSrc = computed(() => props.imageSrc || props.fallbackImage)
   }
 
   .lokasi-cta {
-    padding-top: 10px;
-  }
-
-  .lokasi-cta {
+    margin-top: 8px;
+    padding-top: 0;
     margin-left: 0;
   }
 }
@@ -231,6 +230,14 @@ const resolvedImageSrc = computed(() => props.imageSrc || props.fallbackImage)
 
   .lokasi-content {
     min-height: 260px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .lokasi-cta {
+    margin-left: 0;
+    margin-top: 8px;
+
   }
 }
 </style>
