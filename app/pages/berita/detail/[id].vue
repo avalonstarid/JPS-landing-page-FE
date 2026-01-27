@@ -29,7 +29,7 @@ const { data: beritaDetailResponse } = await useAsyncData('berita-detail', async
   watch: [slug],
 })
 
-const { data: beritaListResponse } = await useAsyncData('berita-list', async () => {
+const { data: beritaListResponse } = await useAsyncData('berita-list-detail', async () => {
   try {
     return await fetcher('/berita-list', {})
   } catch (error) {

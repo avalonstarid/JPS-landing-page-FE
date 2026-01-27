@@ -8,7 +8,7 @@ const config = useRuntimeConfig()
 const { fetcher } = useApiFetch()
 const { mapBeritaPageData, mapBeritaListData } = useHomeMapper()
 
-const { data: beritaResponse } = await useAsyncData('berita-page', async () => {
+const { data: beritaResponse } = await useAsyncData('berita-page-index', async () => {
   try {
     return await fetcher('/berita', {})
   } catch (error) {
@@ -16,7 +16,7 @@ const { data: beritaResponse } = await useAsyncData('berita-page', async () => {
   }
 })
 
-const { data: beritaListResponse, pending: beritaListPending } = await useAsyncData('berita-list', async () => {
+const { data: beritaListResponse, pending: beritaListPending } = await useAsyncData('berita-list-index', async () => {
   try {
     return await fetcher('/berita-list', {})
   } catch (error) {
@@ -47,6 +47,10 @@ const popularLayout = computed(() => {
 })
 
 const latestItems = computed(() => mappedBeritaList.value.items.slice(0, 8))
+
+onMounted(() => {
+  refreshNuxtData(['berita-page-index', 'berita-list-index'])
+})
 
 useHead(() => ({
   title: mappedBerita.value.seo.title || t('beritaPage.meta.title'),

@@ -107,9 +107,7 @@ export default defineNuxtConfig({
       'site-config-stack/urls': siteConfigStackUrlsPath,
     },
     prerender: {
-      routes: [
-        '/berita',
-      ],
+      routes: [],
     },
   },
 
