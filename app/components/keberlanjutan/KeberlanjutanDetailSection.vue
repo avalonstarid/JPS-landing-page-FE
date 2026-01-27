@@ -9,6 +9,7 @@ type Breadcrumb = {
 type Item = {
   title: string
   description: string
+  contentHtml?: string
   image: string
   actionKey?: string
 }
@@ -20,7 +21,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  open: [string]
+  open: [Item]
 }>()
 </script>
 
@@ -47,7 +48,7 @@ const emit = defineEmits<{
           :description="item.description"
           :image-src="item.image"
           :reverse="index % 2 === 1"
-          @action="item.actionKey ? emit('open', item.actionKey) : null"
+          @action="emit('open', item)"
         />
       </div>
     </div>

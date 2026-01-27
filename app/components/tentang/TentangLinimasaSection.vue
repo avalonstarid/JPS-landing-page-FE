@@ -5,6 +5,7 @@ const { t } = useI18n()
 interface TimelineItem {
   year: string
   icon: string
+  iconCustom?: boolean
   shortDesc: string
   detailTitle: string
   detailDesc: string
@@ -241,7 +242,12 @@ const getIconClass = (icon: string): string => {
     growth: 'mdi-chart-line',
     international: 'mdi-earth',
   }
-  return icons[icon] || icons.building
+  return icons[icon] || `mdi-${icon}`
+}
+
+const isIconImage = (icon?: string) => {
+  if (!icon) return false
+  return icon.startsWith('http') || icon.startsWith('/') || icon.includes('.')
 }
 </script>
 
@@ -302,9 +308,20 @@ const getIconClass = (icon: string): string => {
                   data-tooltip-anchor
                   class="relative z-10 w-[56px] h-[56px] md:w-[64px] md:h-[64px] rounded-full bg-white p-[3px] cursor-pointer transition-transform hover:scale-110"
                 >
-                  <div class="w-full h-full rounded-full bg-[#f6993c] flex items-center justify-center">
-                    <i class="mdi text-white text-2xl md:text-[28px]" :class="getIconClass(item.icon)" aria-hidden="true" />
-                  </div>
+                <div class="w-full h-full rounded-full bg-[#f6993c] flex items-center justify-center">
+                  <NuxtImg
+                    v-if="item.iconCustom === true && isIconImage(item.icon)"
+                    :src="item.icon"
+                    alt=""
+                    class="h-7 w-7 md:h-8 md:w-8 object-contain"
+                  />
+                  <i
+                    v-else
+                    class="mdi text-white text-2xl md:text-[28px]"
+                    :class="getIconClass(item.icon)"
+                    aria-hidden="true"
+                  />
+                </div>
                 </div>
 
                 <!-- Line Connector After (except last) -->

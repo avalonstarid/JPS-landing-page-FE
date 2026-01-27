@@ -2,6 +2,29 @@
 const logoJps = '/images/logo/logo-putih.png'
 const { t } = useI18n()
 const currentYear = new Date().getFullYear()
+const { fetcher } = useApiFetch()
+const { mapFooterData } = useHomeMapper()
+
+const { data: footerResponse } = await useAsyncData('footer', async () => {
+  try {
+    return await fetcher('/footer', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const footerData = computed(() => (footerResponse.value as { data?: unknown })?.data ?? null)
+const mappedFooter = computed(() => mapFooterData(footerData.value as any))
+
+const isIconImage = (icon?: string) => {
+  if (!icon) return false
+  return icon.startsWith('http') || icon.startsWith('/') || icon.includes('.')
+}
+
+const getSocialIconClass = (icon: string): string => {
+  if (icon.startsWith('mdi-')) return icon
+  return `mdi-${icon}`
+}
 
 // Footer column structure with routes
 const footerColumns = [
@@ -91,19 +114,23 @@ const footerColumnsSecond = [
         <div class="lg:col-span-3 space-y-5">
           <div class="flex items-center gap-3">
             <NuxtImg :src="logoJps" :alt="t('footer.companyName')" class="h-10 w-auto" />
-            <span class="font-semibold text-base">{{ t('footer.companyName') }}</span>
+            <span class="font-semibold text-base">{{ mappedFooter.company.name || t('footer.companyName') }}</span>
           </div>
           <p class="text-sm text-white/85 leading-relaxed">
-            {{ t('footer.description') }}
+            {{ mappedFooter.company.description || t('footer.description') }}
+          </p>
+          <p v-if="mappedFooter.company.address" class="text-sm text-white/75">
+            {{ mappedFooter.company.address }}
           </p>
           <div class="space-y-2 text-sm">
-            <a href="mailto:corsec@jpsejahtera.co.id" class="flex items-center gap-3 text-white/90 hover:text-white transition-colors">
+            <a
+              v-for="email in mappedFooter.company.footerEmails"
+              :key="email.id"
+              :href="email.link"
+              class="flex items-center gap-3 text-white/90 hover:text-white transition-colors"
+            >
               <i class="mdi mdi-email-outline text-lg" aria-hidden="true" />
-              <span class="underline underline-offset-4">corsec@jpsejahtera.co.id</span>
-            </a>
-            <a href="mailto:hrd@jpsejahtera.co.id" class="flex items-center gap-3 text-white/90 hover:text-white transition-colors">
-              <i class="mdi mdi-email-outline text-lg" aria-hidden="true" />
-              <span class="underline underline-offset-4">hrd@jpsejahtera.co.id</span>
+              <span class="underline underline-offset-4">{{ email.value }}</span>
             </a>
           </div>
         </div>
@@ -133,22 +160,30 @@ const footerColumnsSecond = [
               <tr>
                 <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.totalVisitors') }}</td>
                 <td class="px-2">:</td>
-                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.totalVisitorsValue') }}</td>
+                <td class="pl-2 whitespace-nowrap">
+                  {{ mappedFooter.visitor.total ?? t('footer.statistics.totalVisitorsValue') }}
+                </td>
               </tr>
               <tr>
                 <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.dailyVisitors') }}</td>
                 <td class="px-2">:</td>
-                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.dailyVisitorsValue') }}</td>
+                <td class="pl-2 whitespace-nowrap">
+                  {{ mappedFooter.visitor.today ?? t('footer.statistics.dailyVisitorsValue') }}
+                </td>
               </tr>
               <tr>
                 <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.monthlyVisitors') }}</td>
                 <td class="px-2">:</td>
-                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.monthlyVisitorsValue') }}</td>
+                <td class="pl-2 whitespace-nowrap">
+                  {{ mappedFooter.visitor.month ?? t('footer.statistics.monthlyVisitorsValue') }}
+                </td>
               </tr>
               <tr>
                 <td class="pr-4 whitespace-nowrap">{{ t('footer.statistics.yearlyVisitors') }}</td>
                 <td class="px-2">:</td>
-                <td class="pl-2 whitespace-nowrap">{{ t('footer.statistics.yearlyVisitorsValue') }}</td>
+                <td class="pl-2 whitespace-nowrap">
+                  {{ mappedFooter.visitor.year ?? t('footer.statistics.yearlyVisitorsValue') }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -173,21 +208,22 @@ const footerColumnsSecond = [
       <div class="mt-10 pt-6 border-t border-white/20 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p class="text-sm text-white/80">{{ t('footer.rights', { year: currentYear }) }}</p>
         <div class="flex items-center gap-4">
-          <!-- Email -->
-          <a href="mailto:marketing@jpsejahtera.co.id" aria-label="Email" class="text-white hover:text-white/80 transition-colors">
-            <i class="mdi mdi-email-outline text-xl" aria-hidden="true" />
-          </a>
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/company/janu-putra-group/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-white hover:text-white/80 transition-colors">
-            <i class="mdi mdi-linkedin text-xl" aria-hidden="true" />
-          </a>
-          <!-- WhatsApp -->
-          <a href="https://wa.me/6287885483781" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="text-white hover:text-white/80 transition-colors">
-            <i class="mdi mdi-whatsapp text-xl" aria-hidden="true" />
-          </a>
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/januputrasejahtera/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-white hover:text-white/80 transition-colors">
-            <i class="mdi mdi-instagram text-xl" aria-hidden="true" />
+          <a
+            v-for="social in mappedFooter.company.socials"
+            :key="social.id"
+            :href="social.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="social.value || social.key"
+            class="text-white hover:text-white/80 transition-colors"
+          >
+            <NuxtImg
+              v-if="social.iconCustom && isIconImage(social.icon)"
+              :src="social.icon"
+              alt=""
+              class="h-5 w-5 object-contain"
+            />
+            <i v-else class="mdi text-xl" :class="getSocialIconClass(social.icon)" aria-hidden="true" />
           </a>
         </div>
       </div>

@@ -45,6 +45,12 @@ const displayProducts = computed(() => {
     image: product.imageUrl,
   }))
 })
+
+const resolveProductImage = (image?: string) => {
+  if (!image || image === 'undefined' || image === 'null') return fallbackProductImage
+  return image
+}
+
 </script>
 
 <template>
@@ -80,7 +86,7 @@ const displayProducts = computed(() => {
         >
           <div class="flex justify-center">
             <NuxtImg
-              :src="product.image || fallbackProductImage"
+              :src="resolveProductImage(product.image)"
               :alt="product.title"
               class="h-32 md:h-40 object-contain drop-shadow-xl -mt-24"
               loading="lazy"

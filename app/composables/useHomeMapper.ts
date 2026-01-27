@@ -329,6 +329,28 @@ type KarirDetailApiData = {
   benefit?: LocaleArray | string
 }
 
+type FooterApiData = {
+  company?: {
+    company_address?: string
+    company_desc?: string
+    company_name?: string
+    company_phone?: string
+    company_social?: Array<{
+      icon?: string
+      icon_custom?: boolean
+      key?: string
+      link?: string
+      value?: string
+    }>
+  }
+  visitor?: {
+    total?: number
+    today?: number
+    month?: number
+    year?: number
+  }
+}
+
 type InvestorListApiData = {
   data?: Array<Record<string, unknown>>
 }
@@ -686,7 +708,8 @@ export const useHomeMapper = () => {
           id: index,
           title: resolveLocaleText(item.title),
           description: resolveLocaleText(item.desc),
-          icon: item.icon ? iconMap[item.icon] || '' : '',
+          icon: item.icon ? item.icon || '' : '',
+          iconCustom: Boolean(item.icon_custom),
         })),
       },
       testimonial: {
@@ -772,17 +795,18 @@ export const useHomeMapper = () => {
           icon: visiMisiIconKeys[index] || 'product',
         })),
       },
-      history: {
-        title: resolveLocaleText(history?.title),
-        items: (history?.data || []).map((item, index) => ({
-          id: index,
-          year: item.year ? String(item.year) : '',
-          icon: item.icon || '',
-          shortDesc: resolveLocaleText(item.title),
-          detailTitle: resolveLocaleText(item.title),
-          detailDesc: resolveLocaleText(item.desc),
-        })),
-      },
+        history: {
+          title: resolveLocaleText(history?.title),
+          items: (history?.data || []).map((item, index) => ({
+            id: index,
+            year: item.year ? String(item.year) : '',
+            icon: item.icon || '',
+            iconCustom: Boolean(item.icon_custom),
+            shortDesc: resolveLocaleText(item.title),
+            detailTitle: resolveLocaleText(item.title),
+            detailDesc: resolveLocaleText(item.desc),
+          })),
+        },
       location: {
         title: resolveLocaleText(location?.title),
         items: (location?.data || []).map((item, index) => ({
@@ -1160,13 +1184,14 @@ export const useHomeMapper = () => {
       detail: {
         title: resolveLocaleText(detail?.title),
       },
-      items: items.map((item, index) => ({
-        id: String(index),
-        title: resolveLocaleText(item.title),
-        description: stripHtml(resolveLocaleText(item.content)),
-        image: item.featured?.original_url || item.featured?.thumb_url || '',
-        actionKey: resolveActionKey(item.slug),
-      })),
+        items: items.map((item, index) => ({
+          id: String(index),
+          title: resolveLocaleText(item.title),
+          description: resolveLocaleText(item.headline),
+          contentHtml: resolveLocaleText(item.content),
+          image: item.featured?.original_url || item.featured?.thumb_url || '',
+          actionKey: resolveActionKey(item.slug),
+        })),
       seo: {
         title: raw?.seo?.title || '',
         description: raw?.seo?.description || '',
@@ -1266,37 +1291,75 @@ export const useHomeMapper = () => {
     }
   }
 
-  const mapBeritaDetailData = (raw?: BeritaDetailApiData | null) => {
+    const mapBeritaDetailData = (raw?: BeritaDetailApiData | null) => {
     const post = raw?.post
     const featured = post?.featured
     const contentHtml = resolveLocaleText(post?.content)
     const publishedAt = post?.published_at || ''
     const title = resolveLocaleText(post?.title)
 
-    return {
-      id: String(post?.slug || ''),
-      slug: String(post?.slug || ''),
-      title,
-      author: post?.author?.name || 'PT Janu Putra Sejahtera',
-      image: featured?.original_url || featured?.thumb_url || '',
-      timeAgo: formatDateLabel(publishedAt),
-      description: raw?.seo?.description || '',
-      contentHtml,
-      seo: {
-        title: raw?.seo?.title || '',
+      return {
+        id: String(post?.slug || ''),
+        slug: String(post?.slug || ''),
+        title,
+        author: post?.author?.name || 'PT Janu Putra Sejahtera',
+        image: featured?.original_url || featured?.thumb_url || '',
+        timeAgo: formatDateLabel(publishedAt),
         description: raw?.seo?.description || '',
-        url: raw?.seo?.url || '',
-        type: raw?.seo?.type || '',
-        siteName: raw?.seo?.site_name || '',
-        locale: raw?.seo?.locale || '',
-        robots: raw?.seo?.robots || '',
-        canonicalUrl: raw?.seo?.canonical_url || '',
-        image: raw?.seo?.image || '',
-        publishedTime: raw?.seo?.published_time || '',
-        author: raw?.seo?.author || '',
-      },
+        contentHtml,
+        seo: {
+          title: raw?.seo?.title || '',
+          description: raw?.seo?.description || '',
+          url: raw?.seo?.url || '',
+          type: raw?.seo?.type || '',
+          siteName: raw?.seo?.site_name || '',
+          locale: raw?.seo?.locale || '',
+          robots: raw?.seo?.robots || '',
+          canonicalUrl: raw?.seo?.canonical_url || '',
+          image: raw?.seo?.image || '',
+          publishedTime: raw?.seo?.published_time || '',
+          author: raw?.seo?.author || '',
+        },
+      }
     }
-  }
+
+    const mapFooterData = (raw?: FooterApiData | null) => {
+      const company = raw?.company
+      const visitor = raw?.visitor
+      const socials = company?.company_social || []
+      const footerEmails = socials.filter((item) => item.key === 'footer')
+      const socialMedia = socials.filter((item) => item.key !== 'footer')
+
+      return {
+        company: {
+          name: company?.company_name || '',
+          address: company?.company_address || '',
+          description: company?.company_desc || '',
+          phone: company?.company_phone || '',
+          footerEmails: footerEmails.map((item, index) => ({
+            id: `${item.key || 'footer'}-${index}`,
+            icon: item.icon || '',
+            iconCustom: Boolean(item.icon_custom),
+            link: item.link || '',
+            value: item.value || '',
+          })),
+          socials: socialMedia.map((item, index) => ({
+            id: `${item.key || 'social'}-${index}`,
+            icon: item.icon || '',
+            iconCustom: Boolean(item.icon_custom),
+            link: item.link || '',
+            value: item.value || '',
+            key: item.key || '',
+          })),
+        },
+        visitor: {
+          total: visitor?.total ?? null,
+          today: visitor?.today ?? null,
+          month: visitor?.month ?? null,
+          year: visitor?.year ?? null,
+        },
+      }
+    }
 
   const mapBlogListData = (raw?: BlogListApiData | Array<Record<string, unknown>> | null) => {
     const items = Array.isArray(raw) ? raw : raw?.data || []
@@ -1486,12 +1549,13 @@ export const useHomeMapper = () => {
     mapKeberlanjutanTinjauanData,
     mapBeritaPageData,
     mapBeritaListData,
-    mapBeritaDetailData,
-    mapBlogPageData,
-    mapBlogListData,
-    mapBlogDetailData,
-    mapPengumumanPageData,
-    mapPengumumanListData,
-    mapPengumumanDetailData,
+      mapBeritaDetailData,
+      mapBlogPageData,
+      mapBlogListData,
+      mapBlogDetailData,
+      mapPengumumanPageData,
+      mapPengumumanListData,
+      mapPengumumanDetailData,
+      mapFooterData,
+    }
   }
-}

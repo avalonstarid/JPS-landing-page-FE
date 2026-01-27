@@ -4,6 +4,8 @@ export const useImageFallback = () => {
     if (!target) return
     if (target.dataset.fallbackApplied === 'true') return
     target.dataset.fallbackApplied = 'true'
+    target.removeAttribute('srcset')
+    target.removeAttribute('sizes')
     target.src = fallback
   }
 

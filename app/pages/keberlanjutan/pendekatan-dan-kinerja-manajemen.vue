@@ -9,7 +9,7 @@ const { t } = useI18n()
 const config = useRuntimeConfig()
 const { fetcher } = useApiFetch()
 const { mapKeberlanjutanPendekatanData } = useHomeMapper()
-const activeModal = ref<null | 'tataKelola' | 'strategiKebijakan' | 'inisiatif'>(null)
+const activeItem = ref<null | { title: string; contentHtml?: string }>(null)
 
 const { data: pendekatanResponse } = await useAsyncData('keberlanjutan-pendekatan', async () => {
   try {
@@ -31,6 +31,8 @@ const fallbackItems = [
     actionKey: 'tataKelola',
     description:
       'PT Janu Putra Sejahtera Tbk meyakini bahwa keberlanjutan merupakan bagian integral dari tata kelola perusahaan yang baik. Oleh karena itu, Perseroan mengintegrasikan prinsip keberlanjutan ke dalam proses pengambilan keputusan strategis, pengelolaan risiko, serta pelaksanaan kegiatan operasional di seluruh lini usaha.',
+    contentHtml:
+      '<p>PT Janu Putra Sejahtera Tbk meyakini bahwa keberlanjutan merupakan bagian integral dari tata kelola perusahaan yang baik. Oleh karena itu, Perseroan mengintegrasikan prinsip keberlanjutan ke dalam proses pengambilan keputusan strategis, pengelolaan risiko, serta pelaksanaan kegiatan operasional di seluruh lini usaha.</p>',
     image: imageOne,
   },
   {
@@ -38,6 +40,8 @@ const fallbackItems = [
     actionKey: 'inisiatif',
     description:
       'Keberlanjutan telah menjadi bagian yang tidak terpisahkan dari perjalanan bisnis Perseroan sejak awal berdiri. Prinsip ini menjadi landasan dalam upaya kami menyediakan sumber protein hewani yang berkualitas, aman, dan terjangkau guna mendukung pemenuhan kebutuhan gizi masyarakat Indonesia secara berkelanjutan.',
+    contentHtml:
+      '<p>Keberlanjutan telah menjadi bagian yang tidak terpisahkan dari perjalanan bisnis Perseroan sejak awal berdiri. Prinsip ini menjadi landasan dalam upaya kami menyediakan sumber protein hewani yang berkualitas, aman, dan terjangkau guna mendukung pemenuhan kebutuhan gizi masyarakat Indonesia secara berkelanjutan.</p>',
     image: imageTwo,
   },
   {
@@ -45,16 +49,16 @@ const fallbackItems = [
     actionKey: 'strategiKebijakan',
     description:
       'Keberlanjutan menjadi bagian dari arah pertumbuhan Perseroan untuk membangun ketahanan bisnis jangka panjang. Sementara itu Perseroan menerapkan kebijakan perusahaan yang terintegrasi dengan prinsip Good Corporate Governance (GCG) sebagai landasan pelaksanaan strategi keberlanjutan.',
+    contentHtml:
+      '<p>Keberlanjutan menjadi bagian dari arah pertumbuhan Perseroan untuk membangun ketahanan bisnis jangka panjang. Sementara itu Perseroan menerapkan kebijakan perusahaan yang terintegrasi dengan prinsip Good Corporate Governance (GCG) sebagai landasan pelaksanaan strategi keberlanjutan.</p>',
     image: imageThree,
   },
 ]
 
 const items = computed(() => (mappedPendekatan.value.items.length ? mappedPendekatan.value.items : fallbackItems))
 
-const handleOpen = (key: string) => {
-  if (key === 'tataKelola' || key === 'strategiKebijakan' || key === 'inisiatif') {
-    activeModal.value = key
-  }
+const handleOpen = (item: { title: string; contentHtml?: string }) => {
+  activeItem.value = item
 }
 
 const breadcrumbs = computed(() => [
@@ -118,9 +122,10 @@ useHead(() => ({
       @open="handleOpen"
     />
     <KeberlanjutanInfoModal
-      :is-open="Boolean(activeModal)"
-      :variant="activeModal"
-      @close="activeModal = null"
+      :is-open="Boolean(activeItem)"
+      :title="activeItem?.title"
+      :content-html="activeItem?.contentHtml"
+      @close="activeItem = null"
     />
   </div>
 </template>

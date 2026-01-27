@@ -15,6 +15,7 @@ interface StandardSectionData {
     title: string
     description: string
     icon: string
+    iconCustom?: boolean
   }>
 }
 
@@ -42,8 +43,27 @@ const displayValues = computed(() => {
     title: t(value.titleKey),
     description: t(value.descriptionKey),
     icon: value.icon,
+    iconCustom: isIconImage(value.icon),
   }))
 })
+
+const isIconImage = (icon?: string) => {
+  if (!icon) return true
+  return icon.startsWith('http') || icon.startsWith('/') || icon.includes('.')
+}
+
+const getIconClass = (icon: string): string => {
+  if (icon.startsWith('mdi-')) return icon
+  const icons: Record<string, string> = {
+    quality: 'mdi-star-circle',
+    professionalism: 'mdi-briefcase-variant',
+    innovation: 'mdi-lightbulb-on',
+    environment: 'mdi-leaf',
+    welfare: 'mdi-hand-heart',
+    social: 'mdi-account-group',
+  }
+  return icons[icon] || `mdi-${icon}`
+}
 </script>
 
 <template>
@@ -92,7 +112,14 @@ const displayValues = computed(() => {
             class="duration-300 hover:-translate-y-2 bg-white rounded-[22px] shadow-[0_10px_25px_rgba(0,0,0,0.08)] p-4"
           >
             <div class="mb-4">
+              <div
+                v-if="value.iconCustom === false"
+                class="h-12 w-12 rounded-full bg-[#f6993c] flex items-center justify-center shadow-md"
+              >
+                <i class="mdi text-white text-2xl" :class="getIconClass(value.icon)" aria-hidden="true" />
+              </div>
               <NuxtImg
+                v-else
                 :src="value.icon || fallbackValueIcon"
                 :alt="value.title"
                 class="h-12 w-12 object-contain"

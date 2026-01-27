@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import ZoomableImagePanel from '~/components/ui/ZoomableImagePanel.vue'
-const strukturImage = '/images/tentang/struktur-oraganisasi-1.png'
-const strategiImageOne = '/images/pendekatan/strategi-kebijkan-1.jpg'
-const strategiImageTwo = '/images/pendekatan/strategi-kebijkan-2.jpg'
-const inisiatifImage = '/images/pendekatan/inisiatif-dan-pencapaian.png'
-type Variant = 'tataKelola' | 'strategiKebijakan' | 'inisiatif'
-
-const { t, tm, rt } = useI18n()
+const { t } = useI18n()
 
 const props = defineProps<{
   isOpen: boolean
-  variant: Variant | null
+  title?: string
+  contentHtml?: string
 }>()
 
 const emit = defineEmits<{
@@ -39,10 +33,7 @@ watch(() => props.isOpen, (isOpen) => {
   document.body.style.overflow = isOpen ? 'hidden' : ''
 })
 
-const modalTitleId = computed(() => (props.variant ? `keberlanjutan-modal-${props.variant}` : 'keberlanjutan-modal'))
-const tataKelolaList = computed(() => tm('keberlanjutanPage.modal.tataKelola.list') as string[])
-const strategiList = computed(() => tm('keberlanjutanPage.modal.strategi.list') as string[])
-const kebijakanList = computed(() => tm('keberlanjutanPage.modal.kebijakan.list') as string[])
+const modalTitleId = computed(() => (props.title ? 'keberlanjutan-modal-content' : 'keberlanjutan-modal'))
 </script>
 
 <template>
@@ -67,7 +58,7 @@ const kebijakanList = computed(() => tm('keberlanjutanPage.modal.kebijakan.list'
         <div class="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl">
           <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between z-10">
             <h2 :id="modalTitleId" class="text-2xl md:text-3xl font-bold text-[#1f2937]">
-              {{ props.variant === 'tataKelola' ? t('keberlanjutanPage.modal.tataKelola.title') : t('keberlanjutanPage.modal.strategi.title') }}
+              {{ props.title || t('keberlanjutanPage.modal.tataKelola.title') }}
             </h2>
             <button
               type="button"
@@ -82,76 +73,11 @@ const kebijakanList = computed(() => tm('keberlanjutanPage.modal.kebijakan.list'
           </div>
 
           <div class="p-6 md:p-8 space-y-6">
-            <div v-if="props.variant === 'tataKelola'" class="space-y-5 text-sm md:text-base text-[#4b5563] leading-relaxed">
-              <p>{{ t('keberlanjutanPage.modal.tataKelola.intro1') }}</p>
-              <p>{{ t('keberlanjutanPage.modal.tataKelola.intro2') }}</p>
-              <p>{{ t('keberlanjutanPage.modal.tataKelola.intro3') }}</p>
-              <ol class="list-decimal pl-5 space-y-1 text-[#4b5563]">
-                <li v-for="(item, index) in tataKelolaList" :key="`tata-${index}`">{{ rt(item) }}</li>
-              </ol>
-
-              <ZoomableImagePanel
-                :src="strukturImage"
-                :alt="t('keberlanjutanPage.modal.tataKelola.imageAlt')"
-                :zoom-in-label="t('tentangPage.struktur.zoomIn')"
-                :zoom-out-label="t('tentangPage.struktur.zoomOut')"
-                :reset-label="t('tentangPage.struktur.resetZoom')"
-                :zoom-hint="t('tentangPage.struktur.zoomHint')"
-                control-text-class="text-white"
-                control-button-class="bg-white/20 hover:bg-white/30 text-white"
-                hint-class="text-white/60"
-                scrollbar-thumb-color="rgba(255, 255, 255, 0.35)"
-                scrollbar-thumb-hover-color="rgba(255, 255, 255, 0.45)"
-                max-height="60vh"
-                container-class="bg-[#27376D]"
-              />
-            </div>
-
-            <div v-else-if="props.variant === 'inisiatif'" class="space-y-5 text-sm md:text-base text-[#4b5563] leading-relaxed">
-              <p>{{ t('keberlanjutanPage.modal.inisiatif.intro1') }}</p>
-              <p>{{ t('keberlanjutanPage.modal.inisiatif.intro2') }}</p>
-              <NuxtImg
-                :src="inisiatifImage"
-                :alt="t('keberlanjutanPage.modal.inisiatif.imageAlt')"
-                class="rounded-2xl w-full object-cover"
-              />
-            </div>
-
-            <div v-else class="space-y-8">
-              <div class="grid gap-8 md:grid-cols-2">
-                <div class="space-y-4 text-sm md:text-base text-[#4b5563] leading-relaxed">
-                  <h3 class="text-base md:text-lg font-semibold text-[#3d4f92]">
-                    {{ t('keberlanjutanPage.modal.strategi.heading') }}
-                  </h3>
-                  <p>{{ t('keberlanjutanPage.modal.strategi.intro') }}</p>
-                  <p class="font-semibold text-[#1f2937]">{{ t('keberlanjutanPage.modal.strategi.focusLabel') }}</p>
-                  <ul class="list-disc pl-5 space-y-1">
-                    <li v-for="(item, index) in strategiList" :key="`strategi-${index}`">{{ rt(item) }}</li>
-                  </ul>
-                  <NuxtImg
-                    :src="strategiImageTwo"
-                    :alt="t('keberlanjutanPage.modal.strategi.imageAltTwo')"
-                    class="rounded-2xl w-full object-cover"
-                  />
-                </div>
-
-                <div class="space-y-4 text-sm md:text-base text-[#4b5563] leading-relaxed">
-                  <NuxtImg
-                    :src="strategiImageOne"
-                    :alt="t('keberlanjutanPage.modal.strategi.imageAltOne')"
-                    class="rounded-2xl w-full object-cover"
-                  />
-                  <h3 class="text-base md:text-lg font-semibold text-[#3d4f92]">
-                    {{ t('keberlanjutanPage.modal.kebijakan.heading') }}
-                  </h3>
-                  <p>{{ t('keberlanjutanPage.modal.kebijakan.intro') }}</p>
-                  <p class="font-semibold text-[#1f2937]">{{ t('keberlanjutanPage.modal.kebijakan.focusLabel') }}</p>
-                  <ul class="list-disc pl-5 space-y-1">
-                    <li v-for="(item, index) in kebijakanList" :key="`kebijakan-${index}`">{{ rt(item) }}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <div
+              v-if="props.contentHtml"
+              class="space-y-4 text-sm md:text-base text-[#4b5563] leading-relaxed"
+              v-html="props.contentHtml"
+            />
           </div>
         </div>
       </div>

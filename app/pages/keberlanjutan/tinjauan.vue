@@ -20,6 +20,19 @@ const tinjauanData = computed(() => {
 const mappedTinjauan = computed(() => mapKeberlanjutanTinjauanData(tinjauanData.value as any))
 
 const heroImage = computed(() => mappedTinjauan.value.hero.background || '/images/tinjauan/tinjauan-section.png')
+const fallbackContentHtml = computed(() => {
+  const paragraph1 = t('keberlanjutanPage.tinjauan.paragraph1')
+  const heading = t('keberlanjutanPage.tinjauan.heading')
+  const paragraph2Prefix = t('keberlanjutanPage.tinjauan.paragraph2Prefix')
+  const sdgPhrase = t('keberlanjutanPage.tinjauan.sdgPhrase')
+  const paragraph2Suffix = t('keberlanjutanPage.tinjauan.paragraph2Suffix')
+
+  return `
+    <p>${paragraph1}</p>
+    <p><strong>${heading}</strong></p>
+    <p>${paragraph2Prefix}<em>${sdgPhrase}</em>${paragraph2Suffix}</p>
+  `.trim()
+})
 
 useHead(() => ({
   title: mappedTinjauan.value.seo.title || 'Keberlanjutan - Tinjauan',
@@ -116,22 +129,10 @@ useHead(() => ({
       </div>
 
       <div class="mt-10 text-sm md:text-base text-[#111827] max-w-4xl mx-auto leading-relaxed">
-        <div v-if="mappedTinjauan.tinjauan.contentHtml" class="space-y-4" v-html="mappedTinjauan.tinjauan.contentHtml" />
-        <div v-else class="space-y-6">
-          <p>
-            {{ t('keberlanjutanPage.tinjauan.paragraph1') }}
-          </p>
-          <div class="space-y-2">
-            <p class="font-semibold text-[#3d4f92]">
-              {{ t('keberlanjutanPage.tinjauan.heading') }}
-            </p>
-            <p>
-              {{ t('keberlanjutanPage.tinjauan.paragraph2Prefix') }}
-              <span class="italic">{{ t('keberlanjutanPage.tinjauan.sdgPhrase') }}</span>
-              {{ t('keberlanjutanPage.tinjauan.paragraph2Suffix') }}
-            </p>
-          </div>
-        </div>
+        <div
+          class="space-y-4"
+          v-html="mappedTinjauan.tinjauan.contentHtml || fallbackContentHtml"
+        />
       </div>
     </section>
   </div>

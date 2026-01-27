@@ -73,9 +73,10 @@ const clipPathId = computed(() => {
       <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
         {{ props.title }}
       </h3>
-      <p class="text-sm md:text-base text-gray-700 leading-relaxed">
-        {{ props.description }}
-      </p>
+      <div
+        class="text-sm md:text-base text-gray-700 leading-relaxed"
+        v-html="props.description"
+      />
     </div>
 
     <div class="keberlanjutan-card relative w-full lg:w-1/2 aspect-[1000/420]">
