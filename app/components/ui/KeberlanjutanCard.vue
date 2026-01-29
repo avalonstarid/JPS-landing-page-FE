@@ -7,14 +7,17 @@ type Props = {
   imageAlt?: string
   buttonText?: string
   reverse?: boolean
+  fallbackImage?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   imageAlt: '',
   buttonText: 'Selengkapnya',
   reverse: false,
+  fallbackImage: '/images/logo-jps.png',
 })
 
+const { applyFallback } = useImageFallback()
 const emit = defineEmits<{
   action: []
 }>()
@@ -62,6 +65,8 @@ const clipPathId = computed(() => {
 
   return `keberlanjutan-card-${slug || 'item'}`
 })
+
+const resolvedImageSrc = computed(() => props.imageSrc || props.fallbackImage)
 </script>
 
 <template>
@@ -95,13 +100,14 @@ const clipPathId = computed(() => {
         </defs>
         <path :d="cardPath" fill="#FFF4EA" />
         <image
-          :href="props.imageSrc"
+          :href="resolvedImageSrc"
           :clip-path="`url(#${clipPathId})`"
           x="0"
           y="0"
           :width="svgWidth"
           :height="svgHeight"
           preserveAspectRatio="xMidYMid slice"
+          @error="(event) => applyFallback(event, props.fallbackImage)"
         />
       </svg>
 

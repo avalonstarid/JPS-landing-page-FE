@@ -66,13 +66,14 @@
 
         <!-- Background image clipped to card shape with notch -->
         <image
-          :href="imageUrl"
+          :href="resolvedImageUrl"
           x="0"
           y="0"
           :width="svgWidth"
           :height="svgHeight"
           preserveAspectRatio="xMidYMid slice"
           :clip-path="`url(#${clipPathId})`"
+          @error="(event) => applyFallback(event, props.fallbackImage)"
         />
 
         <!-- Dark gradient overlay -->
@@ -139,6 +140,7 @@
 
 <script setup lang="ts">
 import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref } from 'vue'
+const { applyFallback } = useImageFallback()
 
 interface Props {
   imageUrl: string
@@ -157,6 +159,7 @@ interface Props {
   isWhite?: boolean
   fillParent?: boolean
   variant?: 'notch' | 'simple'
+  fallbackImage?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -165,6 +168,7 @@ const props = withDefaults(defineProps<Props>(), {
   ariaLabel: 'View details',
   fillParent: false,
   variant: 'notch',
+  fallbackImage: '/images/logo-jps.png',
 })
 
 defineEmits<{
@@ -234,6 +238,7 @@ const hasTime = computed(() => timeText.value.trim().length > 0)
 const hasTitle = computed(() => titleText.value.trim().length > 0)
 const hasDescription = computed(() => descriptionText.value.trim().length > 0)
 const showMeta = computed(() => hasCompany.value || hasTime.value || !!props.avatarUrl || !!props.iconClass || !!props.iconUrl)
+const resolvedImageUrl = computed(() => props.imageUrl || props.fallbackImage)
 
 /**
  * Generate SVG path for card with rounded corners and a rounded square notch

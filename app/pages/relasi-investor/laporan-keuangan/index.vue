@@ -3,6 +3,7 @@ const logoJps = '/images/logo-jps.png'
 const { t } = useI18n()
 const { fetcher } = useApiFetch()
 const { mapInvestorFinanceData } = useHomeMapper()
+const { applyFallback } = useImageFallback()
 
 useHead(() => ({
   title: `${t('nav.investorItems.laporanKeuangan')} | ${t('nav.investor')}`,
@@ -118,7 +119,12 @@ const monthlyReports = computed(() => {
             <div class="space-y-1">
               <p class="text-lg font-semibold text-[#1f2937]">Grafik Keuangan</p>
               <div class="flex items-center gap-2 text-xs text-gray-500">
-                <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                <NuxtImg
+                  :src="logoJps"
+                  alt="Logo JPS"
+                  class="w-6 h-6 rounded-full object-cover"
+                  @error="(event) => applyFallback(event, logoJps)"
+                />
                 <span>PT Janu Putra Sejahtera</span>
               </div>
             </div>

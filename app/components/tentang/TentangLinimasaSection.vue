@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const lineConnector = '/images/Line.png'
+const fallbackTimelineIcon = '/images/logo-jps.png'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 
 interface TimelineItem {
   year: string
@@ -301,6 +303,7 @@ const isIconImage = (icon?: string) => {
                     'h-[28px] md:h-[36px] w-auto mr-[-40px]',
                     index === 0 ? 'invisible' : '',
                   ]"
+                  @error="(event) => applyFallback(event, lineConnector)"
                 />
 
                 <!-- Icon Circle with white ring -->
@@ -314,6 +317,7 @@ const isIconImage = (icon?: string) => {
                     :src="item.icon"
                     alt=""
                     class="h-7 w-7 md:h-8 md:w-8 object-contain"
+                    @error="(event) => applyFallback(event, fallbackTimelineIcon)"
                   />
                   <i
                     v-else
@@ -332,6 +336,7 @@ const isIconImage = (icon?: string) => {
                     'h-[28px] md:h-[36px] w-auto ml-[-40px]',
                     index === timelineItems.length - 1 ? 'invisible' : '',
                   ]"
+                  @error="(event) => applyFallback(event, lineConnector)"
 
                 />
               </div>

@@ -149,7 +149,12 @@ useHead(() => ({
         <article class="space-y-6">
           <div class="rounded-3xl">
             <div class="flex flex-wrap items-center gap-3 text-sm text-gray-700">
-              <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+              <NuxtImg
+                :src="logoJps"
+                alt="Logo JPS"
+                class="w-6 h-6 rounded-full object-cover"
+                @error="(event) => applyFallback(event, logoJps)"
+              />
               <span class="font-semibold">{{ mappedDetail.author }}</span>
               <span v-if="mappedDetail.timeAgo" class="text-gray-400">&bull;</span>
               <span v-if="mappedDetail.timeAgo">{{ mappedDetail.timeAgo }}</span>
@@ -185,7 +190,12 @@ useHead(() => ({
               />
               <div class="px-1 space-y-1">
                 <p class="text-xs text-gray-600 flex items-center gap-2">
-                  <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                  <NuxtImg
+                    :src="logoJps"
+                    alt="Logo JPS"
+                    class="w-6 h-6 rounded-full object-cover"
+                    @error="(event) => applyFallback(event, logoJps)"
+                  />
                   <span class="font-medium text-[#3d4f92]">{{ item.company }}</span>
                   <span v-if="item.timeAgo" class="text-gray-400">&bull;</span>
                   <span v-if="item.timeAgo">{{ item.timeAgo }}</span>

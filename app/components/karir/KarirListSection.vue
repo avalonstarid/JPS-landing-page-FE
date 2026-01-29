@@ -3,6 +3,7 @@ import type { KarirJob } from '~/utils/karirData'
 const emptyImage = '/images/karir/karir-tidak-tersedia.png'
 const karirImage = '/images/karir/karir.jpg'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 
 type CategoryOption = {
   id: string
@@ -232,6 +233,7 @@ const formatCategoryLabel = (item: CategoryOption) => {
             :src="karirImage"
             :alt="t('karirPage.empty.imageAlt')"
             class="w-full rounded-2xl object-cover shadow-md"
+            @error="(event) => applyFallback(event, karirImage)"
           />
           <div class="space-y-4 text-[#1f2937]">
             <h3 class="text-xl md:text-2xl font-semibold text-[#3d4f92]">
@@ -250,6 +252,7 @@ const formatCategoryLabel = (item: CategoryOption) => {
             :src="emptyImage"
             :alt="t('karirPage.empty.emptyImageAlt')"
             class="mx-auto w-full lg:w-[900px] auto lg:absolute lg:mx-auto lg:right-0 lg:left-0 lg:top-[-140px]"
+            @error="(event) => applyFallback(event, emptyImage)"
           />
           <h4 class="mt-6 text-base md:text-lg font-semibold text-[#3d4f92] lg:mt-[20rem]">
             {{ t('karirPage.empty.cardTitle') }}

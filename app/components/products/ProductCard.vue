@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { Product } from '~/stores/product'
 const bgCard = '/images/Background-card.png'
+const fallbackProductImage = '/images/jsp-produk/ayam-hidup.png'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 
 interface Props {
   product: Product
@@ -22,6 +24,7 @@ defineProps<Props>()
         :alt="t(product.nameKey)"
         class="h-32 md:h-40 object-contain drop-shadow-xl -mt-24"
         loading="lazy"
+        @error="(event) => applyFallback(event, fallbackProductImage)"
       />
     </div>
 

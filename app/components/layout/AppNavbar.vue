@@ -2,10 +2,12 @@
 const logoJps = '/images/logo/main-logo.png'
 const flagId = '/images/flag/emojione_flag-for-indonesia.png'
 const flagEn = '/images/flag/circle-flags_uk.png'
+const fallbackFlag = flagId
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 const { t, locale, setLocale } = useI18n()
 const route = useRoute()
+const { applyFallback } = useImageFallback()
 
 const availableLanguages: Array<{ code: 'id' | 'en'; label: string; icon: string; alt: string }> = [
   { code: 'id', label: 'ID', icon: flagId, alt: 'Indonesia Flag' },
@@ -169,7 +171,12 @@ onUnmounted(() => {
             class="pointer-events-auto cursor-pointer px-3 py-1.5 inline-flex"
             @click="openDropdown = null"
           >
-            <NuxtImg :src="logoJps" alt="Logo JPS" class="h-7 w-auto max-w-[98px] object-contain sm:h-10 sm:max-w-[140px]" />
+            <NuxtImg
+              :src="logoJps"
+              alt="Logo JPS"
+              class="h-7 w-auto max-w-[98px] object-contain sm:h-10 sm:max-w-[140px]"
+              @error="(event) => applyFallback(event, logoJps)"
+            />
           </NuxtLink>
         </div>
 
@@ -288,6 +295,7 @@ onUnmounted(() => {
                   :alt="lang.alt"
                   class="h-5 w-5 rounded-full object-cover"
                   :class="currentLanguage === lang.label ? '' : 'opacity-60 grayscale'"
+                  @error="(event) => applyFallback(event, fallbackFlag)"
                 />
               </button>
               <div
@@ -325,7 +333,12 @@ onUnmounted(() => {
               :aria-pressed="currentLanguage === lang.label"
               :aria-label="lang.label"
             >
-              <NuxtImg :src="lang.icon" :alt="lang.alt" class="h-3.5 w-3.5 rounded-full object-cover" />
+              <NuxtImg
+                :src="lang.icon"
+                :alt="lang.alt"
+                class="h-3.5 w-3.5 rounded-full object-cover"
+                @error="(event) => applyFallback(event, fallbackFlag)"
+              />
               <span>{{ lang.label }}</span>
             </button>
           </div>
@@ -455,7 +468,12 @@ onUnmounted(() => {
                     :class="currentLanguage === lang.label ? 'bg-[#f6993c] text-white' : 'bg-gray-100 text-[#1f2937]'"
                     @click="setLanguage(lang.code)"
                   >
-                    <NuxtImg :src="lang.icon" :alt="lang.alt" class="h-4 w-4 rounded-full object-cover" />
+                    <NuxtImg
+                      :src="lang.icon"
+                      :alt="lang.alt"
+                      class="h-4 w-4 rounded-full object-cover"
+                      @error="(event) => applyFallback(event, fallbackFlag)"
+                    />
                     <span>{{ lang.label }}</span>
                   </button>
                 </div>

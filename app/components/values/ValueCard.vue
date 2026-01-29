@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { CompanyValue } from '~/stores/value'
+const fallbackValueIcon = '/images/jps-standar-section/kualitas.png'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 
 interface Props {
   value: CompanyValue
@@ -15,7 +17,12 @@ defineProps<Props>()
   >
     <!-- Icon -->
     <div class="mb-4">
-      <NuxtImg :src="value.icon" :alt="t(value.titleKey)" class="h-12 w-12 object-contain" />
+      <NuxtImg
+        :src="value.icon"
+        :alt="t(value.titleKey)"
+        class="h-12 w-12 object-contain"
+        @error="(event) => applyFallback(event, fallbackValueIcon)"
+      />
     </div>
 
     <!-- Title -->

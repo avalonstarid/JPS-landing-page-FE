@@ -4,6 +4,7 @@ const { t } = useI18n()
 const currentYear = new Date().getFullYear()
 const { fetcher } = useApiFetch()
 const { mapFooterData } = useHomeMapper()
+const { applyFallback } = useImageFallback()
 
 const { data: footerResponse } = await useAsyncData('footer', async () => {
   try {
@@ -113,7 +114,12 @@ const footerColumnsSecond = [
         <!-- Logo and Description -->
         <div class="lg:col-span-3 space-y-5">
           <div class="flex items-center gap-3">
-            <NuxtImg :src="logoJps" :alt="t('footer.companyName')" class="h-10 w-auto" />
+            <NuxtImg
+              :src="logoJps"
+              :alt="t('footer.companyName')"
+              class="h-10 w-auto"
+              @error="(event) => applyFallback(event, logoJps)"
+            />
             <span class="font-semibold text-base">{{ mappedFooter.company.name || t('footer.companyName') }}</span>
           </div>
           <p class="text-sm text-white/85 leading-relaxed">
@@ -222,6 +228,7 @@ const footerColumnsSecond = [
               :src="social.icon"
               alt=""
               class="h-5 w-5 object-contain"
+              @error="(event) => applyFallback(event, logoJps)"
             />
             <i v-else class="mdi text-xl" :class="getSocialIconClass(social.icon)" aria-hidden="true" />
           </a>

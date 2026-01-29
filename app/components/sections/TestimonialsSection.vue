@@ -95,7 +95,13 @@ const setIndex = (index: number) => {
 <template>
   <!-- Gradient Separator -->
   <div class="w-full absolute z-10">
-    <NuxtImg :src="gradientImage" alt="" class="w-full h-[20rem]" loading="lazy" />
+    <NuxtImg
+      :src="gradientImage"
+      alt=""
+      class="w-full h-[20rem]"
+      loading="lazy"
+      @error="(event) => applyFallback(event, gradientImage)"
+    />
   </div>
   <section
     id="testimoni"

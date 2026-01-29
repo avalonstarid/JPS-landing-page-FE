@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const fallbackGalleryImage = '/images/logo-jps.png'
+
 type Props = {
   show: boolean
   title: string
@@ -23,6 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   whatsappHrefs: () => [],
   startIndex: 0,
 })
+const { applyFallback } = useImageFallback()
 
 const emit = defineEmits<{
   close: []
@@ -147,13 +150,25 @@ onBeforeUnmount(() => {
                   @click="activeIndex = idx"
                   :aria-label="`Preview ${idx + 1}`"
                 >
-                  <NuxtImg :src="src" alt="" class="h-full w-full object-cover" loading="lazy" />
+                  <NuxtImg
+                    :src="src"
+                    alt=""
+                    class="h-full w-full object-cover"
+                    loading="lazy"
+                    @error="(event) => applyFallback(event, fallbackGalleryImage)"
+                  />
                 </button>
               </div>
 
               <div>
                 <div class="relative overflow-hidden rounded-[42px] bg-gray-100 aspect-[16/9]">
-                  <NuxtImg v-if="activeSrc" :src="activeSrc" alt="" class="h-full w-full object-cover" />
+                  <NuxtImg
+                    v-if="activeSrc"
+                    :src="activeSrc"
+                    alt=""
+                    class="h-full w-full object-cover"
+                    @error="(event) => applyFallback(event, fallbackGalleryImage)"
+                  />
                   <div v-else class="h-full w-full" />
 
                   <button

@@ -82,7 +82,12 @@ const goNext = () => {
             </h1>
             <div class="h-px bg-white/60 w-full max-w-3xl" />
             <div class="flex flex-wrap items-center gap-3 text-white/90">
-              <NuxtImg :src="logoJps" alt="PT Janu Putra Sejahtera" class="w-9 h-9 rounded-full object-cover" />
+              <NuxtImg
+                :src="logoJps"
+                alt="PT Janu Putra Sejahtera"
+                class="w-9 h-9 rounded-full object-cover"
+                @error="(event) => applyFallback(event, logoJps)"
+              />
               <span v-if="activeItem.company" class="font-semibold text-white">{{ activeItem.company }}</span>
               <span v-if="activeItem.company && activeItem.timeAgo" class="text-white/70">&bull;</span>
               <span v-if="activeItem.timeAgo" class="text-white/80">{{ activeItem.timeAgo }}</span>

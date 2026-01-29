@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
   accent: '#f6993c',
   index: undefined,
 })
+const { applyFallback } = useImageFallback()
 
 const isTopRight = computed(() => {
   if (props.stackSide) return props.stackSide === 'right'
@@ -31,6 +32,8 @@ const isTopRight = computed(() => {
 
 const baseImage = computed(() => props.stackBaseImage || props.image)
 const topImage = computed(() => props.stackTopImage)
+const baseFallback = computed(() => props.image || '')
+const topFallback = computed(() => baseImage.value || props.image || '')
 </script>
 
 <template>
@@ -61,7 +64,13 @@ const topImage = computed(() => props.stackTopImage)
         <div class="relative aspect-[4/3] w-full">
           <!-- Base image -->
           <div class="absolute inset-0 overflow-hidden rounded-[20px] bg-white shadow-xl">
-            <NuxtImg :src="baseImage" :alt="imageAlt" class="h-full w-full object-cover" loading="lazy" />
+            <NuxtImg
+              :src="baseImage"
+              :alt="imageAlt"
+              class="h-full w-full object-cover"
+              loading="lazy"
+              @error="(event) => applyFallback(event, baseFallback)"
+            />
           </div>
 
           <!-- Top image (offset left/right depending on index) -->
@@ -70,7 +79,13 @@ const topImage = computed(() => props.stackTopImage)
               group-hover:-translate-y-[52%] group-hover:scale-[1.03]"
             :class="isTopRight ? 'right-0 translate-x-[10px]' : 'left-0 -translate-x-[10px]'"
           >
-            <NuxtImg :src="topImage" alt="" class="h-full w-full object-cover" loading="lazy" />
+            <NuxtImg
+              :src="topImage"
+              alt=""
+              class="h-full w-full object-cover"
+              loading="lazy"
+              @error="(event) => applyFallback(event, topFallback)"
+            />
           </div>
         </div>
       </div>

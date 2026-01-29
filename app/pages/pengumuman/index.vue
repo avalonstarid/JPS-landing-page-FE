@@ -1,8 +1,11 @@
 <script setup lang="ts">
+const fallbackHeroImage = '/images/most-top.png'
+const fallbackItemImage = '/images/most-top.png'
 const { t } = useI18n()
 const config = useRuntimeConfig()
 const { fetcher } = useApiFetch()
 const { mapPengumumanPageData, mapPengumumanListData } = useHomeMapper()
+const { applyFallback } = useImageFallback()
 
 const { data: pengumumanResponse } = await useAsyncData('pengumuman-page', async () => {
   try {
@@ -81,9 +84,10 @@ useHead(() => ({
     <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
         <NuxtImg
-          :src="mappedPengumuman.hero.background || '/images/most-top.png'"
+          :src="mappedPengumuman.hero.background || fallbackHeroImage"
           :alt="mappedPengumuman.hero.title || t('nav.newsItems.pengumuman')"
           class="w-full h-full object-cover"
+          @error="(event) => applyFallback(event, fallbackHeroImage)"
         />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
@@ -109,14 +113,24 @@ useHead(() => ({
             :to="`/pengumuman/detail/${item.id}`"
             class="flex flex-col sm:flex-row items-center gap-5 rounded-[28px] bg-white shadow-xl shadow-black/10 p-4 sm:p-6 hover:shadow-2xl transition"
           >
-            <NuxtImg :src="item.image" :alt="item.title" class="w-full sm:w-40 h-40 rounded-2xl object-cover shadow-md" />
+            <NuxtImg
+              :src="item.image"
+              :alt="item.title"
+              class="w-full sm:w-40 h-40 rounded-2xl object-cover shadow-md"
+              @error="(event) => applyFallback(event, fallbackItemImage)"
+            />
 
             <div class="flex-1 space-y-3">
               <h2 class="text-xl md:text-2xl font-semibold text-[#1f2937] leading-tight">
                 {{ item.title }}
               </h2>
               <div class="flex items-center gap-2 text-sm text-[#3d4f92]">
-                <NuxtImg src="/images/logo-jps.png" alt="Logo JPS" class="w-8 h-8 rounded-full object-cover" />
+                <NuxtImg
+                  src="/images/logo-jps.png"
+                  alt="Logo JPS"
+                  class="w-8 h-8 rounded-full object-cover"
+                  @error="(event) => applyFallback(event, '/images/logo-jps.png')"
+                />
                 <span class="font-semibold">{{ item.company }}</span>
               </div>
               <p v-if="item.timeAgo" class="text-sm text-gray-600">Diterbitkan pada {{ item.timeAgo }}</p>

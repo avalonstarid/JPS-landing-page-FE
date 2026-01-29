@@ -2,6 +2,7 @@
 import UiCard from '~/components/ui/Card.vue'
 const logoJps = '/images/logo-jps.png'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 
 type BeritaItem = {
   id: string
@@ -65,7 +66,12 @@ const hasItems = computed(() => props.items.length > 0)
 
           <NuxtLink :to="detailPath(item.id)" class="space-y-1 px-1 block">
             <div class="flex items-center gap-3 text-sm text-[#3d4f92]">
-              <NuxtImg :src="logoJps" alt="Logo JPS" class="w-7 h-7 rounded-full object-cover" />
+              <NuxtImg
+                :src="logoJps"
+                alt="Logo JPS"
+                class="w-7 h-7 rounded-full object-cover"
+                @error="(event) => applyFallback(event, logoJps)"
+              />
               <div>
                 <div class="font-semibold text-[#3d4f92]">{{ item.company }}</div>
                 <div v-if="item.timeAgo" class="text-xs text-gray-600">{{ item.timeAgo }}</div>

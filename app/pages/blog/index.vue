@@ -4,6 +4,7 @@ import UiCard from '~/components/ui/Card.vue'
 const logoJps = '/images/logo-jps.png'
 const fallbackImage = '/images/most-top.png'
 const { t } = useI18n()
+const { applyFallback } = useImageFallback()
 const config = useRuntimeConfig()
 const { fetcher } = useApiFetch()
 const { mapBlogPageData, mapBlogListData } = useHomeMapper()
@@ -92,7 +93,12 @@ useHead(() => ({
     <!-- Hero -->
     <section class="relative overflow-hidden bg-[#0f1c3f] min-h-[60vh] md:min-h-[70vh] flex items-end">
       <div class="absolute inset-0">
-        <NuxtImg :src="featured?.image || fallbackImage" :alt="featured?.title || t('nav.newsItems.blog')" class="w-full h-full object-cover" />
+        <NuxtImg
+          :src="featured?.image || fallbackImage"
+          :alt="featured?.title || t('nav.newsItems.blog')"
+          class="w-full h-full object-cover"
+          @error="(event) => applyFallback(event, fallbackImage)"
+        />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
       </div>
       <div class="relative z-10 container-main pb-16 md:pb-20 lg:pb-24 space-y-4 w-full">
@@ -137,11 +143,21 @@ useHead(() => ({
               :to="`/blog/detail/${item.id}`"
               class="flex items-start gap-3 rounded-2xl p-3 transition"
             >
-              <NuxtImg :src="item.image" :alt="item.title" class="w-20 h-20 rounded-2xl object-cover flex-shrink-0 shadow" />
+              <NuxtImg
+                :src="item.image"
+                :alt="item.title"
+                class="w-20 h-20 rounded-2xl object-cover flex-shrink-0 shadow"
+                @error="(event) => applyFallback(event, fallbackImage)"
+              />
               <div class="space-y-2 flex-1">
                 <p class="text-base font-semibold text-[#1f2937] leading-snug">{{ item.title }}</p>
                 <div class="flex items-center gap-2 text-xs text-gray-600">
-                  <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                  <NuxtImg
+                    :src="logoJps"
+                    alt="Logo JPS"
+                    class="w-6 h-6 rounded-full object-cover"
+                    @error="(event) => applyFallback(event, logoJps)"
+                  />
                   <span class="font-medium text-[#3d4f92]">{{ item.company }}</span>
                 </div>
               </div>
@@ -182,7 +198,12 @@ useHead(() => ({
 
             <NuxtLink :to="`/blog/detail/${item.id}`" class="space-y-2 block">
               <p class="text-xs text-gray-600 flex items-center gap-2">
-                <NuxtImg :src="logoJps" alt="Logo JPS" class="w-6 h-6 rounded-full object-cover" />
+                <NuxtImg
+                  :src="logoJps"
+                  alt="Logo JPS"
+                  class="w-6 h-6 rounded-full object-cover"
+                  @error="(event) => applyFallback(event, logoJps)"
+                />
                 <span class="font-semibold text-[#3d4f92]">{{ item.company }}</span>
                 <span v-if="item.timeAgo" class="text-gray-400">&bull;</span>
                 <span v-if="item.timeAgo">{{ item.timeAgo }}</span>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const fallbackStackedImage = '/images/logo-jps.png'
+
 type Props = {
   topSrc: string
   backTopSrc: string
@@ -13,6 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
   backTopAlt: '',
   backBottomAlt: '',
 })
+const { applyFallback } = useImageFallback()
 
 const activeIndex = ref(0)
 const images = computed(() => [props.topSrc, props.backTopSrc, props.backBottomSrc])
@@ -72,6 +75,7 @@ watch(
         :alt="alts[index] || ''"
         class="h-full w-full object-cover"
         loading="lazy"
+        @error="(event) => applyFallback(event, fallbackStackedImage)"
       />
     </div>
 

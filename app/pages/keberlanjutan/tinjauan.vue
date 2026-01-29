@@ -4,6 +4,7 @@ const { t } = useI18n()
 const config = useRuntimeConfig()
 const { fetcher } = useApiFetch()
 const { mapKeberlanjutanTinjauanData } = useHomeMapper()
+const { applyFallback } = useImageFallback()
 
 const { data: tinjauanResponse } = await useAsyncData('keberlanjutan-tinjauan', async () => {
   try {
@@ -83,7 +84,13 @@ useHead(() => ({
   <div class="bg-[#FDEEE0]">
     <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden" aria-label="Keberlanjutan">
       <div class="absolute inset-0">
-        <NuxtImg :src="heroImage" alt="Keberlanjutan" class="h-full w-full object-cover" loading="eager" />
+        <NuxtImg
+          :src="heroImage"
+          alt="Keberlanjutan"
+          class="h-full w-full object-cover"
+          loading="eager"
+          @error="(event) => applyFallback(event, '/images/tinjauan/tinjauan-section.png')"
+        />
         <div class="absolute inset-0 bg-black/40" />
       </div>
       <div class="relative z-10 container-main py-16 text-center">
@@ -103,7 +110,12 @@ useHead(() => ({
 
       <div class="mt-10 relative flex flex-col items-center gap-6 max-w-4xl mx-auto">
         <div class="relative w-full flex justify-center">
-          <NuxtImg :src="sdgImage" :alt="t('keberlanjutanPage.tinjauan.sdgAlt')" class="w-full max-w-[520px] md:max-w-[620px]" />
+          <NuxtImg
+            :src="sdgImage"
+            :alt="t('keberlanjutanPage.tinjauan.sdgAlt')"
+            class="w-full max-w-[520px] md:max-w-[620px]"
+            @error="(event) => applyFallback(event, sdgImage)"
+          />
 
           <span class="absolute left-0 top-[18%] hidden md:inline-flex items-center rounded-full bg-white px-6 py-2 text-sm font-semibold text-[#f6993c] shadow-md">
             {{ t('keberlanjutanPage.tinjauan.pillEconomy') }}

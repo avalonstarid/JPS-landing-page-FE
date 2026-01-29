@@ -15,9 +15,10 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
   imageAlt: '',
   buttonText: 'Selengkapnya',
-  fallbackImage: '',
+  fallbackImage: '/images/logo-jps.png',
 })
 
+const { applyFallback } = useImageFallback()
 const emit = defineEmits<{
   more: []
 }>()
@@ -84,6 +85,7 @@ const resolvedImageSrc = computed(() => props.imageSrc || props.fallbackImage)
           :height="svgHeight"
           preserveAspectRatio="xMidYMid slice"
           :clip-path="`url(#${clipPathId})`"
+          @error="(event) => applyFallback(event, props.fallbackImage)"
         />
       </svg>
     </div>

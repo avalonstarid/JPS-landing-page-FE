@@ -5,6 +5,7 @@ import InvestorDownloadPill from '~/components/investor/InvestorDownloadPill.vue
 const { t } = useI18n()
 const { fetcher } = useApiFetch()
 const { mapInvestorListData } = useHomeMapper()
+const { applyFallback } = useImageFallback()
 
 const { data: laporanResponse } = await useAsyncData('laporan-keberlanjutan-list', async () => {
   try {
@@ -38,7 +39,13 @@ useHead(() => ({
   <div class="bg-[#fdeee0]">
     <section class="relative min-h-[55vh] flex items-center justify-center overflow-hidden" aria-label="Keberlanjutan">
       <div class="absolute inset-0">
-        <NuxtImg :src="heroImage" alt="Keberlanjutan" class="h-full w-full object-cover" loading="eager" />
+        <NuxtImg
+          :src="heroImage"
+          alt="Keberlanjutan"
+          class="h-full w-full object-cover"
+          loading="eager"
+          @error="(event) => applyFallback(event, heroImage)"
+        />
         <div class="absolute inset-0 bg-black/45" />
       </div>
       <div class="relative z-10 container-main py-16 text-center">
@@ -65,7 +72,12 @@ useHead(() => ({
           <div class="relative flex flex-col md:flex-row items-center justify-center gap-6 text-left lg:px-[8rem]">
             <div class="flex flex-col md:flex-row items-center gap-6">
               <div class="h-44 w-32 md:h-56 md:w-40 lg:min-h-[300px] lg:min-w-[300px] overflow-hidden rounded-2xl bg-white/12 shadow-[0_20px_45px_-25px_rgba(0,0,0,0.55)]">
-                <NuxtImg :src="featuredReport.image || coverImage" :alt="featuredReport.title" class="h-full w-full object-cover" />
+                <NuxtImg
+                  :src="featuredReport.image || coverImage"
+                  :alt="featuredReport.title"
+                  class="h-full w-full object-cover"
+                  @error="(event) => applyFallback(event, coverImage)"
+                />
               </div>
               <div class="space-y-4">
                 <h3 class="text-3xl sm:text-4xl lg:text-[48px] font-bold leading-tight">
