@@ -8,6 +8,8 @@ const isMobileMenuOpen = ref(false)
 const { t, locale, setLocale } = useI18n()
 const route = useRoute()
 const { applyFallback } = useImageFallback()
+const { fetcher } = useApiFetch()
+const { mapLiniBisnisListData } = useHomeMapper()
 
 const availableLanguages: Array<{ code: 'id' | 'en'; label: string; icon: string; alt: string }> = [
   { code: 'id', label: 'ID', icon: flagId, alt: 'Indonesia Flag' },
@@ -23,7 +25,46 @@ useHead({
   ],
 })
 
-const navItems = [
+const { data: liniListResponse } = await useAsyncData('lini-bisnis-list', async () => {
+  try {
+    return await fetcher('/lini-bisnis-list', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const liniListData = computed(() => (liniListResponse.value as { data?: unknown })?.data ?? null)
+const mappedLiniList = computed(() => mapLiniBisnisListData(liniListData.value as any))
+
+type NavChildItem = {
+  key: string
+  label?: string
+  labelKey?: string
+  route: string
+  children?: NavChildItem[]
+}
+
+type NavItem = {
+  key: string
+  href?: string
+  route?: string
+  labelKey: string
+  hasDropdown: boolean
+  children?: NavChildItem[]
+}
+
+const fallbackLiniRoute = '/lini-bisnis/pembibitan'
+
+const navItems = computed<NavItem[]>(() => {
+  const liniChildren: NavChildItem[] = mappedLiniList.value.items.map((item) => ({
+    key: `business-${item.slug}`,
+    label: item.title,
+    route: `/lini-bisnis/${item.slug}`,
+  }))
+  const liniRoute = liniChildren[0]?.route || fallbackLiniRoute
+  const hasLiniChildren = liniChildren.length > 0
+
+  return [
   { key: 'home', href: '/', labelKey: 'nav.home', hasDropdown: false },
   {
     key: 'about',
@@ -33,16 +74,10 @@ const navItems = [
   },
   {
     key: 'business',
-    route: '/lini-bisnis/pembibitan',
+    route: liniRoute,
     labelKey: 'nav.business',
-    hasDropdown: true,
-    children: [
-      { key: 'business-pembibitan', labelKey: 'liniBisnisPage.nav.pembibitan', route: '/lini-bisnis/pembibitan' },
-      { key: 'business-broiler', labelKey: 'liniBisnisPage.nav.broiler', route: '/lini-bisnis/broiler' },
-      { key: 'business-petelur', labelKey: 'liniBisnisPage.nav.petelur', route: '/lini-bisnis/petelur' },
-      { key: 'business-penetasan', labelKey: 'liniBisnisPage.nav.penetasan', route: '/lini-bisnis/penetasan' },
-      { key: 'business-rpa', labelKey: 'liniBisnisPage.nav.rpa', route: '/lini-bisnis/rpa' },
-    ],
+    hasDropdown: hasLiniChildren,
+    children: hasLiniChildren ? liniChildren : undefined,
   },
   { key: 'products', route: '/produk', labelKey: 'nav.products', hasDropdown: false },
   {
@@ -85,7 +120,8 @@ const navItems = [
       { key: 'sustainability-report', labelKey: 'nav.sustainabilityItems.laporanKeberlanjutan', route: '/keberlanjutan/laporan-keberlanjutan' },
     ],
   },
-]
+  ]
+})
 
 const currentLanguage = computed(() => (locale.value === 'en' ? 'EN' : 'ID'))
 const ctaLabel = computed(() => t('common.contact'))
@@ -117,7 +153,7 @@ const openDropdown = ref<string | null>(null)
 const openMobileDropdown = ref<string | null>(null)
 const openMobileSubDropdown = ref<string | null>(null)
 
-const resolveNavTo = (item: typeof navItems[number]) => {
+const resolveNavTo = (item: NavItem) => {
   if ('route' in item && item.route) {
     return item.route
   }
@@ -125,6 +161,12 @@ const resolveNavTo = (item: typeof navItems[number]) => {
     return item.href.startsWith('#') ? `/${item.href}` : item.href
   }
   return '/'
+}
+
+const resolveChildLabel = (item: NavChildItem) => {
+  if (item.label) return item.label
+  if (item.labelKey) return t(item.labelKey)
+  return ''
 }
 
 const handleScroll = () => {
@@ -239,7 +281,7 @@ onUnmounted(() => {
                     class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
                     @click="openDropdown = null"
                   >
-                    <span>{{ t(child.labelKey) }}</span>
+                    <span>{{ resolveChildLabel(child) }}</span>
                     <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
                   </NuxtLink>
                   <button
@@ -247,7 +289,7 @@ onUnmounted(() => {
                     type="button"
                     class="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
                   >
-                    <span>{{ t(child.labelKey) }}</span>
+                    <span>{{ resolveChildLabel(child) }}</span>
                     <i class="mdi mdi-chevron-right text-base text-[#f6993c]" aria-hidden="true" />
                   </button>
 
@@ -262,7 +304,7 @@ onUnmounted(() => {
                       class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
                       @click="openDropdown = null"
                     >
-                      <span>{{ t(grandchild.labelKey) }}</span>
+                      <span>{{ resolveChildLabel(grandchild) }}</span>
                       <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
                     </NuxtLink>
                   </div>
@@ -425,7 +467,7 @@ onUnmounted(() => {
                       class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
                       @click="closeMobileMenu"
                     >
-                      <span>{{ t(child.labelKey) }}</span>
+                      <span>{{ resolveChildLabel(child) }}</span>
                       <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
                     </NuxtLink>
                     <button
@@ -434,7 +476,7 @@ onUnmounted(() => {
                       class="flex w-full items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
                       @click="openMobileSubDropdown = openMobileSubDropdown === child.key ? null : child.key"
                     >
-                      <span>{{ t(child.labelKey) }}</span>
+                      <span>{{ resolveChildLabel(child) }}</span>
                       <i class="mdi" :class="openMobileSubDropdown === child.key ? 'mdi-chevron-up' : 'mdi-chevron-down'" aria-hidden="true" />
                     </button>
                     <div
@@ -448,7 +490,7 @@ onUnmounted(() => {
                         class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
                         @click="closeMobileMenu"
                       >
-                        <span>{{ t(grandchild.labelKey) }}</span>
+                        <span>{{ resolveChildLabel(grandchild) }}</span>
                         <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
                       </NuxtLink>
                     </div>

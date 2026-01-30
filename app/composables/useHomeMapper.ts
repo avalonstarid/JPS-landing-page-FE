@@ -179,6 +179,14 @@ type LiniBisnisApiData = {
   }
 }
 
+type LiniBisnisListApiData = {
+  data?: Array<{
+    featured_thumb?: string
+    slug?: string
+    title?: LocaleText
+  }>
+}
+
 type ProdukApiData = {
   hero?: {
     background?: string
@@ -887,6 +895,26 @@ export const useHomeMapper = () => {
     }
   }
 
+  const mapLiniBisnisListData = (raw?: LiniBisnisListApiData | Array<Record<string, unknown>> | null) => {
+    const items = Array.isArray(raw) ? raw : raw?.data || []
+
+    return {
+      items: items
+        .map((item, index) => {
+          const data = item || {}
+          const slug = String((data as any).slug || '')
+
+          return {
+            id: slug || String(index),
+            slug,
+            title: resolveLocaleText((data as any).title),
+            image: (data as any).featured_thumb || '',
+          }
+        })
+        .filter((item) => item.slug.length > 0),
+    }
+  }
+
   const mapProdukData = (raw?: ProdukApiData | null) => {
     const hero = raw?.hero
     const product = raw?.product
@@ -1537,6 +1565,7 @@ export const useHomeMapper = () => {
     mapHomeData,
     mapTentangData,
     mapLiniBisnisData,
+    mapLiniBisnisListData,
     mapProdukData,
     mapHubungiKamiData,
     mapKarirData,

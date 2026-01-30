@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { getValidSlugs } from '~/utils/liniBisnisData'
-
 const { t } = useI18n()
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
 const { fetcher } = useApiFetch()
-const { mapLiniBisnisData } = useHomeMapper()
+const { mapLiniBisnisData, mapLiniBisnisListData } = useHomeMapper()
 
 // Get slug from route params
 const slug = computed(() => route.params.slug as string)
@@ -25,30 +23,53 @@ const { data: liniResponse } = await useAsyncData(
   }
 )
 
+const { data: liniListResponse } = await useAsyncData('lini-bisnis-list', async () => {
+  try {
+    return await fetcher('/lini-bisnis-list', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
 const liniData = computed(() => {
   return (liniResponse.value as { data?: unknown })?.data ?? null
 })
 
 const mappedLini = computed(() => mapLiniBisnisData(liniData.value as any))
 
+const liniListData = computed(() => (liniListResponse.value as { data?: unknown })?.data ?? null)
+const mappedLiniList = computed(() => mapLiniBisnisListData(liniListData.value as any))
+
 const detailData = computed(() => ({
   slug: slug.value,
   ...mappedLini.value.detail,
 }))
 
+const tabItems = computed(() =>
+  mappedLiniList.value.items.map((item) => ({
+    slug: item.slug,
+    label: item.title,
+  }))
+)
+
+const fallbackSlug = 'pembibitan'
+const validSlugs = computed(() => {
+  const slugs = mappedLiniList.value.items.map((item) => item.slug)
+  return slugs.length > 0 ? slugs : [fallbackSlug]
+})
+const defaultSlug = computed(() => validSlugs.value[0] || fallbackSlug)
+
 // Redirect to first business if slug is invalid
 onMounted(() => {
-  const validSlugs = getValidSlugs()
-  if (!validSlugs.includes(slug.value)) {
-    router.replace('/lini-bisnis/pembibitan')
+  if (!validSlugs.value.includes(slug.value)) {
+    router.replace(`/lini-bisnis/${defaultSlug.value}`)
   }
 })
 
 // Watch for slug changes and redirect if invalid
 watch(slug, (newSlug) => {
-  const validSlugs = getValidSlugs()
-  if (!validSlugs.includes(newSlug)) {
-    router.replace('/lini-bisnis/pembibitan')
+  if (!validSlugs.value.includes(newSlug)) {
+    router.replace(`/lini-bisnis/${defaultSlug.value}`)
   }
 })
 
@@ -115,7 +136,7 @@ useHead(() => ({
     <LiniBisnisHeroSection :data="mappedLini.hero" />
 
     <!-- Tabs Section -->
-    <LiniBisnisTabsSection :active-slug="slug" />
+    <LiniBisnisTabsSection :active-slug="slug" :tabs="tabItems" />
 
     <!-- Detail Section -->
     <LiniBisnisDetailSection 
