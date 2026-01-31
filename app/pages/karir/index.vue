@@ -160,7 +160,7 @@ const selectedSlug = computed(() => selectedJob.value?.slug || '')
 const { data: karirDetailResponse, pending: karirDetailPending } = await useAsyncData('karir-detail', async () => {
   if (!selectedSlug.value) return null
   try {
-    return await fetcher(`/karir/${selectedSlug.value}`, {})
+    return await fetcher(`/karir/detail/${selectedSlug.value}`, {})
   } catch (error) {
     return { error: true }
   }

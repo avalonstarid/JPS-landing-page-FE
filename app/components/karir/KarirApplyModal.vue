@@ -180,7 +180,6 @@ watch(() => props.isOpen, (isOpen) => {
                   <h2 :id="`apply-modal-title-${job.id}`" class="text-2xl font-bold text-[#1f2937]">
                     {{ job.title }}
                   </h2>
-                  <p class="text-sm text-[#4b4b4b]">{{ t('karirPage.form.subtitle') }}</p>
                 </div>
               </div>
 
