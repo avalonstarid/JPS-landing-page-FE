@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api-panel-dev.januputrasejahtera.com',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api-panel.januputrasejahtera.com',
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://januputrasejahtera.com',
       siteName: process.env.NUXT_PUBLIC_SITE_NAME || 'PT Janu Putra Sejahtera',
       gtagId: process.env.NUXT_PUBLIC_GTAG_ID || 'G-Z093JDLSFF',

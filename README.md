@@ -64,14 +64,14 @@ Nuxt site config reads these values at runtime. If any are missing, the app can 
 Add these to your **server** `.env` (not committed to git):
 
 ```env
-NUXT_PUBLIC_SITE_URL=https://dev.januputrasejahtera.com
+NUXT_PUBLIC_SITE_URL=https://januputrasejahtera.com
 NUXT_PUBLIC_SITE_NAME=PT Janu Putra Sejahtera
 
-NUXT_SITE_URL=https://dev.januputrasejahtera.com
+NUXT_SITE_URL=https://januputrasejahtera.com
 NUXT_SITE_NAME=PT Janu Putra Sejahtera
 
 # Must be valid JSON
-NUXT_SITE_CONFIG={"url":"https://dev.januputrasejahtera.com","name":"PT Janu Putra Sejahtera"}
+NUXT_SITE_CONFIG={"url":"https://januputrasejahtera.com","name":"PT Janu Putra Sejahtera"}
 ```
 
 #### 4) Rebuild after env changes
@@ -85,7 +85,7 @@ docker compose up -d --build --force-recreate
 Use this to see startup errors:
 
 ```bash
-docker logs dev-jps-landingpage-fe
+docker logs jps-landingpage-fe
 ```
 
 #### 6) Why the site-config wrappers exist
