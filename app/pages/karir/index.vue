@@ -4,9 +4,7 @@ import type { KarirJob } from '~/utils/karirData'
 const { t } = useI18n()
 const config = useRuntimeConfig()
 const { fetcher } = useApiFetch()
-const { mapKarirData, mapKarirListData, mapKarirCategoryData, mapKarirDetailData } = useHomeMapper()
-
-const categoryParentId = '019b78c3-06ba-70f4-827c-61e614af65fd'
+const { mapKarirData, mapKarirListData, mapKarirDetailData } = useHomeMapper()
 const searchQuery = ref('')
 const selectedCategoryId = ref('')
 const selectedLocation = ref('')
@@ -14,18 +12,6 @@ const selectedLocation = ref('')
 const { data: karirResponse } = await useAsyncData('karir-page', async () => {
   try {
     return await fetcher('/karir', {})
-  } catch (error) {
-    return { error: true }
-  }
-})
-
-const { data: karirCategoryResponse } = await useAsyncData('karir-category-list', async () => {
-  try {
-    return await fetcher('/v1/master/categories', {
-      query: {
-        'filter[parent_id]': categoryParentId,
-      },
-    })
   } catch (error) {
     return { error: true }
   }
@@ -56,30 +42,10 @@ const karirListData = computed(() => {
   return (karirListResponse.value as { data?: unknown })?.data ?? null
 })
 
-const karirCategoryData = computed(() => {
-  return (karirCategoryResponse.value as { data?: unknown })?.data ?? null
-})
-
 const mappedKarir = computed(() => mapKarirData(karirData.value as any))
 const mappedKarirList = computed(() => mapKarirListData(karirListData.value as any))
-const mappedKarirCategories = computed(() => mapKarirCategoryData(karirCategoryData.value as any))
-
-const categoryCountMap = computed(() => {
-  return mappedKarir.value.categories.reduce<Record<string, number>>((acc, category) => {
-    if (category.id) {
-      acc[category.id] = category.jobsCount
-    }
-    return acc
-  }, {})
-})
 
 const categoryOptions = computed(() => {
-  if (mappedKarirCategories.value.items.length) {
-    return mappedKarirCategories.value.items.map((item) => ({
-      ...item,
-      jobsCount: categoryCountMap.value[item.id],
-    }))
-  }
   return mappedKarir.value.categories
 })
 
@@ -88,6 +54,19 @@ const categoryLabelMap = computed(() => {
     acc[item.id] = item.name
     return acc
   }, {})
+})
+
+const normalizeCategoryKey = (value?: string) => {
+  return String(value || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+}
+
+const selectedCategoryName = computed(() => {
+  if (!selectedCategoryId.value) return ''
+  return categoryLabelMap.value[selectedCategoryId.value] || ''
 })
 
 // SEO Meta
@@ -142,9 +121,20 @@ const selectedJob = ref<KarirJob | null>(null)
 
 const jobs = computed(() => {
   const baseJobs = mappedKarirList.value.items
-  const filteredByLocation = selectedLocation.value
-    ? baseJobs.filter((job) => job.locationType === selectedLocation.value)
+  const filteredByCategory = selectedCategoryId.value
+    ? baseJobs.filter((job) => {
+      if (job.categoryId && job.categoryId === selectedCategoryId.value) return true
+      if (!selectedCategoryName.value) return false
+
+      const jobCategoryLabel = job.categoryId ? categoryLabelMap.value[job.categoryId] : ''
+      const jobCategoryKey = normalizeCategoryKey(jobCategoryLabel || job.jobTypeLabel || job.jobType)
+      return jobCategoryKey === normalizeCategoryKey(selectedCategoryName.value)
+    })
     : baseJobs
+
+  const filteredByLocation = selectedLocation.value
+    ? filteredByCategory.filter((job) => job.locationType === selectedLocation.value)
+    : filteredByCategory
 
   return filteredByLocation.map((job) => {
     const categoryLabel = job.categoryId ? categoryLabelMap.value[job.categoryId] : ''

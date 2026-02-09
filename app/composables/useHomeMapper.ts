@@ -608,7 +608,11 @@ type BlogDetailApiData = {
 const iconMap: Record<string, string> = {
   kualitas: '/images/jps-standar-section/kualitas.png',
   profesionalisme: '/images/jps-standar-section/profesionalisme.png',
+  professionalism: '/images/jps-standar-section/profesionalisme.png',
   innovation: '/images/jps-standar-section/inovasi.png',
+  inovasi: '/images/jps-standar-section/inovasi.png',
+  inovation: '/images/jps-standar-section/inovasi.png',
+  inovatio: '/images/jps-standar-section/inovasi.png',
   lingkungan: '/images/jps-standar-section/lingkungan.png',
   kesejahteraan: '/images/jps-standar-section/kesejahteraan.png',
   sosial: '/images/jps-standar-section/sosial.png',
@@ -680,6 +684,16 @@ export const useHomeMapper = () => {
     return normalizeSlug(raw)
   }
 
+  const resolveStandardIcon = (value?: string) => {
+    if (!value) return ''
+    if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/images/')) {
+      return value
+    }
+
+    const normalized = normalizeSlug(value).replace(/-/g, '')
+    return iconMap[normalized] || iconMap[value.toLowerCase()] || ''
+  }
+
   const mapHomeData = (raw?: HomeApiData | null) => {
     const hero = raw?.hero
     const product = raw?.product
@@ -716,7 +730,7 @@ export const useHomeMapper = () => {
           id: index,
           title: resolveLocaleText(item.title),
           description: resolveLocaleText(item.desc),
-          icon: item.icon ? item.icon || '' : '',
+          icon: resolveStandardIcon(item.icon),
           iconCustom: Boolean(item.icon_custom),
         })),
       },
@@ -1047,15 +1061,17 @@ export const useHomeMapper = () => {
         const locationText = resolveLocaleText((data as any).location || (data as any).address || (data as any).city || (data as any).region)
         const locationTypeRaw = (data as any).location_type || (data as any).location_key || (data as any).location_slug || locationText
         const category = (data as any).category || {}
+        const categoryIdRaw = category?.id || (data as any).category_id || (data as any).categoryId || (data as any).job_type_id
+        const categoryNameRaw = category?.name || (data as any).category_name || (data as any).category_label
         const jobTypeRaw = (data as any).job_type || (data as any).type || (data as any).category || category?.name || (data as any).department
         const jobTypeLabel = resolveLocaleText(
-          (data as any).job_type_label || (data as any).type_label || (data as any).category_label || category?.name
+          (data as any).job_type_label || (data as any).type_label || categoryNameRaw
         )
 
         return {
           id: String((data as any).id || (data as any).slug || index),
           slug: String((data as any).slug || ''),
-          categoryId: String(category?.id || ''),
+          categoryId: String(categoryIdRaw || ''),
           title,
           location: locationText,
           locationType: normalizeLocationType(String(locationTypeRaw || '')),
