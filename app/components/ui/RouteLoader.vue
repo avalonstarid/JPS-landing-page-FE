@@ -8,7 +8,7 @@ defineProps<{
   <Transition name="route-loader">
     <div
       v-if="show"
-      class="fixed inset-0 z-[9999] grid place-items-center bg-black/50"
+      class="fixed inset-0 z-[9999] grid place-items-center bg-black/50 pointer-events-none"
       role="status"
       aria-live="polite"
       aria-label="Loading"
@@ -20,4 +20,3 @@ defineProps<{
     </div>
   </Transition>
 </template>
-

@@ -48,15 +48,21 @@ useHead(() => ({
 if (import.meta.client) {
   const nuxtApp = useNuxtApp()
   let hideTimer: ReturnType<typeof setTimeout> | undefined
+  let forceHideTimer: ReturnType<typeof setTimeout> | undefined
 
   const show = () => {
     if (hideTimer) clearTimeout(hideTimer)
+    if (forceHideTimer) clearTimeout(forceHideTimer)
     isNavigating.value = true
+    // Failsafe: never leave the app in a permanently blocked loading state.
+    forceHideTimer = setTimeout(hide, 8000)
   }
 
   const hide = () => {
     if (hideTimer) clearTimeout(hideTimer)
+    if (forceHideTimer) clearTimeout(forceHideTimer)
     hideTimer = undefined
+    forceHideTimer = undefined
     isNavigating.value = false
   }
 
@@ -69,6 +75,7 @@ if (import.meta.client) {
     hideTimer = setTimeout(hide, 650)
   })
   nuxtApp.hook('page:transition:finish', hide)
+  nuxtApp.hook('page:error', hide)
   nuxtApp.hook('app:error', () => {
     hide()
   })

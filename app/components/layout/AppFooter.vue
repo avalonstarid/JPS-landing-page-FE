@@ -3,7 +3,7 @@ const logoJps = '/images/logo/logo-putih.png'
 const { t } = useI18n()
 const currentYear = new Date().getFullYear()
 const { fetcher } = useApiFetch()
-const { mapFooterData } = useHomeMapper()
+const { mapFooterData, mapLiniBisnisListData, mapProdukData } = useHomeMapper()
 const { applyFallback } = useImageFallback()
 
 const { data: footerResponse } = await useAsyncData('footer', async () => {
@@ -17,6 +17,27 @@ const { data: footerResponse } = await useAsyncData('footer', async () => {
 const footerData = computed(() => (footerResponse.value as { data?: unknown })?.data ?? null)
 const mappedFooter = computed(() => mapFooterData(footerData.value as any))
 
+const { data: liniListResponse } = await useAsyncData('footer-lini-bisnis-list', async () => {
+  try {
+    return await fetcher('/lini-bisnis-list', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const { data: produkResponse } = await useAsyncData('footer-produk-page', async () => {
+  try {
+    return await fetcher('/produk', {})
+  } catch (error) {
+    return { error: true }
+  }
+})
+
+const liniListData = computed(() => (liniListResponse.value as { data?: unknown })?.data ?? null)
+const produkData = computed(() => (produkResponse.value as { data?: unknown })?.data ?? null)
+const mappedLiniList = computed(() => mapLiniBisnisListData(liniListData.value as any))
+const mappedProduk = computed(() => mapProdukData(produkData.value as any))
+
 const isIconImage = (icon?: string) => {
   if (!icon) return false
   return icon.startsWith('http') || icon.startsWith('/') || icon.includes('.')
@@ -27,8 +48,64 @@ const getSocialIconClass = (icon: string): string => {
   return `mdi-${icon}`
 }
 
+const normalizeSlug = (value: string) => {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/-+/g, '-')
+}
+
+const normalizeKey = (value: string) => {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+}
+
+const productAnchorFallbackByIndex = [
+  'doc-parent-stock',
+  'doc-final-stock',
+  'ayam-hidup',
+  'telur-komersial',
+  'karkas-ayam',
+]
+
+const productAnchorByName: Record<string, string> = {
+  'doc parent stock': 'doc-parent-stock',
+  'doc final stock': 'doc-final-stock',
+  'ayam hidup': 'ayam-hidup',
+  'telur komersial': 'telur-komersial',
+  'karkas ayam': 'karkas-ayam',
+}
+
+const liniBisnisLinks = computed(() => {
+  return mappedLiniList.value.items
+    .map((item) => ({
+      key: item.id,
+      label: item.title,
+      route: `/lini-bisnis/${normalizeSlug(item.slug)}`,
+    }))
+    .filter((item) => item.label && item.route !== '/lini-bisnis/')
+})
+
+const produkLinks = computed(() => {
+  return mappedProduk.value.products.items
+    .map((item, index) => {
+      const anchor = productAnchorByName[normalizeKey(item.title)] || productAnchorFallbackByIndex[index] || `produk-${index + 1}`
+      return {
+        key: `${index}-${anchor}`,
+        label: item.title,
+        route: `/produk#${anchor}`,
+      }
+    })
+    .filter((item) => item.label)
+})
+
 // Footer column structure with routes
-const footerColumns = [
+const footerColumns = computed(() => [
   {
     titleKey: 'footer.columns.beranda.title',
     links: [
@@ -50,25 +127,13 @@ const footerColumns = [
   },
   {
     titleKey: 'footer.columns.liniBisnis.title',
-    links: [
-      { labelKey: 'footer.columns.liniBisnis.links.peternakanPembibitan', route: '/lini-bisnis/pembibitan' },
-      { labelKey: 'footer.columns.liniBisnis.links.peternakanBroiler', route: '/lini-bisnis/broiler' },
-      { labelKey: 'footer.columns.liniBisnis.links.peternakanPetelur', route: '/lini-bisnis/petelur' },
-      { labelKey: 'footer.columns.liniBisnis.links.penetasanTelur', route: '/lini-bisnis/penetasan' },
-      { labelKey: 'footer.columns.liniBisnis.links.rumahPotongAyam', route: '/lini-bisnis/rpa' },
-    ],
+    links: liniBisnisLinks.value,
   },
   {
     titleKey: 'footer.columns.produk.title',
-    links: [
-      { labelKey: 'footer.columns.produk.links.docParentStock', route: '/produk#doc-parent-stock' },
-      { labelKey: 'footer.columns.produk.links.docFinalStock', route: '/produk#doc-final-stock' },
-      { labelKey: 'footer.columns.produk.links.ayamHidup', route: '/produk#ayam-hidup' },
-      { labelKey: 'footer.columns.produk.links.telurKomersial', route: '/produk#telur-komersial' },
-      { labelKey: 'footer.columns.produk.links.karkasAyam', route: '/produk#karkas-ayam' },
-    ],
+    links: produkLinks.value,
   },
-]
+])
 
 const footerColumnsSecond = [
   {
@@ -146,9 +211,9 @@ const footerColumnsSecond = [
           <div v-for="column in footerColumns" :key="column.titleKey" class="space-y-3">
             <h3 class="font-semibold text-sm">{{ t(column.titleKey) }}</h3>
             <ul class="space-y-2 text-sm text-white/80">
-              <li v-for="link in column.links" :key="link.labelKey">
+              <li v-for="link in column.links" :key="link.key || link.labelKey">
                 <NuxtLink :to="link.route" class="hover:text-white transition-colors">
-                  {{ t(link.labelKey) }}
+                  {{ link.label || t(link.labelKey) }}
                 </NuxtLink>
               </li>
             </ul>

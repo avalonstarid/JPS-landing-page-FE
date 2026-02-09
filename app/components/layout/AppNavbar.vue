@@ -5,6 +5,14 @@ const flagEn = '/images/flag/circle-flags_uk.png'
 const fallbackFlag = flagId
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
+const navRootRef = ref<HTMLElement | null>(null)
+const fallbackLiniChildren: NavChildItem[] = [
+  { key: 'business-pembibitan', labelKey: 'liniBisnisPage.tabs.pembibitan', route: '/lini-bisnis/pembibitan' },
+  { key: 'business-broiler', labelKey: 'liniBisnisPage.tabs.broiler', route: '/lini-bisnis/broiler' },
+  { key: 'business-petelur', labelKey: 'liniBisnisPage.tabs.petelur', route: '/lini-bisnis/petelur' },
+  { key: 'business-penetasan', labelKey: 'liniBisnisPage.tabs.penetasan', route: '/lini-bisnis/penetasan' },
+  { key: 'business-rpa', labelKey: 'liniBisnisPage.tabs.rpa', route: '/lini-bisnis/rpa' },
+]
 const { t, locale, setLocale } = useI18n()
 const route = useRoute()
 const { applyFallback } = useImageFallback()
@@ -53,16 +61,34 @@ type NavItem = {
   children?: NavChildItem[]
 }
 
-const fallbackLiniRoute = '/lini-bisnis/pembibitan'
+const sanitizeSlug = (value: string) => {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/-+/g, '-')
+}
 
 const navItems = computed<NavItem[]>(() => {
-  const liniChildren: NavChildItem[] = mappedLiniList.value.items.map((item) => ({
-    key: `business-${item.slug}`,
-    label: item.title,
-    route: `/lini-bisnis/${item.slug}`,
-  }))
-  const liniRoute = liniChildren[0]?.route || fallbackLiniRoute
-  const hasLiniChildren = liniChildren.length > 0
+  const usedBusinessRoutes = new Set<string>()
+  const liniChildren: NavChildItem[] = mappedLiniList.value.items
+    .map((item) => {
+      const slug = sanitizeSlug(String(item.slug || ''))
+      const route = slug ? `/lini-bisnis/${slug}` : ''
+      return {
+        key: `business-${slug}`,
+        label: item.title,
+        route,
+      }
+    })
+    .filter((item) => {
+      if (!item.route || usedBusinessRoutes.has(item.route)) return false
+      usedBusinessRoutes.add(item.route)
+      return true
+    })
+  const resolvedLiniChildren = liniChildren.length > 0 ? liniChildren : fallbackLiniChildren
+  const liniRoute = resolvedLiniChildren[0].route
 
   return [
   { key: 'home', href: '/', labelKey: 'nav.home', hasDropdown: false },
@@ -76,8 +102,8 @@ const navItems = computed<NavItem[]>(() => {
     key: 'business',
     route: liniRoute,
     labelKey: 'nav.business',
-    hasDropdown: hasLiniChildren,
-    children: hasLiniChildren ? liniChildren : undefined,
+    hasDropdown: true,
+    children: resolvedLiniChildren,
   },
   { key: 'products', route: '/produk', labelKey: 'nav.products', hasDropdown: false },
   {
@@ -125,33 +151,34 @@ const navItems = computed<NavItem[]>(() => {
 
 const currentLanguage = computed(() => (locale.value === 'en' ? 'EN' : 'ID'))
 const ctaLabel = computed(() => t('common.contact'))
-const activeNavKey = computed(() => {
-  if (route.path === '/produk') {
-    return 'products'
-  }
-  if (route.path.startsWith('/tentang-perusahaan')) {
-    return 'about'
-  }
-  if (route.path.startsWith('/lini-bisnis')) {
-    return 'business'
-  }
-  if (route.path.startsWith('/berita') || route.path.startsWith('/blog') || route.path.startsWith('/pengumuman')) {
-    return 'news'
-  }
-  if (route.path.startsWith('/karir')) {
-    return 'career'
-  }
-  if (route.path.startsWith('/relasi-investor')) {
-    return 'investor'
-  }
-  if (route.path.startsWith('/keberlanjutan')) {
-    return 'sustainability'
-  }
-  return 'home'
-})
-const openDropdown = ref<string | null>(null)
+const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/'
+const currentPath = computed(() => normalizePath(String(route.path || '/')))
+const isPathActive = (targetPath: string) => {
+  const current = currentPath.value
+  const target = normalizePath(targetPath)
+  return current === target || current.startsWith(`${target}/`)
+}
+const isTopLevelActive = (item: NavItem) => {
+  if (item.key === 'home') return currentPath.value === '/'
+  if (item.key === 'about') return isPathActive('/tentang-perusahaan')
+  if (item.key === 'business') return isPathActive('/lini-bisnis')
+  if (item.key === 'news') return isPathActive('/berita') || isPathActive('/blog') || isPathActive('/pengumuman')
+  if (item.key === 'career') return isPathActive('/karir')
+  if (item.key === 'investor') return isPathActive('/relasi-investor')
+  if (item.key === 'sustainability') return isPathActive('/keberlanjutan')
+  return item.route ? isPathActive(item.route) : false
+}
 const openMobileDropdown = ref<string | null>(null)
 const openMobileSubDropdown = ref<string | null>(null)
+const desktopMenuLocked = ref(false)
+let desktopMediaQuery: MediaQueryList | null = null
+let desktopMenuUnlockTimer: ReturnType<typeof setTimeout> | null = null
+
+const handleViewportChange = (event: MediaQueryListEvent) => {
+  if (event.matches) {
+    closeAllMenus()
+  }
+}
 
 const resolveNavTo = (item: NavItem) => {
   if ('route' in item && item.route) {
@@ -187,18 +214,71 @@ const setLanguage = async (lang: 'id' | 'en') => {
   await setLocale(lang)
 }
 
+const closeAllMenus = () => {
+  closeMobileMenu()
+}
+
+const unlockDesktopMenu = () => {
+  desktopMenuLocked.value = false
+  if (desktopMenuUnlockTimer) {
+    clearTimeout(desktopMenuUnlockTimer)
+    desktopMenuUnlockTimer = null
+  }
+}
+
+const handleDesktopChildClick = () => {
+  if (!import.meta.client || !window.matchMedia('(min-width: 1316px)').matches) return
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur()
+  }
+
+  desktopMenuLocked.value = true
+  if (desktopMenuUnlockTimer) {
+    clearTimeout(desktopMenuUnlockTimer)
+  }
+  desktopMenuUnlockTimer = window.setTimeout(() => {
+    desktopMenuLocked.value = false
+    desktopMenuUnlockTimer = null
+  }, 900)
+}
+
+const handleClickOutside = (event: MouseEvent) => {
+  const target = event.target
+  if (!(target instanceof Node)) return
+  if (navRootRef.value?.contains(target)) return
+  closeAllMenus()
+}
+
+const handleEscape = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') {
+    closeAllMenus()
+  }
+}
+
+watch(() => route.fullPath, () => {
+  closeAllMenus()
+})
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  document.addEventListener('click', handleClickOutside)
+  window.addEventListener('keydown', handleEscape)
   handleScroll()
+  desktopMediaQuery = window.matchMedia('(min-width: 1316px)')
+  desktopMediaQuery.addEventListener('change', handleViewportChange)
 })
 
 onUnmounted(() => {
+  unlockDesktopMenu()
   window.removeEventListener('scroll', handleScroll)
+  document.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('keydown', handleEscape)
+  desktopMediaQuery?.removeEventListener('change', handleViewportChange)
 })
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+  <header ref="navRootRef" class="fixed top-0 left-0 right-0 z-[1100]">
     <div class="px-6 lg:px-10">
       <div class="flex items-center justify-between min-[1316px]:justify-center gap-5 pt-4 pb-2">
         <!-- Logo -->
@@ -211,7 +291,7 @@ onUnmounted(() => {
             aria-label="PT Janu Putra Sejahtera - Halaman Utama"
             to="/"
             class="pointer-events-auto cursor-pointer px-3 py-1.5 inline-flex"
-            @click="openDropdown = null"
+            @click="closeAllMenus()"
           >
             <NuxtImg
               :src="logoJps"
@@ -225,8 +305,10 @@ onUnmounted(() => {
         <!-- Desktop Navigation -->
         <div class="hidden min-[1316px]:flex items-center pointer-events-auto">
           <div
+            class="desktop-nav-root"
             :class="[
               'flex items-center gap-1 rounded-full px-4 py-2 transition-all duration-300 backdrop-blur-2xl border shadow-2xl',
+              desktopMenuLocked ? 'desktop-menu-locked' : '',
               isScrolled
                 ? 'bg-gradient-to-r from-black/35 via-black/25 to-black/35 border-white/20'
                 : 'bg-gradient-to-r from-white/15 via-white/10 to-white/15 border-white/20',
@@ -236,80 +318,99 @@ onUnmounted(() => {
             <div
               v-for="item in navItems"
               :key="item.key"
-              class="relative"
+              class="relative desktop-nav-item"
             >
-              <button
-                v-if="item.hasDropdown"
-                type="button"
-                class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
-                :class="[
-                  activeNavKey === item.key
-                    ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
-                    : 'text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]',
-                ]"
-                :aria-current="activeNavKey === item.key ? 'page' : undefined"
-                @click="openDropdown = openDropdown === item.key ? null : item.key"
-              >
-                <span class="whitespace-nowrap">{{ t(item.labelKey) }}</span>
-                <i
-                  class="mdi mdi-chevron-down text-base opacity-80 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
-                />
-              </button>
-              <NuxtLink
-                v-else
-                :to="resolveNavTo(item)"
-                class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
-                :class="[
-                  activeNavKey === item.key
-                    ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
-                    : 'text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]',
-                ]"
-                :aria-current="activeNavKey === item.key ? 'page' : undefined"
-                @click="openDropdown = null"
-              >
-                <span class="whitespace-nowrap">{{ t(item.labelKey) }}</span>
-              </NuxtLink>
-
               <div
-                v-if="item.children && openDropdown === item.key"
-                class="absolute left-1/2 top-full mt-2 -translate-x-1/2 min-w-[200px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2"
+                v-if="item.hasDropdown"
+                class="relative flex items-center gap-1 rounded-full transition-colors"
+                :class="[
+                  isTopLevelActive(item)
+                    ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
+                    : 'text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]',
+                ]"
               >
-                <div v-for="child in item.children" :key="child.key" class="group relative">
-                  <NuxtLink
-                    v-if="!child.children"
-                    :to="child.route"
-                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
-                    @click="openDropdown = null"
-                  >
-                    <span>{{ resolveChildLabel(child) }}</span>
-                    <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
-                  </NuxtLink>
-                  <button
-                    v-else
-                    type="button"
-                    class="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
-                  >
-                    <span>{{ resolveChildLabel(child) }}</span>
-                    <i class="mdi mdi-chevron-right text-base text-[#f6993c]" aria-hidden="true" />
-                  </button>
-
+                <NuxtLink
+                  :to="resolveNavTo(item)"
+                  active-class="__nav-active-disabled"
+                  exact-active-class="__nav-exact-active-disabled"
+                  class="flex items-center gap-2 px-4 py-2 text-sm font-semibold"
+                  :aria-current="isTopLevelActive(item) ? 'page' : undefined"
+                >
+                  <span class="whitespace-nowrap">{{ t(item.labelKey) }}</span>
+                  <i
+                    class="mdi mdi-chevron-down text-base opacity-80 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
+                  />
+                </NuxtLink>
+                <div
+                  v-if="item.children && item.children.length"
+                  class="absolute left-1/2 top-full z-20 -translate-x-1/2 pt-2 desktop-submenu-root"
+                >
                   <div
-                    v-if="child.children"
-                    class="absolute left-full top-0 hidden min-w-[240px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2 group-hover:block group-focus-within:block translate-x-2"
+                    class="min-w-[200px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2"
                   >
-                    <NuxtLink
-                      v-for="grandchild in child.children"
-                      :key="grandchild.key"
-                      :to="grandchild.route"
-                      class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
-                      @click="openDropdown = null"
-                    >
-                      <span>{{ resolveChildLabel(grandchild) }}</span>
-                      <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
-                    </NuxtLink>
+                    <div v-for="child in item.children" :key="child.key" class="relative desktop-submenu-child">
+                      <NuxtLink
+                        v-if="!child.children"
+                        :to="child.route"
+                        active-class="__nav-active-disabled"
+                        exact-active-class="__nav-exact-active-disabled"
+                        class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
+                        :class="isPathActive(child.route) ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
+                        @click="handleDesktopChildClick"
+                      >
+                        <span>{{ resolveChildLabel(child) }}</span>
+                        <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                      </NuxtLink>
+                      <button
+                        v-else
+                        type="button"
+                        class="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
+                      >
+                        <span>{{ resolveChildLabel(child) }}</span>
+                        <i class="mdi mdi-chevron-right text-base text-[#f6993c]" aria-hidden="true" />
+                      </button>
+
+                      <div
+                        v-if="child.children"
+                        class="absolute left-full top-0 z-20 translate-x-2 pt-0 desktop-submenu-nested-root"
+                      >
+                        <div
+                          class="min-w-[240px] rounded-2xl bg-white backdrop-blur shadow-2xl text-[#1f2937] py-2"
+                        >
+                          <NuxtLink
+                            v-for="grandchild in child.children"
+                            :key="grandchild.key"
+                            :to="grandchild.route"
+                            active-class="__nav-active-disabled"
+                            exact-active-class="__nav-exact-active-disabled"
+                            class="flex items-center justify-between px-4 py-2 text-sm font-semibold hover:bg-[#f6993c]/10 rounded-xl"
+                            :class="isPathActive(grandchild.route) ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
+                            @click="handleDesktopChildClick"
+                          >
+                            <span>{{ resolveChildLabel(grandchild) }}</span>
+                            <i class="mdi mdi-arrow-right text-base text-[#f6993c]" aria-hidden="true" />
+                          </NuxtLink>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <NuxtLink
+                v-else
+                :to="resolveNavTo(item)"
+                active-class="__nav-active-disabled"
+                exact-active-class="__nav-exact-active-disabled"
+                class="group relative flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-colors"
+                :class="[
+                  isTopLevelActive(item)
+                    ? 'bg-[#f6993c] text-white shadow-[0_10px_25px_-12px_rgba(0,0,0,0.45)]'
+                    : 'text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]',
+                ]"
+                :aria-current="isTopLevelActive(item) ? 'page' : undefined"
+              >
+                <span class="whitespace-nowrap">{{ t(item.labelKey) }}</span>
+              </NuxtLink>
             </div>
 
             <!-- <div class="mx-3 h-6 w-px" :class="isScrolled ? 'bg-white/15' : 'bg-white/0'" aria-hidden="true" /> -->
@@ -439,8 +540,8 @@ onUnmounted(() => {
                   v-if="item.hasDropdown"
                   type="button"
                   class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-[#1f2937] hover:bg-[#f6993c]/10 transition rounded-xl"
-                  :class="activeNavKey === item.key ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
-                  :aria-current="activeNavKey === item.key ? 'page' : undefined"
+                  :class="isTopLevelActive(item) ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
+                  :aria-current="isTopLevelActive(item) ? 'page' : undefined"
                   @click="openMobileDropdown = openMobileDropdown === item.key ? null : item.key, openMobileSubDropdown = null"
                 >
                   <span>{{ t(item.labelKey) }}</span>
@@ -449,9 +550,11 @@ onUnmounted(() => {
                 <NuxtLink
                   v-else
                   :to="resolveNavTo(item)"
+                  active-class="__nav-active-disabled"
+                  exact-active-class="__nav-exact-active-disabled"
                   class="flex w-full items-center justify-between px-3 py-3 text-base font-semibold text-[#1f2937] hover:bg-[#f6993c]/10 transition rounded-xl"
-                  :class="activeNavKey === item.key ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
-                  :aria-current="activeNavKey === item.key ? 'page' : undefined"
+                  :class="isTopLevelActive(item) ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
+                  :aria-current="isTopLevelActive(item) ? 'page' : undefined"
                   @click="closeMobileMenu"
                 >
                   <span>{{ t(item.labelKey) }}</span>
@@ -464,7 +567,10 @@ onUnmounted(() => {
                     <NuxtLink
                       v-if="!child.children"
                       :to="child.route"
+                      active-class="__nav-active-disabled"
+                      exact-active-class="__nav-exact-active-disabled"
                       class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
+                      :class="isPathActive(child.route) ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
                       @click="closeMobileMenu"
                     >
                       <span>{{ resolveChildLabel(child) }}</span>
@@ -487,7 +593,10 @@ onUnmounted(() => {
                         v-for="grandchild in child.children"
                         :key="grandchild.key"
                         :to="grandchild.route"
+                        active-class="__nav-active-disabled"
+                        exact-active-class="__nav-exact-active-disabled"
                         class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#374151] rounded-lg hover:bg-[#f6993c]/10 transition"
+                        :class="isPathActive(grandchild.route) ? 'bg-[#f6993c]/15 text-[#111827]' : ''"
                         @click="closeMobileMenu"
                       >
                         <span>{{ resolveChildLabel(grandchild) }}</span>
@@ -536,3 +645,64 @@ onUnmounted(() => {
     </div>
   </header>
 </template>
+
+<style scoped>
+.desktop-submenu-root {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 6px);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
+}
+
+.desktop-submenu-root::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10px;
+  height: 10px;
+}
+
+.desktop-nav-item:hover .desktop-submenu-root,
+.desktop-nav-item:focus-within .desktop-submenu-root {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.desktop-menu-locked .desktop-submenu-root,
+.desktop-menu-locked .desktop-submenu-nested-root {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.desktop-submenu-nested-root {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(8px, 6px);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
+}
+
+.desktop-submenu-nested-root::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+}
+
+.desktop-submenu-child:hover > .desktop-submenu-nested-root,
+.desktop-submenu-child:focus-within > .desktop-submenu-nested-root {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(8px, 0);
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+</style>

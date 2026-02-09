@@ -23,7 +23,7 @@ const { data: liniResponse } = await useAsyncData(
   }
 )
 
-const { data: liniListResponse } = await useAsyncData('lini-bisnis-list', async () => {
+const { data: liniListResponse, pending: liniListPending } = await useAsyncData('lini-bisnis-list', async () => {
   try {
     return await fetcher('/lini-bisnis-list', {})
   } catch (error) {
@@ -58,19 +58,23 @@ const validSlugs = computed(() => {
   return slugs.length > 0 ? slugs : [fallbackSlug]
 })
 const defaultSlug = computed(() => validSlugs.value[0] || fallbackSlug)
+const shouldValidateSlug = computed(() => !liniListPending.value && mappedLiniList.value.items.length > 0)
+
+const ensureValidSlug = (value: string) => {
+  if (!shouldValidateSlug.value) return
+  if (!validSlugs.value.includes(value)) {
+    router.replace(`/lini-bisnis/${defaultSlug.value}`)
+  }
+}
 
 // Redirect to first business if slug is invalid
 onMounted(() => {
-  if (!validSlugs.value.includes(slug.value)) {
-    router.replace(`/lini-bisnis/${defaultSlug.value}`)
-  }
+  ensureValidSlug(slug.value)
 })
 
 // Watch for slug changes and redirect if invalid
-watch(slug, (newSlug) => {
-  if (!validSlugs.value.includes(newSlug)) {
-    router.replace(`/lini-bisnis/${defaultSlug.value}`)
-  }
+watch([slug, shouldValidateSlug], ([newSlug]) => {
+  ensureValidSlug(newSlug)
 })
 
 // Modal state
