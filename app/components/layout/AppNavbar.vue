@@ -151,11 +151,16 @@ const navItems = computed<NavItem[]>(() => {
 
 const currentLanguage = computed(() => (locale.value === 'en' ? 'EN' : 'ID'))
 const ctaLabel = computed(() => t('common.contact'))
-const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/'
+const normalizePath = (path: string) => {
+  const sanitized = String(path || '/').replace(/\/+$/, '') || '/'
+  const withoutLocalePrefix = sanitized.replace(/^\/(id|en)(?=\/|$)/, '') || '/'
+  return withoutLocalePrefix
+}
 const currentPath = computed(() => normalizePath(String(route.path || '/')))
 const isPathActive = (targetPath: string) => {
   const current = currentPath.value
   const target = normalizePath(targetPath)
+  if (target === '/') return current === '/'
   return current === target || current.startsWith(`${target}/`)
 }
 const isTopLevelActive = (item: NavItem) => {
